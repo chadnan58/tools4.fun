@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tools4Fun - 100+ Free Online Tools</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark-navy: #1E1E2F;
+            --text-light-gray: #EAEAEA;
+            --header-deep-blue: #2B2D42;
+            --accent-gold: #FFD700;
+            --tool-card-bg: #3A3D5B;
+            --hover-gold: #E6C200;
+        }
+        
+        body {
+            background-color: var(--bg-dark-navy);
+            color: var(--text-light-gray);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .header {
+            background-color: var(--header-deep-blue);
+            padding: 15px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            color: var(--accent-gold);
+            font-weight: bold;
+            font-size: 1.8rem;
+            text-decoration: none;
+        }
+        
+        .nav-link {
+            color: var(--text-light-gray);
+            margin: 0 10px;
+            font-weight: 500;
+        }
+        
+        .nav-link:hover {
+            color: var(--accent-gold);
+        }
+        
+        .btn-gold {
+            background-color: var(--accent-gold);
+            color: var(--bg-dark-navy);
+            font-weight: 600;
+        }
+        
+        .btn-gold:hover {
+            background-color: var(--hover-gold);
+            color: var(--bg-dark-navy);
+        }
+        
+        .tool-card {
+            background-color: var(--tool-card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            height: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(255, 215, 0, 0.2);
+        }
+        
+        .tool-card:hover {
+            background-color: var(--accent-gold);
+            color: var(--bg-dark-navy);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(255, 215, 0, 0.3);
+        }
+        
+        .tool-card:hover .tool-title,
+        .tool-card:hover .tool-description {
+            color: var(--bg-dark-navy);
+        }
+        
+        .tool-title {
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .tool-description {
+            color: var(--text-light-gray);
+            font-size: 0.9rem;
+        }
+        
+        .category-title {
+            color: var(--accent-gold);
+            border-bottom: 2px solid var(--accent-gold);
+            padding-bottom: 10px;
+            margin: 30px 0 20px;
+        }
+        
+        .search-box {
+            background-color: var(--tool-card-bg);
+            border: 1px solid var(--accent-gold);
+            color: var(--text-light-gray);
+        }
+        
+        .search-box:focus {
+            background-color: var(--tool-card-bg);
+            color: var(--text-light-gray);
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 0.25rem rgba(255, 215, 0, 0.25);
+        }
+        
+        .footer {
+            background-color: var(--header-deep-blue);
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+        
+        .footer-links a {
+            color: var(--text-light-gray);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-gold);
+        }
+        
+        .social-icon {
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            margin: 0 10px;
+        }
+        
+        /* Tool page styles */
+        .tool-container {
+            background-color: var(--tool-card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+        
+        .tool-header {
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+        }
+        
+        .ad-container {
+            background-color: var(--tool-card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Modal styles */
+        .modal-content {
+            background-color: var(--tool-card-bg);
+            color: var(--text-light-gray);
+        }
+        
+        .form-control {
+            background-color: var(--bg-dark-navy);
+            border: 1px solid var(--accent-gold);
+            color: var(--text-light-gray);
+        }
+        
+        .form-control:focus {
+            background-color: var(--bg-dark-navy);
+            color: var(--text-light-gray);
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 0.25rem rgba(255, 215, 0, 0.25);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .tool-card {
+                padding: 15px;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="#" class="logo" onclick="showHomePage()">tools4.fun</a>
+                <div class="d-flex align-items-center">
+                    <nav class="d-none d-md-flex">
+                        <a href="#" class="nav-link" onclick="showHomePage()">Home</a>
+                        <a href="#" class="nav-link" onclick="showCategory('image-tools')">Image Tools</a>
+                        <a href="#" class="nav-link" onclick="showCategory('seo-tools')">SEO Tools</a>
+                        <a href="#" class="nav-link" onclick="showCategory('text-tools')">Text Tools</a>
+                        <a href="#" class="nav-link" onclick="showCategory('developer-tools')">Developer Tools</a>
+                    </nav>
+                    <button class="btn btn-gold ms-3" onclick="showLoginModal()">Login</button>
+                    <button class="btn btn-outline-light ms-2" onclick="showSignupModal()">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container my-5" id="main-content">
+        <!-- Home Page -->
+        <div id="home-page">
+            <div class="row mb-5">
+                <div class="col-md-8 mx-auto">
+                    <div class="input-group">
+                        <input type="text" id="search-input" class="form-control search-box" placeholder="Search for tools...">
+                        <button class="btn btn-gold" type="button" onclick="searchTools()">Search</button>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 class="text-center mb-4">100+ Free Online Tools for All Your Needs</h2>
+            
+            <!-- Ad Space -->
+            <div class="ad-container mb-5">
+                <p>Advertisement Space</p>
+            </div>
+            
+            <!-- Categories -->
+            <div id="all-tools">
+                <h3 class="category-title" id="image-tools">Image Tools</h3>
+                <div class="row">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="tool-card" onclick="showTool('image-to-png')">
+                            <h4 class="tool-title">Image to PNG</h4>
+                            <p class="tool-description">Convert any image to PNG format with high quality.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="tool-card" onclick="showTool('image-to-jpg')">
+                            <h4 class="tool-title">Image to JPG</h4>
+                            <p class="tool-description">Convert images to JPG/JPEG format easily.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="tool-card" onclick="showTool('image-resizer')">
+                            <h4 class="tool-title">Image Resizer</h4>
+                            <p class="tool-description">Resize your images to any dimensions.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="tool-card" onclick="showTool('image-compressor')">
+                            <h4 class="tool-title">Image Compressor</h4>
+                            <p class="tool-description">Reduce image file size without losing quality.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="category-title" id="seo-tools">SEO Tools</h3>
+                <div class="row">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="tool-card" onclick="showTool('meta-tag-generator')">
+                            <h4 class="tool-title">Meta Tag Generator</h4>
+                            <p class="tool-description">Create perfect meta tags for your website.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="tool-card" onclick="showTool('keyword-density-checker')">
+                            <h4 class="tool-title">Keyword Density Checker</h4>
+                            <p class="tool-description">Analyze keyword density in your content.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="tool-card" onclick="showTool('sitemap-generator')">
+                            <h4 class="tool-title">Sitemap Generator</h4>
+                            <p class="tool-description">Generate XML sitemaps for your website.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="tool-card" onclick="showTool('robots-txt-generator')">
+                            <h4 class="tool-title">Robots.txt Generator</h4>
+                            <p class="tool-description">Create a robots.txt file for your site.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="category-title" id="text-tools">Text Tools</h3>
+                <div class="row">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="tool-card" onclick="showTool('word-counter')">
+                            <h4 class="tool-title">Word Counter</h4>
+                            <p class="tool-description">Count words and characters in your text.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="tool-card" onclick="showTool('character-counter')">
+                            <h4 class="tool-title">Character Counter</h4>
+                            <p class="tool-description">Count characters, words, and lines.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="tool-card" onclick="showTool('case-converter')">
+                            <h4 class="tool-title">Case Converter</h4>
+                            <p class="tool-description">Convert text between different cases.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="tool-card" onclick="showTool('plagiarism-checker')">
+                            <h4 class="tool-title">Plagiarism Checker</h4>
+                            <p class="tool-description">Check text for duplicate content.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="category-title" id="developer-tools">Developer Tools</h3>
+                <div class="row">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="tool-card" onclick="showTool('json-formatter')">
+                            <h4 class="tool-title">JSON Formatter</h4>
+                            <p class="tool-description">Format and validate JSON data.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="tool-card" onclick="showTool('html-to-markdown')">
+                            <h4 class="tool-title">HTML to Markdown</h4>
+                            <p class="tool-description">Convert HTML to Markdown format.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="tool-card" onclick="showTool('css-minifier')">
+                            <h4 class="tool-title">CSS Minifier</h4>
+                            <p class="tool-description">Minify CSS code for production.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="tool-card" onclick="showTool('javascript-minifier')">
+                            <h4 class="tool-title">JavaScript Minifier</h4>
+                            <p class="tool-description">Minify JavaScript code.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- More categories can be added here -->
+            </div>
+        </div>
+        
+        <!-- Individual Tool Pages -->
+        <div id="tool-pages" style="display: none;">
+            <!-- Image to PNG Converter -->
+            <div id="image-to-png-tool" class="tool-page">
+                <div class="tool-container">
+                    <h2 class="tool-header">Image to PNG Converter</h2>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="image-upload" class="form-label">Upload Image</label>
+                                <input class="form-control" type="file" id="image-upload" accept="image/*">
+                            </div>
+                            <div class="mb-3">
+                                <label for="png-quality" class="form-label">PNG Quality</label>
+                                <input type="range" class="form-range" id="png-quality" min="1" max="100" value="90">
+                                <span id="quality-value">90%</span>
+                            </div>
+                            <button class="btn btn-gold" onclick="convertToPNG()">Convert to PNG</button>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="preview-area">
+                                <h5>Preview</h5>
+                                <img id="image-preview" src="" alt="Preview" class="img-fluid mb-3" style="display: none;">
+                                <div id="png-result" style="display: none;">
+                                    <a id="download-link" href="#" class="btn btn-gold">Download PNG</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ad-container mt-4">
+                    <p>Advertisement Space</p>
+                </div>
+                <button class="btn btn-outline-light mt-3" onclick="showHomePage()">Back to Tools</button>
+            </div>
+            
+            <!-- Word Counter Tool -->
+            <div id="word-counter-tool" class="tool-page">
+                <div class="tool-container">
+                    <h2 class="tool-header">Word Counter</h2>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="word-counter-text" class="form-label">Enter your text</label>
+                                <textarea class="form-control" id="word-counter-text" rows="10"></textarea>
+                            </div>
+                            <button class="btn btn-gold" onclick="countWords()">Count Words</button>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="results-area">
+                                <h5>Results</h5>
+                                <div class="card bg-dark text-white p-3">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p>Words: <span id="word-count">0</span></p>
+                                            <p>Characters: <span id="character-count">0</span></p>
+                                        </div>
+                                        <div class="col-6">
+                                            <p>Sentences: <span id="sentence-count">0</span></p>
+                                            <p>Paragraphs: <span id="paragraph-count">0</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ad-container mt-4">
+                    <p>Advertisement Space</p>
+                </div>
+                <button class="btn btn-outline-light mt-3" onclick="showHomePage()">Back to Tools</button>
+            </div>
+            
+            <!-- JSON Formatter Tool -->
+            <div id="json-formatter-tool" class="tool-page">
+                <div class="tool-container">
+                    <h2 class="tool-header">JSON Formatter</h2>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="json-input" class="form-label">Enter JSON</label>
+                                <textarea class="form-control" id="json-input" rows="10" placeholder='{"key": "value"}'></textarea>
+                            </div>
+                            <button class="btn btn-gold me-2" onclick="formatJSON()">Format</button>
+                            <button class="btn btn-outline-light" onclick="minifyJSON()">Minify</button>
+                            <button class="btn btn-outline-light ms-2" onclick="validateJSON()">Validate</button>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="json-output" class="form-label">Result</label>
+                                <textarea class="form-control" id="json-output" rows="10" readonly></textarea>
+                            </div>
+                            <div id="json-validation-result" class="alert" style="display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ad-container mt-4">
+                    <p>Advertisement Space</p>
+                </div>
+                <button class="btn btn-outline-light mt-3" onclick="showHomePage()">Back to Tools</button>
+            </div>
+            
+            <!-- More tool pages can be added here -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>tools4.fun</h5>
+                    <p>100+ free online tools for all your needs. No registration required.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <div class="footer-links">
+                        <a href="#" onclick="showHomePage()">Home</a>
+                        <a href="#" onclick="showCategory('image-tools')">Image Tools</a>
+                        <a href="#" onclick="showCategory('text-tools')">Text Tools</a>
+                        <a href="#" onclick="showPrivacyPolicy()">Privacy Policy</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h5>Connect With Us</h5>
+                    <div>
+                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4 bg-secondary">
+            <div class="text-center">
+                <p>&copy; 2023 tools4.fun. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Login to Your Account</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label for="loginEmail" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="loginEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="loginPassword" required>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">Remember me</label>
+                        </div>
+                        <button type="submit" class="btn btn-gold">Login</button>
+                    </form>
+                    <div class="mt-3 text-center">
+                        <p>Don't have an account? <a href="#" onclick="showSignupModal()">Sign up</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal fade" id="signupModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create an Account</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="signupForm">
+                        <div class="mb-3">
+                            <label for="signupName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="signupName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="signupEmail" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="signupEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="signupPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="signupPassword" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="signupConfirmPassword" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="signupConfirmPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-gold">Sign Up</button>
+                    </form>
+                    <div class="mt-3 text-center">
+                        <p>Already have an account? <a href="#" onclick="showLoginModal()">Login</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy Policy Modal -->
+    <div class="modal fade" id="privacyModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Privacy Policy</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4>Privacy Policy for tools4.fun</h4>
+                    <p>Last updated: January 01, 2023</p>
+                    
+                    <h5>1. Information We Collect</h5>
+                    <p>We collect information you provide directly to us when you use our tools, create an account, or communicate with us.</p>
+                    
+                    <h5>2. How We Use Your Information</h5>
+                    <p>We use the information we collect to provide, maintain, and improve our services, to develop new features, and to protect tools4.fun and our users.</p>
+                    
+                    <h5>3. Cookies and Similar Technologies</h5>
+                    <p>We use cookies and similar tracking technologies to track activity on our website and hold certain information to improve user experience.</p>
+                    
+                    <h5>4. Third-Party Services</h5>
+                    <p>We may employ third-party companies and individuals to facilitate our service, provide the service on our behalf, or assist us in analyzing how our service is used.</p>
+                    
+                    <h5>5. Security</h5>
+                    <p>We take reasonable measures to help protect information about you from loss, theft, misuse and unauthorized access, disclosure, alteration, and destruction.</p>
+                    
+                    <h5>6. Changes to This Privacy Policy</h5>
+                    <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-gold" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // DOM Elements
+        const homePage = document.getElementById('home-page');
+        const toolPages = document.getElementById('tool-pages');
+        const allTools = document.getElementById('all-tools');
+        const searchInput = document.getElementById('search-input');
+        
+        // Modal instances
+        let loginModal;
+        let signupModal;
+        let privacyModal;
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Bootstrap modals
+            loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+            signupModal = new bootstrap.Modal(document.getElementById('signupModal'));
+            privacyModal = new bootstrap.Modal(document.getElementById('privacyModal'));
+            
+            // Set up form submissions
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+            document.getElementById('signupForm').addEventListener('submit', handleSignup);
+            
+            // Set up PNG quality slider
+            document.getElementById('png-quality').addEventListener('input', function() {
+                document.getElementById('quality-value').textContent = this.value + '%';
+            });
+            
+            // Show home page by default
+            showHomePage();
+        });
+        
+        // Show home page
+        function showHomePage() {
+            homePage.style.display = 'block';
+            toolPages.style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+        
+        // Show a specific category
+        function showCategory(categoryId) {
+            showHomePage();
+            const element = document.getElementById(categoryId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        // Show a specific tool
+        function showTool(toolId) {
+            homePage.style.display = 'none';
+            toolPages.style.display = 'block';
+            
+            // Hide all tool pages first
+            const toolPageElements = document.querySelectorAll('.tool-page');
+            toolPageElements.forEach(page => {
+                page.style.display = 'none';
+            });
+            
+            // Show the selected tool page
+            const toolPage = document.getElementById(toolId + '-tool');
+            if (toolPage) {
+                toolPage.style.display = 'block';
+                window.scrollTo(0, 0);
+            } else {
+                showHomePage();
+            }
+        }
+        
+        // Search tools
+        function searchTools() {
+            const searchTerm = searchInput.value.toLowerCase();
+            if (!searchTerm) return;
+            
+            const toolCards = document.querySelectorAll('.tool-card');
+            let foundAny = false;
+            
+            toolCards.forEach(card => {
+                const title = card.querySelector('.tool-title').textContent.toLowerCase();
+                const description = card.querySelector('.tool-description').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    foundAny = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            if (!foundAny) {
+                alert('No tools found matching your search.');
+            }
+        }
+        
+        // Show login modal
+        function showLoginModal() {
+            loginModal.show();
+        }
+        
+        // Show signup modal
+        function showSignupModal() {
+            signupModal.show();
+        }
+        
+        // Show privacy policy
+        function showPrivacyPolicy() {
+            privacyModal.show();
+        }
+        
+        // Handle login
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // Simple validation
+            if (!email || !password) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            // In a real app, you would send this to your server
+            console.log('Login attempt with:', email, password);
+            
+            // Simulate successful login
+            alert('Login successful! (This is a demo)');
+            loginModal.hide();
+            
+            // Reset form
+            document.getElementById('loginForm').reset();
+        }
+        
+        // Handle signup
+        function handleSignup(e) {
+            e.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
+            
+            // Validation
+            if (!name || !email || !password || !confirmPassword) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+            
+            if (password.length < 6) {
+                alert('Password must be at least 6 characters');
+                return;
+            }
+            
+            // In a real app, you would send this to your server
+            console.log('Signup attempt with:', name, email, password);
+            
+            // Simulate successful signup
+            alert('Account created successfully! (This is a demo)');
+            signupModal.hide();
+            
+            // Reset form
+            document.getElementById('signupForm').reset();
+        }
+        
+        // Image to PNG Converter functionality
+        function convertToPNG() {
+            const fileInput = document.getElementById('image-upload');
+            const quality = document.getElementById('png-quality').value / 100;
+            
+            if (!fileInput.files || !fileInput.files[0]) {
+                alert('Please select an image file');
+                return;
+            }
+            
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    // Create canvas
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0);
+                    
+                    // Convert to PNG
+                    const pngData = canvas.toDataURL('image/png', quality);
+                    
+                    // Display result
+                    const downloadLink = document.getElementById('download-link');
+                    downloadLink.href = pngData;
+                    downloadLink.download = file.name.replace(/\.[^/.]+$/, '') + '.png';
+                    
+                    document.getElementById('png-result').style.display = 'block';
+                };
+                img.src = e.target.result;
+                document.getElementById('image-preview').src = e.target.result;
+                document.getElementById('image-preview').style.display = 'block';
+            };
+            
+            reader.readAsDataURL(file);
+        }
+        
+        // Word Counter functionality
+        function countWords() {
+            const text = document.getElementById('word-counter-text').value;
+            
+            // Word count (simplified)
+            const wordCount = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+            
+            // Character count
+            const characterCount = text.length;
+            
+            // Sentence count (simplified)
+            const sentenceCount = text.trim() === '' ? 0 : text.split(/[.!?]+/).length - 1;
+            
+            // Paragraph count
+            const paragraphCount = text.trim() === '' ? 0 : text.split(/\n+/).filter(p => p.trim().length > 0).length;
+            
+            // Update UI
+            document.getElementById('word-count').textContent = wordCount;
+            document.getElementById('character-count').textContent = characterCount;
+            document.getElementById('sentence-count').textContent = sentenceCount;
+            document.getElementById('paragraph-count').textContent = paragraphCount;
+        }
+        
+        // JSON Formatter functionality
+        function formatJSON() {
+            try {
+                const input = document.getElementById('json-input').value;
+                const parsed = JSON.parse(input);
+                const formatted = JSON.stringify(parsed, null, 2);
+                document.getElementById('json-output').value = formatted;
+                showValidationResult('JSON is valid and formatted', 'success');
+            } catch (e) {
+                showValidationResult('Invalid JSON: ' + e.message, 'danger');
+            }
+        }
+        
+        function minifyJSON() {
+            try {
+                const input = document.getElementById('json-input').value;
+                const parsed = JSON.parse(input);
+                const minified = JSON.stringify(parsed);
+                document.getElementById('json-output').value = minified;
+                showValidationResult('JSON is valid and minified', 'success');
+            } catch (e) {
+                showValidationResult('Invalid JSON: ' + e.message, 'danger');
+            }
+        }
+        
+        function validateJSON() {
+            try {
+                const input = document.getElementById('json-input').value;
+                JSON.parse(input);
+                showValidationResult('JSON is valid', 'success');
+            } catch (e) {
+                showValidationResult('Invalid JSON: ' + e.message, 'danger');
+            }
+        }
+        
+        function showValidationResult(message, type) {
+            const resultDiv = document.getElementById('json-validation-result');
+            resultDiv.textContent = message;
+            resultDiv.className = 'alert alert-' + type;
+            resultDiv.style.display = 'block';
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+                resultDiv.style.display = 'none';
+            }, 3000);
+        }
+        
+       <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tools4.fun</title>
+    <style>
+        #t4f-logo {
+            font-family: Arial, sans-serif;
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            width: 120px;
+            height: 120px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            margin: 2rem auto;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo Container -->
+    <div id="t4f-logo">t4f</div>
+
+    <!-- Your content goes here -->
+    
+    <script>
+        // Log website name on load
+        console.log('Welcome to tools4.fun - Your multi-tools website!');
+    </script>
+</body>
+</html>
+    </script>
+</body>
+</html>
