@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online Word Counter tool to count words, characters, sentences, and paragraphs in your text. Fast, accurate, and easy to use.">
+    <meta name="keywords" content="word counter, character counter, text analysis, writing tool, word count">
+    <meta name="author" content="Word Counter Pro">
+    <title>Word Counter Pro | Free Online Text Analysis Tool</title>
+    
+    <!-- SEO Canonical -->
+    <link rel="canonical" href="https://www.yourdomain.com/word-counter">
+    
+    <!-- Open Graph Tags for Social Sharing -->
+    <meta property="og:title" content="Word Counter Pro | Free Online Text Analysis Tool">
+    <meta property="og:description" content="Count words, characters, sentences, and paragraphs instantly with our free online tool.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.yourdomain.com/word-counter">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📝</text></svg>">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #1E1E2F;
+            color: #EAEAEA;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: #2B2D42;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            color: #FFD700;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #c4c4c4;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .main-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .tool-card {
+            background-color: #3A3D5B;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, background-color 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            background-color: #FFD700;
+            color: #1E1E2F;
+        }
+
+        .tool-card:hover h2 {
+            color: #1E1E2F;
+        }
+
+        .tool-card h2 {
+            margin-bottom: 20px;
+            color: #FFD700;
+            font-size: 1.8rem;
+        }
+
+        textarea {
+            width: 100%;
+            height: 250px;
+            background-color: #2B2D42;
+            color: #EAEAEA;
+            border: 2px solid #4A4E69;
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #FFD700;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-box {
+            background-color: #2B2D42;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-box h3 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: #a0a0a0;
+        }
+
+        .stat-box .value {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background-color: #FFD700;
+            color: #1E1E2F;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .btn:hover {
+            background-color: #E6C200;
+        }
+
+        .ad-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100px;
+            background-color: #2B2D42;
+            border-radius: 8px;
+            margin: 25px 0;
+            padding: 20px;
+            text-align: center;
+            border: 2px dashed #4A4E69;
+        }
+
+        .ad-label {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        .sidebar {
+            width: 300px;
+            min-width: 250px;
+        }
+
+        .ad-card {
+            background-color: #3A3D5B;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ad-card h3 {
+            margin-bottom: 15px;
+            color: #FFD700;
+        }
+
+        footer {
+            background-color: #2B2D42;
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: auto;
+            text-align: center;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        footer p {
+            color: #a0a0a0;
+            margin: 5px 0;
+        }
+
+        .highlight {
+            color: #FFD700;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            header h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>📝 Word Counter Pro</h1>
+        <p>Count words, characters, sentences, and paragraphs in your text instantly</p>
+    </header>
+    
+    <div class="ad-section">
+        <div>
+            <div>Advertisement Space (Header)</div>
+            <div class="ad-label">Google AdSense Leaderboard (728x90)</div>
+            <!-- Insert AdSense Code Here: -->
+            <!-- 
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+                     crossorigin="anonymous"></script>
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:728px;height:90px"
+                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                     data-ad-slot="XXXXXXXXXX"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            -->
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="main-content">
+            <div class="tool-card">
+                <h2>Enter Your Text</h2>
+                <textarea id="textInput" placeholder="Type or paste your text here...">Welcome to Word Counter Pro! This powerful tool helps writers, students, and professionals analyze their text content. Simply type or paste your text into this box, and our tool will instantly count words, characters, sentences, and paragraphs.
+
+Whether you're writing an essay, blog post, or social media content, knowing your word count is essential. Our tool provides real-time statistics to help you meet requirements and improve your writing.
+
+Try it now - it's completely free and easy to use!</textarea>
+                
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <h3>Words</h3>
+                        <div id="wordCount" class="value">0</div>
+                    </div>
+                    <div class="stat-box">
+                        <h3>Characters</h3>
+                        <div id="charCount" class="value">0</div>
+                    </div>
+                    <div class="stat-box">
+                        <h3>Sentences</h3>
+                        <div id="sentenceCount" class="value">0</div>
+                    </div>
+                    <div class="stat-box">
+                        <h3>Paragraphs</h3>
+                        <div id="paragraphCount" class="value">0</div>
+                    </div>
+                </div>
+                
+                <div class="buttons">
+                    <button id="countBtn" class="btn">Count Words</button>
+                    <button id="clearBtn" class="btn">Clear Text</button>
+                    <button id="copyBtn" class="btn">Copy Text</button>
+                </div>
+            </div>
+            
+            <div class="tool-card">
+                <h2>Text Analysis</h2>
+                <div id="analysisResult">
+                    <p>Your text analysis will appear here after you enter some content.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sidebar">
+            <div class="ad-card">
+                <h3>Advertisement</h3>
+                <div style="margin: 15px 0">Ad Space (300x250)</div>
+                <div class="ad-label">Google AdSense Medium Rectangle</div>
+                <!-- Insert AdSense Code Here: -->
+                <!-- 
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+                         crossorigin="anonymous"></script>
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                         data-ad-slot="XXXXXXXXXX"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                -->
+            </div>
+            
+            <div class="ad-card">
+                <h3>Advertisement</h3>
+                <div style="margin: 15px 0">Ad Space (300x600)</div>
+                <div class="ad-label">Google AdSense Large Rectangle</div>
+                <!-- Insert AdSense Code Here -->
+            </div>
+        </div>
+    </div>
+    
+    <div class="ad-section">
+        <div>
+            <div>Advertisement Space (Footer)</div>
+            <div class="ad-label">Google AdSense Banner (468x60)</div>
+            <!-- Insert AdSense Code Here -->
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2023 Word Counter Pro. All rights reserved.</p>
+        <p>This tool is <span class="highlight">100% free</span> and processes your text entirely in your browser - no data is sent to any server.</p>
+        <p>Optimized for SEO and accessibility. Perfect for writers, students, and professionals.</p>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const textInput = document.getElementById('textInput');
+            const wordCount = document.getElementById('wordCount');
+            const charCount = document.getElementById('charCount');
+            const sentenceCount = document.getElementById('sentenceCount');
+            const paragraphCount = document.getElementById('paragraphCount');
+            const countBtn = document.getElementById('countBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const copyBtn = document.getElementById('copyBtn');
+            const analysisResult = document.getElementById('analysisResult');
+            
+            // Initialize with sample text count
+            countWords();
+            
+            // Count words when typing
+            textInput.addEventListener('input', countWords);
+            
+            // Button event listeners
+            countBtn.addEventListener('click', countWords);
+            
+            clearBtn.addEventListener('click', function() {
+                textInput.value = '';
+                countWords();
+            });
+            
+            copyBtn.addEventListener('click', function() {
+                textInput.select();
+                document.execCommand('copy');
+                alert('Text copied to clipboard!');
+            });
+            
+            function countWords() {
+                const text = textInput.value.trim();
+                
+                // Word count (split by spaces and filter empty strings)
+                const words = text ? text.split(/\s+/).filter(word => word.length > 0) : [];
+                wordCount.textContent = words.length;
+                
+                // Character count (including spaces)
+                charCount.textContent = text.length;
+                
+                // Sentence count (split by . ! ? and filter empty strings)
+                const sentences = text ? text.split(/[.!?]+/).filter(s => s.trim().length > 0) : [];
+                sentenceCount.textContent = sentences.length;
+                
+                // Paragraph count (split by new lines and filter empty strings)
+                const paragraphs = text ? text.split(/\n+/).filter(p => p.trim().length > 0) : [];
+                paragraphCount.textContent = paragraphs.length;
+                
+                // Update text analysis
+                updateTextAnalysis(words.length, text.length, sentences.length, paragraphs.length);
+            }
+            
+            function updateTextAnalysis(wordCount, charCount, sentenceCount, paragraphCount) {
+                let readingTime = Math.ceil(wordCount / 200); // 200 words per minute
+                if (readingTime < 1) readingTime = '<1';
+                
+                let speakingTime = Math.ceil(wordCount / 130); // 130 words per minute
+                if (speakingTime < 1) speakingTime = '<1';
+                
+                let analysisHTML = `
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <h3>Reading Time</h3>
+                            <div class="value">${readingTime} min</div>
+                        </div>
+                        <div class="stat-box">
+                            <h3>Speaking Time</h3>
+                            <div class="value">${speakingTime} min</div>
+                        </div>
+                        <div class="stat-box">
+                            <h3>Avg. Word Length</h3>
+                            <div class="value">${wordCount ? (charCount / wordCount).toFixed(2) : '0'}</div>
+                        </div>
+                        <div class="stat-box">
+                            <h3>Avg. Sentence Length</h3>
+                            <div class="value">${sentenceCount ? (wordCount / sentenceCount).toFixed(1) : '0'}</div>
+                        </div>
+                    </div>
+                `;
+                
+                if (wordCount > 0) {
+                    analysisHTML += `
+                        <p style="margin-top: 20px;"><strong>Text Summary:</strong> Your text contains ${wordCount} words, 
+                        which would take about ${readingTime} minute${readingTime == 1 ? '' : 's'} to read. 
+                        It has ${sentenceCount} sentence${sentenceCount == 1 ? '' : 's'} and 
+                        ${paragraphCount} paragraph${paragraphCount == 1 ? '' : 's'}.</p>
+                    `;
+                } else {
+                    analysisHTML = '<p>Enter some text to see detailed analysis.</p>';
+                }
+                
+                analysisResult.innerHTML = analysisHTML;
+            }
+        });
+    </script>
+</body>
+</html>
