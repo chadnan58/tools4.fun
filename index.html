@@ -346,6 +346,21 @@
         .floating {
             animation: float 3s ease-in-out infinite;
         }
+        
+        /* FIXES */
+        .tool-link {
+            color: inherit;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .tool-card-content {
+            height: 100%;
+        }
+        
+        .tool-card .d-flex {
+            min-height: 70px;
+        }
     </style>
 </head>
 <body>
@@ -405,97 +420,107 @@
                 <h3 class="category-title" id="popular-tools">Popular Tools</h3>
                 <div class="row">
                     <div class="col-md-3 col-sm-6">
-                        <div class="tool-card" onclick="showTool('image-to-png')">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="bg-dark rounded-circle p-3 me-3">
-                                    <i class="fas fa-file-image text-warning"></i>
+                        <div class="tool-card">
+                            <a href="Image-to-PNG.html" class="tool-link">
+                                <div class="tool-card-content">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="bg-dark rounded-circle p-3 me-3">
+                                            <i class="fas fa-file-image text-warning"></i>
+                                        </div>
+                                        <h4 class="tool-title">Image to PNG</h4>
+                                    </div>
+                                    <p class="tool-description">Convert any image to PNG format with high quality.</p>
                                 </div>
-                                <h1>
-                              <h4 class="tool-title">
-                               <a href="Image-to-PNG.html" style="color: inherit; text-decoration: none;">
-                                    Image to PNG
-                                         </a>
-                                         </h4>
-                                      </h1>
-                            </div>
-                            <p class="tool-description">Convert any image to PNG format with high quality.</p>
+                            </a>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
-                        <div class="tool-card" onclick="showTool('word-counter')">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="bg-dark rounded-circle p-3 me-3">
-                                    <i class="fas fa-font text-warning"></i>
+                        <div class="tool-card">
+                            <a href="Word-Counter.html" class="tool-link">
+                                <div class="tool-card-content">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="bg-dark rounded-circle p-3 me-3">
+                                            <i class="fas fa-font text-warning"></i>
+                                        </div>
+                                        <h4 class="tool-title">Word Counter</h4>
+                                    </div>
+                                    <p class="tool-description">Count words, characters, sentences, and paragraphs.</p>
                                 </div>
-                                <h4 class="tool-title mb-0">Word Counter</h4>
-                            </div>
-                            <p class="tool-description">Count words, characters, sentences, and paragraphs.</p>
+                            </a>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
-                        <div class="tool-card" onclick="showTool('json-formatter')">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="bg-dark rounded-circle p-3 me-3">
-                                    <i class="fas fa-code text-warning"></i>
+                        <div class="tool-card">
+                            <a href="JSON-Formatter.html" class="tool-link">
+                                <div class="tool-card-content">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="bg-dark rounded-circle p-3 me-3">
+                                            <i class="fas fa-code text-warning"></i>
+                                        </div>
+                                        <h4 class="tool-title">JSON Formatter</h4>
+                                    </div>
+                                    <p class="tool-description">Format, validate and minify JSON data.</p>
                                 </div>
-                                <h4 class="tool-title mb-0">
-                                <a href="JSON-Formatter.html" style="color: inherit; text-decoration: none;">
-                                <i class="fas fa-code" style="margin-right: 8px;"></i>JSON Formatter
-                                  </a>
-                                   </h4>
-                            </div>
-                            <p class="tool-description">Format, validate and minify JSON data.</p>
+                            </a>
                         </div>
                     </div>
-                    <div class="col-md-3 col-sm-6"><div class="col-md-3 col-sm-6">
-                   <div class="tool-card" onclick="showTool('password-generator')">
-                   <div class="d-flex align-items-center mb-3">
-                   <div class="bg-dark rounded-circle p-3 me-3">
-                   <i class="fas fa-lock text-warning"></i>
-                   </div>
-                      <h1>
-                       <h4 class="tool-title">
-                          <a href="Password-Generator.html" style="color: inherit; text-decoration: none;">
-                                 Password Generator
-                             </a>
-                               </h4>
-                              </h1>
-                            </div>
-                         <p class="tool-description">Create strong and secure passwords instantly.</p>
-                         </div>
-                       </div>
-                     </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="tool-card">
+                            <a href="Password-Generator.html" class="tool-link">
+                                <div class="tool-card-content">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="bg-dark rounded-circle p-3 me-3">
+                                            <i class="fas fa-lock text-warning"></i>
+                                        </div>
+                                        <h4 class="tool-title">Password Generator</h4>
+                                    </div>
+                                    <p class="tool-description">Create strong and secure passwords instantly.</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 
                 <h3 class="category-title" id="image-tools">Image Tools</h3>
                 <div class="row">
                     <div class="col-md-3 col-sm-6">
-                        <div class="tool-card" onclick="showTool('image-to-png')">
-                            <h4 class="tool-title">
-                             <a href="Image-to-PNG.html"
-                                 style="color: inherit; text-decoration: none;">
-                                       Image to PNG
-                                     </a>
-                                   </h4>
-                            <p class="tool-description">Convert any image to PNG format with high quality.</p>
+                        <div class="tool-card">
+                            <a href="Image-to-PNG.html" class="tool-link">
+                                <div class="tool-card-content">
+                                    <h4 class="tool-title">Image to PNG</h4>
+                                    <p class="tool-description">Convert any image to PNG format with high quality.</p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
-                        <div class="tool-card" onclick="showTool('image-to-jpg')">
-                            <h4 class="tool-title">Image to JPG</h4>
-                            <p class="tool-description">Convert images to JPG/JPEG format easily.</p>
+                        <div class="tool-card">
+                            <a href="Image-to-JPG.html" class="tool-link">
+                                <div class="tool-card-content">
+                                    <h4 class="tool-title">Image to JPG</h4>
+                                    <p class="tool-description">Convert images to JPG/JPEG format easily.</p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
-                        <div class="tool-card" onclick="showTool('image-resizer')">
-                            <h4 class="tool-title">Image Resizer</h4>
-                            <p class="tool-description">Resize your images to any dimensions.</p>
+                        <div class="tool-card">
+                            <a href="Image-Resizer.html" class="tool-link">
+                                <div class="tool-card-content">
+                                    <h4 class="tool-title">Image Resizer</h4>
+                                    <p class="tool-description">Resize your images to any dimensions.</p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
-                        <div class="tool-card" onclick="showTool('image-compressor')">
-                            <h4 class="tool-title">Image Compressor</h4>
-                            <p class="tool-description">Reduce image file size without losing quality.</p>
+                        <div class="tool-card">
+                            <a href="Image-Compressor.html" class="tool-link">
+                                <div class="tool-card-content">
+                                    <h4 class="tool-title">Image Compressor</h4>
+                                    <p class="tool-description">Reduce image file size without losing quality.</p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -503,27 +528,43 @@
                 <h3 class="category-title" id="seo-tools">SEO Tools</h3>
                 <div class="row">
                     <div class="col-md-3 col-sm-6">
-                        <div class="tool-card" onclick="showTool('meta-tag-generator')">
-                            <h4 class="tool-title">Meta Tag Generator</h4>
-                            <p class="tool-description">Create perfect meta tags for your website.</p>
+                        <div class="tool-card">
+                            <a href="Meta-Tag-Generator.html" class="tool-link">
+                                <div class="tool-card-content">
+                                    <h4 class="tool-title">Meta Tag Generator</h4>
+                                    <p class="tool-description">Create perfect meta tags for your website.</p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
-                        <div class="tool-card" onclick="showTool('keyword-density-checker')">
-                            <h4 class="tool-title">Keyword Density Checker</h4>
-                            <p class="tool-description">Analyze keyword density in your content.</p>
+                        <div class="tool-card">
+                            <a href="Keyword-Density-Checker.html" class="tool-link">
+                                <div class="tool-card-content">
+                                    <h4 class="tool-title">Keyword Density Checker</h4>
+                                    <p class="tool-description">Analyze keyword density in your content.</p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
-                        <div class="tool-card" onclick="showTool('sitemap-generator')">
-                            <h4 class="tool-title">Sitemap Generator</h4>
-                            <p class="tool-description">Generate XML sitemaps for your website.</p>
+                        <div class="tool-card">
+                            <a href="Sitemap-Generator.html" class="tool-link">
+                                <div class="tool-card-content">
+                                    <h4 class="tool-title">Sitemap Generator</h4>
+                                    <p class="tool-description">Generate XML sitemaps for your website.</p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
-                        <div class="tool-card" onclick="showTool('robots-txt-generator')">
-                            <h4 class="tool-title">Robots.txt Generator</h4>
-                            <p class="tool-description">Create a robots.txt file for your site.</p>
+                        <div class="tool-card">
+                            <a href="Robots-Txt-Generator.html" class="tool-link">
+                                <div class="tool-card-content">
+                                    <h4 class="tool-title">Robots.txt Generator</h4>
+                                    <p class="tool-description">Create a robots.txt file for your site.</p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -531,27 +572,43 @@
                 <h3 class="category-title" id="text-tools">Text Tools</h3>
                 <div class="row">
                     <div class="col-md-3 col-sm-6">
-                        <div class="tool-card" onclick="showTool('word-counter')">
-                            <h4 class="tool-title">Word Counter</h4>
-                            <p class="tool-description">Count words and characters in your text.</p>
+                        <div class="tool-card">
+                            <a href="Word-Counter.html" class="tool-link">
+                                <div class="tool-card-content">
+                                    <h4 class="tool-title">Word Counter</h4>
+                                    <p class="tool-description">Count words and characters in your text.</p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
-                        <div class="tool-card" onclick="showTool('character-counter')">
-                            <h4 class="tool-title">Character Counter</h4>
-                            <p class="tool-description">Count characters, words, and lines.</p>
+                        <div class="tool-card">
+                            <a href="Character-Counter.html" class="tool-link">
+                                <div class="tool-card-content">
+                                    <h4 class="tool-title">Character Counter</h4>
+                                    <p class="tool-description">Count characters, words, and lines.</p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
-                        <div class="tool-card" onclick="showTool('case-converter')">
-                            <h4 class="tool-title">Case Converter</h4>
-                            <p class="tool-description">Convert text between different cases.</p>
+                        <div class="tool-card">
+                            <a href="Case-Converter.html" class="tool-link">
+                                <div class="tool-card-content">
+                                    <h4 class="tool-title">Case Converter</h4>
+                                    <p class="tool-description">Convert text between different cases.</p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
-                        <div class="tool-card" onclick="showTool('plagiarism-checker')">
-                            <h4 class="tool-title">Plagiarism Checker</h4>
-                            <p class="tool-description">Check text for duplicate content.</p>
+                        <div class="tool-card">
+                            <a href="Plagiarism-Checker.html" class="tool-link">
+                                <div class="tool-card-content">
+                                    <h4 class="tool-title">Plagiarism Checker</h4>
+                                    <p class="tool-description">Check text for duplicate content.</p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -750,9 +807,9 @@
                     <h5>Resources</h5>
                     <div class="footer-links d-flex flex-column">
                         <a href="#" onclick="showHomePage()">All Tools</a>
-                        <a href="#" onclick="showTool('word-counter')">Word Counter</a>
-                        <a href="#" onclick="showTool('json-formatter')">JSON Formatter</a>
-                        <a href="#" onclick="showTool('image-to-png')">Image Converter</a>
+                        <a href="Word-Counter.html">Word Counter</a>
+                        <a href="JSON-Formatter.html">JSON Formatter</a>
+                        <a href="Image-to-PNG.html">Image Converter</a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 mb-4">
@@ -1090,4 +1147,4 @@
         console.log('Welcome to tools4.fun - Your multi-tools website!');
     </script>
 </body>
-</html>     
+</html>
