@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online robots.txt generator tool. Create SEO-friendly robots.txt files to control search engine crawlers.">
+    <meta name="keywords" content="robots.txt generator, SEO tool, search engine crawlers, website robots file">
+    <title>Robots.txt Generator | Create Crawler Rules for Your Website</title>
+    <style>
+        :root {
+            --bg-color: #1E1E2F;
+            --text-color: #EAEAEA;
+            --header-bg: #2B2D42;
+            --accent-color: #FFD700;
+            --card-bg: #3A3D5B;
+            --hover-accent: #E6C200;
+            --shadow: rgba(255, 215, 0, 0.2);
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--header-bg);
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 2px solid var(--accent-color);
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            margin: 0;
+            color: var(--accent-color);
+            font-size: 2.2rem;
+        }
+        
+        .tool-description {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        
+        .tool-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 15px var(--shadow);
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .tool-card:hover {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        input[type="text"], 
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--accent-color);
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        button {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        button:hover {
+            background-color: var(--hover-accent);
+        }
+        
+        .result-container {
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .ad-container {
+            background-color: var(--card-bg);
+            padding: 20px;
+            text-align: center;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+        
+        .how-to-use {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        
+        .how-to-use h2 {
+            color: var(--accent-color);
+            margin-top: 0;
+        }
+        
+        .rule-item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        
+        .rule-item select {
+            flex: 1;
+        }
+        
+        .rule-item input {
+            flex: 2;
+        }
+        
+        .rule-item button {
+            flex: 0 0 auto;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .rule-item {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Ad Space Top -->
+    <div class="container">
+        <div class="ad-container">
+            <!-- Replace with your Google AdSense code -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_SENSE_ID"
+                crossorigin="anonymous"></script>
+            <!-- RobotsTxtGenerator_Top -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-YOUR_AD_SENSE_ID"
+                data-ad-slot="YOUR_AD_SLOT_ID"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+    
+    <header>
+        <div class="container">
+            <h1>Robots.txt Generator</h1>
+        </div>
+    </header>
+    
+    <div class="container">
+        <p class="tool-description">Create a robots.txt file to control search engine crawlers and improve your website's SEO.</p>
+        
+        <div class="tool-card">
+            <div class="input-group">
+                <label for="sitemap-url">Your Sitemap URL (optional):</label>
+                <input type="text" id="sitemap-url" placeholder="https://www.example.com/sitemap.xml">
+            </div>
+            
+            <div class="input-group">
+                <label>Add Crawler Rules:</label>
+                <div id="rules-container">
+                    <!-- Rules will be added here dynamically -->
+                </div>
+                <button id="add-rule-btn">+ Add New Rule</button>
+            </div>
+            
+            <button id="generate-btn">Generate robots.txt</button>
+            
+            <div class="result-container" id="result-container">
+                <h3>Your robots.txt File:</h3>
+                <textarea id="robots-result" readonly></textarea>
+                <button id="download-btn">Download robots.txt</button>
+                <button id="copy-btn">Copy to Clipboard</button>
+                <button id="reset-btn">Reset Generator</button>
+            </div>
+        </div>
+        
+        <!-- Ad Space Bottom -->
+        <div class="ad-container">
+            <!-- Replace with your Google AdSense code -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_SENSE_ID"
+                crossorigin="anonymous"></script>
+            <!-- RobotsTxtGenerator_Bottom -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-YOUR_AD_SENSE_ID"
+                data-ad-slot="YOUR_AD_SLOT_ID"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        
+        <div class="how-to-use">
+            <h2>How to Use This Robots.txt Generator</h2>
+            <ol>
+                <li>Add your sitemap URL (optional but recommended)</li>
+                <li>Click "Add New Rule" to create crawler directives</li>
+                <li>For each rule, select the user-agent and specify paths</li>
+                <li>Use "Allow" to permit crawling and "Disallow" to block</li>
+                <li>Click "Generate robots.txt" to create your file</li>
+                <li>Download or copy the generated file</li>
+                <li>Upload to your website's root directory (e.g., www.example.com/robots.txt)</li>
+            </ol>
+            
+            <h3>Common Robots.txt Rules</h3>
+            <ul>
+                <li><strong>Allow all crawlers:</strong> User-agent: * | Disallow: (leave empty)</li>
+                <li><strong>Block all crawlers:</strong> User-agent: * | Disallow: /</li>
+                <li><strong>Block specific folder:</strong> User-agent: * | Disallow: /private/</li>
+                <li><strong>Allow one crawler only:</strong> User-agent: Googlebot | Disallow: (empty) + User-agent: * | Disallow: /</li>
+                <li><strong>Block specific file type:</strong> User-agent: * | Disallow: /*.pdf$</li>
+            </ul>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>Robots.txt Generator Tool &copy; <span id="year"></span> | All Rights Reserved</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Rule template
+        const ruleTemplate = `
+            <div class="rule-item">
+                <select class="user-agent">
+                    <option value="*">All User-agents (*)</option>
+                    <option value="Googlebot">Googlebot</option>
+                    <option value="Googlebot-Image">Googlebot-Image</option>
+                    <option value="Googlebot-News">Googlebot-News</option>
+                    <option value="Googlebot-Video">Googlebot-Video</option>
+                    <option value="Bingbot">Bingbot</option>
+                    <option value="Slurp">Yahoo (Slurp)</option>
+                    <option value="DuckDuckBot">DuckDuckGo</option>
+                    <option value="Baiduspider">Baidu</option>
+                    <option value="Yandex">Yandex</option>
+                </select>
+                <select class="directive">
+                    <option value="Allow">Allow</option>
+                    <option value="Disallow" selected>Disallow</option>
+                </select>
+                <input type="text" class="path" placeholder="/path/to/block/or/allow">
+                <button class="remove-rule-btn" style="background-color: #ff4d4d;">×</button>
+            </div>
+        `;
+        
+        // Add initial rule
+        document.getElementById('add-rule-btn').addEventListener('click', function() {
+            const rulesContainer = document.getElementById('rules-container');
+            const newRule = document.createElement('div');
+            newRule.innerHTML = ruleTemplate;
+            rulesContainer.appendChild(newRule);
+            
+            // Add event listener to remove button
+            newRule.querySelector('.remove-rule-btn').addEventListener('click', function() {
+                rulesContainer.removeChild(newRule);
+            });
+        });
+        
+        // Generate robots.txt
+        document.getElementById('generate-btn').addEventListener('click', function() {
+            const sitemapUrl = document.getElementById('sitemap-url').value.trim();
+            const rules = document.querySelectorAll('.rule-item');
+            
+            if (rules.length === 0) {
+                alert('Please add at least one rule');
+                return;
+            }
+            
+            let robotsTxt = '';
+            
+            // Add user-agent rules
+            rules.forEach(rule => {
+                const userAgent = rule.querySelector('.user-agent').value;
+                const directive = rule.querySelector('.directive').value;
+                const path = rule.querySelector('.path').value.trim();
+                
+                robotsTxt += `User-agent: ${userAgent}\n`;
+                robotsTxt += `${directive}: ${path || '/'}\n\n`;
+            });
+            
+            // Add sitemap if provided
+            if (sitemapUrl) {
+                robotsTxt += `Sitemap: ${sitemapUrl}\n`;
+            }
+            
+            document.getElementById('robots-result').value = robotsTxt;
+            document.getElementById('result-container').style.display = 'block';
+        });
+        
+        // Download robots.txt
+        document.getElementById('download-btn').addEventListener('click', function() {
+            const robotsTxt = document.getElementById('robots-result').value;
+            if (!robotsTxt) {
+                alert('No robots.txt to download');
+                return;
+            }
+            
+            const blob = new Blob([robotsTxt], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'robots.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+        
+        // Copy to clipboard
+        document.getElementById('copy-btn').addEventListener('click', function() {
+            const robotsTxt = document.getElementById('robots-result');
+            robotsTxt.select();
+            document.execCommand('copy');
+            alert('robots.txt copied to clipboard!');
+        });
+        
+        // Reset generator
+        document.getElementById('reset-btn').addEventListener('click', function() {
+            document.getElementById('sitemap-url').value = '';
+            document.getElementById('rules-container').innerHTML = '';
+            document.getElementById('robots-result').value = '';
+            document.getElementById('result-container').style.display = 'none';
+        });
+        
+        // Add initial rule on load
+        document.getElementById('add-rule-btn').click();
+    </script>
+</body>
+</html>
