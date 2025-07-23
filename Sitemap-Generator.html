@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online XML Sitemap Generator tool for websites. Create SEO-friendly sitemaps quickly and easily.">
+    <meta name="keywords" content="sitemap generator, XML sitemap, SEO tool, website map">
+    <title>Sitemap Generator | Create XML Sitemaps for SEO</title>
+    <style>
+        :root {
+            --bg-color: #1E1E2F;
+            --text-color: #EAEAEA;
+            --header-bg: #2B2D42;
+            --accent-color: #FFD700;
+            --card-bg: #3A3D5B;
+            --hover-accent: #E6C200;
+            --shadow: rgba(255, 215, 0, 0.2);
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--header-bg);
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 2px solid var(--accent-color);
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            margin: 0;
+            color: var(--accent-color);
+            font-size: 2.2rem;
+        }
+        
+        .tool-description {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        
+        .tool-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 15px var(--shadow);
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .tool-card:hover {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        input[type="text"], 
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--accent-color);
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        button {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: var(--hover-accent);
+        }
+        
+        .result-container {
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .ad-container {
+            background-color: var(--card-bg);
+            padding: 20px;
+            text-align: center;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+        
+        .how-to-use {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        
+        .how-to-use h2 {
+            color: var(--accent-color);
+            margin-top: 0;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Ad Space Top -->
+    <div class="container">
+        <div class="ad-container">
+            <!-- Replace with your Google AdSense code -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_SENSE_ID"
+                crossorigin="anonymous"></script>
+            <!-- SitemapGenerator_Top -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-YOUR_AD_SENSE_ID"
+                data-ad-slot="YOUR_AD_SLOT_ID"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+    
+    <header>
+        <div class="container">
+            <h1>Sitemap Generator</h1>
+        </div>
+    </header>
+    
+    <div class="container">
+        <p class="tool-description">Generate XML sitemaps for your website to improve SEO and help search engines crawl your content.</p>
+        
+        <div class="tool-card">
+            <div class="input-group">
+                <label for="website-url">Enter Your Website URL:</label>
+                <input type="text" id="website-url" placeholder="https://www.example.com" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="url-list">Or Paste URLs (one per line):</label>
+                <textarea id="url-list" placeholder="https://www.example.com/page1\nhttps://www.example.com/page2"></textarea>
+            </div>
+            
+            <div class="input-group">
+                <label for="change-freq">Change Frequency (optional):</label>
+                <select id="change-freq" style="padding: 12px; width: 100%; background-color: rgba(255, 255, 255, 0.1); color: var(--text-color); border: 1px solid var(--accent-color); border-radius: 4px;">
+                    <option value="daily">Daily</option>
+                    <option value="weekly" selected>Weekly</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="yearly">Yearly</option>
+                    <option value="never">Never</option>
+                </select>
+            </div>
+            
+            <div class="input-group">
+                <label for="priority">Default Priority (optional):</label>
+                <select id="priority" style="padding: 12px; width: 100%; background-color: rgba(255, 255, 255, 0.1); color: var(--text-color); border: 1px solid var(--accent-color); border-radius: 4px;">
+                    <option value="1.0">1.0 (Highest)</option>
+                    <option value="0.9">0.9</option>
+                    <option value="0.8">0.8</option>
+                    <option value="0.7" selected>0.7 (Default)</option>
+                    <option value="0.6">0.6</option>
+                    <option value="0.5">0.5</option>
+                    <option value="0.4">0.4</option>
+                    <option value="0.3">0.3</option>
+                    <option value="0.2">0.2</option>
+                    <option value="0.1">0.1 (Lowest)</option>
+                </select>
+            </div>
+            
+            <button id="generate-btn">Generate Sitemap</button>
+            
+            <div class="result-container" id="result-container">
+                <h3>Your XML Sitemap:</h3>
+                <textarea id="sitemap-result" readonly></textarea>
+                <button id="download-btn">Download Sitemap.xml</button>
+                <button id="copy-btn">Copy to Clipboard</button>
+            </div>
+        </div>
+        
+        <!-- Ad Space Bottom -->
+        <div class="ad-container">
+            <!-- Replace with your Google AdSense code -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_SENSE_ID"
+                crossorigin="anonymous"></script>
+            <!-- SitemapGenerator_Bottom -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-YOUR_AD_SENSE_ID"
+                data-ad-slot="YOUR_AD_SLOT_ID"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        
+        <div class="how-to-use">
+            <h2>How to Use This Sitemap Generator</h2>
+            <ol>
+                <li>Enter your website URL to automatically crawl pages (or)</li>
+                <li>Paste your list of URLs (one URL per line)</li>
+                <li>Set the change frequency (how often pages are updated)</li>
+                <li>Set the default priority for pages (0.1 to 1.0)</li>
+                <li>Click "Generate Sitemap" to create your XML sitemap</li>
+                <li>Download the file or copy to clipboard</li>
+                <li>Upload the sitemap.xml to your website root directory</li>
+                <li>Submit to Google Search Console for better indexing</li>
+            </ol>
+            
+            <h3>Why Use a Sitemap?</h3>
+            <ul>
+                <li>Helps search engines discover your pages</li>
+                <li>Improves SEO and indexing</li>
+                <li>Specifies page priority and update frequency</li>
+                <li>Essential for large websites with many pages</li>
+                <li>Required for video and image SEO</li>
+            </ul>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>Sitemap Generator Tool &copy; <span id="year"></span> | All Rights Reserved</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        document.getElementById('generate-btn').addEventListener('click', function() {
+            const websiteUrl = document.getElementById('website-url').value.trim();
+            const urlList = document.getElementById('url-list').value.trim();
+            const changeFreq = document.getElementById('change-freq').value;
+            const priority = document.getElementById('priority').value;
+            
+            if (!websiteUrl && !urlList) {
+                alert('Please enter a website URL or paste a list of URLs');
+                return;
+            }
+            
+            let urls = [];
+            
+            if (websiteUrl) {
+                // In a real implementation, you would crawl the website here
+                // For demo purposes, we'll just use the homepage
+                urls = [websiteUrl];
+            } else {
+                urls = urlList.split('\n').filter(url => url.trim() !== '');
+            }
+            
+            // Generate XML sitemap
+            let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+            xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+            
+            urls.forEach(url => {
+                xml += '  <url>\n';
+                xml += `    <loc>${url}</loc>\n`;
+                xml += `    <changefreq>${changeFreq}</changefreq>\n`;
+                xml += `    <priority>${priority}</priority>\n`;
+                xml += '  </url>\n';
+            });
+            
+            xml += '</urlset>';
+            
+            document.getElementById('sitemap-result').value = xml;
+            document.getElementById('result-container').style.display = 'block';
+        });
+        
+        document.getElementById('download-btn').addEventListener('click', function() {
+            const sitemap = document.getElementById('sitemap-result').value;
+            if (!sitemap) {
+                alert('No sitemap to download');
+                return;
+            }
+            
+            const blob = new Blob([sitemap], { type: 'application/xml' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'sitemap.xml';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+        
+        document.getElementById('copy-btn').addEventListener('click', function() {
+            const sitemap = document.getElementById('sitemap-result');
+            sitemap.select();
+            document.execCommand('copy');
+            alert('Sitemap copied to clipboard!');
+        });
+    </script>
+</body>
+</html>
