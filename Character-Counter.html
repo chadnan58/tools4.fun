@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online character counter tool. Count characters, words, sentences, and paragraphs in your text with real-time results.">
+    <meta name="keywords" content="character counter, word counter, text analyzer, SEO tool, writing assistant">
+    <title>Character Counter | Count Words, Characters & Lines</title>
+    <style>
+        :root {
+            --bg-color: #1E1E2F;
+            --text-color: #EAEAEA;
+            --header-bg: #2B2D42;
+            --accent-color: #FFD700;
+            --card-bg: #3A3D5B;
+            --hover-accent: #E6C200;
+            --shadow: rgba(255, 215, 0, 0.2);
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--header-bg);
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 2px solid var(--accent-color);
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            margin: 0;
+            color: var(--accent-color);
+            font-size: 2.2rem;
+        }
+        
+        .tool-description {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        
+        .tool-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 15px var(--shadow);
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .tool-card:hover {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--accent-color);
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+            font-size: 16px;
+            min-height: 200px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-box {
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin: 5px 0;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        button {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        button:hover {
+            background-color: var(--hover-accent);
+        }
+        
+        .ad-container {
+            background-color: var(--card-bg);
+            padding: 20px;
+            text-align: center;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+        
+        .how-to-use {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        
+        .how-to-use h2 {
+            color: var(--accent-color);
+            margin-top: 0;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Ad Space Top -->
+    <div class="container">
+        <div class="ad-container">
+            <!-- Replace with your Google AdSense code -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_SENSE_ID"
+                crossorigin="anonymous"></script>
+            <!-- CharacterCounter_Top -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-YOUR_AD_SENSE_ID"
+                data-ad-slot="YOUR_AD_SLOT_ID"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+    
+    <header>
+        <div class="container">
+            <h1>Character Counter</h1>
+        </div>
+    </header>
+    
+    <div class="container">
+        <p class="tool-description">Count characters, words, sentences, and paragraphs in your text with real-time results.</p>
+        
+        <div class="tool-card">
+            <div class="input-group">
+                <label for="text-input">Enter or paste your text below:</label>
+                <textarea id="text-input" placeholder="Type or paste your text here..."></textarea>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-box">
+                    <div class="stat-value" id="char-count">0</div>
+                    <div class="stat-label">Characters</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="char-no-spaces">0</div>
+                    <div class="stat-label">Characters (no spaces)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="word-count">0</div>
+                    <div class="stat-label">Words</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="line-count">0</div>
+                    <div class="stat-label">Lines</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="sentence-count">0</div>
+                    <div class="stat-label">Sentences</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="paragraph-count">0</div>
+                    <div class="stat-label">Paragraphs</div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 20px;">
+                <button id="clear-btn">Clear Text</button>
+                <button id="copy-btn">Copy Text</button>
+                <button id="sample-btn">Load Sample Text</button>
+            </div>
+        </div>
+        
+        <!-- Ad Space Bottom -->
+        <div class="ad-container">
+            <!-- Replace with your Google AdSense code -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_SENSE_ID"
+                crossorigin="anonymous"></script>
+            <!-- CharacterCounter_Bottom -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-YOUR_AD_SENSE_ID"
+                data-ad-slot="YOUR_AD_SLOT_ID"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        
+        <div class="how-to-use">
+            <h2>How to Use This Character Counter</h2>
+            <ol>
+                <li>Type or paste your text into the input box above</li>
+                <li>Get instant counts for characters, words, and more</li>
+                <li>Use the results to check length requirements for:
+                    <ul>
+                        <li>Social media posts (Twitter, Facebook, Instagram)</li>
+                        <li>SEO meta descriptions (typically 150-160 characters)</li>
+                        <li>Email subject lines (recommended 40-60 characters)</li>
+                        <li>Academic papers and word-limited documents</li>
+                    </ul>
+                </li>
+                <li>Clear the text or copy it to clipboard as needed</li>
+            </ol>
+            
+            <h3>Common Character Limits</h3>
+            <ul>
+                <li><strong>Twitter:</strong> 280 characters per tweet</li>
+                <li><strong>Meta Title:</strong> 50-60 characters (optimal for SEO)</li>
+                <li><strong>Meta Description:</strong> 150-160 characters</li>
+                <li><strong>SMS Messages:</strong> 160 characters per message</li>
+                <li><strong>Instagram Caption:</strong> 2,200 characters max</li>
+            </ul>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>Character Counter Tool &copy; <span id="year"></span> | All Rights Reserved</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        const textInput = document.getElementById('text-input');
+        const charCount = document.getElementById('char-count');
+        const charNoSpaces = document.getElementById('char-no-spaces');
+        const wordCount = document.getElementById('word-count');
+        const lineCount = document.getElementById('line-count');
+        const sentenceCount = document.getElementById('sentence-count');
+        const paragraphCount = document.getElementById('paragraph-count');
+        
+        // Update counts in real-time
+        textInput.addEventListener('input', updateCounts);
+        
+        function updateCounts() {
+            const text = textInput.value;
+            
+            // Character count (with spaces)
+            charCount.textContent = text.length;
+            
+            // Character count (without spaces)
+            charNoSpaces.textContent = text.replace(/\s/g, '').length;
+            
+            // Word count (split by whitespace and filter empty strings)
+            const words = text.trim().split(/\s+/).filter(word => word.length > 0);
+            wordCount.textContent = words.length;
+            
+            // Line count (split by newlines)
+            const lines = text.split('\n').filter(line => line.trim().length > 0);
+            lineCount.textContent = lines.length;
+            
+            // Sentence count (split by punctuation)
+            const sentences = text.split(/[.!?]+/).filter(sentence => sentence.trim().length > 0);
+            sentenceCount.textContent = sentences.length;
+            
+            // Paragraph count (split by double newlines)
+            const paragraphs = text.split(/\n\s*\n/).filter(para => para.trim().length > 0);
+            paragraphCount.textContent = paragraphs.length;
+        }
+        
+        // Clear button
+        document.getElementById('clear-btn').addEventListener('click', function() {
+            textInput.value = '';
+            updateCounts();
+        });
+        
+        // Copy button
+        document.getElementById('copy-btn').addEventListener('click', function() {
+            textInput.select();
+            document.execCommand('copy');
+            alert('Text copied to clipboard!');
+        });
+        
+        // Sample text button
+        document.getElementById('sample-btn').addEventListener('click', function() {
+            const sampleText = `This is a sample text to demonstrate the character counter tool. 
+
+It includes multiple paragraphs, different sentences, and various word lengths. You can replace this with your own text to see real-time counting.
+
+The tool counts:
+- Characters (with and without spaces)
+- Words
+- Lines
+- Sentences
+- Paragraphs
+
+Use it for social media posts, SEO optimization, academic writing, and more!`;
+            
+            textInput.value = sampleText;
+            updateCounts();
+        });
+        
+        // Initialize counts
+        updateCounts();
+    </script>
+</body>
+</html>
