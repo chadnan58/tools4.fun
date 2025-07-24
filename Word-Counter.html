@@ -1,22 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" href="favicon-16x16.png" type="image/x-icon"
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Free online Word Counter tool to count words, characters, sentences, and paragraphs in your text. Fast, accurate, and easy to use.">
     <meta name="keywords" content="word counter, character counter, text analysis, writing tool, word count">
     <meta name="author" content="Word Counter Pro">
     <title>Word Counter Pro | Free Online Text Analysis Tool</title>
-    
-    <!-- SEO Canonical -->
-    <link rel="canonical" href="https://www.yourdomain.com/word-counter">
-    
-    <!-- Open Graph Tags for Social Sharing -->
-    <meta property="og:title" content="Word Counter Pro | Free Online Text Analysis Tool">
-    <meta property="og:description" content="Count words, characters, sentences, and paragraphs instantly with our free online tool.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.yourdomain.com/word-counter">
     
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📝</text></svg>">
@@ -40,18 +30,20 @@
         }
 
         header {
-            background-color: #2B2D42;
+            background: linear-gradient(135deg, #2B2D42 0%, #1a1c2c 100%);
             padding: 20px;
             border-radius: 12px;
             margin-bottom: 25px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
             text-align: center;
+            border: 1px solid #4A4E69;
         }
 
         header h1 {
             font-size: 2.8rem;
             margin-bottom: 10px;
             color: #FFD700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         header p {
@@ -76,28 +68,45 @@
         }
 
         .tool-card {
-            background-color: #3A3D5B;
+            background: linear-gradient(to bottom, #3A3D5B, #2f3247);
             border-radius: 12px;
             padding: 30px;
             margin-bottom: 25px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease, background-color 0.3s;
+            transition: all 0.3s ease;
+            border: 1px solid #4A4E69;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, rgba(255,215,0,0) 70%);
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
         }
 
         .tool-card:hover {
             transform: translateY(-5px);
-            background-color: #FFD700;
-            color: #1E1E2F;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
         }
 
-        .tool-card:hover h2 {
-            color: #1E1E2F;
+        .tool-card:hover:before {
+            opacity: 1;
         }
 
         .tool-card h2 {
             margin-bottom: 20px;
             color: #FFD700;
             font-size: 1.8rem;
+            position: relative;
+            z-index: 1;
         }
 
         textarea {
@@ -112,11 +121,14 @@
             margin-bottom: 20px;
             resize: vertical;
             transition: border-color 0.3s;
+            position: relative;
+            z-index: 1;
         }
 
         textarea:focus {
             outline: none;
             border-color: #FFD700;
+            box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
         }
 
         .stats-grid {
@@ -124,14 +136,23 @@
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
             margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
         }
 
         .stat-box {
-            background-color: #2B2D42;
+            background: linear-gradient(145deg, #2B2D42, #222437);
             padding: 20px;
             border-radius: 8px;
             text-align: center;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: 1px solid #4A4E69;
+            transition: all 0.3s ease;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
         }
 
         .stat-box h3 {
@@ -150,10 +171,12 @@
             display: flex;
             gap: 15px;
             flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
         }
 
         .btn {
-            background-color: #FFD700;
+            background: linear-gradient(to bottom, #FFD700, #E6C200);
             color: #1E1E2F;
             border: none;
             padding: 14px 28px;
@@ -161,13 +184,33 @@
             font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
             flex: 1;
             min-width: 150px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.1);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
         }
 
         .btn:hover {
-            background-color: #E6C200;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn:hover:after {
+            transform: translateX(0);
         }
 
         .ad-section {
@@ -175,12 +218,13 @@
             justify-content: center;
             align-items: center;
             min-height: 100px;
-            background-color: #2B2D42;
+            background: linear-gradient(135deg, #2B2D42 0%, #222437 100%);
             border-radius: 8px;
             margin: 25px 0;
-            padding: 20px;
+            padding: 15px;
             text-align: center;
-            border: 2px dashed #4A4E69;
+            border: 1px solid #4A4E69;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
 
         .ad-label {
@@ -195,9 +239,9 @@
         }
 
         .ad-card {
-            background-color: #3A3D5B;
+            background: linear-gradient(135deg, #3A3D5B 0%, #2f3247 100%);
             border-radius: 12px;
-            padding: 20px;
+            padding: 15px;
             margin-bottom: 25px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
             min-height: 300px;
@@ -205,6 +249,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            border: 1px solid #4A4E69;
         }
 
         .ad-card h3 {
@@ -213,12 +258,13 @@
         }
 
         footer {
-            background-color: #2B2D42;
+            background: linear-gradient(135deg, #2B2D42 0%, #1a1c2c 100%);
             padding: 30px;
             border-radius: 12px;
             margin-top: auto;
             text-align: center;
             box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2);
+            border: 1px solid #4A4E69;
         }
 
         footer p {
@@ -229,6 +275,14 @@
         .highlight {
             color: #FFD700;
             font-weight: bold;
+        }
+
+        .ad-container {
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(0,0,0,0.1);
         }
 
         @media (max-width: 768px) {
@@ -247,6 +301,10 @@
             header h1 {
                 font-size: 2.2rem;
             }
+            
+            .ad-card {
+                min-height: 250px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -261,6 +319,10 @@
             .btn {
                 width: 100%;
             }
+            
+            .ad-section {
+                padding: 10px;
+            }
         }
     </style>
 </head>
@@ -270,24 +332,23 @@
         <p>Count words, characters, sentences, and paragraphs in your text instantly</p>
     </header>
     
+    <!-- Top Leaderboard Ad -->
     <div class="ad-section">
-        <div>
-          <div class="ad-section">
-    <div class="ad-container">
-        <script type="text/javascript">
-            atOptions = {
-                'key': '95aac29d932ec51f5cae42ef69b777a1',
-                'format': 'iframe',
-                'height': 90,
-                'width': 728,
-                'params': {}
-            };
-        </script>
-        <script type="text/javascript"
-            src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js">
-        </script>
+        <div class="ad-container">
+            <script type="text/javascript">
+                atOptions = {
+                    'key': '95aac29d932ec51f5cae42ef69b777a1',
+                    'format': 'iframe',
+                    'height': 90,
+                    'width': 728,
+                    'params': {}
+                };
+            </script>
+            <script type="text/javascript"
+                src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js">
+            </script>
+        </div>
     </div>
-</div>
     
     <div class="container">
         <div class="main-content">
@@ -334,53 +395,54 @@ Try it now - it's completely free and easy to use!</textarea>
         </div>
         
         <div class="sidebar">
+            <!-- Sidebar Rectangle Ad -->
             <div class="ad-card">
                 <h3>Advertisement</h3>
-            <div class="ad-section">
-    <div class="ad-container">
-        <script type="text/javascript">
-            atOptions = {
-                'key': '95aac29d932ec51f5cae42ef69b777a1',
-                'format': 'iframe',
-                'height': 90,
-                'width': 728,
-                'params': {}
-            };
-        </script>
-        <script type="text/javascript"
-            src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js">
-        </script>
-    </div>
-</div>
+                <div class="ad-container">
+                    <script type="text/javascript">
+                        atOptions = {
+                            'key' : '5c580791be87a0e445d1b6695b074e90',
+                            'format' : 'iframe',
+                            'height' : 250,
+                            'width' : 300,
+                            'params' : {}
+                        };
+                    </script>
+                    <script type="text/javascript" src="//www.highperformanceformat.com/5c580791be87a0e445d1b6695b074e90/invoke.js"></script>
+                </div>
+            </div>
             
-            <script type="text/javascript">
-	atOptions = {
-		'key' : '5c580791be87a0e445d1b6695b074e90',
-		'format' : 'iframe',
-		'height' : 250,
-		'width' : 300,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/5c580791be87a0e445d1b6695b074e90/invoke.js"></script>
-    
-    <div class="ad-section">
-   <div class="ad-section">
-    <div class="ad-container">
-        <script type="text/javascript">
-            atOptions = {
-                'key': '95aac29d932ec51f5cae42ef69b777a1',
-                'format': 'iframe',
-                'height': 90,
-                'width': 728,
-                'params': {}
-            };
-        </script>
-        <script type="text/javascript"
-            src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js">
-        </script>
+            <!-- Additional Content Card -->
+            <div class="tool-card">
+                <h2>Writing Tips</h2>
+                <ul style="padding-left: 20px; margin-top: 15px;">
+                    <li style="margin-bottom: 10px;">Keep sentences under 25 words for readability</li>
+                    <li style="margin-bottom: 10px;">Use active voice whenever possible</li>
+                    <li style="margin-bottom: 10px;">Vary paragraph length for visual appeal</li>
+                    <li>Target 15-20 words per sentence for most content</li>
+                </ul>
+            </div>
+        </div>
     </div>
-</div>   
+    
+    <!-- Footer Leaderboard Ad -->
+    <div class="ad-section">
+        <div class="ad-container">
+            <script type="text/javascript">
+                atOptions = {
+                    'key': '95aac29d932ec51f5cae42ef69b777a1',
+                    'format': 'iframe',
+                    'height': 90,
+                    'width': 728,
+                    'params': {}
+                };
+            </script>
+            <script type="text/javascript"
+                src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js">
+            </script>
+        </div>
+    </div>
+    
     <footer>
         <p>© 2023 Word Counter Pro. All rights reserved.</p>
         <p>This tool is <span class="highlight">100% free</span> and processes your text entirely in your browser - no data is sent to any server.</p>
