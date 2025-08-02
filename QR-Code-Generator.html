@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online QR Code Generator. Create custom QR codes for websites, text, contact info and more. No signup required.">
+    <meta name="keywords" content="qr code generator, free qr code, online tools, tools4fun">
+    <title>Free QR Code Generator | Tools4Fun</title>
+    <link rel="canonical" href="https://www.tools4.fun/qr-generator">
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #7209b7;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --border: #dee2e6;
+            --card-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.08);
+            --success: #4caf50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f2f5;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 30px;
+            box-shadow: var(--card-shadow);
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Main Card - Matches Tools4Fun Design */
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 18px 25px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .card-body {
+            padding: 25px;
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+        
+        /* QR Display Area */
+        .qr-display {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+            border: 1px dashed var(--border);
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        #qrcode {
+            margin: 20px auto;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        
+        .download-btn {
+            background-color: var(--success);
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .download-btn:hover {
+            background-color: #43a047;
+        }
+        
+        /* Ad Space Styles */
+        .ad-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin: 30px 0;
+            border: 1px dashed #ccc;
+        }
+        
+        .ad-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .ad-space {
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin: 15px 0;
+            color: var(--gray);
+            font-style: italic;
+        }
+        
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: 30px;
+            border-top: 1px solid var(--border);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .card-header {
+                font-size: 1.1rem;
+                padding: 15px 20px;
+            }
+            
+            .card-body {
+                padding: 20px;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Animation for QR Code */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-qrcode"></i> QR Code Generator</h1>
+            <p>Create custom QR codes for websites, contact info, WiFi credentials and more in seconds</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Main Card (Matches Tools4Fun Design) -->
+        <div class="card">
+            <div class="card-header">
+                Generate Your QR Code
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="qr-text">Enter Text or URL</label>
+                    <input type="text" id="qr-text" class="form-control" placeholder="https://example.com or any text" value="https://www.tools4.fun">
+                </div>
+                
+                <div class="form-group">
+                    <label for="qr-size">QR Code Size</label>
+                    <select id="qr-size" class="form-control">
+                        <option value="200">Small (200x200)</option>
+                        <option value="300" selected>Medium (300x300)</option>
+                        <option value="400">Large (400x400)</option>
+                    </select>
+                </div>
+                
+                <button id="generate-btn" class="btn btn-block">
+                    <i class="fas fa-bolt"></i> Generate QR Code
+                </button>
+                
+                <div class="qr-display">
+                    <div id="qrcode">
+                        <p>Your QR code will appear here</p>
+                    </div>
+                    <a id="download-btn" class="btn download-btn">
+                        <i class="fas fa-download"></i> Download QR Code
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Ad Space - Top -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-space">
+                <!-- Google AdSense Ad Unit -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_SENSE_ID"
+                     crossorigin="anonymous"></script>
+                <!-- Tools4Fun_QR_Generator_Top -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-YOUR_AD_SENSE_ID"
+                     data-ad-slot="XXXXXXXXXX"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+        
+        <!-- Features Section -->
+        <h2 style="text-align: center; margin: 40px 0 30px; color: var(--primary);">Why Use Our QR Generator?</h2>
+        <div class="features">
+            <div class="feature-card">
+                <i class="fas fa-bolt"></i>
+                <h3>Instant Generation</h3>
+                <p>Create QR codes in real-time with no delays. Just enter your content and see results immediately.</p>
+            </div>
+            
+            <div class="feature-card">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Fully Responsive</h3>
+                <p>Our generator works perfectly on all devices - desktop, tablet, and mobile phones.</p>
+            </div>
+            
+            <div class="feature-card">
+                <i class="fas fa-download"></i>
+                <h3>Easy Download</h3>
+                <p>Download your QR codes as PNG images for printing or sharing with one click.</p>
+            </div>
+        </div>
+        
+        <!-- Ad Space - Bottom -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-space">
+                <!-- Google AdSense Ad Unit -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_SENSE_ID"
+                     crossorigin="anonymous"></script>
+                <!-- Tools4Fun_QR_Generator_Bottom -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-YOUR_AD_SENSE_ID"
+                     data-ad-slot="XXXXXXXXXX"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2023 Tools4Fun - Free Online Tools for Everyday Tasks</p>
+            <p>QR Code Generator | All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <!-- QR Code Generation Library -->
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const qrText = document.getElementById('qr-text');
+            const qrSize = document.getElementById('qr-size');
+            const generateBtn = document.getElementById('generate-btn');
+            const downloadBtn = document.getElementById('download-btn');
+            const qrCodeDiv = document.getElementById('qrcode');
+            
+            // Initialize QR Code
+            let qrCode = new QRCode(qrCodeDiv, {
+                text: qrText.value,
+                width: 300,
+                height: 300
+            });
+            
+            // Generate QR Code
+            generateBtn.addEventListener('click', function() {
+                const text = qrText.value.trim();
+                const size = parseInt(qrSize.value);
+                
+                if (!text) {
+                    alert('Please enter text or URL to generate QR code');
+                    return;
+                }
+                
+                // Clear previous QR code
+                qrCodeDiv.innerHTML = '';
+                
+                // Generate new QR code
+                qrCode = new QRCode(qrCodeDiv, {
+                    text: text,
+                    width: size,
+                    height: size
+                });
+                
+                // Show download button
+                downloadBtn.style.display = 'block';
+                
+                // Add animation
+                const img = qrCodeDiv.querySelector('img');
+                if (img) {
+                    img.classList.add('fade-in');
+                }
+            });
+            
+            // Download QR Code
+            downloadBtn.addEventListener('click', function() {
+                const img = qrCodeDiv.querySelector('img');
+                if (img) {
+                    const link = document.createElement('a');
+                    link.download = 'tools4fun-qr-code.png';
+                    link.href = img.src;
+                    link.click();
+                }
+            });
+            
+            // Generate QR code when pressing Enter
+            qrText.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    generateBtn.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
