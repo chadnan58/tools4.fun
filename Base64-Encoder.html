@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online Base64 Encoder and Decoder. Quickly encode and decode text, strings, and data with this easy-to-use tool.">
+    <meta name="keywords" content="base64 encoder, base64 decoder, online tools, text encoding, data encoding, tools4fun">
+    <title>Base64 Encoder & Decoder | Tools4Fun</title>
+    <link rel="canonical" href="https://www.tools4.fun/base64-encoder">
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #7209b7;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --border: #dee2e6;
+            --card-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.08);
+            --success: #4caf50;
+            --warning: #ff9800;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f2f5;
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 30px;
+            box-shadow: var(--card-shadow);
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Main Card - Matches Tools4Fun Design */
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 18px 25px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .card-body {
+            padding: 25px;
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            resize: vertical;
+            min-height: 150px;
+            font-family: monospace;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 25px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-align: center;
+            gap: 8px;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn-warning {
+            background-color: var(--warning);
+        }
+        
+        .btn-warning:hover {
+            background-color: #e68a00;
+        }
+        
+        .btn-success {
+            background-color: var(--success);
+        }
+        
+        .btn-success:hover {
+            background-color: #43a047;
+        }
+        
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+        
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        /* Ad Space Styles */
+        .ad-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin: 30px 0;
+            border: 1px dashed #ccc;
+        }
+        
+        .ad-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .ad-space {
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin: 15px 0;
+            color: var(--gray);
+            font-style: italic;
+        }
+        
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: 30px;
+            border-top: 1px solid var(--border);
+        }
+        
+        /* How to Use Section */
+        .usage-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .usage-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary);
+        }
+        
+        .usage-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .step-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .step-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .step-number {
+            background: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .card-header {
+                font-size: 1.1rem;
+                padding: 15px 20px;
+            }
+            
+            .card-body {
+                padding: 20px;
+            }
+            
+            .features, .usage-steps {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Animation for transitions */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 140px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -70px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8rem;
+        }
+        
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-lock"></i> Base64 Encoder & Decoder</h1>
+            <p>Encode and decode text, strings, and data to Base64 format instantly</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Ad Space - Top -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-space">
+                <!-- Google AdSense Ad Unit -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_SENSE_ID"
+                     crossorigin="anonymous"></script>
+                <!-- Tools4Fun_Base64_Top -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-YOUR_AD_SENSE_ID"
+                     data-ad-slot="XXXXXXXXXX"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+        
+        <!-- Main Card -->
+        <div class="card">
+            <div class="card-header">
+                Base64 Encoder & Decoder
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="input-text"><i class="fas fa-keyboard"></i> Input Text</label>
+                    <textarea id="input-text" class="form-control" placeholder="Enter text to encode or Base64 to decode..." autofocus>Hello Tools4Fun!</textarea>
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="encode-btn" class="btn">
+                        <i class="fas fa-lock"></i> Encode to Base64
+                    </button>
+                    <button id="decode-btn" class="btn btn-warning">
+                        <i class="fas fa-lock-open"></i> Decode from Base64
+                    </button>
+                    <button id="clear-btn" class="btn">
+                        <i class="fas fa-broom"></i> Clear All
+                    </button>
+                </div>
+                
+                <div class="form-group">
+                    <label for="output-text"><i class="fas fa-file-code"></i> Result</label>
+                    <textarea id="output-text" class="form-control" placeholder="Your encoded or decoded result will appear here..." readonly></textarea>
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="copy-btn" class="btn btn-success">
+                        <i class="fas fa-copy"></i> Copy to Clipboard
+                    </button>
+                    <button id="download-btn" class="btn">
+                        <i class="fas fa-download"></i> Download Result
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- How to Use Section -->
+        <div class="usage-section">
+            <h2><i class="fas fa-info-circle"></i> How to Use This Tool</h2>
+            <div class="usage-steps">
+                <div class="step-card">
+                    <h3><span class="step-number">1</span> Enter Your Content</h3>
+                    <p>Type or paste your text in the input field. This can be plain text for encoding or Base64 text for decoding.</p>
+                </div>
+                
+                <div class="step-card">
+                    <h3><span class="step-number">2</span> Encode or Decode</h3>
+                    <p>Click "Encode to Base64" to convert your text to Base64, or "Decode from Base64" to convert Base64 back to readable text.</p>
+                </div>
+                
+                <div class="step-card">
+                    <h3><span class="step-number">3</span> Use Your Result</h3>
+                    <p>Copy the result to clipboard, download it as a text file, or clear the fields to start over.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Features Section -->
+        <h2 style="text-align: center; margin: 40px 0 30px; color: var(--primary);">Why Use Our Base64 Tool?</h2>
+        <div class="features">
+            <div class="feature-card">
+                <i class="fas fa-bolt"></i>
+                <h3>Instant Conversion</h3>
+                <p>Encode and decode Base64 in real-time with no delays or processing time.</p>
+            </div>
+            
+            <div class="feature-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Secure Processing</h3>
+                <p>All conversions happen locally in your browser - no data is sent to servers.</p>
+            </div>
+            
+            <div class="feature-card">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Fully Responsive</h3>
+                <p>Works perfectly on all devices - desktop, tablet, and mobile phones.</p>
+            </div>
+        </div>
+        
+        <!-- Ad Space - Bottom -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-space">
+                <!-- Google AdSense Ad Unit -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_SENSE_ID"
+                     crossorigin="anonymous"></script>
+                <!-- Tools4Fun_Base64_Bottom -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-YOUR_AD_SENSE_ID"
+                     data-ad-slot="XXXXXXXXXX"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2023 Tools4Fun - Free Online Tools for Everyday Tasks</p>
+            <p>Base64 Encoder & Decoder | All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputText = document.getElementById('input-text');
+            const outputText = document.getElementById('output-text');
+            const encodeBtn = document.getElementById('encode-btn');
+            const decodeBtn = document.getElementById('decode-btn');
+            const clearBtn = document.getElementById('clear-btn');
+            const copyBtn = document.getElementById('copy-btn');
+            const downloadBtn = document.getElementById('download-btn');
+            
+            // Encode to Base64
+            encodeBtn.addEventListener('click', function() {
+                const text = inputText.value.trim();
+                
+                if (!text) {
+                    showNotification('Please enter some text to encode', 'warning');
+                    return;
+                }
+                
+                try {
+                    const encoded = btoa(unescape(encodeURIComponent(text)));
+                    outputText.value = encoded;
+                    showNotification('Text successfully encoded to Base64!', 'success');
+                } catch (e) {
+                    showNotification('Error encoding text: ' + e.message, 'error');
+                }
+            });
+            
+            // Decode from Base64
+            decodeBtn.addEventListener('click', function() {
+                const text = inputText.value.trim();
+                
+                if (!text) {
+                    showNotification('Please enter Base64 text to decode', 'warning');
+                    return;
+                }
+                
+                try {
+                    // Check if it's valid Base64
+                    if (!/^[a-zA-Z0-9+/=]+$/.test(text)) {
+                        throw new Error('Invalid Base64 input');
+                    }
+                    
+                    const decoded = decodeURIComponent(escape(atob(text)));
+                    outputText.value = decoded;
+                    showNotification('Base64 successfully decoded!', 'success');
+                } catch (e) {
+                    showNotification('Error decoding Base64: ' + e.message, 'error');
+                }
+            });
+            
+            // Clear all fields
+            clearBtn.addEventListener('click', function() {
+                inputText.value = '';
+                outputText.value = '';
+                showNotification('All fields cleared', 'info');
+            });
+            
+            // Copy to clipboard
+            copyBtn.addEventListener('click', function() {
+                if (!outputText.value) {
+                    showNotification('Nothing to copy', 'warning');
+                    return;
+                }
+                
+                outputText.select();
+                document.execCommand('copy');
+                
+                // Change button temporarily
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                }, 2000);
+                
+                showNotification('Result copied to clipboard!', 'success');
+            });
+            
+            // Download result
+            downloadBtn.addEventListener('click', function() {
+                if (!outputText.value) {
+                    showNotification('Nothing to download', 'warning');
+                    return;
+                }
+                
+                const blob = new Blob([outputText.value], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'tools4fun-base64-result.txt';
+                document.body.appendChild(a);
+                a.click();
+                
+                // Clean up
+                setTimeout(() => {
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                }, 100);
+                
+                showNotification('Result downloaded!', 'success');
+            });
+            
+            // Show notification
+            function showNotification(message, type) {
+                // Remove existing notifications
+                const existing = document.querySelector('.notification');
+                if (existing) existing.remove();
+                
+                const notification = document.createElement('div');
+                notification.className = `notification fade-in`;
+                notification.textContent = message;
+                
+                // Style based on type
+                notification.style.position = 'fixed';
+                notification.style.bottom = '20px';
+                notification.style.right = '20px';
+                notification.style.padding = '15px 25px';
+                notification.style.borderRadius = '8px';
+                notification.style.color = 'white';
+                notification.style.fontWeight = '500';
+                notification.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+                notification.style.zIndex = '1000';
+                
+                if (type === 'success') {
+                    notification.style.backgroundColor = '#4CAF50';
+                } else if (type === 'error') {
+                    notification.style.backgroundColor = '#f44336';
+                } else if (type === 'warning') {
+                    notification.style.backgroundColor = '#FF9800';
+                } else {
+                    notification.style.backgroundColor = '#2196F3';
+                }
+                
+                document.body.appendChild(notification);
+                
+                // Remove after 3 seconds
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    notification.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 300);
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
