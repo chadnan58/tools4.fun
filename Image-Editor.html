@@ -1,0 +1,384 @@
+<!-- Image Editor Card - matches Tools4Fun design -->
+<div class="col-md-3 col-sm-6">
+  <div class="tool-card">
+    <a href="Image-Editor.html" class="tool-link">
+      <div class="tool-card-content">
+        <div class="d-flex align-items-center mb-3">
+          <div class="tool-icon" aria-label="Image Editor Tool">
+            <i class="fas fa-image"></i>
+          </div>
+          <h3 class="tool-title">Image Editor</h3>
+        </div>
+        <p class="tool-description">Crop, resize, filter and optimize images with our powerful online editor. Supports JPG, PNG, GIF formats.</p>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- Image Editor Page Content (Image-Editor.html) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- SEO Meta Tags -->
+    <title>Online Image Editor - Crop, Resize & Optimize Images | Tools4Fun</title>
+    <meta name="description" content="Free online image editor with cropping, resizing, filters and optimization tools. No registration required. Works directly in your browser.">
+    <meta name="keywords" content="online image editor, photo editor, crop image, resize image, image optimizer, free photo editor">
+    <link rel="canonical" href="https://www.tools4.fun/Image-Editor.html" />
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Online Image Editor - Tools4Fun">
+    <meta property="og:description" content="Free online image editing tools with cropping, resizing and optimization">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.tools4.fun/Image-Editor.html">
+    <meta property="og:image" content="https://www.tools4.fun/images/image-editor-preview.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Online Image Editor - Tools4Fun">
+    <meta name="twitter:description" content="Free browser-based image editing tools for designers and developers">
+
+    <!-- Schema.org markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Image Editor",
+      "url": "https://www.tools4.fun/Image-Editor.html",
+      "applicationCategory": "ImageEditor",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+    <style>
+    /* Match existing Tools4Fun styles */
+    .editor-container {
+        background-color: #3A3D5B;
+        border-radius: 10px;
+        padding: 30px;
+        margin-top: 30px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 215, 0, 0.1);
+    }
+    
+    .editor-header {
+        color: #FFD700;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 15px;
+    }
+    
+    .editor-header::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 80px;
+        height: 3px;
+        background: #FFD700;
+    }
+    
+    .editor-panel {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    
+    .editor-canvas-container {
+        flex: 1;
+        min-width: 300px;
+    }
+    
+    .editor-controls {
+        flex: 0 0 300px;
+        background: rgba(43, 45, 66, 0.5);
+        padding: 20px;
+        border-radius: 8px;
+    }
+    
+    .control-group {
+        margin-bottom: 20px;
+    }
+    
+    .control-group h4 {
+        color: #FFD700;
+        margin-bottom: 10px;
+    }
+    
+    .btn-editor {
+        background-color: #FFD700;
+        color: #1E1E2F;
+        font-weight: 600;
+        border: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+    }
+    
+    .btn-editor:hover {
+        background-color: #E6C200;
+        color: #1E1E2F;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(255, 215, 0, 0.4);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .editor-panel {
+            flex-direction: column;
+        }
+        .editor-controls {
+            flex: 1;
+        }
+    }
+    </style>
+</head>
+<body>
+    <!-- Ad Space Top -->
+    <div class="ad-container mb-4">
+        <!-- Google AdSense -->
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+                crossorigin="anonymous"></script>
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+             data-ad-slot="YOUR_AD_SLOT_ID"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <div class="editor-container">
+        <h2 class="editor-header">Image Editor</h2>
+        
+        <div class="editor-panel">
+            <div class="editor-canvas-container">
+                <div class="image-upload-area">
+                    <input type="file" id="imageUpload" accept="image/*" class="d-none">
+                    <label for="imageUpload" class="btn btn-editor mb-3">
+                        <i class="fas fa-upload me-2"></i>Upload Image
+                    </label>
+                    <div id="imagePreviewContainer" class="text-center">
+                        <canvas id="imageCanvas"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="editor-controls">
+                <div class="control-group">
+                    <h4>Crop & Resize</h4>
+                    <div class="d-flex gap-2 mb-2">
+                        <button id="cropBtn" class="btn btn-editor btn-sm">Crop</button>
+                        <button id="resizeBtn" class="btn btn-editor btn-sm">Resize</button>
+                    </div>
+                    <div id="resizeControls" class="d-none">
+                        <div class="input-group mb-2">
+                            <span class="input-group-text">Width</span>
+                            <input type="number" id="widthInput" class="form-control" placeholder="px">
+                        </div>
+                        <div class="input-group mb-2">
+                            <span class="input-group-text">Height</span>
+                            <input type="number" id="heightInput" class="form-control" placeholder="px">
+                        </div>
+                        <button id="applyResizeBtn" class="btn btn-editor btn-sm">Apply</button>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <h4>Adjustments</h4>
+                    <div class="mb-2">
+                        <label for="brightnessRange" class="form-label">Brightness</label>
+                        <input type="range" id="brightnessRange" class="form-range" min="0" max="200" value="100">
+                    </div>
+                    <div class="mb-2">
+                        <label for="contrastRange" class="form-label">Contrast</label>
+                        <input type="range" id="contrastRange" class="form-range" min="0" max="200" value="100">
+                    </div>
+                    <button id="resetAdjustmentsBtn" class="btn btn-editor btn-sm">Reset</button>
+                </div>
+                
+                <div class="control-group">
+                    <h4>Compression</h4>
+                    <div class="mb-2">
+                        <label for="qualityRange" class="form-label">Quality: <span id="qualityValue">80</span>%</label>
+                        <input type="range" id="qualityRange" class="form-range" min="10" max="100" value="80">
+                    </div>
+                    <div class="mb-2">
+                        <label for="formatSelect" class="form-label">Format</label>
+                        <select id="formatSelect" class="form-select">
+                            <option value="jpeg">JPEG</option>
+                            <option value="png">PNG</option>
+                            <option value="webp">WebP</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <button id="downloadBtn" class="btn btn-editor w-100">
+                        <i class="fas fa-download me-2"></i>Download Image
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ad Space Bottom -->
+    <div class="ad-container mt-4">
+        <!-- Google AdSense -->
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+                crossorigin="anonymous"></script>
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+             data-ad-slot="YOUR_AD_SLOT_ID"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <!-- How to Use Section -->
+    <div class="editor-container mt-4">
+        <h2 class="editor-header">How to Use the Image Editor</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <h4><i class="fas fa-upload text-warning me-2"></i>Uploading Images</h4>
+                <p>Click the "Upload Image" button to select an image from your device. Supported formats include JPG, PNG, and GIF.</p>
+                
+                <h4><i class="fas fa-crop text-warning me-2"></i>Cropping</h4>
+                <p>Click the "Crop" button and drag the selection area on your image. Press enter to apply the crop.</p>
+                
+                <h4><i class="fas fa-expand text-warning me-2"></i>Resizing</h4>
+                <p>Click "Resize" and enter your desired dimensions in pixels. The aspect ratio is maintained automatically.</p>
+            </div>
+            <div class="col-md-6">
+                <h4><i class="fas fa-sliders-h text-warning me-2"></i>Adjustments</h4>
+                <p>Use the brightness and contrast sliders to enhance your image. Click "Reset" to revert to original values.</p>
+                
+                <h4><i class="fas fa-compress text-warning me-2"></i>Compression</h4>
+                <p>Adjust the quality slider to optimize file size. Lower values create smaller files with reduced quality.</p>
+                
+                <h4><i class="fas fa-download text-warning me-2"></i>Saving</h4>
+                <p>Choose your output format and click "Download" to save the edited image to your device.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Image Editor Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const imageUpload = document.getElementById('imageUpload');
+        const imageCanvas = document.getElementById('imageCanvas');
+        const ctx = imageCanvas.getContext('2d');
+        let currentImage = null;
+        
+        // Upload image
+        imageUpload.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const img = new Image();
+                    img.onload = function() {
+                        currentImage = img;
+                        imageCanvas.width = img.width;
+                        imageCanvas.height = img.height;
+                        ctx.drawImage(img, 0, 0);
+                    };
+                    img.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Brightness/Contrast adjustments
+        const brightnessRange = document.getElementById('brightnessRange');
+        const contrastRange = document.getElementById('contrastRange');
+        
+        function applyFilters() {
+            if (currentImage) {
+                ctx.filter = `brightness(${brightnessRange.value}%) contrast(${contrastRange.value}%)`;
+                ctx.drawImage(currentImage, 0, 0, imageCanvas.width, imageCanvas.height);
+            }
+        }
+        
+        brightnessRange.addEventListener('input', applyFilters);
+        contrastRange.addEventListener('input', applyFilters);
+        
+        // Reset adjustments
+        document.getElementById('resetAdjustmentsBtn').addEventListener('click', function() {
+            brightnessRange.value = 100;
+            contrastRange.value = 100;
+            applyFilters();
+        });
+        
+        // Download image
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            if (currentImage) {
+                const format = document.getElementById('formatSelect').value;
+                const quality = document.getElementById('qualityRange').value / 100;
+                
+                const link = document.createElement('a');
+                link.download = `edited-image.${format}`;
+                link.href = imageCanvas.toDataURL(`image/${format}`, quality);
+                link.click();
+            }
+        });
+        
+        // Update quality value display
+        document.getElementById('qualityRange').addEventListener('input', function() {
+            document.getElementById('qualityValue').textContent = this.value;
+        });
+        
+        // Resize functionality
+        document.getElementById('resizeBtn').addEventListener('click', function() {
+            document.getElementById('resizeControls').classList.toggle('d-none');
+        });
+        
+        document.getElementById('applyResizeBtn').addEventListener('click', function() {
+            const width = parseInt(document.getElementById('widthInput').value);
+            const height = parseInt(document.getElementById('heightInput').value);
+            
+            if (width && height && currentImage) {
+                // Calculate aspect ratio
+                const aspectRatio = currentImage.width / currentImage.height;
+                let newWidth = width;
+                let newHeight = height;
+                
+                // Maintain aspect ratio
+                if (width / height > aspectRatio) {
+                    newWidth = height * aspectRatio;
+                } else {
+                    newHeight = width / aspectRatio;
+                }
+                
+                // Create temporary canvas for resizing
+                const tempCanvas = document.createElement('canvas');
+                const tempCtx = tempCanvas.getContext('2d');
+                tempCanvas.width = newWidth;
+                tempCanvas.height = newHeight;
+                
+                // Draw resized image
+                tempCtx.drawImage(currentImage, 0, 0, newWidth, newHeight);
+                
+                // Update main canvas
+                imageCanvas.width = newWidth;
+                imageCanvas.height = newHeight;
+                ctx.drawImage(tempCanvas, 0, 0);
+                
+                currentImage = new Image();
+                currentImage.src = tempCanvas.toDataURL();
+                
+                document.getElementById('resizeControls').classList.add('d-none');
+            }
+        });
+    });
+    </script>
+</body>
+</html>
