@@ -784,13 +784,13 @@
             });
             
             function highlight() {
-                uploadArea.style.borderColor = var(--primary);
+                uploadArea.style.borderColor = '#4361ee';
                 uploadArea.style.backgroundColor = 'rgba(67, 97, 238, 0.1)';
             }
             
             function unhighlight() {
-                uploadArea.style.borderColor = var(--border);
-                uploadArea.style.backgroundColor = var(--light);
+                uploadArea.style.borderColor = '#dee2e6';
+                uploadArea.style.backgroundColor = '#f8f9fa';
             }
             
             uploadArea.addEventListener('drop', handleDrop, false);
@@ -814,10 +814,12 @@
                 } else if(conversionType === 'document') {
                     const validTypes = [
                         'application/msword',
-                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                        'application/pdf',
+                        'text/plain'
                     ];
                     if(!validTypes.includes(file.type)) {
-                        showStatusMessage('Please upload a valid document (DOC, DOCX)', 'error');
+                        showStatusMessage('Please upload a valid document (DOC, DOCX, TXT, PDF)', 'error');
                         return;
                     }
                 }
@@ -900,9 +902,9 @@
             
             function isValidUrl(string) {
                 try {
-                    new URL(string);
-                    return true;
-                } catch (_) {
+                    const url = new URL(string);
+                    return url.protocol === 'http:' || url.protocol === 'https:';
+                } catch (err) {
                     return false;
                 }
             }
@@ -937,6 +939,7 @@
                 resetFilePreview();
                 document.getElementById('webpage-url').value = '';
                 progressContainer.style.display = 'none';
+                progressBar.style.width = '0%';
                 downloadBtn.style.display = 'none';
                 statusMessage.style.display = 'none';
                 
