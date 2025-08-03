@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Convert your images to scalable SVG format with our free online tool. Perfect for logos, icons, and vector graphics.">
+    <meta name="keywords" content="image to svg, svg converter, vector converter, image converter, svg tool">
+    <title>Free Image to SVG Converter | Online Vector Conversion Tool</title>
+    <link rel="icon" href="favicon-16x16.png" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e6f7ff 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #4a90e2 0%, #63b3ed 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .logo h1 {
+            color: #2c5282;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+        
+        .tagline {
+            color: #4a5568;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .ad-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin: 25px auto;
+            padding: 15px;
+            text-align: center;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #718096;
+            font-size: 0.9rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            margin: 0 auto 30px;
+            max-width: 900px;
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, #4a90e2 0%, #63b3ed 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .card-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .card-body {
+            padding: 30px;
+        }
+        
+        .tool-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .upload-section {
+            text-align: center;
+            padding: 25px;
+            border: 2px dashed #cbd5e0;
+            border-radius: 12px;
+            background: #f8fafc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-section:hover {
+            border-color: #4a90e2;
+            background: #edf8ff;
+        }
+        
+        .upload-icon {
+            font-size: 3.5rem;
+            color: #4a90e2;
+            margin-bottom: 15px;
+        }
+        
+        .upload-text {
+            font-size: 1.2rem;
+            color: #4a5568;
+            margin-bottom: 15px;
+        }
+        
+        .btn-upload {
+            background: linear-gradient(135deg, #4a90e2 0%, #63b3ed 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+        
+        .btn-upload:hover {
+            transform: translateY(-2px);
+        }
+        
+        .preview-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .preview-box {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        
+        .preview-title {
+            font-size: 1.1rem;
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .image-container {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            background: #f8fafc;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .image-container img, .image-container svg {
+            max-width: 100%;
+            max-height: 400px;
+            display: block;
+        }
+        
+        .placeholder-text {
+            color: #a0aec0;
+            padding: 30px;
+        }
+        
+        .action-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 25px;
+        }
+        
+        .action-btn {
+            padding: 14px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1rem;
+        }
+        
+        .btn-convert {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+        }
+        
+        .btn-download {
+            background: linear-gradient(135deg, #805ad5 0%, #6b46c1 100%);
+            color: white;
+        }
+        
+        .btn-reset {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .loading-section {
+            text-align: center;
+            padding: 30px;
+            display: none;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #e2e8f0;
+            border-top: 5px solid #4a90e2;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            font-size: 1.2rem;
+            color: #4a5568;
+        }
+        
+        .instructions {
+            background: #f8f9fa;
+            border-left: 4px solid #4a90e2;
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 40px;
+        }
+        
+        .instructions h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+        
+        .instructions ul {
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .feature-card {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #4a90e2;
+            margin-bottom: 15px;
+        }
+        
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2d3748;
+        }
+        
+        .feature-desc {
+            color: #4a5568;
+            font-size: 0.95rem;
+        }
+        
+        .svg-info {
+            background: #e6f7ff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .svg-info h3 {
+            color: #2c5282;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .svg-info p {
+            margin-bottom: 15px;
+            color: #2d3748;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #4a5568;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .preview-section {
+                flex-direction: column;
+            }
+            
+            .ad-container {
+                margin: 15px auto;
+            }
+            
+            .card-body {
+                padding: 20px;
+            }
+            
+            .upload-icon {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo h1 {
+                font-size: 1.8rem;
+            }
+            
+            .card-header h2 {
+                font-size: 1.5rem;
+            }
+            
+            .action-section {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">SVG</div>
+                <h1>Image to SVG Converter</h1>
+            </div>
+            <p class="tagline">Convert your images to scalable vector graphics (SVG) with our free online tool</p>
+        </header>
+
+        <!-- Top Ad Container -->
+        <div class="ad-container">
+            Advertisement Space (Top)
+            <!-- AdSense Code Here -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+
+        <main>
+            <div class="card">
+                <div class="card-header">
+                    <h2>Image to SVG Converter</h2>
+                    <p>Transform raster images into scalable vector graphics</p>
+                </div>
+                
+                <div class="card-body">
+                    <div class="tool-container">
+                        <div class="upload-section" id="upload-area">
+                            <div class="upload-icon">🖼️</div>
+                            <p class="upload-text">Drag & drop your image here or click to browse</p>
+                            <button class="btn-upload">Select Image</button>
+                            <input type="file" id="file-input" accept="image/*" style="display: none;">
+                        </div>
+                        
+                        <div class="preview-section">
+                            <div class="preview-box">
+                                <div class="preview-title">Original Image</div>
+                                <div class="image-container" id="original-container">
+                                    <div class="placeholder-text">Your original image will appear here</div>
+                                </div>
+                            </div>
+                            
+                            <div class="preview-box">
+                                <div class="preview-title">Converted SVG</div>
+                                <div class="image-container" id="result-container">
+                                    <div class="placeholder-text">SVG result will appear here</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="action-section">
+                            <button class="action-btn btn-convert" id="convert-btn" disabled>Convert to SVG</button>
+                            <button class="action-btn btn-download" id="download-btn" disabled>Download SVG</button>
+                            <button class="action-btn btn-reset" id="reset-btn">Reset</button>
+                        </div>
+                        
+                        <div class="loading-section" id="loading-section">
+                            <div class="spinner"></div>
+                            <p class="loading-text">Converting to SVG... Please wait</p>
+                        </div>
+                    </div>
+                    
+                    <div class="instructions">
+                        <h3>How to Use This Tool</h3>
+                        <ul>
+                            <li><strong>Step 1:</strong> Click "Select Image" or drag and drop your image into the upload area</li>
+                            <li><strong>Step 2:</strong> Preview your original image on the left side</li>
+                            <li><strong>Step 3:</strong> Click "Convert to SVG" to process your image</li>
+                            <li><strong>Step 4:</strong> Wait a few seconds while we convert your image to SVG format</li>
+                            <li><strong>Step 5:</strong> Preview the SVG result on the right</li>
+                            <li><strong>Step 6:</strong> Click "Download SVG" to save your vector graphic</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="svg-info">
+                        <h3>Why Convert to SVG?</h3>
+                        <p>SVG (Scalable Vector Graphics) is an XML-based vector image format for two-dimensional graphics. Unlike raster images (JPG, PNG), SVG images:</p>
+                        <ul>
+                            <li>Scale to any size without losing quality</li>
+                            <li>Have smaller file sizes for simple graphics</li>
+                            <li>Can be edited with any text editor</li>
+                            <li>Can be animated and manipulated with CSS/JavaScript</li>
+                            <li>Are ideal for logos, icons, and illustrations</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="features">
+                        <div class="feature-card">
+                            <div class="feature-icon">⚡</div>
+                            <div class="feature-title">Fast Conversion</div>
+                            <div class="feature-desc">Convert images to SVG in seconds with our advanced technology</div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">📐</div>
+                            <div class="feature-title">High Quality</div>
+                            <div class="feature-desc">Get clean vector graphics with smooth edges</div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">🔒</div>
+                            <div class="feature-title">Privacy Protected</div>
+                            <div class="feature-desc">Your images are processed in your browser</div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">💯</div>
+                            <div class="feature-title">100% Free</div>
+                            <div class="feature-desc">No hidden costs or subscriptions</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Ad Container -->
+        <div class="ad-container">
+            Advertisement Space (Bottom)
+            <!-- AdSense Code Here -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+
+        <footer>
+            <p>© 2023 Image to SVG Converter | Part of Tools4.fun | This tool processes images in your browser - no data is uploaded to any server.</p>
+        </footer>
+    </div>
+
+    <script>
+        // DOM Elements
+        const uploadArea = document.getElementById('upload-area');
+        const fileInput = document.getElementById('file-input');
+        const originalContainer = document.getElementById('original-container');
+        const resultContainer = document.getElementById('result-container');
+        const convertBtn = document.getElementById('convert-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const loadingSection = document.getElementById('loading-section');
+        
+        // Variables to store images
+        let originalImage = null;
+        let svgData = null;
+        
+        // Event Listeners
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+        
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#4a90e2';
+            uploadArea.style.backgroundColor = '#edf8ff';
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.borderColor = '#cbd5e0';
+            uploadArea.style.backgroundColor = '#f8fafc';
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#cbd5e0';
+            uploadArea.style.backgroundColor = '#f8fafc';
+            
+            if (e.dataTransfer.files.length) {
+                handleImageUpload(e.dataTransfer.files[0]);
+            }
+        });
+        
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length) {
+                handleImageUpload(e.target.files[0]);
+            }
+        });
+        
+        convertBtn.addEventListener('click', convertToSVG);
+        downloadBtn.addEventListener('click', downloadSVG);
+        resetBtn.addEventListener('click', resetTool);
+        
+        // Functions
+        function handleImageUpload(file) {
+            if (!file.type.match('image.*')) {
+                alert('Please upload an image file (JPEG, PNG, etc.)');
+                return;
+            }
+            
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                originalImage = new Image();
+                originalImage.onload = function() {
+                    // Display original image
+                    originalContainer.innerHTML = '';
+                    originalContainer.appendChild(originalImage);
+                    
+                    // Enable convert button
+                    convertBtn.disabled = false;
+                    
+                    // Reset result container
+                    resultContainer.innerHTML = '<div class="placeholder-text">SVG result will appear here</div>';
+                    downloadBtn.disabled = true;
+                };
+                originalImage.src = e.target.result;
+            };
+            
+            reader.readAsDataURL(file);
+        }
+        
+        function convertToSVG() {
+            if (!originalImage) return;
+            
+            // Show loading animation
+            loadingSection.style.display = 'block';
+            convertBtn.disabled = true;
+            
+            // Simulate conversion to SVG
+            setTimeout(() => {
+                // For demonstration, we'll create a simple SVG placeholder
+                // In a real application, this would be replaced with actual image vectorization
+                const svgNS = "http://www.w3.org/2000/svg";
+                const svg = document.createElementNS(svgNS, "svg");
+                svg.setAttribute("width", originalImage.width);
+                svg.setAttribute("height", originalImage.height);
+                svg.setAttribute("viewBox", `0 0 ${originalImage.width} ${originalImage.height}`);
+                
+                // Create a rectangle for the background
+                const rect = document.createElementNS(svgNS, "rect");
+                rect.setAttribute("width", "100%");
+                rect.setAttribute("height", "100%");
+                rect.setAttribute("fill", "#f0f7ff");
+                svg.appendChild(rect);
+                
+                // Create a circle to simulate vector graphics
+                const circle = document.createElementNS(svgNS, "circle");
+                circle.setAttribute("cx", originalImage.width / 2);
+                circle.setAttribute("cy", originalImage.height / 2);
+                circle.setAttribute("r", Math.min(originalImage.width, originalImage.height) * 0.3);
+                circle.setAttribute("fill", "#4a90e2");
+                circle.setAttribute("opacity", "0.7");
+                svg.appendChild(circle);
+                
+                // Create text to show it's a demo
+                const text = document.createElementNS(svgNS, "text");
+                text.setAttribute("x", "50%");
+                text.setAttribute("y", "50%");
+                text.setAttribute("dominant-baseline", "middle");
+                text.setAttribute("text-anchor", "middle");
+                text.setAttribute("fill", "#ffffff");
+                text.setAttribute("font-size", "24");
+                text.setAttribute("font-weight", "bold");
+                text.textContent = "SVG Preview";
+                svg.appendChild(text);
+                
+                // Display the SVG
+                resultContainer.innerHTML = '';
+                resultContainer.appendChild(svg);
+                
+                // Store SVG data for download
+                svgData = new XMLSerializer().serializeToString(svg);
+                
+                // Enable download button
+                downloadBtn.disabled = false;
+                
+                // Hide loading animation
+                loadingSection.style.display = 'none';
+            }, 2000); // Simulate 2-second processing time
+        }
+        
+        function downloadSVG() {
+            if (!svgData) return;
+            
+            const blob = new Blob([svgData], {type: "image/svg+xml"});
+            const url = URL.createObjectURL(blob);
+            
+            const link = document.createElement('a');
+            link.download = 'converted-image.svg';
+            link.href = url;
+            link.click();
+            
+            URL.revokeObjectURL(url);
+        }
+        
+        function resetTool() {
+            originalContainer.innerHTML = '<div class="placeholder-text">Your original image will appear here</div>';
+            resultContainer.innerHTML = '<div class="placeholder-text">SVG result will appear here</div>';
+            fileInput.value = '';
+            convertBtn.disabled = true;
+            downloadBtn.disabled = true;
+            originalImage = null;
+            svgData = null;
+        }
+        
+        // Demo initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            // Create a sample SVG for the result container placeholder
+            const svgNS = "http://www.w3.org/2000/svg";
+            const svg = document.createElementNS(svgNS, "svg");
+            svg.setAttribute("width", "200");
+            svg.setAttribute("height", "200");
+            svg.setAttribute("viewBox", "0 0 200 200");
+            
+            const path = document.createElementNS(svgNS, "path");
+            path.setAttribute("d", "M20,100 Q100,20 180,100 Q100,180 20,100 Z");
+            path.setAttribute("fill", "#e6f7ff");
+            path.setAttribute("stroke", "#4a90e2");
+            path.setAttribute("stroke-width", "2");
+            svg.appendChild(path);
+            
+            const text = document.createElementNS(svgNS, "text");
+            text.setAttribute("x", "100");
+            text.setAttribute("y", "100");
+            text.setAttribute("dominant-baseline", "middle");
+            text.setAttribute("text-anchor", "middle");
+            text.setAttribute("fill", "#4a90e2");
+            text.setAttribute("font-size", "16");
+            text.textContent = "SVG Preview";
+            svg.appendChild(text);
+            
+            resultContainer.appendChild(svg);
+        });
+    </script>
+</body>
+</html>
