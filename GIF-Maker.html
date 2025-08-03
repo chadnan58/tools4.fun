@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create custom GIFs online with our free GIF Maker tool. Convert images to animated GIFs easily.">
+    <meta name="keywords" content="gif maker, create gif, animated gif, online gif tool, free gif creator">
+    <title>Free Online GIF Maker Tool - Tools4Fun</title>
+    <link rel="icon" href="favicon-16x16.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.js"></script>
+    <style>
+        :root {
+            --primary: #4caf50;
+            --primary-dark: #388e3c;
+            --secondary: #ff9800;
+            --dark: #333;
+            --light: #f8f9fa;
+            --gray: #e9ecef;
+            --border: #dee2e6;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa, #e4e7eb);
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+        
+        .logo i {
+            font-size: 2.5rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto 25px;
+        }
+        
+        /* Tool Container */
+        .tool-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        @media (min-width: 992px) {
+            .tool-container {
+                grid-template-columns: 1fr 350px;
+            }
+        }
+        
+        /* Card Styles */
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 18px 25px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .card-body {
+            padding: 25px;
+        }
+        
+        /* Ad Spaces */
+        .ad-container {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        .ad-label {
+            font-size: 0.85rem;
+            color: #777;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .ad-placeholder {
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            border: 1px dashed #ccc;
+        }
+        
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        input[type="file"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background-color: var(--light);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="file"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+        }
+        
+        input[type="range"] {
+            flex: 1;
+            height: 8px;
+            border-radius: 4px;
+            background: #e0e0e0;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            background: var(--primary-dark);
+        }
+        
+        .range-value {
+            min-width: 60px;
+            text-align: center;
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        
+        button {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
+        }
+        
+        .btn-block {
+            width: 100%;
+            display: block;
+            text-align: center;
+            justify-content: center;
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--secondary), #f57c00);
+            box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            box-shadow: 0 6px 15px rgba(255, 152, 0, 0.4);
+        }
+        
+        /* Preview Area */
+        .preview-container {
+            margin-top: 25px;
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            background-color: var(--light);
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: border-color 0.3s;
+        }
+        
+        .preview-container.active {
+            border-color: var(--primary);
+            background-color: rgba(76, 175, 80, 0.05);
+        }
+        
+        #gifPreview {
+            max-width: 100%;
+            max-height: 300px;
+            display: none;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        #downloadBtn {
+            display: none;
+            margin-top: 20px;
+        }
+        
+        .preview-placeholder {
+            color: #777;
+            font-size: 1.1rem;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .preview-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            opacity: 0.7;
+        }
+        
+        /* How to Use */
+        .instructions .step {
+            display: flex;
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .instructions .step:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-right: 20px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+        }
+        
+        .step-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+        
+        .step-content p {
+            color: #555;
+        }
+        
+        /* Loading Animation */
+        .loader {
+            display: none;
+            width: 60px;
+            height: 60px;
+            border: 6px solid var(--gray);
+            border-top: 6px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 30px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .card-header {
+                font-size: 1.1rem;
+                padding: 15px 20px;
+            }
+            
+            button {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+        }
+        
+        /* File Upload Styling */
+        .file-upload-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 5px;
+        }
+        
+        .file-upload-container:before {
+            content: 'Choose Images';
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 12px 20px;
+            border-radius: 0 8px 8px 0;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .file-upload-container:hover:before {
+            background: linear-gradient(135deg, var(--primary-dark), #2e7d32);
+        }
+        
+        input[type="file"] {
+            padding: 12px 120px 12px 15px;
+            cursor: pointer;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 0 20px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            margin-top: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-3px);
+            background: var(--primary-dark);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="#" class="logo">
+                <i class="fas fa-play-circle"></i>
+                <span>Tools4Fun</span>
+            </a>
+            <h1>Free Online GIF Maker</h1>
+            <p class="subtitle">Create animated GIFs from your images in seconds. No registration required!</p>
+        </header>
+
+        <!-- Top Ad Space -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-placeholder">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="tool-container">
+            <!-- Tool Section -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-cogs"></i> Create Your GIF
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="imageUpload">Upload Images (Multiple Selection Supported)</label>
+                        <div class="file-upload-container">
+                            <input type="file" id="imageUpload" accept="image/*" multiple>
+                        </div>
+                        <small class="file-info">Select 2 or more images for best results</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="speedControl">Animation Speed: <span id="speedValue">100</span>ms</label>
+                        <div class="input-group">
+                            <span>Slow</span>
+                            <input type="range" id="speedControl" min="20" max="500" value="100">
+                            <span>Fast</span>
+                            <span class="range-value" id="speedDisplay">100ms</span>
+                        </div>
+                    </div>
+                    
+                    <button id="generateBtn" class="btn-block">
+                        <i class="fas fa-bolt"></i> Generate GIF
+                    </button>
+                    
+                    <div class="preview-container" id="previewContainer">
+                        <div class="loader" id="loader"></div>
+                        <img id="gifPreview" alt="Generated GIF Preview">
+                        <div class="preview-placeholder" id="previewText">
+                            <i class="fas fa-image"></i>
+                            <p>Upload images and click "Generate GIF" to create your animation</p>
+                        </div>
+                        <a id="downloadBtn" class="btn-block btn-secondary">
+                            <i class="fas fa-download"></i> Download GIF
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- How to Use Section -->
+            <div class="card instructions">
+                <div class="card-header">
+                    <i class="fas fa-info-circle"></i> How to Use
+                </div>
+                <div class="card-body">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Upload Images</h4>
+                            <p>Click "Choose Images" and select multiple images for your GIF animation. For best results, use images of similar dimensions.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Adjust Speed</h4>
+                            <p>Use the slider to set the delay between frames. Lower values create faster animations, higher values create slower animations.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Generate GIF</h4>
+                            <p>Click the "Generate GIF" button to create your animation. Processing may take a few seconds depending on the number of images.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>Download</h4>
+                            <p>Once generated, preview your GIF and click "Download GIF" to save it to your device.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Ad Space -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-placeholder">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+            </div>
+        </div>
+        
+        <footer>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-pinterest"></i></a>
+            </div>
+            <p>&copy; 2023 Tools4Fun. All rights reserved.</p>
+            <p>Free online tools for everyday tasks</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const imageUpload = document.getElementById('imageUpload');
+            const speedControl = document.getElementById('speedControl');
+            const speedDisplay = document.getElementById('speedDisplay');
+            const generateBtn = document.getElementById('generateBtn');
+            const gifPreview = document.getElementById('gifPreview');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const previewText = document.getElementById('previewText');
+            const loader = document.getElementById('loader');
+            const previewContainer = document.getElementById('previewContainer');
+            const fileInfo = document.querySelector('.file-info');
+            
+            // Update speed display
+            speedControl.addEventListener('input', function() {
+                speedDisplay.textContent = this.value + 'ms';
+            });
+            
+            // Update file info
+            imageUpload.addEventListener('change', function() {
+                const count = this.files.length;
+                if (count > 0) {
+                    fileInfo.textContent = count + (count === 1 ? ' image selected' : ' images selected');
+                    fileInfo.style.color = 'var(--primary)';
+                } else {
+                    fileInfo.textContent = 'Select 2 or more images for best results';
+                    fileInfo.style.color = '';
+                }
+            });
+            
+            // Generate GIF
+            generateBtn.addEventListener('click', function() {
+                const files = imageUpload.files;
+                const speed = parseInt(speedControl.value);
+                
+                if (files.length < 2) {
+                    alert('Please upload at least two images to create a GIF.');
+                    return;
+                }
+                
+                // Show loader and update UI
+                loader.style.display = 'block';
+                previewText.style.display = 'none';
+                gifPreview.style.display = 'none';
+                downloadBtn.style.display = 'none';
+                previewContainer.classList.add('active');
+                generateBtn.disabled = true;
+                generateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+                
+                // Create GIF
+                const gif = new GIF({
+                    workers: 2,
+                    quality: 10,
+                    width: 500,
+                    height: 500,
+                    workerScript: 'https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.worker.js'
+                });
+                
+                // Process files
+                const processFiles = async () => {
+                    for (let i = 0; i < files.length; i++) {
+                        const file = files[i];
+                        const img = await loadImage(file);
+                        gif.addFrame(img, {delay: speed});
+                    }
+                    
+                    gif.on('finished', function(blob) {
+                        const url = URL.createObjectURL(blob);
+                        gifPreview.src = url;
+                        gifPreview.style.display = 'block';
+                        previewText.style.display = 'none';
+                        loader.style.display = 'none';
+                        
+                        // Setup download
+                        downloadBtn.href = url;
+                        downloadBtn.download = 'tools4fun-animation.gif';
+                        downloadBtn.style.display = 'block';
+                        
+                        // Reset button
+                        generateBtn.disabled = false;
+                        generateBtn.innerHTML = '<i class="fas fa-bolt"></i> Generate GIF';
+                    });
+                    
+                    gif.render();
+                };
+                
+                processFiles().catch(error => {
+                    console.error('Error processing files:', error);
+                    alert('An error occurred while creating your GIF. Please try again with different images.');
+                    loader.style.display = 'none';
+                    previewText.style.display = 'block';
+                    generateBtn.disabled = false;
+                    generateBtn.innerHTML = '<i class="fas fa-bolt"></i> Generate GIF';
+                    previewContainer.classList.remove('active');
+                });
+            });
+            
+            // Helper function to load images
+            function loadImage(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const img = new Image();
+                        img.onload = function() {
+                            resolve(img);
+                        };
+                        img.onerror = reject;
+                        img.src = e.target.result;
+                    };
+                    reader.onerror = reject;
+                    reader.readAsDataURL(file);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
