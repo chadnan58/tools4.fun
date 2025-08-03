@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lorem Ipsum Generator - Free Placeholder Text | Tools4Fun</title>
+    <meta name="description" content="Generate custom Lorem Ipsum placeholder text for your designs. Free online tool with options for paragraphs, words, lists, and more.">
+    <meta name="keywords" content="lorem ipsum generator, placeholder text, dummy text, design tools, content tools, tools4fun">
+    <link rel="canonical" href="https://www.tools4.fun/lorem-ipsum-generator">
+    <link rel="icon" href="favicon-16x16.png" type="image/png">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Free Lorem Ipsum Generator - Tools4Fun">
+    <meta property="og:description" content="Create custom placeholder text for your designs and prototypes">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.tools4.fun/lorem-ipsum-generator">
+    <meta property="og:image" content="https://www.tools4.fun/images/lorem-ipsum-og.jpg">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Lorem Ipsum Generator - Tools4Fun">
+    <meta name="twitter:description" content="Generate custom placeholder text for your projects">
+    
+    <!-- Schema.org markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Lorem Ipsum Generator",
+      "url": "https://www.tools4.fun/lorem-ipsum-generator",
+      "applicationCategory": "Design Tool",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    
+    <style>
+        :root {
+            --bg-dark-navy: #1E1E2F;
+            --text-light-gray: #EAEAEA;
+            --header-deep-blue: #2B2D42;
+            --accent-gold: #FFD700;
+            --tool-card-bg: #3A3D5B;
+            --hover-gold: #E6C200;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--bg-dark-navy);
+            color: var(--text-light-gray);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: radial-gradient(circle at 10% 20%, rgba(58, 61, 91, 0.3) 0%, rgba(30, 30, 47, 0.3) 90%);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .tool-header {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .logo {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #FFB700 100%);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+        }
+        
+        .logo-text {
+            font-weight: 800;
+            font-size: 2.5rem;
+            background: linear-gradient(to right, var(--accent-gold) 0%, #FFB700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tool-title {
+            color: var(--accent-gold);
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tool-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 25%;
+            width: 50%;
+            height: 3px;
+            background: var(--accent-gold);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        .tool-container {
+            background-color: var(--tool-card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px auto;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            max-width: 1000px;
+        }
+        
+        .ad-container {
+            background: linear-gradient(135deg, rgba(58, 61, 91, 0.8), rgba(43, 45, 66, 0.8));
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px auto;
+            text-align: center;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            max-width: 1000px;
+        }
+        
+        .tool-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .tool-controls {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .tool-output {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--accent-gold);
+            font-size: 1.1rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            background-color: rgba(43, 45, 66, 0.5);
+            color: var(--text-light-gray);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.25);
+        }
+        
+        .results-area {
+            background-color: rgba(43, 45, 66, 0.5);
+            border-radius: 8px;
+            padding: 20px;
+            height: 300px;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            overflow-y: auto;
+            font-family: 'Georgia', serif;
+            line-height: 1.8;
+        }
+        
+        .btn-gold {
+            background-color: var(--accent-gold);
+            color: var(--bg-dark-navy);
+            font-weight: 600;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-gold:hover {
+            background-color: var(--hover-gold);
+            color: var(--bg-dark-navy);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(255, 215, 0, 0.4);
+        }
+        
+        .btn-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            padding: 10px 0;
+            border-top: 1px solid rgba(255, 215, 0, 0.1);
+            font-size: 0.9rem;
+        }
+        
+        .how-to-section {
+            background-color: var(--tool-card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 40px auto;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            max-width: 1000px;
+        }
+        
+        .section-title {
+            color: var(--accent-gold);
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+        
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .step-card {
+            background: rgba(43, 45, 66, 0.5);
+            border-radius: 8px;
+            padding: 25px;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .step-number {
+            background: var(--accent-gold);
+            color: var(--bg-dark-navy);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .step-title {
+            color: var(--accent-gold);
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        .tech-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(255, 215, 0, 0.1);
+            padding: 8px 15px;
+            border-radius: 30px;
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .tech-badge i {
+            margin-right: 8px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: rgba(234, 234, 234, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .tool-content {
+                flex-direction: column;
+            }
+            
+            .tool-title {
+                font-size: 2rem;
+            }
+            
+            .btn-container {
+                flex-direction: column;
+            }
+            
+            .btn-gold {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="tool-header">
+            <div class="logo-container">
+                <div class="logo">
+                    <span>T4F</span>
+                </div>
+                <div class="logo-text">tools4.fun</div>
+            </div>
+            <h1 class="tool-title">Lorem Ipsum Generator</h1>
+            <p class="subtitle">Create custom placeholder text for your designs, prototypes, and content layouts</p>
+        </div>
+        
+        <!-- Ad Space Top -->
+        <div class="ad-container">
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+        
+        <!-- Tool Container -->
+        <div class="tool-container">
+            <div class="tool-content">
+                <div class="tool-controls">
+                    <div class="form-group">
+                        <label class="form-label" for="outputType">Output Type</label>
+                        <select id="outputType" class="form-control">
+                            <option value="paragraphs">Paragraphs</option>
+                            <option value="words">Words</option>
+                            <option value="bytes">Bytes</option>
+                            <option value="lists">Lists</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="quantity">Quantity</label>
+                        <input type="number" id="quantity" class="form-control" min="1" max="100" value="5">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="startWith">Start With</label>
+                        <input type="text" id="startWith" class="form-control" value="Lorem ipsum dolor sit amet,">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">
+                            <input type="checkbox" id="decorate" checked>
+                            Include decorative formatting (bold/italic)
+                        </label>
+                    </div>
+                    
+                    <div class="btn-container">
+                        <button id="generateBtn" class="btn-gold">
+                            <i class="fas fa-bolt"></i> Generate Text
+                        </button>
+                        <button id="copyBtn" class="btn-gold">
+                            <i class="fas fa-copy"></i> Copy to Clipboard
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="tool-output">
+                    <label class="form-label">Generated Text</label>
+                    <div class="results-area" id="loremOutput">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    </div>
+                    <div class="stats">
+                        <span id="wordCount">Words: 19</span>
+                        <span id="charCount">Characters: 120</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Ad Space Bottom -->
+        <div class="ad-container">
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+        
+        <!-- How to Use Section -->
+        <div class="how-to-section">
+            <h2 class="section-title">How to Use the Lorem Ipsum Generator</h2>
+            
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Choose Output Type</h3>
+                    <p>Select whether you want paragraphs, words, bytes, or lists of placeholder text.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Set Quantity</h3>
+                    <p>Enter how many paragraphs, words, or bytes you need (1-100).</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Customize Text</h3>
+                    <p>Set a custom starting phrase and toggle decorative formatting.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Generate & Copy</h3>
+                    <p>Click "Generate Text" then copy the results to your clipboard.</p>
+                </div>
+            </div>
+            
+            <div class="tech-badge">
+                <i class="fas fa-cogs"></i> Powered by DeepSeek Technology
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 Tools4Fun - Free Online Tools for Developers and Designers</p>
+            <p>Lorem Ipsum Generator v1.0</p>
+        </footer>
+    </div>
+    
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <script>
+        // Lorem Ipsum words
+        const loremWords = [
+            "lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit", 
+            "sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore", 
+            "magna", "aliqua", "enim", "ad", "minim", "veniam", "quis", "nostrud", "exercitation", 
+            "ullamco", "laboris", "nisi", "aliquip", "ex", "ea", "commodo", "consequat", "duis", 
+            "aute", "irure", "in", "reprehenderit", "voluptate", "velit", "esse", "cillum", 
+            "eu", "fugiat", "nulla", "pariatur", "excepteur", "sint", "occaecat", "cupidatat", 
+            "non", "proident", "sunt", "culpa", "qui", "officia", "deserunt", "mollit", "anim", 
+            "id", "est", "laborum"
+        ];
+
+        // Generate Lorem Ipsum text
+        function generateLoremIpsum() {
+            const outputType = document.getElementById('outputType').value;
+            const quantity = parseInt(document.getElementById('quantity').value) || 5;
+            const startWith = document.getElementById('startWith').value;
+            const decorate = document.getElementById('decorate').checked;
+            
+            let output = '';
+            
+            switch(outputType) {
+                case 'paragraphs':
+                    output = generateParagraphs(quantity, startWith, decorate);
+                    break;
+                case 'words':
+                    output = generateWords(quantity, decorate);
+                    break;
+                case 'bytes':
+                    output = generateBytes(quantity);
+                    break;
+                case 'lists':
+                    output = generateLists(quantity, decorate);
+                    break;
+            }
+            
+            document.getElementById('loremOutput').innerHTML = output;
+            updateCounts();
+        }
+        
+        // Generate paragraphs
+        function generateParagraphs(num, start, decorate) {
+            let text = '';
+            
+            // First paragraph with custom start
+            let firstPara = start + ' ' + generateSentence(15, false);
+            if (decorate) {
+                firstPara = decorateText(firstPara);
+            }
+            text += `<p>${firstPara}</p>`;
+            
+            // Remaining paragraphs
+            for (let i = 1; i < num; i++) {
+                let paragraph = generateSentence(5, true) + ' ' + generateSentence(25, false);
+                if (decorate) {
+                    paragraph = decorateText(paragraph);
+                }
+                text += `<p>${paragraph}</p>`;
+            }
+            
+            return text;
+        }
+        
+        // Generate words
+        function generateWords(num, decorate) {
+            let words = '';
+            for (let i = 0; i < num; i++) {
+                words += loremWords[Math.floor(Math.random() * loremWords.length)] + ' ';
+            }
+            
+            if (decorate) {
+                words = decorateText(words);
+            }
+            
+            return `<p>${words.trim()}</p>`;
+        }
+        
+        // Generate bytes
+        function generateBytes(num) {
+            let text = '';
+            const targetLength = num;
+            
+            while (text.length < targetLength) {
+                text += loremWords[Math.floor(Math.random() * loremWords.length)] + ' ';
+            }
+            
+            // Trim to exact byte count
+            return `<p>${text.substring(0, targetLength)}</p>`;
+        }
+        
+        // Generate lists
+        function generateLists(num, decorate) {
+            let html = '<ul>';
+            for (let i = 0; i < num; i++) {
+                let item = generateSentence(3, true) + ' ' + generateSentence(8, false);
+                if (decorate && i % 3 === 0) {
+                    item = `<strong>${item}</strong>`;
+                }
+                html += `<li>${item}</li>`;
+            }
+            html += '</ul>';
+            return html;
+        }
+        
+        // Generate a sentence
+        function generateSentence(wordCount, capitalize) {
+            let sentence = '';
+            for (let i = 0; i < wordCount; i++) {
+                sentence += loremWords[Math.floor(Math.random() * loremWords.length)] + ' ';
+            }
+            
+            sentence = sentence.trim();
+            if (capitalize) {
+                sentence = sentence.charAt(0).toUpperCase() + sentence.slice(1);
+            }
+            
+            return sentence + '. ';
+        }
+        
+        // Add decorations to text
+        function decorateText(text) {
+            // Add some bold words
+            text = text.split(' ').map(word => {
+                if (Math.random() > 0.85) {
+                    return `<strong>${word}</strong>`;
+                }
+                if (Math.random() > 0.9) {
+                    return `<em>${word}</em>`;
+                }
+                return word;
+            }).join(' ');
+            
+            return text;
+        }
+        
+        // Update word and character counts
+        function updateCounts() {
+            const text = document.getElementById('loremOutput').textContent;
+            const words = text.split(/\s+/).filter(word => word.length > 0).length;
+            const chars = text.length;
+            
+            document.getElementById('wordCount').textContent = `Words: ${words}`;
+            document.getElementById('charCount').textContent = `Characters: ${chars}`;
+        }
+        
+        // Copy to clipboard
+        function copyToClipboard() {
+            const text = document.getElementById('loremOutput').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                // Show confirmation
+                const btn = document.getElementById('copyBtn');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                }, 2000);
+            });
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Generate initial text
+            generateLoremIpsum();
+            
+            // Set up event listeners
+            document.getElementById('generateBtn').addEventListener('click', generateLoremIpsum);
+            document.getElementById('copyBtn').addEventListener('click', copyToClipboard);
+            
+            // Update on input changes
+            document.getElementById('quantity').addEventListener('input', generateLoremIpsum);
+            document.getElementById('outputType').addEventListener('change', generateLoremIpsum);
+            document.getElementById('startWith').addEventListener('input', generateLoremIpsum);
+            document.getElementById('decorate').addEventListener('change', generateLoremIpsum);
+        });
+    </script>
+</body>
+</html>
