@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Apply beautiful filters to your photos. Enhance and transform your images with our free online image filter tool.">
+    <meta name="keywords" content="image filters, photo editor, photo effects, online photo editor, tools4fun, web tools">
+    <title>Image Filters | Tools4.fun - Free Online Tools</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://www.tools4.fun/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="https://www.tools4.fun/favicon-32x32.png" sizes="32x32">
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: linear-gradient(135deg, #f5f7ff 0%, #e8ecfe 100%);
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo img {
+            height: 40px;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        /* Main Content */
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .card-header {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            color: white;
+            padding: 15px 20px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-body {
+            padding: 25px;
+        }
+        
+        /* Ad Containers */
+        .ad-container {
+            background: var(--light-gray);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            text-align: center;
+            margin: 20px 0;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+        
+        .ad-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        
+        /* Upload Area */
+        .upload-area {
+            border: 2px dashed var(--accent);
+            border-radius: var(--border-radius);
+            padding: 40px 20px;
+            text-align: center;
+            background-color: rgba(67, 97, 238, 0.05);
+            margin-bottom: 25px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .upload-area:hover {
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+        
+        .upload-area i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .upload-area h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .upload-area p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        #file-input {
+            display: none;
+        }
+        
+        /* Filter Container */
+        .filter-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        @media (min-width: 992px) {
+            .filter-container {
+                flex-direction: row;
+            }
+            
+            .preview-section, .controls-section {
+                flex: 1;
+            }
+        }
+        
+        /* Preview Section */
+        .preview-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        #image-preview {
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 1/1;
+            background-color: white;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: repeating-conic-gradient(var(--light-gray) 0% 25%, white 0% 50%) 50% / 20px 20px;
+            margin-bottom: 20px;
+        }
+        
+        #image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            display: none;
+        }
+        
+        .preview-placeholder {
+            color: var(--gray);
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .preview-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        /* Preset Filters */
+        .preset-filters {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .filter-preset {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 15px 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            text-align: center;
+        }
+        
+        .filter-preset:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        
+        .filter-preset.active {
+            border-color: var(--primary);
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+        
+        .filter-preset i {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+        
+        .filter-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        /* Controls Section */
+        .controls-section {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .filter-controls {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .control-group {
+            margin-bottom: 20px;
+        }
+        
+        .control-group:last-child {
+            margin-bottom: 0;
+        }
+        
+        .control-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .control-title {
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .control-value {
+            font-weight: 600;
+            color: var(--primary);
+            min-width: 40px;
+            text-align: right;
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: var(--light-gray);
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            background: var(--secondary);
+        }
+        
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 8px rgba(67, 97, 238, 0.3);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary:hover {
+            background: var(--secondary);
+            box-shadow: 0 6px 12px rgba(67, 97, 238, 0.4);
+        }
+        
+        .btn-outline:hover {
+            background: rgba(67, 97, 238, 0.1);
+        }
+        
+        /* How to Use Section */
+        .how-to-use {
+            margin-top: 40px;
+        }
+        
+        .instructions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 15px;
+        }
+        
+        .instruction-card {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+        
+        .instruction-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .instruction-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .instruction-card ul {
+            padding-left: 20px;
+        }
+        
+        .instruction-card li {
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: 40px;
+            border-top: 1px solid var(--light-gray);
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .logo {
+                justify-content: center;
+            }
+            
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .btn-group {
+                justify-content: center;
+            }
+        }
+        
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(67, 97, 238, 0.2);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="https://www.tools4.fun/favicon-32x32.png" alt="Tools4.fun Logo">
+                    <h1>Tools4.fun</h1>
+                </div>
+                <div>
+                    <h2>Image Filters</h2>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Top Ad Container -->
+        <div class="ad-container">
+            <div>
+                <div class="ad-label">Advertisement</div>
+                <!-- Google AdSense Code -->
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+            </div>
+        </div>
+        
+        <!-- Filter Tool Card -->
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-sliders-h"></i>
+                <h3>Image Filter Tool</h3>
+            </div>
+            <div class="card-body">
+                <!-- Upload Area -->
+                <div class="upload-area" id="upload-area">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3>Upload Your Photo</h3>
+                    <p>Click here or drag and drop an image to apply filters</p>
+                    <p>Supports JPG, PNG, GIF, and WebP formats</p>
+                    <input type="file" id="file-input" accept="image/*">
+                </div>
+                
+                <!-- Loading Indicator -->
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Processing your image...</p>
+                </div>
+                
+                <!-- Filter Container -->
+                <div class="filter-container" id="filter-ui" style="display:none;">
+                    <div class="preview-section">
+                        <div id="image-preview">
+                            <div class="preview-placeholder">
+                                <i class="fas fa-image"></i>
+                                <p>Upload an image to see preview</p>
+                            </div>
+                            <img id="filtered-image" src="" alt="Filtered image">
+                        </div>
+                        
+                        <h4>Preset Filters</h4>
+                        <div class="preset-filters">
+                            <div class="filter-preset active" data-filter="none">
+                                <i class="fas fa-ban"></i>
+                                <div class="filter-name">Original</div>
+                            </div>
+                            <div class="filter-preset" data-filter="clarendon">
+                                <i class="fas fa-sun"></i>
+                                <div class="filter-name">Clarendon</div>
+                            </div>
+                            <div class="filter-preset" data-filter="gingham">
+                                <i class="fas fa-feather"></i>
+                                <div class="filter-name">Gingham</div>
+                            </div>
+                            <div class="filter-preset" data-filter="moon">
+                                <i class="fas fa-moon"></i>
+                                <div class="filter-name">Moon</div>
+                            </div>
+                            <div class="filter-preset" data-filter="lark">
+                                <i class="fas fa-tree"></i>
+                                <div class="filter-name">Lark</div>
+                            </div>
+                            <div class="filter-preset" data-filter="reyes">
+                                <i class="fas fa-camera"></i>
+                                <div class="filter-name">Reyes</div>
+                            </div>
+                            <div class="filter-preset" data-filter="juno">
+                                <i class="fas fa-leaf"></i>
+                                <div class="filter-name">Juno</div>
+                            </div>
+                            <div class="filter-preset" data-filter="slumber">
+                                <i class="fas fa-bed"></i>
+                                <div class="filter-name">Slumber</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="controls-section">
+                        <div class="filter-controls">
+                            <div class="control-group">
+                                <div class="control-header">
+                                    <span class="control-title">Brightness</span>
+                                    <span class="control-value" id="brightness-value">100%</span>
+                                </div>
+                                <input type="range" id="brightness" min="0" max="200" value="100">
+                            </div>
+                            
+                            <div class="control-group">
+                                <div class="control-header">
+                                    <span class="control-title">Contrast</span>
+                                    <span class="control-value" id="contrast-value">100%</span>
+                                </div>
+                                <input type="range" id="contrast" min="0" max="200" value="100">
+                            </div>
+                            
+                            <div class="control-group">
+                                <div class="control-header">
+                                    <span class="control-title">Saturation</span>
+                                    <span class="control-value" id="saturation-value">100%</span>
+                                </div>
+                                <input type="range" id="saturation" min="0" max="200" value="100">
+                            </div>
+                            
+                            <div class="control-group">
+                                <div class="control-header">
+                                    <span class="control-title">Hue Rotation</span>
+                                    <span class="control-value" id="hue-value">0°</span>
+                                </div>
+                                <input type="range" id="hue" min="0" max="360" value="0">
+                            </div>
+                            
+                            <div class="control-group">
+                                <div class="control-header">
+                                    <span class="control-title">Blur</span>
+                                    <span class="control-value" id="blur-value">0px</span>
+                                </div>
+                                <input type="range" id="blur" min="0" max="20" value="0">
+                            </div>
+                            
+                            <div class="control-group">
+                                <div class="control-header">
+                                    <span class="control-title">Sepia</span>
+                                    <span class="control-value" id="sepia-value">0%</span>
+                                </div>
+                                <input type="range" id="sepia" min="0" max="100" value="0">
+                            </div>
+                        </div>
+                        
+                        <div class="btn-group">
+                            <button class="btn btn-outline" id="reset-btn">
+                                <i class="fas fa-redo"></i> Reset Filters
+                            </button>
+                            <button class="btn btn-primary" id="download-btn">
+                                <i class="fas fa-download"></i> Download Image
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Ad Container -->
+        <div class="ad-container">
+            <div>
+                <div class="ad-label">Advertisement</div>
+                <!-- Google AdSense Code -->
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+            </div>
+        </div>
+        
+        <!-- How to Use Section -->
+        <div class="how-to-use">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-info-circle"></i>
+                    <h3>How to Use the Image Filter Tool</h3>
+                </div>
+                <div class="card-body">
+                    <div class="instructions">
+                        <div class="instruction-card">
+                            <h3><i class="fas fa-upload"></i> Upload Your Photo</h3>
+                            <ul>
+                                <li>Click on the upload area or drag and drop your photo</li>
+                                <li>Supported formats: JPG, PNG, GIF, WebP</li>
+                                <li>Max file size: 5MB (for optimal performance)</li>
+                                <li>Your image is processed locally - no server upload</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="instruction-card">
+                            <h3><i class="fas fa-sliders-h"></i> Apply Filters</h3>
+                            <ul>
+                                <li>Use preset filters for quick transformations</li>
+                                <li>Adjust individual filters with the sliders</li>
+                                <li>Combine multiple filters for unique effects</li>
+                                <li>See real-time preview of your changes</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="instruction-card">
+                            <h3><i class="fas fa-magic"></i> Preset Filters</h3>
+                            <ul>
+                                <li><strong>Clarendon:</strong> Brightens and intensifies colors</li>
+                                <li><strong>Gingham:</strong> Vintage washed-out look</li>
+                                <li><strong>Moon:</strong> Cool, desaturated tones</li>
+                                <li><strong>Lark:</strong> Enhances greens and blues</li>
+                                <li><strong>Reyes:</strong> Warm vintage filter</li>
+                                <li><strong>Juno:</strong> Warm tones with pink highlights</li>
+                                <li><strong>Slumber:</strong> Soft, dreamy desaturation</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="instruction-card">
+                            <h3><i class="fas fa-download"></i> Save & Share</h3>
+                            <ul>
+                                <li>Click "Download Image" to save your filtered photo</li>
+                                <li>The image will be saved in PNG format</li>
+                                <li>Share your creations on social media</li>
+                                <li>Use the reset button to start over</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="container">
+        <p>© 2023 Tools4.fun | Free Online Tools for Everyone</p>
+        <p>Image Filters - Transform your photos with beautiful effects</p>
+    </footer>
+    
+    <script>
+        // DOM Elements
+        const uploadArea = document.getElementById('upload-area');
+        const fileInput = document.getElementById('file-input');
+        const filterUI = document.getElementById('filter-ui');
+        const loading = document.getElementById('loading');
+        const filteredImage = document.getElementById('filtered-image');
+        const previewPlaceholder = document.querySelector('.preview-placeholder');
+        const filterPresets = document.querySelectorAll('.filter-preset');
+        const brightnessSlider = document.getElementById('brightness');
+        const contrastSlider = document.getElementById('contrast');
+        const saturationSlider = document.getElementById('saturation');
+        const hueSlider = document.getElementById('hue');
+        const blurSlider = document.getElementById('blur');
+        const sepiaSlider = document.getElementById('sepia');
+        const brightnessValue = document.getElementById('brightness-value');
+        const contrastValue = document.getElementById('contrast-value');
+        const saturationValue = document.getElementById('saturation-value');
+        const hueValue = document.getElementById('hue-value');
+        const blurValue = document.getElementById('blur-value');
+        const sepiaValue = document.getElementById('sepia-value');
+        const resetBtn = document.getElementById('reset-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        
+        // State
+        let originalImage = null;
+        let currentImage = null;
+        
+        // Event Listeners
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+        
+        fileInput.addEventListener('change', function(e) {
+            if (this.files && this.files[0]) {
+                const file = this.files[0];
+                
+                // Check file type
+                if (!file.type.match('image.*')) {
+                    alert('Please select an image file (JPG, PNG, GIF, etc.)');
+                    return;
+                }
+                
+                // Show loading
+                loading.style.display = 'block';
+                filterUI.style.display = 'none';
+                uploadArea.style.display = 'none';
+                
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    // Hide loading after a short delay to simulate processing
+                    setTimeout(() => {
+                        loading.style.display = 'none';
+                        originalImage = new Image();
+                        originalImage.onload = function() {
+                            filteredImage.src = originalImage.src;
+                            filteredImage.style.display = 'block';
+                            previewPlaceholder.style.display = 'none';
+                            filterUI.style.display = 'flex';
+                            currentImage = originalImage.src;
+                        };
+                        originalImage.src = e.target.result;
+                    }, 800);
+                };
+                
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Update filter display values
+        brightnessSlider.addEventListener('input', updateFilters);
+        contrastSlider.addEventListener('input', updateFilters);
+        saturationSlider.addEventListener('input', updateFilters);
+        hueSlider.addEventListener('input', updateFilters);
+        blurSlider.addEventListener('input', updateFilters);
+        sepiaSlider.addEventListener('input', updateFilters);
+        
+        // Update value displays
+        brightnessSlider.addEventListener('input', function() {
+            brightnessValue.textContent = this.value + '%';
+        });
+        
+        contrastSlider.addEventListener('input', function() {
+            contrastValue.textContent = this.value + '%';
+        });
+        
+        saturationSlider.addEventListener('input', function() {
+            saturationValue.textContent = this.value + '%';
+        });
+        
+        hueSlider.addEventListener('input', function() {
+            hueValue.textContent = this.value + '°';
+        });
+        
+        blurSlider.addEventListener('input', function() {
+            blurValue.textContent = this.value + 'px';
+        });
+        
+        sepiaSlider.addEventListener('input', function() {
+            sepiaValue.textContent = this.value + '%';
+        });
+        
+        // Filter presets
+        filterPresets.forEach(preset => {
+            preset.addEventListener('click', function() {
+                filterPresets.forEach(p => p.classList.remove('active'));
+                this.classList.add('active');
+                
+                const filterName = this.dataset.filter;
+                applyPresetFilter(filterName);
+            });
+        });
+        
+        // Apply preset filter
+        function applyPresetFilter(filterName) {
+            switch(filterName) {
+                case 'none':
+                    brightnessSlider.value = 100;
+                    contrastSlider.value = 100;
+                    saturationSlider.value = 100;
+                    hueSlider.value = 0;
+                    blurSlider.value = 0;
+                    sepiaSlider.value = 0;
+                    break;
+                case 'clarendon':
+                    brightnessSlider.value = 120;
+                    contrastSlider.value = 130;
+                    saturationSlider.value = 125;
+                    hueSlider.value = 0;
+                    blurSlider.value = 0;
+                    sepiaSlider.value = 0;
+                    break;
+                case 'gingham':
+                    brightnessSlider.value = 110;
+                    contrastSlider.value = 90;
+                    saturationSlider.value = 85;
+                    hueSlider.value = 0;
+                    blurSlider.value = 1;
+                    sepiaSlider.value = 15;
+                    break;
+                case 'moon':
+                    brightnessSlider.value = 110;
+                    contrastSlider.value = 85;
+                    saturationSlider.value = 0;
+                    hueSlider.value = 200;
+                    blurSlider.value = 0;
+                    sepiaSlider.value = 0;
+                    break;
+                case 'lark':
+                    brightnessSlider.value = 115;
+                    contrastSlider.value = 90;
+                    saturationSlider.value = 130;
+                    hueSlider.value = 180;
+                    blurSlider.value = 0;
+                    sepiaSlider.value = 5;
+                    break;
+                case 'reyes':
+                    brightnessSlider.value = 115;
+                    contrastSlider.value = 85;
+                    saturationSlider.value = 75;
+                    hueSlider.value = 30;
+                    blurSlider.value = 2;
+                    sepiaSlider.value = 25;
+                    break;
+                case 'juno':
+                    brightnessSlider.value = 105;
+                    contrastSlider.value = 110;
+                    saturationSlider.value = 140;
+                    hueSlider.value = 350;
+                    blurSlider.value = 0;
+                    sepiaSlider.value = 10;
+                    break;
+                case 'slumber':
+                    brightnessSlider.value = 105;
+                    contrastSlider.value = 85;
+                    saturationSlider.value = 75;
+                    hueSlider.value = 240;
+                    blurSlider.value = 3;
+                    sepiaSlider.value = 10;
+                    break;
+            }
+            
+            // Update value displays
+            brightnessValue.textContent = brightnessSlider.value + '%';
+            contrastValue.textContent = contrastSlider.value + '%';
+            saturationValue.textContent = saturationSlider.value + '%';
+            hueValue.textContent = hueSlider.value + '°';
+            blurValue.textContent = blurSlider.value + 'px';
+            sepiaValue.textContent = sepiaSlider.value + '%';
+            
+            updateFilters();
+        }
+        
+        // Update filters based on slider values
+        function updateFilters() {
+            const brightness = brightnessSlider.value;
+            const contrast = contrastSlider.value;
+            const saturation = saturationSlider.value;
+            const hue = hueSlider.value;
+            const blur = blurSlider.value;
+            const sepia = sepiaSlider.value;
+            
+            const filterValue = `
+                brightness(${brightness}%) 
+                contrast(${contrast}%) 
+                saturate(${saturation}%) 
+                hue-rotate(${hue}deg) 
+                blur(${blur}px) 
+                sepia(${sepia}%)
+            `;
+            
+            filteredImage.style.filter = filterValue;
+        }
+        
+        // Reset filters
+        resetBtn.addEventListener('click', function() {
+            brightnessSlider.value = 100;
+            contrastSlider.value = 100;
+            saturationSlider.value = 100;
+            hueSlider.value = 0;
+            blurSlider.value = 0;
+            sepiaSlider.value = 0;
+            
+            brightnessValue.textContent = '100%';
+            contrastValue.textContent = '100%';
+            saturationValue.textContent = '100%';
+            hueValue.textContent = '0°';
+            blurValue.textContent = '0px';
+            sepiaValue.textContent = '0%';
+            
+            filterPresets.forEach(p => p.classList.remove('active'));
+            document.querySelector('[data-filter="none"]').classList.add('active');
+            
+            updateFilters();
+        });
+        
+        // Download filtered image
+        downloadBtn.addEventListener('click', function() {
+            if (!filteredImage.src) {
+                alert('Please upload an image first');
+                return;
+            }
+            
+            // Create canvas
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Set canvas dimensions to match image
+            canvas.width = filteredImage.naturalWidth;
+            canvas.height = filteredImage.naturalHeight;
+            
+            // Apply current filter to canvas
+            ctx.filter = filteredImage.style.filter;
+            
+            // Draw image on canvas
+            ctx.drawImage(filteredImage, 0, 0);
+            
+            // Create download link
+            const link = document.createElement('a');
+            link.download = 'filtered-image.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        });
+        
+        // Drag and drop functionality
+        uploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '#4361ee';
+            this.style.backgroundColor = 'rgba(67, 97, 238, 0.1)';
+        });
+        
+        uploadArea.addEventListener('dragleave', function() {
+            this.style.borderColor = '#4895ef';
+            this.style.backgroundColor = 'rgba(67, 97, 238, 0.05)';
+        });
+        
+        uploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '#4895ef';
+            this.style.backgroundColor = 'rgba(67, 97, 238, 0.05)';
+            
+            if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                fileInput.files = e.dataTransfer.files;
+                const event = new Event('change', { bubbles: true });
+                fileInput.dispatchEvent(event);
+            }
+        });
+        
+        // SEO: Update page title
+        document.title = "Image Filters | Tools4.fun - Free Online Tools";
+    </script>
+</body>
+</html>
