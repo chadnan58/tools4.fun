@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create beautiful photo collages for free. Combine multiple photos into one stunning collage with our easy-to-use online tool.">
+    <meta name="keywords" content="photo collage maker, photo editor, collage creator, online collage, tools4fun, web tools">
+    <title>Photo Collage Maker | Tools4.fun - Free Online Tools</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://www.tools4.fun/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="https://www.tools4.fun/favicon-32x32.png" sizes="32x32">
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: linear-gradient(135deg, #f5f7ff 0%, #e8ecfe 100%);
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo img {
+            height: 40px;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        /* Main Content */
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .card-header {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            color: white;
+            padding: 15px 20px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-body {
+            padding: 25px;
+        }
+        
+        /* Ad Containers */
+        .ad-container {
+            background: var(--light-gray);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            text-align: center;
+            margin: 20px 0;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+        
+        .ad-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        
+        /* Upload Area */
+        .upload-area {
+            border: 2px dashed var(--accent);
+            border-radius: var(--border-radius);
+            padding: 40px 20px;
+            text-align: center;
+            background-color: rgba(67, 97, 238, 0.05);
+            margin-bottom: 25px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .upload-area:hover {
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+        
+        .upload-area i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .upload-area h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .upload-area p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        #file-input {
+            display: none;
+        }
+        
+        /* Collage Area */
+        .collage-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        @media (min-width: 992px) {
+            .collage-container {
+                flex-direction: row;
+            }
+            
+            .templates-section, .preview-section {
+                flex: 1;
+            }
+        }
+        
+        /* Templates */
+        .templates-section {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .template {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+        
+        .template:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .template.active {
+            border-color: var(--primary);
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+        
+        .template-preview {
+            width: 100%;
+            aspect-ratio: 1/1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 5px;
+        }
+        
+        .template-cell {
+            background-color: var(--light-gray);
+            border-radius: 4px;
+        }
+        
+        .template-1 .template-cell:nth-child(1) { grid-column: 1 / 3; }
+        .template-1 .template-cell:nth-child(2) { grid-column: 1 / 2; }
+        .template-1 .template-cell:nth-child(3) { grid-column: 2 / 3; }
+        
+        .template-2 .template-cell:nth-child(1) { grid-column: 1 / 2; grid-row: 1 / 3; }
+        .template-2 .template-cell:nth-child(2) { grid-column: 2 / 3; grid-row: 1 / 2; }
+        .template-2 .template-cell:nth-child(3) { grid-column: 2 / 3; grid-row: 2 / 3; }
+        
+        .template-3 .template-cell:nth-child(1) { grid-column: 1 / 3; }
+        .template-3 .template-cell:nth-child(2) { grid-column: 1 / 3; }
+        
+        .template-4 .template-cell:nth-child(1) { grid-column: 1 / 2; }
+        .template-4 .template-cell:nth-child(2) { grid-column: 2 / 3; }
+        .template-4 .template-cell:nth-child(3) { grid-column: 1 / 3; }
+        
+        .template-5 .template-cell:nth-child(1) { grid-column: 1 / 3; grid-row: 1 / 2; }
+        .template-5 .template-cell:nth-child(2) { grid-column: 1 / 2; grid-row: 2 / 3; }
+        .template-5 .template-cell:nth-child(3) { grid-column: 2 / 3; grid-row: 2 / 3; }
+        
+        /* Preview */
+        .preview-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        #collage-preview {
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 1/1;
+            background-color: white;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 10px;
+            padding: 10px;
+            background: repeating-conic-gradient(var(--light-gray) 0% 25%, white 0% 50%) 50% / 20px 20px;
+            margin-bottom: 20px;
+        }
+        
+        .collage-cell {
+            background-color: var(--light);
+            border-radius: 4px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .collage-cell:hover {
+            transform: scale(0.98);
+            box-shadow: inset 0 0 0 2px var(--accent);
+        }
+        
+        .cell-placeholder {
+            color: var(--gray);
+            font-size: 2rem;
+        }
+        
+        /* Controls */
+        .controls {
+            width: 100%;
+            max-width: 500px;
+            margin-top: 20px;
+        }
+        
+        .control-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: var(--light-gray);
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            background: var(--secondary);
+        }
+        
+        .color-picker {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .color-preview {
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            border: 1px solid var(--light-gray);
+            background-color: white;
+        }
+        
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 8px rgba(67, 97, 238, 0.3);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary:hover {
+            background: var(--secondary);
+            box-shadow: 0 6px 12px rgba(67, 97, 238, 0.4);
+        }
+        
+        .btn-outline:hover {
+            background: rgba(67, 97, 238, 0.1);
+        }
+        
+        /* How to Use Section */
+        .how-to-use {
+            margin-top: 40px;
+        }
+        
+        .instructions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 15px;
+        }
+        
+        .instruction-card {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+        
+        .instruction-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .instruction-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .instruction-card ul {
+            padding-left: 20px;
+        }
+        
+        .instruction-card li {
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: 40px;
+            border-top: 1px solid var(--light-gray);
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .logo {
+                justify-content: center;
+            }
+            
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .btn-group {
+                justify-content: center;
+            }
+        }
+        
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(67, 97, 238, 0.2);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Image Gallery */
+        .image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+            max-height: 150px;
+            overflow-y: auto;
+            padding: 5px;
+        }
+        
+        .image-thumb {
+            width: 70px;
+            height: 70px;
+            border-radius: 4px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+        
+        .image-thumb:hover {
+            transform: scale(1.05);
+            border-color: var(--primary);
+        }
+        
+        .image-thumb.active {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="https://www.tools4.fun/favicon-32x32.png" alt="Tools4.fun Logo">
+                    <h1>Tools4.fun</h1>
+                </div>
+                <div>
+                    <h2>Photo Collage Maker</h2>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Top Ad Container -->
+        <div class="ad-container">
+            <div>
+                <div class="ad-label">Advertisement</div>
+                <!-- Google AdSense Code -->
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+            </div>
+        </div>
+        
+        <!-- Collage Maker Card -->
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-images"></i>
+                <h3>Create Your Photo Collage</h3>
+            </div>
+            <div class="card-body">
+                <!-- Upload Area -->
+                <div class="upload-area" id="upload-area">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3>Upload Your Photos</h3>
+                    <p>Click here or drag and drop images to create your collage</p>
+                    <p>Supports JPG, PNG, GIF, and WebP formats</p>
+                    <input type="file" id="file-input" accept="image/*" multiple>
+                </div>
+                
+                <!-- Loading Indicator -->
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Creating your collage...</p>
+                </div>
+                
+                <!-- Collage Container -->
+                <div class="collage-container" id="collage-ui" style="display:none;">
+                    <div class="templates-section">
+                        <h4>Select a Template</h4>
+                        <div class="templates-grid">
+                            <div class="template template-1 active" data-template="1">
+                                <div class="template-preview">
+                                    <div class="template-cell"></div>
+                                    <div class="template-cell"></div>
+                                    <div class="template-cell"></div>
+                                </div>
+                                <div class="template-name">Template 1</div>
+                            </div>
+                            <div class="template template-2" data-template="2">
+                                <div class="template-preview">
+                                    <div class="template-cell"></div>
+                                    <div class="template-cell"></div>
+                                    <div class="template-cell"></div>
+                                </div>
+                                <div class="template-name">Template 2</div>
+                            </div>
+                            <div class="template template-3" data-template="3">
+                                <div class="template-preview">
+                                    <div class="template-cell"></div>
+                                    <div class="template-cell"></div>
+                                </div>
+                                <div class="template-name">Template 3</div>
+                            </div>
+                            <div class="template template-4" data-template="4">
+                                <div class="template-preview">
+                                    <div class="template-cell"></div>
+                                    <div class="template-cell"></div>
+                                    <div class="template-cell"></div>
+                                </div>
+                                <div class="template-name">Template 4</div>
+                            </div>
+                            <div class="template template-5" data-template="5">
+                                <div class="template-preview">
+                                    <div class="template-cell"></div>
+                                    <div class="template-cell"></div>
+                                    <div class="template-cell"></div>
+                                </div>
+                                <div class="template-name">Template 5</div>
+                            </div>
+                        </div>
+                        
+                        <h4 style="margin-top: 25px;">Your Images</h4>
+                        <div class="image-gallery" id="image-gallery">
+                            <!-- Images will be added here dynamically -->
+                        </div>
+                    </div>
+                    
+                    <div class="preview-section">
+                        <h4>Collage Preview</h4>
+                        <div id="collage-preview">
+                            <div class="collage-cell" data-cell="1">
+                                <div class="cell-placeholder"><i class="fas fa-plus"></i></div>
+                            </div>
+                            <div class="collage-cell" data-cell="2">
+                                <div class="cell-placeholder"><i class="fas fa-plus"></i></div>
+                            </div>
+                            <div class="collage-cell" data-cell="3">
+                                <div class="cell-placeholder"><i class="fas fa-plus"></i></div>
+                            </div>
+                        </div>
+                        
+                        <div class="controls">
+                            <div class="control-group">
+                                <label for="spacing">Spacing</label>
+                                <input type="range" id="spacing" min="0" max="30" value="10">
+                            </div>
+                            
+                            <div class="control-group">
+                                <label for="border-radius">Corner Radius</label>
+                                <input type="range" id="border-radius" min="0" max="20" value="4">
+                            </div>
+                            
+                            <div class="control-group">
+                                <label for="bg-color">Background Color</label>
+                                <div class="color-picker">
+                                    <input type="color" id="bg-color" value="#ffffff">
+                                    <div class="color-preview" id="color-preview" style="background-color: #ffffff;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="btn-group">
+                            <button class="btn btn-outline" id="reset-btn">
+                                <i class="fas fa-redo"></i> Reset
+                            </button>
+                            <button class="btn btn-primary" id="download-btn">
+                                <i class="fas fa-download"></i> Download Collage
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Ad Container -->
+        <div class="ad-container">
+            <div>
+                <div class="ad-label">Advertisement</div>
+                <!-- Google AdSense Code -->
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+            </div>
+        </div>
+        
+        <!-- How to Use Section -->
+        <div class="how-to-use">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-info-circle"></i>
+                    <h3>How to Use the Collage Maker</h3>
+                </div>
+                <div class="card-body">
+                    <div class="instructions">
+                        <div class="instruction-card">
+                            <h3><i class="fas fa-upload"></i> Upload Photos</h3>
+                            <ul>
+                                <li>Click on the upload area or drag and drop your photos</li>
+                                <li>Select at least 2 photos to create a collage</li>
+                                <li>Supported formats: JPG, PNG, GIF, WebP</li>
+                                <li>Max file size: 5MB per image</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="instruction-card">
+                            <h3><i class="fas fa-th-large"></i> Select Template</h3>
+                            <ul>
+                                <li>Choose from 5 different collage templates</li>
+                                <li>Each template has a different layout for your photos</li>
+                                <li>Try different templates to find your favorite</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="instruction-card">
+                            <h3><i class="fas fa-image"></i> Arrange Photos</h3>
+                            <ul>
+                                <li>Click on a placeholder in the preview to assign a photo</li>
+                                <li>Select a photo from your uploaded images</li>
+                                <li>Adjust spacing and corner radius as needed</li>
+                                <li>Change background color for your collage</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="instruction-card">
+                            <h3><i class="fas fa-download"></i> Download & Share</h3>
+                            <ul>
+                                <li>Click "Download Collage" to save your creation</li>
+                                <li>The collage will be saved as a high-quality PNG file</li>
+                                <li>Share your collage on social media or with friends</li>
+                                <li>Use the reset button to start a new collage</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="container">
+        <p>© 2023 Tools4.fun | Free Online Tools for Everyone</p>
+        <p>Photo Collage Maker - Create beautiful collages in seconds</p>
+    </footer>
+    
+    <script>
+        // DOM Elements
+        const uploadArea = document.getElementById('upload-area');
+        const fileInput = document.getElementById('file-input');
+        const collageUI = document.getElementById('collage-ui');
+        const loading = document.getElementById('loading');
+        const imageGallery = document.getElementById('image-gallery');
+        const collagePreview = document.getElementById('collage-preview');
+        const templates = document.querySelectorAll('.template');
+        const spacingSlider = document.getElementById('spacing');
+        const borderRadiusSlider = document.getElementById('border-radius');
+        const bgColorInput = document.getElementById('bg-color');
+        const colorPreview = document.getElementById('color-preview');
+        const resetBtn = document.getElementById('reset-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        const collageCells = document.querySelectorAll('.collage-cell');
+        
+        // State
+        let uploadedImages = [];
+        let currentTemplate = '1';
+        let selectedImage = null;
+        let collageData = {
+            cell1: null,
+            cell2: null,
+            cell3: null
+        };
+        
+        // Event Listeners
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+        
+        fileInput.addEventListener('change', function(e) {
+            if (this.files && this.files.length > 0) {
+                // Show loading
+                loading.style.display = 'block';
+                collageUI.style.display = 'none';
+                
+                // Process each file
+                const files = Array.from(this.files);
+                const imagePromises = files.map(file => {
+                    return new Promise((resolve) => {
+                        if (!file.type.match('image.*')) return resolve(null);
+                        
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            resolve({
+                                name: file.name,
+                                url: e.target.result
+                            });
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                });
+                
+                // Process all images
+                Promise.all(imagePromises).then(images => {
+                    // Filter out nulls (non-image files)
+                    uploadedImages = images.filter(img => img !== null);
+                    
+                    // Hide loading after a short delay
+                    setTimeout(() => {
+                        loading.style.display = 'none';
+                        if (uploadedImages.length > 0) {
+                            collageUI.style.display = 'flex';
+                            renderImageGallery();
+                        } else {
+                            alert('Please select valid image files.');
+                        }
+                    }, 800);
+                });
+            }
+        });
+        
+        // Template selection
+        templates.forEach(template => {
+            template.addEventListener('click', function() {
+                templates.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                currentTemplate = this.dataset.template;
+                updateTemplatePreview();
+            });
+        });
+        
+        // Update template preview
+        function updateTemplatePreview() {
+            // Reset all cells
+            collageCells.forEach(cell => {
+                cell.style.display = 'grid';
+                cell.innerHTML = '<div class="cell-placeholder"><i class="fas fa-plus"></i></div>';
+            });
+            
+            // Update based on template
+            if (currentTemplate === '1') {
+                // Template 1: 1 large on top, 2 small on bottom
+                collageCells[0].style.gridColumn = '1 / 3';
+                collageCells[1].style.gridColumn = '1 / 2';
+                collageCells[2].style.gridColumn = '2 / 3';
+            } else if (currentTemplate === '2') {
+                // Template 2: 1 large on left, 2 small on right
+                collageCells[0].style.gridColumn = '1 / 2';
+                collageCells[0].style.gridRow = '1 / 3';
+                collageCells[1].style.gridColumn = '2 / 3';
+                collageCells[1].style.gridRow = '1 / 2';
+                collageCells[2].style.gridColumn = '2 / 3';
+                collageCells[2].style.gridRow = '2 / 3';
+            } else if (currentTemplate === '3') {
+                // Template 3: 2 vertical
+                collageCells[0].style.gridColumn = '1 / 3';
+                collageCells[1].style.gridColumn = '1 / 3';
+                collageCells[2].style.display = 'none';
+            } else if (currentTemplate === '4') {
+                // Template 4: 2 small on top, 1 large on bottom
+                collageCells[0].style.gridColumn = '1 / 2';
+                collageCells[1].style.gridColumn = '2 / 3';
+                collageCells[2].style.gridColumn = '1 / 3';
+            } else if (currentTemplate === '5') {
+                // Template 5: 1 large on top, 2 small on bottom (same as 1 but different arrangement)
+                collageCells[0].style.gridColumn = '1 / 3';
+                collageCells[0].style.gridRow = '1 / 2';
+                collageCells[1].style.gridColumn = '1 / 2';
+                collageCells[1].style.gridRow = '2 / 3';
+                collageCells[2].style.gridColumn = '2 / 3';
+                collageCells[2].style.gridRow = '2 / 3';
+            }
+            
+            // Reset collage data
+            collageData = { cell1: null, cell2: null, cell3: null };
+        }
+        
+        // Render image gallery
+        function renderImageGallery() {
+            imageGallery.innerHTML = '';
+            uploadedImages.forEach((img, index) => {
+                const imgElement = document.createElement('img');
+                imgElement.src = img.url;
+                imgElement.alt = `Image ${index + 1}`;
+                imgElement.classList.add('image-thumb');
+                imgElement.dataset.index = index;
+                
+                imgElement.addEventListener('click', function() {
+                    document.querySelectorAll('.image-thumb').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    selectedImage = index;
+                });
+                
+                imageGallery.appendChild(imgElement);
+            });
+        }
+        
+        // Assign image to collage cell
+        collageCells.forEach(cell => {
+            cell.addEventListener('click', function() {
+                if (selectedImage === null) {
+                    alert('Please select an image from your gallery first');
+                    return;
+                }
+                
+                const cellId = this.dataset.cell;
+                collageData[`cell${cellId}`] = uploadedImages[selectedImage].url;
+                
+                this.style.backgroundImage = `url('${uploadedImages[selectedImage].url}')`;
+                this.style.backgroundSize = 'cover';
+                this.style.backgroundPosition = 'center';
+                this.innerHTML = '';
+            });
+        });
+        
+        // Update spacing
+        spacingSlider.addEventListener('input', function() {
+            collagePreview.style.gap = `${this.value}px`;
+            collagePreview.style.padding = `${this.value / 2}px`;
+        });
+        
+        // Update border radius
+        borderRadiusSlider.addEventListener('input', function() {
+            document.querySelectorAll('.collage-cell').forEach(cell => {
+                cell.style.borderRadius = `${this.value}px`;
+            });
+        });
+        
+        // Update background color
+        bgColorInput.addEventListener('input', function() {
+            collagePreview.style.backgroundColor = this.value;
+            colorPreview.style.backgroundColor = this.value;
+        });
+        
+        // Reset button
+        resetBtn.addEventListener('click', function() {
+            if (confirm('Are you sure you want to reset your collage?')) {
+                uploadedImages = [];
+                collageData = { cell1: null, cell2: null, cell3: null };
+                collageUI.style.display = 'none';
+                uploadArea.style.display = 'block';
+                imageGallery.innerHTML = '';
+                
+                // Reset preview
+                collageCells.forEach(cell => {
+                    cell.style.backgroundImage = '';
+                    cell.innerHTML = '<div class="cell-placeholder"><i class="fas fa-plus"></i></div>';
+                });
+                
+                // Reset controls
+                spacingSlider.value = 10;
+                borderRadiusSlider.value = 4;
+                bgColorInput.value = '#ffffff';
+                colorPreview.style.backgroundColor = '#ffffff';
+                collagePreview.style.gap = '10px';
+                collagePreview.style.padding = '5px';
+                document.querySelectorAll('.collage-cell').forEach(cell => {
+                    cell.style.borderRadius = '4px';
+                });
+                collagePreview.style.backgroundColor = '#ffffff';
+                
+                // Reset template selection
+                templates.forEach(t => t.classList.remove('active'));
+                document.querySelector('.template-1').classList.add('active');
+                currentTemplate = '1';
+                updateTemplatePreview();
+            }
+        });
+        
+        // Download button
+        downloadBtn.addEventListener('click', function() {
+            // Check if at least one image is placed
+            const hasImage = Object.values(collageData).some(val => val !== null);
+            if (!hasImage) {
+                alert('Please add at least one image to your collage');
+                return;
+            }
+            
+            // Show loading
+            loading.style.display = 'block';
+            
+            // Create canvas for download
+            setTimeout(() => {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                
+                // Set canvas size
+                const size = 800;
+                canvas.width = size;
+                canvas.height = size;
+                
+                // Draw background
+                ctx.fillStyle = collagePreview.style.backgroundColor || '#ffffff';
+                ctx.fillRect(0, 0, size, size);
+                
+                // Draw images based on template
+                const padding = parseInt(collagePreview.style.padding || '10');
+                const gap = parseInt(collagePreview.style.gap || '10');
+                const borderRadius = parseInt(document.querySelector('.collage-cell').style.borderRadius || '4');
+                
+                // Calculate cell positions and sizes
+                let positions = [];
+                
+                if (currentTemplate === '1') {
+                    // Top cell (full width)
+                    positions.push({ 
+                        x: padding, 
+                        y: padding, 
+                        width: size - (padding * 2), 
+                        height: (size - (padding * 2) - gap) * 0.6 
+                    });
+                    // Bottom left
+                    positions.push({ 
+                        x: padding, 
+                        y: padding + ((size - (padding * 2) - gap) * 0.6) + gap, 
+                        width: (size - (padding * 2) - gap) / 2, 
+                        height: (size - (padding * 2) - gap) * 0.4 
+                    });
+                    // Bottom right
+                    positions.push({ 
+                        x: padding + ((size - (padding * 2) - gap) / 2 + gap, 
+                        y: padding + ((size - (padding * 2) - gap) * 0.6) + gap, 
+                        width: (size - (padding * 2) - gap) / 2, 
+                        height: (size - (padding * 2) - gap) * 0.4 
+                    });
+                } else if (currentTemplate === '2') {
+                    // Left cell (full height)
+                    positions.push({ 
+                        x: padding, 
+                        y: padding, 
+                        width: (size - (padding * 2) - gap) * 0.6, 
+                        height: size - (padding * 2) 
+                    });
+                    // Top right
+                    positions.push({ 
+                        x: padding + ((size - (padding * 2) - gap) * 0.6 + gap, 
+                        y: padding, 
+                        width: (size - (padding * 2) - gap) * 0.4, 
+                        height: (size - (padding * 2) - gap) / 2 
+                    });
+                    // Bottom right
+                    positions.push({ 
+                        x: padding + ((size - (padding * 2) - gap) * 0.6 + gap, 
+                        y: padding + ((size - (padding * 2) - gap) / 2 + gap, 
+                        width: (size - (padding * 2) - gap) * 0.4, 
+                        height: (size - (padding * 2) - gap) / 2 
+                    });
+                } else if (currentTemplate === '3') {
+                    // Top cell
+                    positions.push({ 
+                        x: padding, 
+                        y: padding, 
+                        width: size - (padding * 2), 
+                        height: (size - (padding * 2) - gap) / 2 
+                    });
+                    // Bottom cell
+                    positions.push({ 
+                        x: padding, 
+                        y: padding + ((size - (padding * 2) - gap) / 2 + gap, 
+                        width: size - (padding * 2), 
+                        height: (size - (padding * 2) - gap) / 2 
+                    });
+                    // Third cell not used
+                    positions.push(null);
+                }
+                
+                // Draw images
+                for (let i = 0; i < 3; i++) {
+                    const imgUrl = collageData[`cell${i+1}`];
+                    if (imgUrl && positions[i]) {
+                        const img = new Image();
+                        img.crossOrigin = "Anonymous";
+                        img.src = imgUrl;
+                        
+                        // Draw image with rounded corners
+                        const pos = positions[i];
+                        ctx.save();
+                        ctx.beginPath();
+                        ctx.moveTo(pos.x + borderRadius, pos.y);
+                        ctx.lineTo(pos.x + pos.width - borderRadius, pos.y);
+                        ctx.quadraticCurveTo(pos.x + pos.width, pos.y, pos.x + pos.width, pos.y + borderRadius);
+                        ctx.lineTo(pos.x + pos.width, pos.y + pos.height - borderRadius);
+                        ctx.quadraticCurveTo(pos.x + pos.width, pos.y + pos.height, pos.x + pos.width - borderRadius, pos.y + pos.height);
+                        ctx.lineTo(pos.x + borderRadius, pos.y + pos.height);
+                        ctx.quadraticCurveTo(pos.x, pos.y + pos.height, pos.x, pos.y + pos.height - borderRadius);
+                        ctx.lineTo(pos.x, pos.y + borderRadius);
+                        ctx.quadraticCurveTo(pos.x, pos.y, pos.x + borderRadius, pos.y);
+                        ctx.closePath();
+                        ctx.clip();
+                        
+                        ctx.drawImage(img, pos.x, pos.y, pos.width, pos.height);
+                        ctx.restore();
+                    }
+                }
+                
+                // Create download link
+                const dataUrl = canvas.toDataURL('image/png');
+                const a = document.createElement('a');
+                a.href = dataUrl;
+                a.download = 'tools4fun-collage.png';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                
+                // Hide loading
+                loading.style.display = 'none';
+            }, 500);
+        });
+        
+        // SEO: Update page title
+        document.title = "Photo Collage Maker | Tools4.fun - Free Online Tools";
+    </script>
+</body>
+</html>
