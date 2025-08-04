@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online User Agent Parser tool - analyze and decode browser user agent strings. Get detailed information about browser, OS, device, and more.">
+    <meta name="keywords" content="user agent parser, browser detector, user agent analyzer, online tools, web tools">
+    <title>User Agent Parser Tool | Tools4.fun</title>
+    <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAi0lEQVQ4y62T0Q2DMAxEX4d0g25QJigTlAnKBIQJygRlAkIHiBzQo0eQ0gA2iZP4LfH5zue3kE1VdQJQAdQk2w5gBdA8d3w2WwA1yQbA3a8kq7v7nGQF8MkCkKwAqrvfQgjz4TDGuD0z2wGYADQz+1zGmFJKD8kA4JwzAMzX6xVSSnDOwRjz3YwxMMbAWgtrLay1/3O/6QdMhDvL4F3YFgAAAABJRU5ErkJggg==" type="image/png">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4895ef;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #4cc9f0;
+            --card-bg: #ffffff;
+            --border-color: #dee2e6;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fb;
+            color: var(--dark-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .tool-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .tool-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .tool-header h1 {
+            color: var(--secondary-color);
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .tool-header p {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .ad-container {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100px;
+            text-align: center;
+        }
+        
+        .tool-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+            color: white;
+            padding: 1.2rem;
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .user-agent-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            background-color: var(--light-color);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .results-container {
+            display: none;
+            margin-top: 2rem;
+            background: var(--light-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--success-color);
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .result-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+            border: 1px solid #eaeaea;
+        }
+        
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+        }
+        
+        .result-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .result-value {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: var(--dark-color);
+        }
+        
+        .how-to-use {
+            margin-top: 3rem;
+        }
+        
+        .how-to-use h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .step-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid #f0f0f0;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .step-number {
+            background: var(--primary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .step-card h3 {
+            margin-bottom: 0.8rem;
+            color: var(--secondary-color);
+        }
+        
+        .step-card p {
+            color: #555;
+        }
+        
+        @media (max-width: 768px) {
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .card-body {
+                padding: 1rem;
+            }
+            
+            .step-card {
+                padding: 1rem;
+            }
+            
+            .tool-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+        
+        .tool-footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 0.9rem;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="tool-container">
+        <!-- Tool Header -->
+        <div class="tool-header">
+            <h1>User Agent Parser Tool</h1>
+            <p>Analyze and decode any user agent string to get detailed information about browser, operating system, device, and more</p>
+        </div>
+        
+        <!-- Top Ad Container -->
+        <div class="ad-container">
+            <!-- AdSense Ad Unit -->
+            <div id="ad-top">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+            </div>
+        </div>
+        
+        <!-- Tool Card -->
+        <div class="tool-card">
+            <div class="card-header">
+                Analyze User Agent String
+            </div>
+            <div class="card-body">
+                <div class="input-group">
+                    <label for="user-agent">Enter User Agent String:</label>
+                    <textarea id="user-agent" class="user-agent-input" rows="4" placeholder="Paste user agent string here...">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36</textarea>
+                </div>
+                
+                <div class="btn-group">
+                    <button id="parse-btn" class="btn btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 0-.5.5v11.793l-3.146-3.147a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0-.708-.708L5 13.293V1.5a.5.5 0 0 0-.5-.5z"/>
+                        </svg>
+                        Parse User Agent
+                    </button>
+                    <button id="my-agent-btn" class="btn btn-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zM7 11.5a.5.5 0 0 1-1 0V7.707L5.354 8.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L7 7.707V11.5z"/>
+                        </svg>
+                        Use My Browser Agent
+                    </button>
+                    <button id="clear-btn" class="btn btn-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                        </svg>
+                        Clear
+                    </button>
+                </div>
+                
+                <div id="results" class="results-container">
+                    <h2>Parsing Results</h2>
+                    <div class="results-grid">
+                        <div class="result-card">
+                            <h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M0 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3zm9.5 5.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zm-6.354-.354a.5.5 0 1 0 .708.708l2-2a.5.5 0 0 0 0-.708l-2-2a.5.5 0 1 0-.708.708L4.793 6.5 3.146 8.146z"/>
+                                </svg>
+                                Browser
+                            </h3>
+                            <div class="result-value" id="browser">Google Chrome 115</div>
+                        </div>
+                        <div class="result-card">
+                            <h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M4 0h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
+                                    <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                                </svg>
+                                Operating System
+                            </h3>
+                            <div class="result-value" id="os">Windows 10</div>
+                        </div>
+                        <div class="result-card">
+                            <h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M3 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V2zm6 11a1 1 0 1 0-2 0 1 1 0 0 0 2 0z"/>
+                                </svg>
+                                Device
+                            </h3>
+                            <div class="result-value" id="device">Desktop</div>
+                        </div>
+                        <div class="result-card">
+                            <h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v4h10V2a1 1 0 0 0-1-1H4zm9 6H6v2h7V7zm0 3H6v2h7v-2zm0 3H6v2h6a1 1 0 0 0 1-1v-1zm-8 2v-2H3v1a1 1 0 0 0 1 1h1zm-2-3h2v-2H3v2zm0-3h2V7H3v2z"/>
+                                </svg>
+                                CPU Architecture
+                            </h3>
+                            <div class="result-value" id="cpu">x64</div>
+                        </div>
+                        <div class="result-card">
+                            <h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM8 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1z"/>
+                                    <path d="M7.5 7.793V4.5a.5.5 0 0 1 1 0v3.293l1.854 1.853a.5.5 0 0 1-.708.708l-2-2a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L7.5 7.793z"/>
+                                </svg>
+                                Engine
+                            </h3>
+                            <div class="result-value" id="engine">WebKit/Blink</div>
+                        </div>
+                        <div class="result-card">
+                            <h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14.5a6.5 6.5 0 1 1 0-13 6.5 6.5 0 0 1 0 13z"/>
+                                    <circle cx="8" cy="8" r="1.5"/>
+                                </svg>
+                                Device Type
+                            </h3>
+                            <div class="result-value" id="device-type">Desktop</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- How to Use Section -->
+        <div class="how-to-use">
+            <h2>How to Use the User Agent Parser Tool</h2>
+            <div class="steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Paste User Agent</h3>
+                    <p>Copy the user agent string from your browser or application and paste it into the input field.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Parse or Auto-detect</h3>
+                    <p>Click "Parse User Agent" to analyze the string or "Use My Browser Agent" to automatically detect your current browser.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>View Results</h3>
+                    <p>Instantly see detailed information about the browser, operating system, device, and more.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Copy or Share</h3>
+                    <p>Copy the parsed results or share them with others for debugging or analysis purposes.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Ad Container -->
+        <div class="ad-container">
+            <!-- AdSense Ad Unit -->
+            <div id="ad-bottom">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+            </div>
+        </div>
+        
+        <div class="tool-footer">
+            <p>© 2023 Tools4.fun - User Agent Parser Tool</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const userAgentInput = document.getElementById('user-agent');
+            const parseBtn = document.getElementById('parse-btn');
+            const myAgentBtn = document.getElementById('my-agent-btn');
+            const clearBtn = document.getElementById('clear-btn');
+            const resultsContainer = document.getElementById('results');
+            
+            // Result elements
+            const browserEl = document.getElementById('browser');
+            const osEl = document.getElementById('os');
+            const deviceEl = document.getElementById('device');
+            const cpuEl = document.getElementById('cpu');
+            const engineEl = document.getElementById('engine');
+            const deviceTypeEl = document.getElementById('device-type');
+            
+            // Function to parse user agent
+            function parseUserAgent(uaString) {
+                // For demo purposes - in a real implementation, you would use a library like UAParser.js
+                // This is a simplified version for demonstration
+                
+                const result = {
+                    browser: "Unknown Browser",
+                    os: "Unknown OS",
+                    device: "Unknown Device",
+                    cpu: "Unknown CPU",
+                    engine: "Unknown Engine",
+                    deviceType: "Desktop"
+                };
+                
+                // Browser detection
+                if (uaString.includes('Chrome')) {
+                    result.browser = "Google Chrome";
+                    // Extract Chrome version
+                    const chromeVersion = uaString.match(/Chrome\/(\d+\.\d+)/);
+                    if (chromeVersion) result.browser += " " + chromeVersion[1];
+                } else if (uaString.includes('Firefox')) {
+                    result.browser = "Mozilla Firefox";
+                    const ffVersion = uaString.match(/Firefox\/(\d+\.\d+)/);
+                    if (ffVersion) result.browser += " " + ffVersion[1];
+                } else if (uaString.includes('Safari') && !uaString.includes('Chrome')) {
+                    result.browser = "Apple Safari";
+                    const sfVersion = uaString.match(/Version\/(\d+\.\d+)/);
+                    if (sfVersion) result.browser += " " + sfVersion[1];
+                } else if (uaString.includes('Edge')) {
+                    result.browser = "Microsoft Edge";
+                    const edgeVersion = uaString.match(/Edge\/(\d+\.\d+)/);
+                    if (edgeVersion) result.browser += " " + edgeVersion[1];
+                } else if (uaString.includes('Opera') || uaString.includes('OPR/')) {
+                    result.browser = "Opera";
+                    const opVersion = uaString.match(/(?:Opera|OPR)\/(\d+\.\d+)/);
+                    if (opVersion) result.browser += " " + opVersion[1];
+                } else if (uaString.includes('Trident') || uaString.includes('MSIE')) {
+                    result.browser = "Internet Explorer";
+                    const ieVersion = uaString.match(/(?:MSIE |rv:)(\d+\.\d+)/);
+                    if (ieVersion) result.browser += " " + ieVersion[1];
+                }
+                
+                // OS detection
+                if (uaString.includes('Windows NT 10.0')) {
+                    result.os = "Windows 10";
+                } else if (uaString.includes('Windows NT 6.3')) {
+                    result.os = "Windows 8.1";
+                } else if (uaString.includes('Windows NT 6.2')) {
+                    result.os = "Windows 8";
+                } else if (uaString.includes('Windows NT 6.1')) {
+                    result.os = "Windows 7";
+                } else if (uaString.includes('Windows NT 6.0')) {
+                    result.os = "Windows Vista";
+                } else if (uaString.includes('Windows NT 5.1')) {
+                    result.os = "Windows XP";
+                } else if (uaString.includes('Mac OS X')) {
+                    result.os = "macOS";
+                    const macVersion = uaString.match(/Mac OS X (\d+[._]\d+)/);
+                    if (macVersion) result.os += " " + macVersion[1].replace('_', '.');
+                } else if (uaString.includes('Linux')) {
+                    result.os = "Linux";
+                } else if (uaString.includes('Android')) {
+                    result.os = "Android";
+                    const androidVersion = uaString.match(/Android (\d+\.\d+)/);
+                    if (androidVersion) result.os += " " + androidVersion[1];
+                    result.deviceType = "Mobile";
+                } else if (uaString.includes('iOS') || uaString.includes('iPhone') || uaString.includes('iPad')) {
+                    result.os = "iOS";
+                    const iosVersion = uaString.match(/(?:iPhone OS|iOS) (\d+_\d+)/);
+                    if (iosVersion) result.os += " " + iosVersion[1].replace('_', '.');
+                    result.deviceType = "Mobile";
+                }
+                
+                // Device detection
+                if (uaString.includes('iPhone')) {
+                    result.device = "Apple iPhone";
+                    result.deviceType = "Mobile";
+                } else if (uaString.includes('iPad')) {
+                    result.device = "Apple iPad";
+                    result.deviceType = "Tablet";
+                } else if (uaString.includes('Android')) {
+                    result.device = "Android Device";
+                    result.deviceType = "Mobile";
+                } else if (uaString.includes('Macintosh')) {
+                    result.device = "Apple Macintosh";
+                } else if (uaString.includes('Windows')) {
+                    result.device = "Windows PC";
+                }
+                
+                // CPU Architecture
+                if (uaString.includes('x86_64') || uaString.includes('x64') || uaString.includes('Win64')) {
+                    result.cpu = "x64";
+                } else if (uaString.includes('x86') || uaString.includes('i686')) {
+                    result.cpu = "x86";
+                } else if (uaString.includes('arm') || uaString.includes('aarch64')) {
+                    result.cpu = "ARM";
+                }
+                
+                // Engine detection
+                if (uaString.includes('AppleWebKit')) {
+                    result.engine = "WebKit";
+                    if (uaString.includes('Chrome')) result.engine = "WebKit/Blink";
+                } else if (uaString.includes('Gecko')) {
+                    result.engine = "Gecko";
+                } else if (uaString.includes('Trident')) {
+                    result.engine = "Trident";
+                } else if (uaString.includes('Presto')) {
+                    result.engine = "Presto";
+                }
+                
+                return result;
+            }
+            
+            // Event Listeners
+            parseBtn.addEventListener('click', function() {
+                const uaString = userAgentInput.value.trim();
+                if (uaString) {
+                    const parsedData = parseUserAgent(uaString);
+                    
+                    // Update the UI with parsed data
+                    browserEl.textContent = parsedData.browser;
+                    osEl.textContent = parsedData.os;
+                    deviceEl.textContent = parsedData.device;
+                    cpuEl.textContent = parsedData.cpu;
+                    engineEl.textContent = parsedData.engine;
+                    deviceTypeEl.textContent = parsedData.deviceType;
+                    
+                    // Show results
+                    resultsContainer.style.display = 'block';
+                    
+                    // Scroll to results
+                    resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    alert('Please enter a user agent string to parse');
+                }
+            });
+            
+            myAgentBtn.addEventListener('click', function() {
+                // Get the current browser's user agent
+                const currentUserAgent = navigator.userAgent;
+                userAgentInput.value = currentUserAgent;
+                
+                // Auto parse it
+                const parsedData = parseUserAgent(currentUserAgent);
+                
+                // Update the UI with parsed data
+                browserEl.textContent = parsedData.browser;
+                osEl.textContent = parsedData.os;
+                deviceEl.textContent = parsedData.device;
+                cpuEl.textContent = parsedData.cpu;
+                engineEl.textContent = parsedData.engine;
+                deviceTypeEl.textContent = parsedData.deviceType;
+                
+                // Show results
+                resultsContainer.style.display = 'block';
+                
+                // Scroll to results
+                resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+            
+            clearBtn.addEventListener('click', function() {
+                userAgentInput.value = '';
+                resultsContainer.style.display = 'none';
+            });
+            
+            // Initialize with current user agent as example
+            const currentUserAgent = navigator.userAgent;
+            const parsedData = parseUserAgent(currentUserAgent);
+            browserEl.textContent = parsedData.browser;
+            osEl.textContent = parsedData.os;
+            deviceEl.textContent = parsedData.device;
+            cpuEl.textContent = parsedData.cpu;
+            engineEl.textContent = parsedData.engine;
+            deviceTypeEl.textContent = parsedData.deviceType;
+            resultsContainer.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
