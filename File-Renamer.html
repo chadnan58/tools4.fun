@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online file renamer tool - rename multiple files in bulk with custom patterns and rules.">
+    <meta name="keywords" content="file renamer, bulk rename, file tool, online file tool, file management">
+    <title>File Renamer | Tools4.Fun</title>
+    <link rel="icon" type="image/png" href="favicon-16x16.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1877f2;
+            --secondary-color: #42b72a;
+            --accent-color: #ff6b6b;
+            --background-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-color: #1c1e21;
+            --border-color: #dddfe2;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --delete-color: #ffdddd;
+            --add-color: #ddffdd;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 25px 0 15px;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border-radius: 0 0 20px 20px;
+            box-shadow: var(--shadow);
+            color: white;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 24px;
+            box-shadow: var(--shadow);
+        }
+        
+        .logo-text {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .tagline {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-top: 5px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .ad-container {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 25px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100px;
+            box-shadow: var(--shadow);
+            max-width: 1000px;
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-title {
+            font-size: 26px;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .card-title i {
+            font-size: 32px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .upload-area {
+            border: 3px dashed var(--border-color);
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            background-color: #f8fafd;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary-color);
+            background-color: #eef5ff;
+        }
+        
+        .upload-icon {
+            font-size: 64px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .upload-text {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .upload-subtext {
+            color: #606770;
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 18px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(24, 119, 242, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(to right, #ff6b6b, #ff8e8e);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(24, 119, 242, 0.1);
+        }
+        
+        .settings {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .setting-group {
+            margin-bottom: 20px;
+        }
+        
+        .setting-label {
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: block;
+            font-size: 18px;
+            color: var(--text-color);
+        }
+        
+        select, input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 16px;
+            background-color: #f8f9fa;
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(24, 119, 242, 0.2);
+        }
+        
+        .files-container {
+            margin: 30px 0;
+        }
+        
+        .files-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr 80px;
+            gap: 15px;
+            padding: 15px;
+            background-color: #f0f4f8;
+            border-radius: 10px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .file-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 80px;
+            gap: 15px;
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+            align-items: center;
+        }
+        
+        .file-name {
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+        }
+        
+        .file-actions {
+            text-align: center;
+        }
+        
+        .rename-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        .rename-btn:hover {
+            background: #166fe5;
+        }
+        
+        .result-container {
+            padding: 30px;
+            border-radius: 12px;
+            background-color: #f0fff4;
+            border: 2px dashed #42b72a;
+            display: none;
+            margin-top: 30px;
+        }
+        
+        .result-title {
+            font-size: 24px;
+            color: #2e8b57;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .download-btn {
+            background: linear-gradient(to right, #42b72a, #2e8b57);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            box-shadow: 0 4px 8px rgba(66, 183, 42, 0.2);
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(66, 183, 42, 0.3);
+        }
+        
+        .how-to-use {
+            margin-top: 40px;
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .step-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .step-title {
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            font-size: 20px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 16px;
+            padding: 30px 25px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .feature-title {
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+            color: #606770;
+            font-size: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        @media (max-width: 768px) {
+            .card-title {
+                font-size: 22px;
+            }
+            
+            .upload-text {
+                font-size: 20px;
+            }
+            
+            .btn {
+                width: 100%;
+                padding: 16px;
+            }
+            
+            .settings {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo-text {
+                font-size: 28px;
+            }
+            
+            .files-header, .file-row {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .file-actions {
+                grid-column: span 2;
+                margin-top: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .card {
+                padding: 25px 20px;
+            }
+            
+            .upload-icon {
+                font-size: 48px;
+            }
+            
+            .upload-text {
+                font-size: 18px;
+            }
+            
+            .card-title {
+                font-size: 20px;
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .logo {
+                flex-direction: column;
+            }
+            
+            .files-header, .file-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .file-actions {
+                grid-column: span 1;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">T4F</div>
+                <div class="logo-text">Tools4.Fun</div>
+            </div>
+            <h1>File Renamer</h1>
+            <p class="tagline">Rename multiple files in bulk with custom patterns and rules</p>
+        </header>
+
+        <!-- Top Ad Container -->
+        <div class="ad-container">
+            <!-- Google AdSense Ad Unit -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+
+        <main>
+            <div class="card">
+                <h2 class="card-title">
+                    <i class="fas fa-file-signature"></i> Rename Your Files
+                </h2>
+                
+                <div class="upload-area" id="upload-area">
+                    <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                    <h3 class="upload-text">Drop your files here or click to browse</h3>
+                    <p class="upload-subtext">Supports all file types (Max 20 files at once)</p>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-file-upload"></i> Select Files
+                    </button>
+                    <input type="file" id="file-input" multiple style="display: none;">
+                </div>
+                
+                <div class="settings">
+                    <div class="setting-group">
+                        <label class="setting-label" for="prefix">Add Prefix:</label>
+                        <input type="text" id="prefix" placeholder="e.g., project_">
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label class="setting-label" for="suffix">Add Suffix:</label>
+                        <input type="text" id="suffix" placeholder="e.g., _2023">
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label class="setting-label" for="replace">Replace Text:</label>
+                        <input type="text" id="replace" placeholder="Find and replace text">
+                    </div>
+                </div>
+                
+                <div class="setting-group">
+                    <label class="setting-label" for="replace-with">Replace With:</label>
+                    <input type="text" id="replace-with" placeholder="Replacement text">
+                </div>
+                
+                <div class="btn-group" style="display: flex; gap: 15px; margin: 20px 0;">
+                    <button class="btn btn-primary" id="rename-btn" style="flex: 1;">
+                        <i class="fas fa-sync-alt"></i> Rename Files
+                    </button>
+                    <button class="btn btn-outline" id="clear-btn" style="flex: 1;">
+                        <i class="fas fa-trash"></i> Clear All
+                    </button>
+                </div>
+                
+                <div class="files-container">
+                    <div class="files-header">
+                        <div>Original Filename</div>
+                        <div>New Filename</div>
+                        <div>Action</div>
+                    </div>
+                    <div id="files-list">
+                        <!-- Files will be listed here -->
+                    </div>
+                </div>
+                
+                <div class="result-container" id="result-container">
+                    <h3 class="result-title">
+                        <i class="fas fa-check-circle"></i> Files Successfully Renamed!
+                    </h3>
+                    <p style="text-align: center; margin-bottom: 20px;">Your files have been renamed according to your specifications.</p>
+                    
+                    <div style="text-align: center; margin-top: 25px;">
+                        <button class="btn btn-secondary" id="download-btn">
+                            <i class="fas fa-download"></i> Download Renamed Files
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="how-to-use">
+                <h2 class="card-title">
+                    <i class="fas fa-info-circle"></i> How to Use This Tool
+                </h2>
+                
+                <div class="steps">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h3 class="step-title">Upload Files</h3>
+                        <p>Click the upload area or drag and drop your files. You can select multiple files at once.</p>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h3 class="step-title">Set Renaming Rules</h3>
+                        <p>Add prefixes, suffixes, or find/replace text to define how files should be renamed.</p>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3 class="step-title">Preview Changes</h3>
+                        <p>See how your files will be renamed in the preview list before applying changes.</p>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h3 class="step-title">Rename & Download</h3>
+                        <p>Click "Rename Files" and then download your renamed files in a ZIP archive.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="features">
+                <h2 class="card-title" style="margin-top: 50px; justify-content: center;">
+                    <i class="fas fa-star"></i> Why Use Our File Renamer
+                </h2>
+                
+                <div class="features">
+                    <div class="feature-card">
+                        <i class="fas fa-bolt feature-icon"></i>
+                        <h3 class="feature-title">Save Time</h3>
+                        <p>Rename hundreds of files in seconds instead of doing it manually.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fas fa-lock feature-icon"></i>
+                        <h3 class="feature-title">100% Secure</h3>
+                        <p>Files are processed in your browser and never uploaded to any server.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fas fa-sliders-h feature-icon"></i>
+                        <h3 class="feature-title">Flexible Rules</h3>
+                        <p>Use prefixes, suffixes, text replacement, and sequential numbering.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fas fa-file-archive feature-icon"></i>
+                        <h3 class="feature-title">Easy Download</h3>
+                        <p>Get all renamed files in a convenient ZIP archive with one click.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Ad Container -->
+        <div class="ad-container">
+            <!-- Google AdSense Ad Unit -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+
+        <footer>
+            <p>© 2023 Tools4.Fun | Free Online Tools for Developers and Creators</p>
+            <p>File Renamer - Bulk rename files with custom patterns</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const uploadArea = document.getElementById('upload-area');
+            const fileInput = document.getElementById('file-input');
+            const filesList = document.getElementById('files-list');
+            const renameBtn = document.getElementById('rename-btn');
+            const clearBtn = document.getElementById('clear-btn');
+            const downloadBtn = document.getElementById('download-btn');
+            const resultContainer = document.getElementById('result-container');
+            
+            let uploadedFiles = [];
+            
+            // Upload area click handler
+            uploadArea.addEventListener('click', () => {
+                fileInput.click();
+            });
+            
+            // File input change handler
+            fileInput.addEventListener('change', function() {
+                if (this.files && this.files.length > 0) {
+                    uploadedFiles = Array.from(this.files);
+                    renderFilesList();
+                    updateUploadArea();
+                }
+            });
+            
+            // Clear button click handler
+            clearBtn.addEventListener('click', function() {
+                fileInput.value = '';
+                uploadedFiles = [];
+                filesList.innerHTML = '';
+                resultContainer.style.display = 'none';
+                updateUploadArea();
+            });
+            
+            // Rename button click handler
+            renameBtn.addEventListener('click', function() {
+                if (uploadedFiles.length === 0) return;
+                
+                // Apply renaming rules
+                const prefix = document.getElementById('prefix').value;
+                const suffix = document.getElementById('suffix').value;
+                const findText = document.getElementById('replace').value;
+                const replaceText = document.getElementById('replace-with').value;
+                
+                // Update file names in the list
+                const fileRows = filesList.querySelectorAll('.file-row');
+                fileRows.forEach(row => {
+                    const newNameInput = row.querySelector('.new-name');
+                    let newName = newNameInput.value;
+                    
+                    // Apply rules
+                    if (prefix) newName = prefix + newName;
+                    if (suffix) newName = newName + suffix;
+                    if (findText && replaceText) {
+                        newName = newName.replace(new RegExp(findText, 'g'), replaceText);
+                    }
+                    
+                    newNameInput.value = newName;
+                });
+                
+                // Show result container
+                resultContainer.style.display = 'block';
+                
+                // Scroll to results
+                resultContainer.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Download button click handler
+            downloadBtn.addEventListener('click', function() {
+                alert('Files would be downloaded as a ZIP archive in a real implementation. This is a frontend simulation.');
+            });
+            
+            // Update upload area display
+            function updateUploadArea() {
+                if (uploadedFiles.length > 0) {
+                    uploadArea.innerHTML = `
+                        <i class="fas fa-file-upload upload-icon" style="color: #42b72a;"></i>
+                        <h3 class="upload-text">${uploadedFiles.length} file${uploadedFiles.length > 1 ? 's' : ''} selected</h3>
+                        <p class="upload-subtext">Click to choose different files</p>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-sync-alt"></i> Change Files
+                        </button>
+                    `;
+                } else {
+                    uploadArea.innerHTML = `
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <h3 class="upload-text">Drop your files here or click to browse</h3>
+                        <p class="upload-subtext">Supports all file types (Max 20 files at once)</p>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-file-upload"></i> Select Files
+                        </button>
+                    `;
+                }
+            }
+            
+            // Render files list
+            function renderFilesList() {
+                filesList.innerHTML = '';
+                
+                uploadedFiles.forEach((file, index) => {
+                    const fileName = file.name;
+                    const fileExt = fileName.split('.').pop();
+                    const baseName = fileName.slice(0, fileName.lastIndexOf('.'));
+                    
+                    const fileRow = document.createElement('div');
+                    fileRow.className = 'file-row';
+                    fileRow.innerHTML = `
+                        <div class="file-name">${fileName}</div>
+                        <div>
+                            <input type="text" class="new-name" value="${baseName}" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ddd;">
+                            <span>.${fileExt}</span>
+                        </div>
+                        <div class="file-actions">
+                            <button class="rename-btn" data-index="${index}">Rename</button>
+                        </div>
+                    `;
+                    
+                    filesList.appendChild(fileRow);
+                    
+                    // Add event listener to individual rename buttons
+                    fileRow.querySelector('.rename-btn').addEventListener('click', function() {
+                        const rowIndex = parseInt(this.getAttribute('data-index'));
+                        const newNameInput = this.closest('.file-row').querySelector('.new-name');
+                        let newName = newNameInput.value;
+                        
+                        // Apply rules to individual file
+                        const prefix = document.getElementById('prefix').value;
+                        const suffix = document.getElementById('suffix').value;
+                        const findText = document.getElementById('replace').value;
+                        const replaceText = document.getElementById('replace-with').value;
+                        
+                        if (prefix) newName = prefix + newName;
+                        if (suffix) newName = newName + suffix;
+                        if (findText && replaceText) {
+                            newName = newName.replace(new RegExp(findText, 'g'), replaceText);
+                        }
+                        
+                        newNameInput.value = newName;
+                    });
+                });
+            }
+            
+            // Drag and drop functionality
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.style.borderColor = '#42b72a';
+                uploadArea.style.backgroundColor = '#e6f7e0';
+            });
+            
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.style.borderColor = '';
+                uploadArea.style.backgroundColor = '';
+            });
+            
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.style.borderColor = '';
+                uploadArea.style.backgroundColor = '';
+                
+                if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+                    uploadedFiles = Array.from(e.dataTransfer.files);
+                    renderFilesList();
+                    updateUploadArea();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
