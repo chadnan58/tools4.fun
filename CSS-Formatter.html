@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Format and beautify your CSS code with our free online CSS Formatter tool. Make your stylesheets readable and maintainable.">
+    <meta name="keywords" content="css formatter, css beautifier, format css, css prettifier, css minifier">
+    <title>Free CSS Formatter Tool | Tools4Fun</title>
+    <link rel="icon" href="favicon-16x16.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4caf50;
+            --primary-dark: #388e3c;
+            --secondary: #ff9800;
+            --dark: #333;
+            --light: #f8f9fa;
+            --gray: #e9ecef;
+            --border: #dee2e6;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+            --card-radius: 12px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa, #e4e7eb);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+        
+        .logo i {
+            font-size: 2.5rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto 25px;
+        }
+        
+        /* Tool Container */
+        .tool-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        @media (min-width: 992px) {
+            .tool-container {
+                grid-template-columns: 1fr 350px;
+            }
+        }
+        
+        /* Card Styles */
+        .card {
+            background: white;
+            border-radius: var(--card-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: slideUp 0.8s ease-out;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 18px 25px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .card-body {
+            padding: 25px;
+        }
+        
+        /* Ad Spaces */
+        .ad-container {
+            background: white;
+            border-radius: var(--card-radius);
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: var(--shadow);
+            animation: fadeIn 1.2s ease-out;
+        }
+        
+        .ad-label {
+            font-size: 0.85rem;
+            color: #777;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .ad-placeholder {
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            border: 1px dashed #ccc;
+        }
+        
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background-color: var(--light);
+            font-size: 1rem;
+            min-height: 250px;
+            resize: vertical;
+            transition: border-color 0.3s;
+            font-family: 'Courier New', monospace;
+            line-height: 1.5;
+            tab-size: 4;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        button {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
+            background: linear-gradient(135deg, var(--primary-dark), #2e7d32);
+        }
+        
+        .btn-block {
+            width: 100%;
+            display: block;
+            text-align: center;
+            justify-content: center;
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--secondary), #f57c00);
+            box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            box-shadow: 0 6px 15px rgba(255, 152, 0, 0.4);
+            background: linear-gradient(135deg, #f57c00, #e65100);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .btn-group button {
+            flex: 1;
+        }
+        
+        /* Options */
+        .options-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .option-card {
+            background: rgba(76, 175, 80, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .option-card:hover {
+            background: rgba(76, 175, 80, 0.2);
+        }
+        
+        .option-card.active {
+            background: rgba(76, 175, 80, 0.2);
+            border-color: var(--primary);
+        }
+        
+        .option-card i {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        /* How to Use */
+        .instructions .step {
+            display: flex;
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .instructions .step:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-right: 20px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+        }
+        
+        .step-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+        
+        .step-content p {
+            color: #555;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 0 20px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            margin-top: 20px;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .card-header {
+                font-size: 1.1rem;
+                padding: 15px 20px;
+            }
+            
+            button {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .options-group {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        /* Character Count */
+        .counter {
+            text-align: right;
+            font-size: 0.9rem;
+            color: #777;
+            margin-top: 5px;
+        }
+        
+        /* Loading Animation */
+        .loader {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--gray);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Example CSS */
+        .example-btn {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        
+        .example-btn:hover {
+            background: rgba(76, 175, 80, 0.1);
+        }
+        
+        /* Tab styling */
+        .code-tab {
+            display: inline-block;
+            padding: 8px 15px;
+            background: #f0f0f0;
+            border-radius: 5px 5px 0 0;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+        
+        .code-tab.active {
+            background: white;
+            border-bottom: 3px solid var(--primary);
+            font-weight: 600;
+        }
+        
+        .tab-container {
+            margin-bottom: 15px;
+        }
+        
+        .code-container {
+            position: relative;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255,255,255,0.8);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 0.9rem;
+        }
+        
+        .copy-btn:hover {
+            background: white;
+            border-color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="#" class="logo">
+                <i class="fas fa-code"></i>
+                <span>Tools4Fun</span>
+            </a>
+            <h1>CSS Formatter Tool</h1>
+            <p class="subtitle">Format, beautify, and minify your CSS code instantly for better readability and performance</p>
+        </header>
+
+        <!-- Top Ad Space -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-placeholder">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="tool-container">
+            <!-- Tool Section -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-paint-brush"></i> CSS Formatter
+                </div>
+                <div class="card-body">
+                    <div class="tab-container">
+                        <div class="code-tab active" data-tab="input">Input CSS</div>
+                        <div class="code-tab" data-tab="output">Formatted CSS</div>
+                    </div>
+                    
+                    <div class="code-container">
+                        <div class="form-group">
+                            <textarea id="cssInput" placeholder="Paste your CSS code here...">.container{width:100%;max-width:1200px;margin:0 auto}header{text-align:center;margin-bottom:30px}.logo{display:inline-flex;align-items:center;gap:10px;font-size:2.2rem;font-weight:700;color:#4caf50}</textarea>
+                            <div class="counter">Characters: <span id="inputCount">0</span> | Lines: <span id="inputLines">0</span></div>
+                        </div>
+                        
+                        <div class="form-group" style="display:none;" id="outputGroup">
+                            <textarea id="cssOutput" placeholder="Formatted CSS will appear here..." readonly></textarea>
+                            <div class="counter">Characters: <span id="outputCount">0</span> | Lines: <span id="outputLines">0</span></div>
+                            <button class="copy-btn" id="copyBtn"><i class="fas fa-copy"></i> Copy</button>
+                        </div>
+                        
+                        <button class="example-btn" id="exampleBtn"><i class="fas fa-lightbulb"></i> Load Example</button>
+                    </div>
+                    
+                    <div class="options-group">
+                        <div class="option-card active" data-option="format">
+                            <i class="fas fa-align-left"></i>
+                            <h4>Format CSS</h4>
+                            <p>Beautify with indentation</p>
+                        </div>
+                        <div class="option-card" data-option="minify">
+                            <i class="fas fa-compress-alt"></i>
+                            <h4>Minify CSS</h4>
+                            <p>Reduce file size</p>
+                        </div>
+                        <div class="option-card" data-option="prefix">
+                            <i class="fas fa-tools"></i>
+                            <h4>Auto Prefix</h4>
+                            <p>Add vendor prefixes</p>
+                        </div>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button id="formatBtn" class="btn-block">
+                            <i class="fas fa-magic"></i> Process CSS
+                        </button>
+                        <button id="clearBtn" class="btn-block btn-secondary">
+                            <i class="fas fa-broom"></i> Clear All
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- How to Use Section -->
+            <div class="card instructions">
+                <div class="card-header">
+                    <i class="fas fa-info-circle"></i> How to Use
+                </div>
+                <div class="card-body">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Enter Your CSS</h4>
+                            <p>Paste your CSS code into the input area. You can use the example button to load sample CSS.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Select Formatting Option</h4>
+                            <p>Choose between formatting (beautify), minifying, or adding vendor prefixes to your CSS.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Process CSS</h4>
+                            <p>Click "Process CSS" to transform your code. The formatted or minified CSS will appear in the output area.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>Copy or Clear</h4>
+                            <p>Copy the processed CSS to your clipboard or clear the editor to start fresh with new code.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number"><i class="fas fa-lightbulb"></i></div>
+                        <div class="step-content">
+                            <h4>Why Format CSS?</h4>
+                            <ul style="padding-left: 20px; margin-top: 10px;">
+                                <li><strong>Readability:</strong> Well-formatted CSS is easier to understand and maintain</li>
+                                <li><strong>Collaboration:</strong> Standardized formatting helps team collaboration</li>
+                                <li><strong>Debugging:</strong> Organized code makes debugging faster and more efficient</li>
+                                <li><strong>Performance:</strong> Minified CSS reduces file size for faster page loads</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Ad Space -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-placeholder">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2023 Tools4Fun. All rights reserved.</p>
+            <p>Free online tools for everyday tasks</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const cssInput = document.getElementById('cssInput');
+            const cssOutput = document.getElementById('cssOutput');
+            const inputCount = document.getElementById('inputCount');
+            const outputCount = document.getElementById('outputCount');
+            const inputLines = document.getElementById('inputLines');
+            const outputLines = document.getElementById('outputLines');
+            const formatBtn = document.getElementById('formatBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const copyBtn = document.getElementById('copyBtn');
+            const exampleBtn = document.getElementById('exampleBtn');
+            const optionCards = document.querySelectorAll('.option-card');
+            const codeTabs = document.querySelectorAll('.code-tab');
+            const inputGroup = cssInput.parentElement.parentElement;
+            const outputGroup = document.getElementById('outputGroup');
+            
+            // Current mode
+            let currentMode = 'format';
+            
+            // Initialize character counts
+            function updateCharCounts() {
+                const inputText = cssInput.value;
+                const outputText = cssOutput.value;
+                
+                inputCount.textContent = inputText.length;
+                outputCount.textContent = outputText.length;
+                
+                inputLines.textContent = inputText.split('\n').length;
+                outputLines.textContent = outputText.split('\n').length;
+            }
+            
+            // Initial update
+            updateCharCounts();
+            
+            // Update counts on input
+            cssInput.addEventListener('input', updateCharCounts);
+            cssOutput.addEventListener('input', updateCharCounts);
+            
+            // Clear all text
+            clearBtn.addEventListener('click', function() {
+                cssInput.value = '';
+                cssOutput.value = '';
+                updateCharCounts();
+                inputGroup.style.display = 'block';
+                outputGroup.style.display = 'none';
+                document.querySelector('.code-tab[data-tab="input"]').classList.add('active');
+                document.querySelector('.code-tab[data-tab="output"]').classList.remove('active');
+            });
+            
+            // Set mode
+            optionCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    optionCards.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    currentMode = this.dataset.option;
+                });
+            });
+            
+            // Switch tabs
+            codeTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabType = this.dataset.tab;
+                    
+                    codeTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    if (tabType === 'input') {
+                        inputGroup.style.display = 'block';
+                        outputGroup.style.display = 'none';
+                    } else {
+                        inputGroup.style.display = 'none';
+                        outputGroup.style.display = 'block';
+                    }
+                });
+            });
+            
+            // Copy to clipboard
+            copyBtn.addEventListener('click', function() {
+                cssOutput.select();
+                document.execCommand('copy');
+                
+                // Show feedback
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                }, 2000);
+            });
+            
+            // Load example
+            exampleBtn.addEventListener('click', function() {
+                cssInput.value = `/* Sample CSS for formatting */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+    background: linear-gradient(135deg, #4caf50, #388e3c);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.button {
+    display: inline-block;
+    padding: 12px 25px;
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+}
+
+.button:hover {
+    background: #388e3c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .header {
+        padding: 15px;
+    }
+}`;
+                updateCharCounts();
+            });
+            
+            // Format CSS
+            formatBtn.addEventListener('click', function() {
+                const css = cssInput.value.trim();
+                
+                if (!css) {
+                    alert('Please enter some CSS to format');
+                    return;
+                }
+                
+                let result = '';
+                
+                if (currentMode === 'format') {
+                    result = formatCSS(css);
+                } else if (currentMode === 'minify') {
+                    result = minifyCSS(css);
+                } else {
+                    result = addPrefixes(css);
+                }
+                
+                cssOutput.value = result;
+                updateCharCounts();
+                
+                // Switch to output tab
+                document.querySelector('.code-tab[data-tab="output"]').click();
+            });
+            
+            // CSS Formatting Functions
+            function formatCSS(css) {
+                // Basic CSS formatting function
+                let formatted = '';
+                let indentLevel = 0;
+                let inRule = false;
+                let inComment = false;
+                
+                // Remove existing indentation
+                css = css.replace(/\s+/g, ' ').trim();
+                
+                for (let i = 0; i < css.length; i++) {
+                    const char = css[i];
+                    const nextChar = css[i+1];
+                    
+                    // Handle comments
+                    if (char === '/' && nextChar === '*') {
+                        inComment = true;
+                        formatted += '/*';
+                        i++;
+                        continue;
+                    }
+                    
+                    if (inComment) {
+                        formatted += char;
+                        if (char === '*' && nextChar === '/') {
+                            inComment = false;
+                            formatted += '/';
+                            i++;
+                            formatted += '\n' + '\t'.repeat(indentLevel);
+                        }
+                        continue;
+                    }
+                    
+                    if (char === '{') {
+                        formatted += ' {\n';
+                        indentLevel++;
+                        formatted += '\t'.repeat(indentLevel);
+                        inRule = true;
+                        continue;
+                    }
+                    
+                    if (char === '}') {
+                        indentLevel--;
+                        formatted = formatted.trimRight() + '\n' + '\t'.repeat(indentLevel) + '}\n';
+                        if (indentLevel > 0) {
+                            formatted += '\t'.repeat(indentLevel);
+                        }
+                        inRule = false;
+                        continue;
+                    }
+                    
+                    if (char === ';') {
+                        formatted += ';\n';
+                        if (inRule && indentLevel > 0) {
+                            formatted += '\t'.repeat(indentLevel);
+                        }
+                        continue;
+                    }
+                    
+                    if (char === ':') {
+                        formatted += ': ';
+                        continue;
+                    }
+                    
+                    if (char === ',') {
+                        formatted += ', ';
+                        continue;
+                    }
+                    
+                    formatted += char;
+                }
+                
+                return formatted.trim();
+            }
+            
+            function minifyCSS(css) {
+                // Remove comments
+                css = css.replace(/\/\*[\s\S]*?\*\//g, '');
+                
+                // Remove whitespace
+                css = css.replace(/\s+/g, ' ');
+                
+                // Remove space around operators
+                css = css.replace(/\s*([\{\}:;,])\s*/g, '$1');
+                
+                // Remove last semicolon before }
+                css = css.replace(/;}/g, '}');
+                
+                return css.trim();
+            }
+            
+            function addPrefixes(css) {
+                // Simple prefixer for demonstration
+                const propertiesToPrefix = [
+                    'transform', 'transition', 'border-radius', 
+                    'box-shadow', 'flex', 'user-select'
+                ];
+                
+                let prefixed = '';
+                const lines = css.split('\n');
+                
+                for (let line of lines) {
+                    line = line.trim();
+                    
+                    // Check if it's a property that needs prefixing
+                    let needsPrefix = false;
+                    let property = '';
+                    
+                    for (const prop of propertiesToPrefix) {
+                        if (line.startsWith(prop + ':') || line.includes(':' + prop)) {
+                            needsPrefix = true;
+                            property = prop;
+                            break;
+                        }
+                    }
+                    
+                    if (needsPrefix) {
+                        // Add prefixes
+                        prefixed += `-webkit-${line}\n`;
+                        prefixed += `-moz-${line}\n`;
+                        prefixed += `-ms-${line}\n`;
+                        prefixed += `${line}\n`;
+                    } else {
+                        prefixed += line + '\n';
+                    }
+                }
+                
+                return prefixed;
+            }
+            
+            // Initialize with sample CSS
+            exampleBtn.click();
+        });
+    </script>
+</body>
+</html>
