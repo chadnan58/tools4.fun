@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online loan calculator tool - calculate monthly payments, total interest, and amortization schedule for any loan.">
+    <meta name="keywords" content="loan calculator, mortgage calculator, car loan calculator, personal loan calculator, financial tool">
+    <title>Loan Calculator | Tools4.Fun</title>
+    <link rel="icon" type="image/png" href="favicon-16x16.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #1877f2;
+            --secondary-color: #42b72a;
+            --accent-color: #ff6b6b;
+            --background-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-color: #1c1e21;
+            --border-color: #dddfe2;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 25px 0 15px;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border-radius: 0 0 20px 20px;
+            box-shadow: var(--shadow);
+            color: white;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 24px;
+            box-shadow: var(--shadow);
+        }
+        
+        .logo-text {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .tagline {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-top: 5px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .ad-container {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 25px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100px;
+            box-shadow: var(--shadow);
+            max-width: 1000px;
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-title {
+            font-size: 26px;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .card-title i {
+            font-size: 32px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .calculator-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        
+        @media (min-width: 992px) {
+            .calculator-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .input-section, .result-section {
+            padding: 20px;
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+        }
+        
+        .input-label {
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 16px;
+            background-color: #f8f9fa;
+            margin-top: 5px;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(24, 119, 242, 0.2);
+        }
+        
+        .range-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        input[type="range"] {
+            flex: 1;
+            height: 8px;
+            border-radius: 4px;
+            background: #ddd;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+        }
+        
+        .value-display {
+            min-width: 60px;
+            text-align: right;
+            font-weight: 600;
+        }
+        
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 18px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(24, 119, 242, 0.4);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(24, 119, 242, 0.1);
+        }
+        
+        .result-box {
+            background: #f8fafd;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            text-align: center;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .result-value {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 15px 0;
+            color: var(--primary-color);
+        }
+        
+        .result-label {
+            font-size: 18px;
+            color: #606770;
+        }
+        
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .summary-item {
+            background: #f0f4f8;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .summary-value {
+            font-weight: 700;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .summary-label {
+            color: #606770;
+            font-size: 14px;
+        }
+        
+        .chart-container {
+            margin-top: 30px;
+            height: 250px;
+        }
+        
+        .how-to-use {
+            margin-top: 40px;
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .step-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .step-title {
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            font-size: 20px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 16px;
+            padding: 30px 25px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .feature-title {
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+            color: #606770;
+            font-size: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        @media (max-width: 768px) {
+            .card-title {
+                font-size: 22px;
+            }
+            
+            .logo-text {
+                font-size: 28px;
+            }
+            
+            .result-value {
+                font-size: 28px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .card {
+                padding: 25px 15px;
+            }
+            
+            .card-title {
+                font-size: 20px;
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .logo {
+                flex-direction: column;
+            }
+            
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">T4F</div>
+                <div class="logo-text">Tools4.Fun</div>
+            </div>
+            <h1>Loan Calculator</h1>
+            <p class="tagline">Calculate monthly payments, total interest, and amortization schedule for any loan</p>
+        </header>
+
+        <!-- Top Ad Container -->
+        <div class="ad-container">
+            <!-- Google AdSense Ad Unit -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+
+        <main>
+            <div class="card">
+                <h2 class="card-title">
+                    <i class="fas fa-calculator"></i> Loan Calculator
+                </h2>
+                
+                <div class="calculator-container">
+                    <div class="input-section">
+                        <div class="input-group">
+                            <label class="input-label" for="loan-amount">
+                                <i class="fas fa-dollar-sign"></i> Loan Amount
+                            </label>
+                            <div class="range-container">
+                                <input type="range" id="loan-amount-slider" min="1000" max="1000000" step="1000" value="250000">
+                                <div class="value-display">$<span id="loan-amount-value">250,000</span></div>
+                            </div>
+                            <input type="number" id="loan-amount" class="input-field" value="250000">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label class="input-label" for="interest-rate">
+                                <i class="fas fa-percent"></i> Interest Rate
+                            </label>
+                            <div class="range-container">
+                                <input type="range" id="interest-rate-slider" min="1" max="20" step="0.1" value="5.5">
+                                <div class="value-display"><span id="interest-rate-value">5.5</span>%</div>
+                            </div>
+                            <input type="number" id="interest-rate" class="input-field" value="5.5">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label class="input-label" for="loan-term">
+                                <i class="fas fa-clock"></i> Loan Term (Years)
+                            </label>
+                            <div class="range-container">
+                                <input type="range" id="loan-term-slider" min="1" max="30" step="1" value="15">
+                                <div class="value-display"><span id="loan-term-value">15</span> years</div>
+                            </div>
+                            <input type="number" id="loan-term" class="input-field" value="15">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label class="input-label" for="down-payment">
+                                <i class="fas fa-hand-holding-usd"></i> Down Payment
+                            </label>
+                            <div class="range-container">
+                                <input type="range" id="down-payment-slider" min="0" max="50" step="1" value="10">
+                                <div class="value-display"><span id="down-payment-value">10</span>%</div>
+                            </div>
+                            <input type="number" id="down-payment" class="input-field" value="10">
+                        </div>
+                        
+                        <button class="btn btn-primary" id="calculate-btn">
+                            <i class="fas fa-calculator"></i> Calculate Loan
+                        </button>
+                        <button class="btn btn-outline" id="reset-btn">
+                            <i class="fas fa-redo"></i> Reset
+                        </button>
+                    </div>
+                    
+                    <div class="result-section">
+                        <div class="result-box">
+                            <div class="result-label">Monthly Payment</div>
+                            <div class="result-value" id="monthly-payment">$2,042.71</div>
+                            <div>Principal & Interest Only</div>
+                        </div>
+                        
+                        <div class="summary-grid">
+                            <div class="summary-item">
+                                <div class="summary-value" id="total-payment">$367,688</div>
+                                <div class="summary-label">Total Payment</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-value" id="total-interest">$117,688</div>
+                                <div class="summary-label">Total Interest</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-value" id="loan-term-result">15 years</div>
+                                <div class="summary-label">Loan Term</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-value" id="payoff-date">May 2038</div>
+                                <div class="summary-label">Payoff Date</div>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <canvas id="loan-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="how-to-use">
+                <h2 class="card-title">
+                    <i class="fas fa-info-circle"></i> How to Use This Tool
+                </h2>
+                
+                <div class="steps">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h3 class="step-title">Enter Loan Details</h3>
+                        <p>Input the loan amount, interest rate, and loan term using sliders or input fields.</p>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h3 class="step-title">Add Down Payment</h3>
+                        <p>Specify your down payment percentage to reduce the loan amount.</p>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3 class="step-title">Calculate</h3>
+                        <p>Click the "Calculate Loan" button to see your monthly payment and loan details.</p>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h3 class="step-title">Analyze Results</h3>
+                        <p>Review the payment breakdown, total interest, and visual charts to understand your loan.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="features">
+                <h2 class="card-title" style="margin-top: 50px; justify-content: center;">
+                    <i class="fas fa-star"></i> Why Use Our Loan Calculator
+                </h2>
+                
+                <div class="features">
+                    <div class="feature-card">
+                        <i class="fas fa-sync-alt feature-icon"></i>
+                        <h3 class="feature-title">Real-time Calculation</h3>
+                        <p>See results instantly as you adjust loan parameters with interactive sliders.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fas fa-chart-pie feature-icon"></i>
+                        <h3 class="feature-title">Visual Breakdown</h3>
+                        <p>Understand your loan with clear charts showing principal vs interest payments.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fas fa-mobile-alt feature-icon"></i>
+                        <h3 class="feature-title">Mobile Friendly</h3>
+                        <p>Use our calculator on any device - smartphone, tablet, or desktop.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fas fa-lock feature-icon"></i>
+                        <h3 class="feature-title">100% Secure</h3>
+                        <p>Your financial data stays private - no information is stored or shared.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Ad Container -->
+        <div class="ad-container">
+            <!-- Google AdSense Ad Unit -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+
+        <footer>
+            <p>© 2023 Tools4.Fun | Free Online Tools for Financial Planning</p>
+            <p>Loan Calculator - Plan your mortgage, auto loan, or personal loan payments</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            const loanAmountSlider = document.getElementById('loan-amount-slider');
+            const loanAmountInput = document.getElementById('loan-amount');
+            const loanAmountValue = document.getElementById('loan-amount-value');
+            
+            const interestRateSlider = document.getElementById('interest-rate-slider');
+            const interestRateInput = document.getElementById('interest-rate');
+            const interestRateValue = document.getElementById('interest-rate-value');
+            
+            const loanTermSlider = document.getElementById('loan-term-slider');
+            const loanTermInput = document.getElementById('loan-term');
+            const loanTermValue = document.getElementById('loan-term-value');
+            
+            const downPaymentSlider = document.getElementById('down-payment-slider');
+            const downPaymentInput = document.getElementById('down-payment');
+            const downPaymentValue = document.getElementById('down-payment-value');
+            
+            const calculateBtn = document.getElementById('calculate-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            
+            // Result elements
+            const monthlyPayment = document.getElementById('monthly-payment');
+            const totalPayment = document.getElementById('total-payment');
+            const totalInterest = document.getElementById('total-interest');
+            const loanTermResult = document.getElementById('loan-term-result');
+            const payoffDate = document.getElementById('payoff-date');
+            
+            // Initialize chart
+            const ctx = document.getElementById('loan-chart').getContext('2d');
+            let loanChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Principal', 'Interest'],
+                    datasets: [{
+                        data: [250000, 117688],
+                        backgroundColor: [
+                            '#42b72a',
+                            '#1877f2'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: {
+                                    size: 14
+                                },
+                                padding: 20
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    label += '$' + context.raw.toLocaleString();
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Format currency
+            function formatCurrency(amount) {
+                return '$' + amount.toLocaleString('en-US', {
+                    maximumFractionDigits: 0
+                });
+            }
+            
+            // Format percentage
+            function formatPercent(value) {
+                return value + '%';
+            }
+            
+            // Update slider value displays
+            function updateSliderValues() {
+                loanAmountValue.textContent = Number(loanAmountSlider.value).toLocaleString();
+                interestRateValue.textContent = interestRateSlider.value;
+                loanTermValue.textContent = loanTermSlider.value;
+                downPaymentValue.textContent = downPaymentSlider.value;
+            }
+            
+            // Initialize values
+            updateSliderValues();
+            
+            // Sync sliders and inputs
+            loanAmountSlider.addEventListener('input', function() {
+                loanAmountInput.value = this.value;
+                updateSliderValues();
+            });
+            
+            loanAmountInput.addEventListener('input', function() {
+                loanAmountSlider.value = this.value;
+                updateSliderValues();
+            });
+            
+            interestRateSlider.addEventListener('input', function() {
+                interestRateInput.value = this.value;
+                updateSliderValues();
+            });
+            
+            interestRateInput.addEventListener('input', function() {
+                interestRateSlider.value = this.value;
+                updateSliderValues();
+            });
+            
+            loanTermSlider.addEventListener('input', function() {
+                loanTermInput.value = this.value;
+                updateSliderValues();
+            });
+            
+            loanTermInput.addEventListener('input', function() {
+                loanTermSlider.value = this.value;
+                updateSliderValues();
+            });
+            
+            downPaymentSlider.addEventListener('input', function() {
+                downPaymentInput.value = this.value;
+                updateSliderValues();
+            });
+            
+            downPaymentInput.addEventListener('input', function() {
+                downPaymentSlider.value = this.value;
+                updateSliderValues();
+            });
+            
+            // Calculate loan function
+            function calculateLoan() {
+                // Get values
+                const amount = parseFloat(loanAmountInput.value);
+                const downPaymentPercent = parseFloat(downPaymentInput.value);
+                const downPaymentAmount = amount * (downPaymentPercent / 100);
+                const principal = amount - downPaymentAmount;
+                const interestRate = parseFloat(interestRateInput.value) / 100;
+                const termYears = parseFloat(loanTermInput.value);
+                
+                // Calculate monthly interest rate
+                const monthlyInterestRate = interestRate / 12;
+                
+                // Calculate number of payments
+                const numberOfPayments = termYears * 12;
+                
+                // Calculate monthly payment
+                const monthlyPaymentAmount = principal * 
+                    (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments)) / 
+                    (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
+                
+                // Calculate total payment and interest
+                const totalPaymentAmount = monthlyPaymentAmount * numberOfPayments;
+                const totalInterestAmount = totalPaymentAmount - principal;
+                
+                // Update results
+                monthlyPayment.textContent = formatCurrency(monthlyPaymentAmount);
+                totalPayment.textContent = formatCurrency(totalPaymentAmount);
+                totalInterest.textContent = formatCurrency(totalInterestAmount);
+                loanTermResult.textContent = termYears + ' years';
+                
+                // Calculate payoff date
+                const now = new Date();
+                const payoffYear = now.getFullYear() + termYears;
+                const payoffMonth = now.toLocaleString('default', { month: 'long' });
+                payoffDate.textContent = payoffMonth + ' ' + payoffYear;
+                
+                // Update chart
+                loanChart.data.datasets[0].data = [principal, totalInterestAmount];
+                loanChart.update();
+            }
+            
+            // Calculate on button click
+            calculateBtn.addEventListener('click', calculateLoan);
+            
+            // Reset form
+            resetBtn.addEventListener('click', function() {
+                loanAmountSlider.value = 250000;
+                loanAmountInput.value = 250000;
+                
+                interestRateSlider.value = 5.5;
+                interestRateInput.value = 5.5;
+                
+                loanTermSlider.value = 15;
+                loanTermInput.value = 15;
+                
+                downPaymentSlider.value = 10;
+                downPaymentInput.value = 10;
+                
+                updateSliderValues();
+                calculateLoan();
+            });
+            
+            // Calculate on page load
+            calculateLoan();
+        });
+    </script>
+</body>
+</html>
