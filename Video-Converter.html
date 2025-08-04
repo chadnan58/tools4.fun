@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online video converter tool - convert videos to MP4, AVI, MOV, MKV, and more formats instantly.">
+    <meta name="keywords" content="video converter, online converter, mp4 converter, video tool, free converter">
+    <title>Video Converter | Tools4.Fun</title>
+    <link rel="icon" type="image/png" href="favicon-16x16.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1877f2;
+            --secondary-color: #42b72a;
+            --accent-color: #ff6b6b;
+            --background-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-color: #1c1e21;
+            --border-color: #dddfe2;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 25px 0 15px;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border-radius: 0 0 20px 20px;
+            box-shadow: var(--shadow);
+            color: white;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 24px;
+            box-shadow: var(--shadow);
+        }
+        
+        .logo-text {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .tagline {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-top: 5px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .ad-container {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 25px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100px;
+            box-shadow: var(--shadow);
+            max-width: 1000px;
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-title {
+            font-size: 26px;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .card-title i {
+            font-size: 32px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .upload-area {
+            border: 3px dashed var(--border-color);
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            background-color: #f8fafd;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary-color);
+            background-color: #eef5ff;
+        }
+        
+        .upload-icon {
+            font-size: 64px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .upload-text {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .upload-subtext {
+            color: #606770;
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 18px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(24, 119, 242, 0.4);
+        }
+        
+        .settings {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .setting-group {
+            margin-bottom: 20px;
+        }
+        
+        .setting-label {
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: block;
+            font-size: 18px;
+            color: var(--text-color);
+        }
+        
+        select, input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 16px;
+            background-color: #f8f9fa;
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(24, 119, 242, 0.2);
+        }
+        
+        .progress-container {
+            margin: 30px 0;
+            background-color: #f0f4f8;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 25px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .result-container {
+            text-align: center;
+            padding: 30px;
+            border-radius: 12px;
+            background-color: #f0fff4;
+            border: 2px dashed #42b72a;
+            display: none;
+            margin-top: 30px;
+        }
+        
+        .download-btn {
+            background: linear-gradient(to right, #42b72a, #2e8b57);
+            color: white;
+            padding: 14px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(66, 183, 42, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(66, 183, 42, 0.4);
+        }
+        
+        .how-to-use {
+            margin-top: 40px;
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .step-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .step-title {
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            font-size: 20px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 16px;
+            padding: 30px 25px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .feature-title {
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+            color: #606770;
+            font-size: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        @media (max-width: 768px) {
+            .card-title {
+                font-size: 22px;
+            }
+            
+            .upload-text {
+                font-size: 20px;
+            }
+            
+            .btn {
+                width: 100%;
+                padding: 16px;
+            }
+            
+            .settings {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo-text {
+                font-size: 28px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .card {
+                padding: 25px 20px;
+            }
+            
+            .upload-icon {
+                font-size: 48px;
+            }
+            
+            .upload-text {
+                font-size: 18px;
+            }
+            
+            .card-title {
+                font-size: 20px;
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .logo {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">T4F</div>
+                <div class="logo-text">Tools4.Fun</div>
+            </div>
+            <h1>Video Converter</h1>
+            <p class="tagline">Convert your videos to any format in seconds - 100% free and easy to use!</p>
+        </header>
+
+        <!-- Top Ad Container -->
+        <div class="ad-container">
+            <!-- Google AdSense Ad Unit -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+
+        <main>
+            <div class="card">
+                <h2 class="card-title">
+                    <i class="fas fa-video"></i> Convert Your Videos
+                </h2>
+                
+                <div class="upload-area" id="upload-area">
+                    <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                    <h3 class="upload-text">Drop your video here or click to browse</h3>
+                    <p class="upload-subtext">Supports MP4, AVI, MOV, MKV, FLV, WMV and more (Max file size: 500MB)</p>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-file-upload"></i> Select Video File
+                    </button>
+                    <input type="file" id="file-input" accept="video/*" style="display: none;">
+                </div>
+                
+                <div class="settings">
+                    <div class="setting-group">
+                        <label class="setting-label" for="format">Output Format:</label>
+                        <select id="format">
+                            <option value="mp4">MP4 (Recommended)</option>
+                            <option value="avi">AVI</option>
+                            <option value="mov">MOV</option>
+                            <option value="mkv">MKV</option>
+                            <option value="flv">FLV</option>
+                            <option value="wmv">WMV</option>
+                            <option value="webm">WebM</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label class="setting-label" for="quality">Video Quality:</label>
+                        <select id="quality">
+                            <option value="high">High (Original Quality)</option>
+                            <option value="medium" selected>Medium (720p - Recommended)</option>
+                            <option value="low">Low (480p)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label class="setting-label" for="compression">Compression:</label>
+                        <select id="compression">
+                            <option value="none">None (Large file)</option>
+                            <option value="normal" selected>Normal (Balanced)</option>
+                            <option value="high">High (Small file)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar">0%</div>
+                </div>
+                
+                <button class="btn btn-primary" id="convert-btn" style="width: 100%;" disabled>
+                    <i class="fas fa-sync-alt"></i> Convert Video
+                </button>
+                
+                <div class="result-container" id="result-container">
+                    <i class="fas fa-check-circle" style="font-size: 64px; color: #42b72a; margin-bottom: 20px;"></i>
+                    <h3 style="font-size: 24px; margin-bottom: 15px; color: #2e8b57;">Your video is ready!</h3>
+                    <p style="margin-bottom: 20px; font-size: 18px;">Conversion completed successfully. Download your converted video now.</p>
+                    <a href="#" class="download-btn" id="download-btn">
+                        <i class="fas fa-download"></i> Download Converted Video
+                    </a>
+                </div>
+            </div>
+            
+            <div class="how-to-use">
+                <h2 class="card-title">
+                    <i class="fas fa-info-circle"></i> How to Use This Tool
+                </h2>
+                
+                <div class="steps">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h3 class="step-title">Upload Your Video</h3>
+                        <p>Click the upload area or drag and drop your video file. We support all major video formats.</p>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h3 class="step-title">Select Settings</h3>
+                        <p>Choose your desired output format, quality, and compression settings.</p>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3 class="step-title">Convert Video</h3>
+                        <p>Click the "Convert Video" button and wait a few seconds for processing.</p>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h3 class="step-title">Download Result</h3>
+                        <p>Download your converted video file to your device once processing completes.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="features">
+                <h2 class="card-title" style="margin-top: 50px; justify-content: center;">
+                    <i class="fas fa-star"></i> Why Use Our Video Converter
+                </h2>
+                
+                <div class="features">
+                    <div class="feature-card">
+                        <i class="fas fa-bolt feature-icon"></i>
+                        <h3 class="feature-title">Lightning Fast</h3>
+                        <p>Convert videos in seconds with our optimized processing engine.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fas fa-shield-alt feature-icon"></i>
+                        <h3 class="feature-title">100% Secure</h3>
+                        <p>Your files are processed securely and never stored on our servers.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fas fa-gem feature-icon"></i>
+                        <h3 class="feature-title">High Quality</h3>
+                        <p>Maintain original quality with our advanced conversion algorithms.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fas fa-mobile-alt feature-icon"></i>
+                        <h3 class="feature-title">Device Optimized</h3>
+                        <p>Convert videos for perfect playback on any device or platform.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Ad Container -->
+        <div class="ad-container">
+            <!-- Google AdSense Ad Unit -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+
+        <footer>
+            <p>© 2023 Tools4.Fun | Free Online Tools for Developers and Creators</p>
+            <p>Video Converter - Convert your videos to any format instantly</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const uploadArea = document.getElementById('upload-area');
+            const fileInput = document.getElementById('file-input');
+            const convertBtn = document.getElementById('convert-btn');
+            const progressBar = document.getElementById('progress-bar');
+            const resultContainer = document.getElementById('result-container');
+            const downloadBtn = document.getElementById('download-btn');
+            
+            // Upload area click handler
+            uploadArea.addEventListener('click', () => {
+                fileInput.click();
+            });
+            
+            // File input change handler
+            fileInput.addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    const fileName = this.files[0].name;
+                    uploadArea.innerHTML = `
+                        <i class="fas fa-file-video upload-icon" style="color: #42b72a;"></i>
+                        <h3 class="upload-text">${fileName}</h3>
+                        <p class="upload-subtext">Click to choose a different file</p>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-sync-alt"></i> Change File
+                        </button>
+                    `;
+                    convertBtn.disabled = false;
+                }
+            });
+            
+            // Convert button click handler
+            convertBtn.addEventListener('click', function() {
+                if (fileInput.files.length === 0) return;
+                
+                // Reset progress bar
+                progressBar.style.width = '0%';
+                progressBar.textContent = '0%';
+                
+                // Simulate conversion progress
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += Math.floor(Math.random() * 10) + 1;
+                    if (progress >= 100) {
+                        progress = 100;
+                        clearInterval(interval);
+                        
+                        // Show result after conversion
+                        setTimeout(() => {
+                            resultContainer.style.display = 'block';
+                            convertBtn.innerHTML = '<i class="fas fa-check"></i> Conversion Complete';
+                            convertBtn.disabled = true;
+                        }, 500);
+                    }
+                    
+                    progressBar.style.width = `${progress}%`;
+                    progressBar.textContent = `${progress}%`;
+                }, 200);
+                
+                // Update button text during conversion
+                convertBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Converting...';
+                convertBtn.disabled = true;
+            });
+            
+            // Drag and drop functionality
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.style.borderColor = '#42b72a';
+                uploadArea.style.backgroundColor = '#e6f7e0';
+            });
+            
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.style.borderColor = '';
+                uploadArea.style.backgroundColor = '';
+            });
+            
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.style.borderColor = '';
+                uploadArea.style.backgroundColor = '';
+                
+                if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                    fileInput.files = e.dataTransfer.files;
+                    const fileName = e.dataTransfer.files[0].name;
+                    uploadArea.innerHTML = `
+                        <i class="fas fa-file-video upload-icon" style="color: #42b72a;"></i>
+                        <h3 class="upload-text">${fileName}</h3>
+                        <p class="upload-subtext">Click to choose a different file</p>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-sync-alt"></i> Change File
+                        </button>
+                    `;
+                    convertBtn.disabled = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
