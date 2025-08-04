@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online tool to compare and find differences between two code snippets. Perfect for developers and programmers.">
+    <meta name="keywords" content="code diff, code comparison, code checker, diff tool, programming tool">
+    <title>Code Diff Checker | Tools4.Fun</title>
+    <link rel="icon" type="image/png" href="favicon-16x16.png">
+    <style>
+        :root {
+            --primary-color: #1877f2;
+            --secondary-color: #42b72a;
+            --background-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-color: #1c1e21;
+            --border-color: #dddfe2;
+            --delete-color: #ffdddd;
+            --add-color: #ddffdd;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .logo-text {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .tagline {
+            color: #606770;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+        
+        .ad-container {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100px;
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .card-title {
+            font-size: 22px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-title i {
+            font-size: 24px;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .input-group {
+                flex-direction: row;
+            }
+            
+            .input-group > div {
+                flex: 1;
+            }
+        }
+        
+        .input-label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            resize: vertical;
+            background-color: #f8f9fa;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.2);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .btn-primary:hover {
+            background-color: #166fe5;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #36a420;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: #f0f2f5;
+        }
+        
+        .diff-container {
+            margin-top: 30px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .diff-header {
+            background-color: #f5f6f7;
+            padding: 10px 15px;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .diff-content {
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            background-color: #f8f9fa;
+            min-height: 200px;
+            max-height: 500px;
+            overflow: auto;
+        }
+        
+        .diff-line {
+            padding: 2px 5px;
+            margin: 2px 0;
+        }
+        
+        .diff-delete {
+            background-color: var(--delete-color);
+            text-decoration: line-through;
+        }
+        
+        .diff-add {
+            background-color: var(--add-color);
+        }
+        
+        .how-to-use {
+            margin-top: 40px;
+        }
+        
+        .steps {
+            display: grid;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .step-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .step-number {
+            background-color: var(--primary-color);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 30px;
+            color: #606770;
+            font-size: 14px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        @media (max-width: 768px) {
+            .btn {
+                width: 100%;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">T4F</div>
+                <div class="logo-text">Tools4.Fun</div>
+            </div>
+            <h1>Code Diff Checker</h1>
+            <p class="tagline">Compare and find differences between two code snippets</p>
+        </header>
+
+        <!-- Top Ad Container -->
+        <div class="ad-container">
+            <!-- Google AdSense Ad Unit -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+
+        <main>
+            <div class="card">
+                <h2 class="card-title">
+                    <i>📝</i> Compare Your Code
+                </h2>
+                
+                <div class="input-group">
+                    <div>
+                        <label class="input-label" for="original-code">Original Code:</label>
+                        <textarea id="original-code" placeholder="Paste your original code here...">function helloWorld() {
+    console.log("Hello, World!");
+}
+
+const sum = (a, b) => {
+    return a + b;
+}</textarea>
+                    </div>
+                    
+                    <div>
+                        <label class="input-label" for="modified-code">Modified Code:</label>
+                        <textarea id="modified-code" placeholder="Paste your modified code here...">function helloWorld(name) {
+    console.log(`Hello, ${name}!`);
+}
+
+const sum = (a, b) => a + b;
+
+// New function added
+const multiply = (a, b) => a * b;</textarea>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-primary" id="compare-btn">Compare Code</button>
+                    <button class="btn btn-outline" id="clear-btn">Clear All</button>
+                    <button class="btn btn-secondary" id="example-btn">Load Example</button>
+                </div>
+                
+                <div class="diff-container">
+                    <div class="diff-header">Differences:</div>
+                    <div class="diff-content" id="diff-output">// Differences will appear here after comparison</div>
+                </div>
+            </div>
+            
+            <div class="how-to-use">
+                <h2 class="card-title">
+                    <i>❓</i> How to Use This Tool
+                </h2>
+                
+                <div class="steps">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h3 class="step-title">Paste Your Code</h3>
+                        <p>Enter your original code in the left textarea and the modified code in the right textarea.</p>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h3 class="step-title">Compare</h3>
+                        <p>Click the "Compare Code" button to analyze the differences between the two versions.</p>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3 class="step-title">Review Differences</h3>
+                        <p>Deleted lines will appear in <span style="background-color: var(--delete-color);">red</span> and added lines in <span style="background-color: var(--add-color);">green</span>.</p>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h3 class="step-title">Clear or Try Example</h3>
+                        <p>Use "Clear All" to start over or "Load Example" to see a sample comparison.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Ad Container -->
+        <div class="ad-container">
+            <!-- Google AdSense Ad Unit -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+
+        <footer>
+            <p>© 2023 Tools4.Fun | Free Online Tools for Developers</p>
+            <p>Code Diff Checker - Compare and find differences in your code</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const originalTextarea = document.getElementById('original-code');
+            const modifiedTextarea = document.getElementById('modified-code');
+            const diffOutput = document.getElementById('diff-output');
+            const compareBtn = document.getElementById('compare-btn');
+            const clearBtn = document.getElementById('clear-btn');
+            const exampleBtn = document.getElementById('example-btn');
+            
+            // Function to compute differences between two strings
+            function diffStrings(original, modified) {
+                const origLines = original.split('\n');
+                const modLines = modified.split('\n');
+                
+                let output = '';
+                let maxLength = Math.max(origLines.length, modLines.length);
+                
+                for (let i = 0; i < maxLength; i++) {
+                    const origLine = origLines[i] || '';
+                    const modLine = modLines[i] || '';
+                    
+                    if (origLine === modLine) {
+                        output += `<div class="diff-line">${escapeHtml(origLine)}</div>`;
+                    } else {
+                        if (origLine) {
+                            output += `<div class="diff-line diff-delete">- ${escapeHtml(origLine)}</div>`;
+                        }
+                        if (modLine) {
+                            output += `<div class="diff-line diff-add">+ ${escapeHtml(modLine)}</div>`;
+                        }
+                    }
+                }
+                
+                return output || '<div class="diff-line">No differences found. The code is identical.</div>';
+            }
+            
+            // Helper function to escape HTML
+            function escapeHtml(unsafe) {
+                return unsafe
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            }
+            
+            // Compare button click handler
+            compareBtn.addEventListener('click', function() {
+                const original = originalTextarea.value;
+                const modified = modifiedTextarea.value;
+                
+                if (!original.trim() && !modified.trim()) {
+                    diffOutput.innerHTML = '<div class="diff-line">Please enter code in both fields to compare.</div>';
+                    return;
+                }
+                
+                const diffHtml = diffStrings(original, modified);
+                diffOutput.innerHTML = diffHtml;
+            });
+            
+            // Clear button click handler
+            clearBtn.addEventListener('click', function() {
+                originalTextarea.value = '';
+                modifiedTextarea.value = '';
+                diffOutput.innerHTML = '// Differences will appear here after comparison';
+            });
+            
+            // Example button click handler
+            exampleBtn.addEventListener('click', function() {
+                originalTextarea.value = `function helloWorld() {
+    console.log("Hello, World!");
+}
+
+const sum = (a, b) => {
+    return a + b;
+}`;
+
+                modifiedTextarea.value = `function helloWorld(name) {
+    console.log(\`Hello, \${name}!\`);
+}
+
+const sum = (a, b) => a + b;
+
+// New function added
+const multiply = (a, b) => a * b;`;
+                
+                // Auto-run the comparison
+                compareBtn.click();
+            });
+        });
+    </script>
+</body>
+</html>
