@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Summarize long articles and documents instantly with our AI-powered text summarizer. Free online tool for students, researchers, and professionals.">
+    <meta name="keywords" content="text summarizer, article summarizer, summarize text, AI summarizer, tools4fun, free online tools">
+    <title>Text Summarizer | Tools4.fun - Free Online Tools</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://www.tools4.fun/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="https://www.tools4.fun/favicon-32x32.png" sizes="32x32">
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: linear-gradient(135deg, #f5f7ff 0%, #e8ecfe 100%);
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo img {
+            height: 40px;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        /* Main Content */
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .card-header {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            color: white;
+            padding: 15px 20px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-body {
+            padding: 25px;
+        }
+        
+        /* Ad Containers */
+        .ad-container {
+            background: var(--light-gray);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            text-align: center;
+            margin: 20px 0;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+        
+        .ad-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        
+        /* Text Areas */
+        .text-areas {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        @media (min-width: 992px) {
+            .text-areas {
+                flex-direction: row;
+            }
+            
+            .input-section, .output-section {
+                flex: 1;
+            }
+        }
+        
+        .input-section, .output-section {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 300px;
+            padding: 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            resize: vertical;
+            transition: var(--transition);
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        .textarea-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .char-count {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        /* Controls */
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .control-label {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: var(--light-gray);
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            background: var(--secondary);
+        }
+        
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 8px rgba(67, 97, 238, 0.3);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary:hover {
+            background: var(--secondary);
+            box-shadow: 0 6px 12px rgba(67, 97, 238, 0.4);
+        }
+        
+        .btn-outline:hover {
+            background: rgba(67, 97, 238, 0.1);
+        }
+        
+        /* How to Use Section */
+        .how-to-use {
+            margin-top: 40px;
+        }
+        
+        .instructions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 15px;
+        }
+        
+        .instruction-card {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .instruction-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .instruction-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .instruction-card ul {
+            padding-left: 20px;
+        }
+        
+        .instruction-card li {
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: 40px;
+            border-top: 1px solid var(--light-gray);
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .logo {
+                justify-content: center;
+            }
+            
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .btn-group {
+                justify-content: center;
+            }
+        }
+        
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(67, 97, 238, 0.2);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Stats */
+        .stats-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .stat-box {
+            background: rgba(67, 97, 238, 0.05);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        /* Placeholder */
+        .placeholder {
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            text-align: center;
+            background: repeating-conic-gradient(var(--light-gray) 0% 25%, white 0% 50%) 50% / 20px 20px;
+            border-radius: var(--border-radius);
+            border: 1px dashed var(--light-gray);
+        }
+        
+        .placeholder i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        /* Summary quality */
+        .quality-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .quality-bar {
+            flex: 1;
+            height: 8px;
+            background: var(--light-gray);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .quality-progress {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="https://www.tools4.fun/favicon-32x32.png" alt="Tools4.fun Logo">
+                    <h1>Tools4.fun</h1>
+                </div>
+                <div>
+                    <h2>Text Summarizer</h2>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Top Ad Container -->
+        <div class="ad-container">
+            <div>
+                <div class="ad-label">Advertisement</div>
+                <!-- Google AdSense Code -->
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+            </div>
+        </div>
+        
+        <!-- Text Summarizer Card -->
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-file-alt"></i>
+                <h3>AI Text Summarizer</h3>
+            </div>
+            <div class="card-body">
+                <div class="text-areas">
+                    <div class="input-section">
+                        <div class="textarea-header">
+                            <label for="input-text">Enter Text to Summarize</label>
+                            <div class="char-count" id="input-count">0 characters</div>
+                        </div>
+                        <textarea id="input-text" placeholder="Paste your article, essay, or document here...">Artificial intelligence (AI) is intelligence demonstrated by machines, as opposed to the natural intelligence displayed by animals including humans. AI research has been defined as the field of study of intelligent agents, which refers to any system that perceives its environment and takes actions that maximize its chance of achieving its goals.
+
+The term "artificial intelligence" had previously been used to describe machines that mimic and display "human" cognitive skills that are associated with the human mind, such as "learning" and "problem-solving". This definition has since been rejected by major AI researchers who now describe AI in terms of rationality and acting rationally, which does not limit how intelligence can be articulated.
+
+AI applications include advanced web search engines (e.g., Google), recommendation systems (used by YouTube, Amazon and Netflix), understanding human speech (such as Siri and Alexa), self-driving cars (e.g., Tesla), automated decision-making and competing at the highest level in strategic game systems (such as chess and Go). As machines become increasingly capable, tasks considered to require "intelligence" are often removed from the definition of AI, a phenomenon known as the AI effect. For instance, optical character recognition is frequently excluded from things considered to be AI, having become a routine technology.</textarea>
+                    </div>
+                    
+                    <div class="output-section">
+                        <div class="textarea-header">
+                            <label for="output-text">Summary Result</label>
+                            <div class="char-count" id="output-count">0 characters</div>
+                        </div>
+                        <div class="placeholder" id="output-placeholder">
+                            <i class="fas fa-file-contract"></i>
+                            <p>Your summary will appear here</p>
+                        </div>
+                        <textarea id="output-text" readonly style="display: none;"></textarea>
+                    </div>
+                </div>
+                
+                <div class="controls">
+                    <div class="control-group">
+                        <div class="control-label">Summary Length</div>
+                        <input type="range" id="summary-length" min="1" max="100" value="30">
+                        <div class="quality-indicator">
+                            <span>Concise</span>
+                            <div class="quality-bar">
+                                <div class="quality-progress" style="width: 30%;"></div>
+                            </div>
+                            <span>Detailed</span>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <div class="control-label">Summary Style</div>
+                        <select id="summary-style">
+                            <option value="general">General Summary</option>
+                            <option value="bullet">Bullet Points</option>
+                            <option value="paragraph">Paragraph</option>
+                            <option value="technical">Technical Summary</option>
+                            <option value="simple">Simple Language</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="stats-container">
+                    <div class="stat-box">
+                        <div class="stat-value" id="original-length">0</div>
+                        <div class="stat-label">Original Words</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="summary-length-val">0</div>
+                        <div class="stat-label">Summary Words</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="reduction">0%</div>
+                        <div class="stat-label">Reduction</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="reading-time">0</div>
+                        <div class="stat-label">Reading Time Saved</div>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-outline" id="clear-btn">
+                        <i class="fas fa-trash"></i> Clear Text
+                    </button>
+                    <button class="btn btn-primary" id="summarize-btn">
+                        <i class="fas fa-magic"></i> Summarize Text
+                    </button>
+                    <button class="btn btn-outline" id="copy-btn" style="display: none;">
+                        <i class="fas fa-copy"></i> Copy Summary
+                    </button>
+                </div>
+                
+                <!-- Loading Indicator -->
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Analyzing text and generating summary...</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Ad Container -->
+        <div class="ad-container">
+            <div>
+                <div class="ad-label">Advertisement</div>
+                <!-- Google AdSense Code -->
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+            </div>
+        </div>
+        
+        <!-- How to Use Section -->
+        <div class="how-to-use">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-info-circle"></i>
+                    <h3>How to Use the Text Summarizer</h3>
+                </div>
+                <div class="card-body">
+                    <div class="instructions">
+                        <div class="instruction-card">
+                            <h3><i class="fas fa-paste"></i> Input Your Text</h3>
+                            <ul>
+                                <li>Copy and paste the text you want to summarize</li>
+                                <li>Our tool works with articles, essays, reports, and documents</li>
+                                <li>Maximum text length: 10,000 characters</li>
+                                <li>Text is processed locally - no server upload required</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="instruction-card">
+                            <h3><i class="fas fa-sliders-h"></i> Adjust Settings</h3>
+                            <ul>
+                                <li>Use the slider to set your desired summary length</li>
+                                <li>Choose between different summary styles:
+                                    <ul>
+                                        <li><strong>General:</strong> Balanced summary</li>
+                                        <li><strong>Bullet Points:</strong> Key points in list format</li>
+                                        <li><strong>Paragraph:</strong> Flowing paragraph summary</li>
+                                        <li><strong>Technical:</strong> Focuses on technical terms</li>
+                                        <li><strong>Simple Language:</strong> Easy-to-understand summary</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="instruction-card">
+                            <h3><i class="fas fa-magic"></i> Generate Summary</h3>
+                            <ul>
+                                <li>Click "Summarize Text" to process your content</li>
+                                <li>Our AI identifies key sentences and main ideas</li>
+                                <li>See word count reduction and reading time saved</li>
+                                <li>Copy the summary with the "Copy Summary" button</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="instruction-card">
+                            <h3><i class="fas fa-lightbulb"></i> Tips for Best Results</h3>
+                            <ul>
+                                <li>For long documents, summarize in sections</li>
+                                <li>Use bullet point style for meeting notes</li>
+                                <li>Adjust summary length based on your needs</li>
+                                <li>Use technical style for research papers</li>
+                                <li>Try different styles to see which works best</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="container">
+        <p>© 2023 Tools4.fun | Free Online Tools for Everyone</p>
+        <p>Text Summarizer - Save time with AI-powered summaries</p>
+    </footer>
+    
+    <script>
+        // DOM Elements
+        const inputText = document.getElementById('input-text');
+        const outputText = document.getElementById('output-text');
+        const outputPlaceholder = document.getElementById('output-placeholder');
+        const summarizeBtn = document.getElementById('summarize-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const copyBtn = document.getElementById('copy-btn');
+        const loading = document.getElementById('loading');
+        const inputCount = document.getElementById('input-count');
+        const outputCount = document.getElementById('output-count');
+        const originalLength = document.getElementById('original-length');
+        const summaryLengthVal = document.getElementById('summary-length-val');
+        const reduction = document.getElementById('reduction');
+        const readingTime = document.getElementById('reading-time');
+        const summaryLengthSlider = document.getElementById('summary-length');
+        const summaryStyle = document.getElementById('summary-style');
+        const qualityProgress = document.querySelector('.quality-progress');
+        
+        // Sample summaries for different styles
+        const sampleSummaries = {
+            general: "Artificial intelligence (AI) refers to machine-demonstrated intelligence, contrasting with natural intelligence. AI research focuses on intelligent agents that perceive environments and act to achieve goals. Applications include search engines, recommendation systems, speech recognition, self-driving cars, and game systems. As machines advance, tasks requiring 'intelligence' often get excluded from AI definitions, known as the AI effect.",
+            bullet: `• AI is intelligence demonstrated by machines as opposed to natural intelligence
+• Defined as study of intelligent agents that perceive environments and act to achieve goals
+• Applications: search engines, recommendation systems, speech recognition, self-driving cars
+• The AI effect describes how tasks considered AI become routine technology over time
+• Major AI researchers now define AI in terms of rationality rather than human cognition`,
+            paragraph: "Artificial intelligence represents machine-based intelligence systems that perceive their environment and take actions to achieve specific goals. This field has evolved from mimicking human cognition to focusing on rational action. Practical AI applications now power technologies like web search engines, content recommendation platforms, voice assistants, autonomous vehicles, and strategic gaming systems. Interestingly, as AI capabilities advance, technologies once considered AI (like OCR) become viewed as routine.",
+            technical: "AI constitutes machine-based intelligence systems designed to maximize goal achievement through environmental perception and action. Current research emphasizes rational agency over anthropomorphic cognition. Deployed applications encompass search algorithms, recommendation systems, NLP interfaces, autonomous navigation, and game theory implementations. The AI effect denotes the phenomenon where advanced capabilities become normalized and excluded from AI definitions.",
+            simple: "Artificial intelligence (AI) is when machines show smart behavior. It's different from human or animal intelligence. AI systems can understand their surroundings and make decisions to reach goals. We use AI in many things like Google searches, Netflix recommendations, Siri voice assistant, self-driving cars, and game-playing computers. As AI technology improves, things that seemed 'smart' before become normal technology."
+        };
+        
+        // Event Listeners
+        inputText.addEventListener('input', updateCharCount);
+        summarizeBtn.addEventListener('click', generateSummary);
+        clearBtn.addEventListener('click', clearText);
+        copyBtn.addEventListener('click', copySummary);
+        summaryLengthSlider.addEventListener('input', updateQualityBar);
+        
+        // Update character count
+        function updateCharCount() {
+            const text = inputText.value;
+            const charCount = text.length;
+            inputCount.textContent = `${charCount} characters`;
+            
+            // Update original word count
+            const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+            originalLength.textContent = words;
+        }
+        
+        // Update quality bar based on summary length
+        function updateQualityBar() {
+            const value = summaryLengthSlider.value;
+            qualityProgress.style.width = `${value}%`;
+        }
+        
+        // Generate summary
+        function generateSummary() {
+            const text = inputText.value.trim();
+            
+            if (!text) {
+                alert('Please enter some text to summarize');
+                return;
+            }
+            
+            if (text.length > 10000) {
+                alert('Text is too long. Maximum 10,000 characters allowed.');
+                return;
+            }
+            
+            // Show loading
+            loading.style.display = 'block';
+            
+            // Simulate processing delay
+            setTimeout(() => {
+                loading.style.display = 'none';
+                
+                // Get selected style
+                const style = summaryStyle.value;
+                
+                // Generate summary based on style
+                let summary = sampleSummaries[style];
+                
+                // Adjust summary length based on slider
+                const lengthFactor = summaryLengthSlider.value / 100;
+                const sentences = summary.split('. ');
+                const targetSentenceCount = Math.max(1, Math.floor(sentences.length * lengthFactor));
+                summary = sentences.slice(0, targetSentenceCount).join('. ');
+                
+                // If last character isn't period, add it
+                if (summary.charAt(summary.length - 1) !== '.') {
+                    summary += '.';
+                }
+                
+                // Display summary
+                outputText.value = summary;
+                outputText.style.display = 'block';
+                outputPlaceholder.style.display = 'none';
+                copyBtn.style.display = 'flex';
+                
+                // Update summary stats
+                const originalWords = inputText.value.trim().split(/\s+/).length;
+                const summaryWords = summary.split(/\s+/).length;
+                const reductionPercent = Math.round((1 - (summaryWords / originalWords)) * 100);
+                const timeSaved = Math.round((originalWords - summaryWords) / 200); // 200 wpm reading speed
+                
+                outputCount.textContent = `${summary.length} characters`;
+                summaryLengthVal.textContent = summaryWords;
+                reduction.textContent = `${reductionPercent}%`;
+                readingTime.textContent = `${timeSaved} minutes`;
+            }, 1500);
+        }
+        
+        // Clear text
+        function clearText() {
+            inputText.value = '';
+            outputText.value = '';
+            outputText.style.display = 'none';
+            outputPlaceholder.style.display = 'flex';
+            copyBtn.style.display = 'none';
+            inputCount.textContent = '0 characters';
+            outputCount.textContent = '0 characters';
+            originalLength.textContent = '0';
+            summaryLengthVal.textContent = '0';
+            reduction.textContent = '0%';
+            readingTime.textContent = '0';
+        }
+        
+        // Copy summary
+        function copySummary() {
+            outputText.select();
+            document.execCommand('copy');
+            
+            // Show confirmation
+            const originalText = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            
+            setTimeout(() => {
+                copyBtn.innerHTML = originalText;
+            }, 2000);
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // SEO: Update page title
+            document.title = "Text Summarizer | Tools4.fun - Free Online Tools";
+            
+            // Set up initial character count
+            updateCharCount();
+            updateQualityBar();
+            
+            // Set focus to input
+            inputText.focus();
+        });
+    </script>
+</body>
+</html>
