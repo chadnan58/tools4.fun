@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Compare two texts and find differences instantly. Free online text comparison tool for documents, code, and more.">
+    <meta name="keywords" content="text compare, text diff, compare documents, text comparison tool, online diff tool">
+    <title>Free Text Comparison Tool | Tools4Fun</title>
+    <link rel="icon" href="favicon-16x16.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4caf50;
+            --primary-dark: #388e3c;
+            --secondary: #ff9800;
+            --dark: #333;
+            --light: #f8f9fa;
+            --gray: #e9ecef;
+            --border: #dee2e6;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+            --card-radius: 12px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa, #e4e7eb);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+        
+        .logo i {
+            font-size: 2.5rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto 25px;
+        }
+        
+        /* Tool Container */
+        .tool-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        @media (min-width: 992px) {
+            .tool-container {
+                grid-template-columns: 1fr 350px;
+            }
+        }
+        
+        /* Card Styles */
+        .card {
+            background: white;
+            border-radius: var(--card-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: slideUp 0.8s ease-out;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 18px 25px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .card-body {
+            padding: 25px;
+        }
+        
+        /* Ad Spaces */
+        .ad-container {
+            background: white;
+            border-radius: var(--card-radius);
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: var(--shadow);
+            animation: fadeIn 1.2s ease-out;
+        }
+        
+        .ad-label {
+            font-size: 0.85rem;
+            color: #777;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .ad-placeholder {
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            border: 1px dashed #ccc;
+        }
+        
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background-color: var(--light);
+            font-size: 1rem;
+            min-height: 200px;
+            resize: vertical;
+            transition: border-color 0.3s;
+            font-family: monospace;
+            line-height: 1.5;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        button {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
+            background: linear-gradient(135deg, var(--primary-dark), #2e7d32);
+        }
+        
+        .btn-block {
+            width: 100%;
+            display: block;
+            text-align: center;
+            justify-content: center;
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--secondary), #f57c00);
+            box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            box-shadow: 0 6px 15px rgba(255, 152, 0, 0.4);
+            background: linear-gradient(135deg, #f57c00, #e65100);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .btn-group button {
+            flex: 1;
+        }
+        
+        /* Comparison Results */
+        .comparison-container {
+            display: none;
+            margin-top: 30px;
+            border: 1px solid var(--border);
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .comparison-header {
+            background-color: var(--gray);
+            padding: 12px 20px;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .result-stats {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .result-content {
+            padding: 20px;
+            background: white;
+            min-height: 200px;
+            max-height: 400px;
+            overflow: auto;
+            font-family: monospace;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+        
+        /* Diff styling */
+        .diff-added {
+            background-color: #e6ffec;
+            color: #0b6e1f;
+        }
+        
+        .diff-removed {
+            background-color: #ffebe9;
+            color: #cf222e;
+            text-decoration: line-through;
+        }
+        
+        .diff-unchanged {
+            color: #333;
+        }
+        
+        .diff-info {
+            background-color: #ddf4ff;
+            color: #0550ae;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        /* How to Use */
+        .instructions .step {
+            display: flex;
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .instructions .step:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-right: 20px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+        }
+        
+        .step-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+        
+        .step-content p {
+            color: #555;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 0 20px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            margin-top: 20px;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .card-header {
+                font-size: 1.1rem;
+                padding: 15px 20px;
+            }
+            
+            button {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        /* Text Areas Container */
+        .text-areas-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .text-areas-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .text-area-wrapper {
+            position: relative;
+        }
+        
+        .text-area-label {
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            background: white;
+            padding: 0 5px;
+            color: #777;
+            font-size: 0.9rem;
+            pointer-events: none;
+        }
+        
+        textarea {
+            padding-top: 30px;
+        }
+        
+        /* Character Count */
+        .counter {
+            text-align: right;
+            font-size: 0.9rem;
+            color: #777;
+            margin-top: 5px;
+        }
+        
+        /* Switcher Button */
+        .switcher-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255,255,255,0.8);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 0.8rem;
+        }
+        
+        .switcher-btn:hover {
+            background: white;
+            border-color: var(--primary);
+        }
+        
+        /* Loading Animation */
+        .loader {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--gray);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="#" class="logo">
+                <i class="fas fa-file-alt"></i>
+                <span>Tools4Fun</span>
+            </a>
+            <h1>Text Comparison Tool</h1>
+            <p class="subtitle">Compare two texts and instantly find differences. Perfect for documents, code, and content review.</p>
+        </header>
+
+        <!-- Top Ad Space -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-placeholder">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="tool-container">
+            <!-- Tool Section -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-code-compare"></i> Compare Texts
+                </div>
+                <div class="card-body">
+                    <div class="text-areas-container">
+                        <div class="text-area-wrapper">
+                            <div class="text-area-label">Original Text</div>
+                            <textarea id="text1" placeholder="Enter your first text here...">The quick brown fox jumps over the lazy dog. This is an example text for comparison. You can replace it with your own content.</textarea>
+                            <div class="counter">Characters: <span id="count1">0</span></div>
+                            <button class="switcher-btn" id="switchBtn"><i class="fas fa-exchange-alt"></i> Switch</button>
+                        </div>
+                        
+                        <div class="text-area-wrapper">
+                            <div class="text-area-label">Modified Text</div>
+                            <textarea id="text2" placeholder="Enter your second text here...">The quick brown fox jumps over the lazy dog. This is an example text for comparison. Replace it with your modified version.</textarea>
+                            <div class="counter">Characters: <span id="count2">0</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button id="compareBtn" class="btn-block">
+                            <i class="fas fa-play"></i> Compare Texts
+                        </button>
+                        <button id="clearBtn" class="btn-block btn-secondary">
+                            <i class="fas fa-broom"></i> Clear All
+                        </button>
+                    </div>
+                    
+                    <div class="loader" id="loader"></div>
+                    
+                    <div class="comparison-container" id="resultsContainer">
+                        <div class="comparison-header">
+                            <span>Comparison Results</span>
+                            <span class="result-stats" id="resultStats">0 differences found</span>
+                        </div>
+                        <div class="result-content" id="diffResult">
+                            Results will appear here after comparison
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- How to Use Section -->
+            <div class="card instructions">
+                <div class="card-header">
+                    <i class="fas fa-info-circle"></i> How to Use
+                </div>
+                <div class="card-body">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Enter Texts to Compare</h4>
+                            <p>Paste or type your original text in the first box and the modified text in the second box.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Compare Texts</h4>
+                            <p>Click the "Compare Texts" button to analyze the differences between the two texts.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Review Differences</h4>
+                            <p>Examine the highlighted differences: <span class="diff-added">added content</span> and <span class="diff-removed">removed content</span>.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>Switch or Clear</h4>
+                            <p>Use the "Switch" button to swap texts or "Clear All" to start fresh with new content.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number"><i class="fas fa-lightbulb"></i></div>
+                        <div class="step-content">
+                            <h4>Pro Tips</h4>
+                            <ul style="padding-left: 20px; margin-top: 10px;">
+                                <li>Great for comparing document revisions or code changes</li>
+                                <li>Useful for spotting plagiarism or content duplication</li>
+                                <li>Helpful for editors reviewing changes in articles</li>
+                                <li>Ideal for comparing configuration files or scripts</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Ad Space -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-placeholder">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2023 Tools4Fun. All rights reserved.</p>
+            <p>Free online tools for everyday tasks</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const text1 = document.getElementById('text1');
+            const text2 = document.getElementById('text2');
+            const count1 = document.getElementById('count1');
+            const count2 = document.getElementById('count2');
+            const compareBtn = document.getElementById('compareBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const switchBtn = document.getElementById('switchBtn');
+            const loader = document.getElementById('loader');
+            const resultsContainer = document.getElementById('resultsContainer');
+            const diffResult = document.getElementById('diffResult');
+            const resultStats = document.getElementById('resultStats');
+            
+            // Initialize character counts
+            function updateCharCounts() {
+                count1.textContent = text1.value.length;
+                count2.textContent = text2.value.length;
+            }
+            
+            // Initial update
+            updateCharCounts();
+            
+            // Update counts on input
+            text1.addEventListener('input', updateCharCounts);
+            text2.addEventListener('input', updateCharCounts);
+            
+            // Clear all text
+            clearBtn.addEventListener('click', function() {
+                text1.value = '';
+                text2.value = '';
+                updateCharCounts();
+                resultsContainer.style.display = 'none';
+            });
+            
+            // Switch text content
+            switchBtn.addEventListener('click', function() {
+                const temp = text1.value;
+                text1.value = text2.value;
+                text2.value = temp;
+                updateCharCounts();
+            });
+            
+            // Compare texts
+            compareBtn.addEventListener('click', function() {
+                const text1Value = text1.value;
+                const text2Value = text2.value;
+                
+                if (!text1Value.trim() || !text2Value.trim()) {
+                    alert('Please enter text in both boxes to compare');
+                    return;
+                }
+                
+                // Show loader, hide results
+                loader.style.display = 'block';
+                resultsContainer.style.display = 'none';
+                
+                // Simulate processing delay
+                setTimeout(function() {
+                    // Perform text comparison
+                    const diff = compareTexts(text1Value, text2Value);
+                    
+                    // Update results
+                    diffResult.innerHTML = diff.html;
+                    resultStats.textContent = diff.stats;
+                    
+                    // Show results, hide loader
+                    loader.style.display = 'none';
+                    resultsContainer.style.display = 'block';
+                }, 800);
+            });
+            
+            // Text comparison function
+            function compareTexts(text1, text2) {
+                const lines1 = text1.split('\n');
+                const lines2 = text2.split('\n');
+                
+                let addedCount = 0;
+                let removedCount = 0;
+                let html = '';
+                let stats = '';
+                
+                // Compare line by line
+                const maxLines = Math.max(lines1.length, lines2.length);
+                
+                for (let i = 0; i < maxLines; i++) {
+                    const line1 = lines1[i] || '';
+                    const line2 = lines2[i] || '';
+                    
+                    if (line1 === line2) {
+                        // Lines are identical
+                        html += `<div class="diff-unchanged">${escapeHtml(line1)}</div>`;
+                    } else {
+                        // Lines are different - compare character by character
+                        let lineHtml = '';
+                        let charAdded = 0;
+                        let charRemoved = 0;
+                        
+                        // Compare characters
+                        const maxChars = Math.max(line1.length, line2.length);
+                        let inAddition = false;
+                        let inRemoval = false;
+                        
+                        for (let j = 0; j < maxChars; j++) {
+                            const char1 = line1[j] || '';
+                            const char2 = line2[j] || '';
+                            
+                            if (char1 === char2) {
+                                if (inAddition || inRemoval) {
+                                    lineHtml += `</span>`;
+                                    inAddition = false;
+                                    inRemoval = false;
+                                }
+                                lineHtml += escapeHtml(char1);
+                            } else {
+                                if (char1 && !char2) {
+                                    // Character removed
+                                    if (!inRemoval) {
+                                        lineHtml += `<span class="diff-removed">`;
+                                        inRemoval = true;
+                                    }
+                                    lineHtml += escapeHtml(char1);
+                                    charRemoved++;
+                                } else if (!char1 && char2) {
+                                    // Character added
+                                    if (!inAddition) {
+                                        lineHtml += `<span class="diff-added">`;
+                                        inAddition = true;
+                                    }
+                                    lineHtml += escapeHtml(char2);
+                                    charAdded++;
+                                } else {
+                                    // Character changed
+                                    if (!inRemoval) {
+                                        lineHtml += `<span class="diff-removed">`;
+                                        inRemoval = true;
+                                    }
+                                    lineHtml += escapeHtml(char1);
+                                    
+                                    if (inRemoval) {
+                                        lineHtml += `</span>`;
+                                        inRemoval = false;
+                                    }
+                                    
+                                    if (!inAddition) {
+                                        lineHtml += `<span class="diff-added">`;
+                                        inAddition = true;
+                                    }
+                                    lineHtml += escapeHtml(char2);
+                                    charAdded++;
+                                    charRemoved++;
+                                }
+                            }
+                        }
+                        
+                        // Close any open spans
+                        if (inAddition) lineHtml += '</span>';
+                        if (inRemoval) lineHtml += '</span>';
+                        
+                        // Add line to HTML
+                        html += `<div>${lineHtml}</div>`;
+                        
+                        // Update counts
+                        addedCount += charAdded;
+                        removedCount += charRemoved;
+                    }
+                }
+                
+                // Generate statistics
+                const totalChanges = addedCount + removedCount;
+                stats = totalChanges === 0 ? 
+                    "No differences found" : 
+                    `${totalChanges} differences found (${addedCount} added, ${removedCount} removed)`;
+                
+                return { html, stats };
+            }
+            
+            // Helper function to escape HTML
+            function escapeHtml(unsafe) {
+                return unsafe
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            }
+            
+            // Initialize with sample texts
+            text1.value = "The quick brown fox jumps over the lazy dog.\nThis is the first version of the text.\nIt contains some sample content for comparison.";
+            text2.value = "The quick brown fox leaps over the lazy dog.\nThis is the second version of the text.\nIt contains some modifications for comparison.";
+            updateCharCounts();
+        });
+    </script>
+</body>
+</html>
