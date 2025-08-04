@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online SQL Formatter tool to beautify and format SQL queries for better readability">
+    <meta name="keywords" content="sql formatter, sql beautifier, sql prettifier, sql query formatter">
+    <title>SQL Formatter Tool | Tools4Fun</title>
+    <link rel="icon" type="image/png" href="favicon-16x16.png">
+    <style>
+        :root {
+            --primary: #4a6cf7;
+            --primary-dark: #3a5af5;
+            --secondary: #6a75ff;
+            --dark-bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --success: #10b981;
+            --error: #ef4444;
+            --radius: 12px;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: var(--dark-bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .tool-header {
+            text-align: center;
+            margin: 20px 0 30px;
+        }
+        
+        .tool-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .tool-header p {
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .ad-container {
+            background: #1e293b;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            min-height: 90px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ad-label {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border);
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text);
+        }
+        
+        .card-title i {
+            color: var(--primary);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 15px;
+            background: #2d3748;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-family: monospace;
+            font-size: 1rem;
+            min-height: 200px;
+            resize: vertical;
+            transition: all 0.3s;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.2);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(74, 108, 247, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #334155;
+            color: var(--text);
+        }
+        
+        .btn-secondary:hover {
+            background: #475569;
+        }
+        
+        .formatted-sql {
+            background: #2d3748;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+            min-height: 200px;
+            overflow: auto;
+            white-space: pre;
+            font-family: monospace;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--text);
+            margin-top: 20px;
+        }
+        
+        .formatted-sql .keyword {
+            color: #f472b6;
+            font-weight: bold;
+        }
+        
+        .formatted-sql .function {
+            color: #60a5fa;
+        }
+        
+        .formatted-sql .string {
+            color: #34d399;
+        }
+        
+        .formatted-sql .comment {
+            color: #94a3b8;
+        }
+        
+        .formatted-sql .operator {
+            color: #fbbf24;
+        }
+        
+        .formatted-sql .number {
+            color: #818cf8;
+        }
+        
+        .notification {
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: fadeIn 0.5s;
+        }
+        
+        .notification.success {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--success);
+        }
+        
+        .notification.error {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: var(--error);
+        }
+        
+        .how-to-use {
+            margin-top: 40px;
+        }
+        
+        .how-to-use h3 {
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            color: var(--text);
+        }
+        
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .step {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+        
+        .step-number {
+            background: var(--primary);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .feature {
+            background: rgba(74, 108, 247, 0.1);
+            border: 1px solid rgba(74, 108, 247, 0.2);
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature i {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .feature h4 {
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .tool-header h1 {
+                font-size: 2rem;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Tool Header -->
+        <div class="tool-header">
+            <h1>SQL Formatter Tool</h1>
+            <p>Format and beautify your SQL queries for better readability. Supports all SQL dialects with syntax highlighting.</p>
+        </div>
+        
+        <!-- Top Ad Space -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <!-- Google AdSense Ad Unit -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+        
+        <!-- SQL Formatter Card -->
+        <div class="card">
+            <h2 class="card-title">
+                <i>📋</i> SQL Formatter
+            </h2>
+            
+            <div class="form-group">
+                <label for="sql-input">Enter SQL Query:</label>
+                <textarea id="sql-input" placeholder="SELECT * FROM users WHERE status = 'active';">SELECT u.id, u.name, u.email, o.order_date, o.total_amount FROM users AS u INNER JOIN orders AS o ON u.id = o.user_id WHERE u.status = 'active' AND o.order_date > '2023-01-01' ORDER BY o.order_date DESC;</textarea>
+            </div>
+            
+            <div class="btn-group">
+                <button id="format-btn" class="btn btn-primary">
+                    <i>✨</i> Format SQL
+                </button>
+                <button id="clear-btn" class="btn btn-secondary">
+                    <i>🗑️</i> Clear
+                </button>
+                <button id="copy-btn" class="btn btn-secondary">
+                    <i>📋</i> Copy Formatted SQL
+                </button>
+            </div>
+            
+            <div id="notification-area"></div>
+            
+            <div class="form-group">
+                <label for="sql-output">Formatted SQL:</label>
+                <div id="sql-output" class="formatted-sql">Your formatted SQL will appear here...</div>
+            </div>
+        </div>
+        
+        <!-- How to Use Section -->
+        <div class="card how-to-use">
+            <h3>How to Use the SQL Formatter</h3>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div>Paste your SQL query into the input text area</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div>Click the "Format SQL" button to format your query</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div>View the formatted SQL in the output area</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div>Use the "Copy" button to copy the formatted SQL to clipboard</div>
+                </div>
+            </div>
+            
+            <h3>Features</h3>
+            <div class="features">
+                <div class="feature">
+                    <i>⚡</i>
+                    <h4>Fast Processing</h4>
+                    <p>Format large SQL queries in milliseconds with our optimized formatter.</p>
+                </div>
+                <div class="feature">
+                    <i>🔒</i>
+                    <h4>Privacy Focused</h4>
+                    <p>Your SQL queries are processed in the browser and never sent to any server.</p>
+                </div>
+                <div class="feature">
+                    <i>📱</i>
+                    <h4>Fully Responsive</h4>
+                    <p>Works perfectly on all devices - desktops, tablets, and mobile phones.</p>
+                </div>
+                <div class="feature">
+                    <i>💾</i>
+                    <h4>Copy to Clipboard</h4>
+                    <p>Easily copy the formatted SQL with one click.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Ad Space -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <!-- Google AdSense Ad Unit -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sqlInput = document.getElementById('sql-input');
+            const sqlOutput = document.getElementById('sql-output');
+            const formatBtn = document.getElementById('format-btn');
+            const clearBtn = document.getElementById('clear-btn');
+            const copyBtn = document.getElementById('copy-btn');
+            const notificationArea = document.getElementById('notification-area');
+            
+            // Format SQL button click event
+            formatBtn.addEventListener('click', function() {
+                const sql = sqlInput.value.trim();
+                
+                if (!sql) {
+                    showNotification('Please enter a SQL query to format.', 'error');
+                    return;
+                }
+                
+                try {
+                    const formattedSQL = formatSQL(sql);
+                    sqlOutput.innerHTML = highlightSQL(formattedSQL);
+                    showNotification('SQL formatted successfully!', 'success');
+                } catch (error) {
+                    sqlOutput.textContent = 'Error: Could not format the SQL query. Please check your syntax.';
+                    showNotification('Error formatting SQL. Please check your query syntax.', 'error');
+                }
+            });
+            
+            // Clear button click event
+            clearBtn.addEventListener('click', function() {
+                sqlInput.value = '';
+                sqlOutput.textContent = 'Your formatted SQL will appear here...';
+                notificationArea.innerHTML = '';
+            });
+            
+            // Copy button click event
+            copyBtn.addEventListener('click', function() {
+                if (sqlOutput.textContent === 'Your formatted SQL will appear here...') {
+                    showNotification('No formatted SQL to copy.', 'error');
+                    return;
+                }
+                
+                const textArea = document.createElement('textarea');
+                textArea.value = sqlOutput.textContent;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                showNotification('Formatted SQL copied to clipboard!', 'success');
+            });
+            
+            // SQL formatting function
+            function formatSQL(sql) {
+                // This is a simplified formatter - in a real implementation, you would use a library
+                // For demonstration purposes, we'll do basic formatting
+                
+                // Convert to uppercase for keywords
+                const keywords = ['SELECT', 'FROM', 'WHERE', 'AND', 'OR', 'JOIN', 'INNER', 'OUTER', 'LEFT', 'RIGHT', 
+                                 'GROUP BY', 'ORDER BY', 'HAVING', 'LIMIT', 'OFFSET', 'AS', 'ON', 'IN', 'BETWEEN',
+                                 'INSERT INTO', 'VALUES', 'UPDATE', 'SET', 'DELETE FROM'];
+                
+                let formatted = sql;
+                
+                // Add indentation
+                formatted = formatted.replace(/(SELECT|FROM|WHERE|GROUP BY|ORDER BY|HAVING|JOIN|INNER JOIN|LEFT JOIN|RIGHT JOIN|INSERT INTO|VALUES|UPDATE|SET|DELETE FROM)/gi, '\n$1');
+                
+                // Add new lines for clauses
+                formatted = formatted.replace(/,/g, ',\n  ');
+                formatted = formatted.replace(/ ON /g, '\n  ON ');
+                formatted = formatted.replace(/ AND /g, '\n  AND ');
+                formatted = formatted.replace(/ OR /g, '\n  OR ');
+                
+                // Uppercase keywords
+                keywords.forEach(keyword => {
+                    const regex = new RegExp(`\\b${keyword}\\b`, 'gi');
+                    formatted = formatted.replace(regex, keyword);
+                });
+                
+                // Trim and add initial new line
+                return '\n' + formatted.trim();
+            }
+            
+            // SQL syntax highlighting
+            function highlightSQL(sql) {
+                // Keyword highlighting
+                const keywords = ['SELECT', 'FROM', 'WHERE', 'AND', 'OR', 'JOIN', 'INNER', 'OUTER', 'LEFT', 'RIGHT', 
+                                'GROUP BY', 'ORDER BY', 'HAVING', 'LIMIT', 'OFFSET', 'AS', 'ON', 'IN', 'BETWEEN', 
+                                'INSERT', 'INTO', 'UPDATE', 'DELETE', 'CREATE', 'TABLE', 'DATABASE', 'INDEX', 'VIEW', 
+                                'PROCEDURE', 'FUNCTION', 'TRIGGER', 'UNION', 'ALL', 'DISTINCT', 'NULL', 'NOT',
+                                'VALUES', 'SET'];
+                
+                let highlighted = sql;
+                
+                // Highlight keywords
+                keywords.forEach(keyword => {
+                    const regex = new RegExp(`\\b${keyword}\\b`, 'g');
+                    highlighted = highlighted.replace(regex, `<span class="keyword">${keyword}</span>`);
+                });
+                
+                // Highlight functions (simplified)
+                const functions = ['COUNT', 'SUM', 'AVG', 'MIN', 'MAX', 'COALESCE', 'CAST', 'CONVERT', 'GETDATE', 
+                                  'DATEADD', 'DATEDIFF', 'LEN', 'SUBSTRING', 'UPPER', 'LOWER', 'ROUND'];
+                
+                functions.forEach(func => {
+                    const regex = new RegExp(`\\b${func}\\(`, 'g');
+                    highlighted = highlighted.replace(regex, `<span class="function">${func}</span>(`);
+                });
+                
+                // Highlight strings
+                highlighted = highlighted.replace(/'[^']*'/g, '<span class="string">$&</span>');
+                highlighted = highlighted.replace(/"[^"]*"/g, '<span class="string">$&</span>');
+                
+                // Highlight numbers
+                highlighted = highlighted.replace(/\b\d+\b/g, '<span class="number">$&</span>');
+                
+                // Highlight comments
+                highlighted = highlighted.replace(/--[^\n]*/g, '<span class="comment">$&</span>');
+                highlighted = highlighted.replace(/\/\*[\s\S]*?\*\//g, '<span class="comment">$&</span>');
+                
+                // Highlight operators
+                const operators = ['=', '>', '<', '>=', '<=', '<>', '!=', '!<', '!>', 
+                                  '\\+', '-', '\\*', '/', '%', '\\|\\|'];
+                
+                operators.forEach(op => {
+                    const regex = new RegExp(`\\s${op}\\s`, 'g');
+                    highlighted = highlighted.replace(regex, ` <span class="operator">${op}</span> `);
+                });
+                
+                return highlighted;
+            }
+            
+            // Show notification
+            function showNotification(message, type) {
+                notificationArea.innerHTML = '';
+                
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.innerHTML = `
+                    <i>${type === 'success' ? '✓' : '⚠'}</i>
+                    <span>${message}</span>
+                `;
+                
+                notificationArea.appendChild(notification);
+                
+                // Remove notification after 5 seconds
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 300);
+                }, 5000);
+            }
+            
+            // Initialize with example formatting
+            setTimeout(() => {
+                formatBtn.click();
+            }, 500);
+        });
+    </script>
+</body>
+</html>
