@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Check your website's domain authority score for free. Analyze your website's SEO strength and performance.">
+    <meta name="keywords" content="domain authority checker, seo tool, domain authority score, website authority, moz domain authority">
+    <title>Free Domain Authority Checker | Tools4Fun</title>
+    <link rel="icon" href="favicon-16x16.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #4caf50;
+            --primary-dark: #388e3c;
+            --secondary: #ff9800;
+            --dark: #333;
+            --light: #f8f9fa;
+            --gray: #e9ecef;
+            --border: #dee2e6;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+            --card-radius: 15px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa, #e4e7eb);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+        
+        .logo i {
+            font-size: 2.5rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto 25px;
+        }
+        
+        /* Tool Container */
+        .tool-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        @media (min-width: 992px) {
+            .tool-container {
+                grid-template-columns: 1fr 350px;
+            }
+        }
+        
+        /* Card Styles */
+        .card {
+            background: white;
+            border-radius: var(--card-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: slideUp 0.8s ease-out;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 18px 25px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .card-body {
+            padding: 25px;
+        }
+        
+        /* Ad Spaces */
+        .ad-container {
+            background: white;
+            border-radius: var(--card-radius);
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: var(--shadow);
+            animation: fadeIn 1.2s ease-out;
+        }
+        
+        .ad-label {
+            font-size: 0.85rem;
+            color: #777;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .ad-placeholder {
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            border: 1px dashed #ccc;
+        }
+        
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 14px 20px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background-color: var(--light);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+        }
+        
+        button {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 16px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
+            background: linear-gradient(135deg, var(--primary-dark), #2e7d32);
+        }
+        
+        .btn-block {
+            width: 100%;
+            display: block;
+            text-align: center;
+            justify-content: center;
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--secondary), #f57c00);
+            box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            box-shadow: 0 6px 15px rgba(255, 152, 0, 0.4);
+            background: linear-gradient(135deg, #f57c00, #e65100);
+        }
+        
+        /* Results Section */
+        .results-container {
+            display: none;
+            margin-top: 30px;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .metric-card {
+            background: white;
+            border-radius: var(--card-radius);
+            padding: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--primary);
+            transition: transform 0.3s;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+        
+        .metric-title {
+            font-size: 1rem;
+            color: #666;
+        }
+        
+        .score-bar {
+            height: 12px;
+            background: #e0e0e0;
+            border-radius: 6px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .score-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            border-radius: 6px;
+            transition: width 1.5s ease-in-out;
+        }
+        
+        .score-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .chart-container {
+            height: 300px;
+            margin: 30px 0;
+        }
+        
+        /* How to Use */
+        .instructions .step {
+            display: flex;
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .instructions .step:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-right: 20px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+        }
+        
+        .step-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+        
+        .step-content p {
+            color: #555;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 0 20px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            margin-top: 20px;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .card-header {
+                font-size: 1.1rem;
+                padding: 15px 20px;
+            }
+            
+            button {
+                padding: 14px 20px;
+                font-size: 1rem;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Loading Animation */
+        .loader {
+            display: none;
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(76, 175, 80, 0.2);
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        /* Animations */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        /* Domain Input Styling */
+        .domain-input-group {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .domain-input-group input {
+            flex: 1;
+            padding-left: 45px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%234caf50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>');
+            background-repeat: no-repeat;
+            background-position: 15px center;
+            background-size: 20px;
+        }
+        
+        /* Score Indicators */
+        .score-indicator {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .score-low {
+            background-color: #ffebee;
+            color: #f44336;
+        }
+        
+        .score-medium {
+            background-color: #fff8e1;
+            color: #ff9800;
+        }
+        
+        .score-high {
+            background-color: #e8f5e9;
+            color: #4caf50;
+        }
+        
+        .score-excellent {
+            background-color: #e3f2fd;
+            color: #2196f3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="#" class="logo">
+                <i class="fas fa-globe"></i>
+                <span>Tools4Fun</span>
+            </a>
+            <h1>Domain Authority Checker</h1>
+            <p class="subtitle">Check your website's domain authority score and analyze your SEO strength in seconds</p>
+        </header>
+
+        <!-- Top Ad Space -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-placeholder">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="tool-container">
+            <!-- Tool Section -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-search"></i> Check Domain Authority
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="domainInput">Enter Domain Name</label>
+                        <div class="domain-input-group">
+                            <input type="text" id="domainInput" placeholder="example.com">
+                            <button id="checkBtn">
+                                <i class="fas fa-chart-line"></i> Check Authority
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="loader" id="loader"></div>
+                    
+                    <div class="results-container" id="resultsContainer">
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value" id="daScore">0</div>
+                                <div class="metric-title">Domain Authority <span class="score-indicator score-low">Low</span></div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value" id="paScore">0</div>
+                                <div class="metric-title">Page Authority <span class="score-indicator score-low">Low</span></div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value" id="spamScore">0</div>
+                                <div class="metric-title">Spam Score <span class="score-indicator score-low">Low Risk</span></div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value" id="rankingScore">0</div>
+                                <div class="metric-title">Ranking Score <span class="score-indicator score-low">Low</span></div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Domain Authority Score</label>
+                            <div class="score-bar">
+                                <div class="score-fill" id="daBar" style="width: 0%"></div>
+                            </div>
+                            <div class="score-label">
+                                <span>0 (Poor)</span>
+                                <span>50 (Average)</span>
+                                <span>100 (Excellent)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <canvas id="metricsChart"></canvas>
+                        </div>
+                        
+                        <button id="downloadBtn" class="btn-block btn-secondary">
+                            <i class="fas fa-download"></i> Download Full Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- How to Use Section -->
+            <div class="card instructions">
+                <div class="card-header">
+                    <i class="fas fa-info-circle"></i> How to Use
+                </div>
+                <div class="card-body">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Enter Domain Name</h4>
+                            <p>Type the domain you want to check in the input field (e.g., "example.com"). Don't include "http://" or "www".</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Check Authority</h4>
+                            <p>Click the "Check Authority" button. Our tool will analyze the domain and calculate its authority metrics.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Review Results</h4>
+                            <p>Examine the Domain Authority, Page Authority, Spam Score, and other important SEO metrics.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>Download Report</h4>
+                            <p>Download a detailed PDF report for your records or to share with your team.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number"><i class="fas fa-lightbulb"></i></div>
+                        <div class="step-content">
+                            <h4>Understanding Domain Authority</h4>
+                            <p>Domain Authority (DA) is a search engine ranking score developed by Moz that predicts how well a website will rank on search engine result pages. Scores range from 1 to 100, with higher scores corresponding to greater ability to rank.</p>
+                            <ul style="padding-left: 20px; margin-top: 10px;">
+                                <li><strong>0-30:</strong> Low authority - Needs significant SEO work</li>
+                                <li><strong>30-50:</strong> Medium authority - Competitive for some keywords</li>
+                                <li><strong>50-70:</strong> Good authority - Strong competitive position</li>
+                                <li><strong>70+:</strong> Excellent authority - Among the top websites</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Ad Space -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-placeholder">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2023 Tools4Fun. All rights reserved.</p>
+            <p>Free online tools for everyday tasks</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const domainInput = document.getElementById('domainInput');
+            const checkBtn = document.getElementById('checkBtn');
+            const loader = document.getElementById('loader');
+            const resultsContainer = document.getElementById('resultsContainer');
+            const daScore = document.getElementById('daScore');
+            const paScore = document.getElementById('paScore');
+            const spamScore = document.getElementById('spamScore');
+            const rankingScore = document.getElementById('rankingScore');
+            const daBar = document.getElementById('daBar');
+            const downloadBtn = document.getElementById('downloadBtn');
+            
+            // Chart initialization
+            const ctx = document.getElementById('metricsChart').getContext('2d');
+            let metricsChart;
+            
+            // Generate random score for demo purposes
+            function generateScores(domain) {
+                // Base score based on domain length (just for fun)
+                const baseScore = Math.min(100, Math.max(10, 100 - domain.length * 2));
+                
+                return {
+                    da: Math.min(100, baseScore + Math.floor(Math.random() * 20) - 5),
+                    pa: Math.min(100, baseScore + Math.floor(Math.random() * 15) - 10),
+                    spam: Math.floor(Math.random() * 7),
+                    ranking: Math.min(100, baseScore + Math.floor(Math.random() * 15) - 5)
+                };
+            }
+            
+            // Update score indicators
+            function updateScoreIndicators(da, pa, ranking) {
+                // Update DA indicator
+                const daIndicator = document.querySelector('.metric-card:nth-child(1) .score-indicator');
+                daIndicator.className = 'score-indicator ';
+                if (da < 30) daIndicator.classList.add('score-low');
+                else if (da < 50) daIndicator.classList.add('score-medium');
+                else if (da < 70) daIndicator.classList.add('score-high');
+                else daIndicator.classList.add('score-excellent');
+                daIndicator.textContent = da < 30 ? 'Low' : da < 50 ? 'Medium' : da < 70 ? 'High' : 'Excellent';
+                
+                // Update PA indicator
+                const paIndicator = document.querySelector('.metric-card:nth-child(2) .score-indicator');
+                paIndicator.className = 'score-indicator ';
+                if (pa < 30) paIndicator.classList.add('score-low');
+                else if (pa < 50) paIndicator.classList.add('score-medium');
+                else if (pa < 70) paIndicator.classList.add('score-high');
+                else paIndicator.classList.add('score-excellent');
+                paIndicator.textContent = pa < 30 ? 'Low' : pa < 50 ? 'Medium' : pa < 70 ? 'High' : 'Excellent';
+                
+                // Update Spam Score indicator
+                const spamIndicator = document.querySelector('.metric-card:nth-child(3) .score-indicator');
+                spamIndicator.className = 'score-indicator ';
+                if (spamScore < 3) spamIndicator.classList.add('score-low');
+                else if (spamScore < 5) spamIndicator.classList.add('score-medium');
+                else spamIndicator.classList.add('score-high');
+                spamIndicator.textContent = spamScore < 3 ? 'Low Risk' : spamScore < 5 ? 'Medium Risk' : 'High Risk';
+                
+                // Update Ranking Score indicator
+                const rankingIndicator = document.querySelector('.metric-card:nth-child(4) .score-indicator');
+                rankingIndicator.className = 'score-indicator ';
+                if (ranking < 30) rankingIndicator.classList.add('score-low');
+                else if (ranking < 50) rankingIndicator.classList.add('score-medium');
+                else if (ranking < 70) rankingIndicator.classList.add('score-high');
+                else rankingIndicator.classList.add('score-excellent');
+                rankingIndicator.textContent = ranking < 30 ? 'Low' : ranking < 50 ? 'Medium' : ranking < 70 ? 'High' : 'Excellent';
+            }
+            
+            // Create or update chart
+            function updateChart(da, pa, spam, ranking) {
+                if (metricsChart) {
+                    metricsChart.destroy();
+                }
+                
+                metricsChart = new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['Domain Authority', 'Page Authority', 'Link Quality', 'Content Quality', 'Spam Risk', 'Social Signals'],
+                        datasets: [{
+                            label: 'SEO Metrics',
+                            data: [
+                                da, 
+                                pa, 
+                                Math.min(100, da + 10), 
+                                Math.min(100, pa + 15), 
+                                100 - (spam * 10), 
+                                Math.min(100, ranking + 5)
+                            ],
+                            backgroundColor: 'rgba(76, 175, 80, 0.2)',
+                            borderColor: 'rgba(76, 175, 80, 1)',
+                            borderWidth: 2,
+                            pointBackgroundColor: 'rgba(76, 175, 80, 1)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgba(76, 175, 80, 1)'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            r: {
+                                angleLines: {
+                                    display: true
+                                },
+                                suggestedMin: 0,
+                                suggestedMax: 100,
+                                ticks: {
+                                    stepSize: 20
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: 'Domain SEO Metrics Analysis'
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Check domain authority
+            checkBtn.addEventListener('click', function() {
+                const domain = domainInput.value.trim();
+                
+                if (!domain) {
+                    alert('Please enter a domain name');
+                    return;
+                }
+                
+                // Simple domain validation
+                if (!/^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$/i.test(domain)) {
+                    alert('Please enter a valid domain name (e.g., "example.com")');
+                    return;
+                }
+                
+                // Show loader, hide results
+                loader.style.display = 'block';
+                resultsContainer.style.display = 'none';
+                
+                // Simulate API call delay
+                setTimeout(function() {
+                    // Generate domain scores
+                    const scores = generateScores(domain);
+                    
+                    // Update UI with scores
+                    daScore.textContent = scores.da;
+                    paScore.textContent = scores.pa;
+                    spamScore.textContent = scores.spam;
+                    rankingScore.textContent = scores.ranking;
+                    
+                    // Animate the progress bar
+                    setTimeout(() => {
+                        daBar.style.width = scores.da + '%';
+                    }, 300);
+                    
+                    // Update score indicators
+                    updateScoreIndicators(scores.da, scores.pa, scores.ranking);
+                    
+                    // Update chart
+                    updateChart(scores.da, scores.pa, scores.spam, scores.ranking);
+                    
+                    // Show results, hide loader
+                    loader.style.display = 'none';
+                    resultsContainer.style.display = 'block';
+                }, 1500);
+            });
+            
+            // Download report
+            downloadBtn.addEventListener('click', function() {
+                const domain = domainInput.value.trim() || 'yourdomain.com';
+                alert(`Report for ${domain} is being prepared for download. In a real application, this would generate a PDF report.`);
+            });
+            
+            // Initialize with sample domain
+            domainInput.value = 'tools4.fun';
+        });
+    </script>
+</body>
+</html>
