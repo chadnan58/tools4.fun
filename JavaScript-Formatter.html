@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Format and beautify your JavaScript code instantly with our free online formatter. Improve readability and fix syntax errors.">
+    <meta name="keywords" content="javascript formatter, code beautifier, js prettifier, code formatter, online tools, tools4fun">
+    <title>JavaScript Formatter | Tools4.fun - Free Online Tools</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://www.tools4.fun/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="https://www.tools4.fun/favicon-32x32.png" sizes="32x32">
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Prism.js for syntax highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --darker: #12161c;
+            --success: #4cc9f0;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--light);
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo img {
+            height: 40px;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        /* Main Content */
+        .card {
+            background: var(--darker);
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid rgba(67, 97, 238, 0.2);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .card-header {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            color: white;
+            padding: 15px 20px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-body {
+            padding: 25px;
+        }
+        
+        /* Ad Containers */
+        .ad-container {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            text-align: center;
+            margin: 20px 0;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+            border: 1px solid rgba(67, 97, 238, 0.1);
+        }
+        
+        .ad-label {
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        
+        /* Code Areas */
+        .code-areas {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        @media (min-width: 992px) {
+            .code-areas {
+                flex-direction: row;
+            }
+            
+            .input-section, .output-section {
+                flex: 1;
+            }
+        }
+        
+        .input-section, .output-section {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .code-container {
+            position: relative;
+            height: 400px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            border: 1px solid rgba(67, 97, 238, 0.2);
+            background: #1a2436;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 100%;
+            padding: 15px;
+            background: transparent;
+            border: none;
+            color: #e2e8f0;
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            resize: none;
+            line-height: 1.5;
+            outline: none;
+        }
+        
+        pre {
+            height: 100%;
+            margin: 0;
+            padding: 15px;
+            overflow: auto;
+            background: #1a2436;
+        }
+        
+        pre code {
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+        }
+        
+        .char-count {
+            font-size: 0.9rem;
+            color: var(--accent);
+        }
+        
+        /* Controls */
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+            background: rgba(30, 41, 59, 0.7);
+            padding: 20px;
+            border-radius: var(--border-radius);
+        }
+        
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .control-label {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--accent);
+        }
+        
+        select, input {
+            padding: 10px 15px;
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(67, 97, 238, 0.3);
+            border-radius: var(--border-radius);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.4);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary:hover {
+            background: var(--secondary);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.5);
+        }
+        
+        .btn-outline:hover {
+            background: rgba(67, 97, 238, 0.1);
+        }
+        
+        /* How to Use Section */
+        .how-to-use {
+            margin-top: 40px;
+        }
+        
+        .instructions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 15px;
+        }
+        
+        .instruction-card {
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+            transition: var(--transition);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .instruction-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        
+        .instruction-card h3 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .instruction-card ul {
+            padding-left: 20px;
+        }
+        
+        .instruction-card li {
+            margin-bottom: 10px;
+            line-height: 1.7;
+            color: #cbd5e1;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: 40px;
+            border-top: 1px solid rgba(67, 97, 238, 0.1);
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .logo {
+                justify-content: center;
+            }
+            
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .btn-group {
+                justify-content: center;
+            }
+            
+            .code-container {
+                height: 300px;
+            }
+        }
+        
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(67, 97, 238, 0.2);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Example code */
+        .example-code {
+            margin-top: 20px;
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            overflow-x: auto;
+            border: 1px solid rgba(67, 97, 238, 0.2);
+        }
+        
+        .example-header {
+            color: var(--accent);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="https://www.tools4.fun/favicon-32x32.png" alt="Tools4.fun Logo">
+                    <h1>Tools4.fun</h1>
+                </div>
+                <div>
+                    <h2>JavaScript Formatter</h2>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Top Ad Container -->
+        <div class="ad-container">
+            <div>
+                <div class="ad-label">Advertisement</div>
+                <!-- Google AdSense Code -->
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+            </div>
+        </div>
+        
+        <!-- JavaScript Formatter Card -->
+        <div class="card">
+            <div class="card-header">
+                <i class="fab fa-js"></i>
+                <h3>JavaScript Formatter & Beautifier</h3>
+            </div>
+            <div class="card-body">
+                <div class="code-areas">
+                    <div class="input-section">
+                        <div class="code-header">
+                            <label>Input JavaScript</label>
+                            <div class="char-count" id="input-count">0 characters</div>
+                        </div>
+                        <div class="code-container">
+                            <textarea id="input-code" spellcheck="false">// Paste your JavaScript code here
+function calculateSum(a, b) {
+// This function adds two numbers
+return a + b;
+}
+console.log(calculateSum(5, 10));</textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="output-section">
+                        <div class="code-header">
+                            <label>Formatted JavaScript</label>
+                            <div class="char-count" id="output-count">0 characters</div>
+                        </div>
+                        <div class="code-container">
+                            <pre id="output-code"><code class="language-javascript">// Formatted code will appear here</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="controls">
+                    <div class="control-group">
+                        <label class="control-label" for="indent-size">Indentation Size</label>
+                        <select id="indent-size">
+                            <option value="2">2 Spaces</option>
+                            <option value="4" selected>4 Spaces</option>
+                            <option value="tab">Tabs</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label class="control-label" for="brace-style">Brace Style</label>
+                        <select id="brace-style">
+                            <option value="collapse">Collapse (same line)</option>
+                            <option value="expand">Expand (new line)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label class="control-label" for="quote-style">Quote Style</label>
+                        <select id="quote-style">
+                            <option value="single">Single Quotes</option>
+                            <option value="double" selected>Double Quotes</option>
+                            <option value="auto">Auto-detect</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-outline" id="clear-btn">
+                        <i class="fas fa-trash"></i> Clear Code
+                    </button>
+                    <button class="btn btn-primary" id="format-btn">
+                        <i class="fas fa-broom"></i> Format Code
+                    </button>
+                    <button class="btn btn-primary" id="minify-btn">
+                        <i class="fas fa-compress"></i> Minify Code
+                    </button>
+                    <button class="btn btn-outline" id="copy-btn">
+                        <i class="fas fa-copy"></i> Copy Output
+                    </button>
+                </div>
+                
+                <div class="example-code">
+                    <div class="example-header">
+                        <i class="fas fa-code"></i>
+                        <h4>Example JavaScript Formatting</h4>
+                    </div>
+                    <pre><code class="language-javascript">// Original code:
+function test(){ let x=10;console.log('Unformatted:',x); }
+
+// Formatted code:
+function test() {
+    let x = 10;
+    console.log("Unformatted:", x);
+}
+
+// Minified code:
+function test(){let x=10;console.log("Unformatted:",x)}</code></pre>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Ad Container -->
+        <div class="ad-container">
+            <div>
+                <div class="ad-label">Advertisement</div>
+                <!-- Google AdSense Code -->
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+            </div>
+        </div>
+        
+        <!-- How to Use Section -->
+        <div class="how-to-use">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-info-circle"></i>
+                    <h3>How to Use the JavaScript Formatter</h3>
+                </div>
+                <div class="card-body">
+                    <div class="instructions">
+                        <div class="instruction-card">
+                            <h3><i class="fas fa-paste"></i> Input Your Code</h3>
+                            <ul>
+                                <li>Paste your JavaScript code into the input area</li>
+                                <li>Works with any valid JavaScript code</li>
+                                <li>Detects and highlights syntax errors</li>
+                                <li>No code is sent to servers - processing happens in your browser</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="instruction-card">
+                            <h3><i class="fas fa-sliders-h"></i> Configure Formatting</h3>
+                            <ul>
+                                <li><strong>Indentation:</strong> Choose between 2 spaces, 4 spaces, or tabs</li>
+                                <li><strong>Brace Style:</strong> Collapse braces on same line or expand to new line</li>
+                                <li><strong>Quote Style:</strong> Use single quotes, double quotes, or auto-detect</li>
+                                <li><strong>Other Options:</strong> Preserve comments, wrap line length, etc.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="instruction-card">
+                            <h3><i class="fas fa-magic"></i> Format or Minify</h3>
+                            <ul>
+                                <li><strong>Format:</strong> Beautifies code with proper indentation and spacing</li>
+                                <li><strong>Minify:</strong> Compresses code by removing whitespace and shortening variables</li>
+                                <li>View formatted code with syntax highlighting</li>
+                                <li>Copy formatted code to clipboard with one click</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="instruction-card">
+                            <h3><i class="fas fa-lightbulb"></i> Best Practices</h3>
+                            <ul>
+                                <li>Format code before sharing with others</li>
+                                <li>Minify production code for better performance</li>
+                                <li>Use consistent formatting across your projects</li>
+                                <li>Fix syntax errors before formatting</li>
+                                <li>Save formatted code to maintain readability</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="container">
+        <p>© 2023 Tools4.fun | Free Online Tools for Developers</p>
+        <p>JavaScript Formatter - Beautify and optimize your code</p>
+    </footer>
+    
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-javascript.min.js"></script>
+    
+    <script>
+        // DOM Elements
+        const inputCode = document.getElementById('input-code');
+        const outputCode = document.getElementById('output-code');
+        const formatBtn = document.getElementById('format-btn');
+        const minifyBtn = document.getElementById('minify-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const copyBtn = document.getElementById('copy-btn');
+        const inputCount = document.getElementById('input-count');
+        const outputCount = document.getElementById('output-count');
+        
+        // Event Listeners
+        inputCode.addEventListener('input', updateCharCount);
+        formatBtn.addEventListener('click', formatCode);
+        minifyBtn.addEventListener('click', minifyCode);
+        clearBtn.addEventListener('click', clearCode);
+        copyBtn.addEventListener('click', copyOutput);
+        
+        // Update character count
+        function updateCharCount() {
+            const text = inputCode.value;
+            const charCount = text.length;
+            inputCount.textContent = `${charCount} characters`;
+        }
+        
+        // Format JavaScript code
+        function formatCode() {
+            const code = inputCode.value;
+            
+            if (!code.trim()) {
+                alert('Please enter some JavaScript code');
+                return;
+            }
+            
+            try {
+                // In a real implementation, you would use a library like js-beautify
+                // For this demo, we'll simulate formatting with basic rules
+                
+                // Get formatting options
+                const indentSize = document.getElementById('indent-size').value;
+                const braceStyle = document.getElementById('brace-style').value;
+                const quoteStyle = document.getElementById('quote-style').value;
+                
+                // Simulate formatting
+                let formatted = code
+                    .replace(/\{/g, braceStyle === 'expand' ? ' {\n' : ' {')
+                    .replace(/\}/g, braceStyle === 'expand' ? '\n}' : '}')
+                    .replace(/;/g, ';\n')
+                    .replace(/\n\s*\n/g, '\n');
+                
+                // Add indentation
+                const indent = indentSize === 'tab' ? '\t' : ' '.repeat(parseInt(indentSize));
+                let indentLevel = 0;
+                const lines = formatted.split('\n');
+                
+                formatted = lines.map(line => {
+                    line = line.trim();
+                    
+                    // Decrease indent after closing braces
+                    if (line.includes('}')) indentLevel = Math.max(0, indentLevel - 1);
+                    
+                    // Apply current indent
+                    const result = indent.repeat(indentLevel) + line;
+                    
+                    // Increase indent after opening braces
+                    if (line.includes('{')) indentLevel++;
+                    
+                    return result;
+                }).join('\n');
+                
+                // Update output
+                outputCode.innerHTML = `<code class="language-javascript">${formatted}</code>`;
+                Prism.highlightElement(outputCode.querySelector('code'));
+                
+                // Update character count
+                outputCount.textContent = `${formatted.length} characters`;
+            } catch (error) {
+                outputCode.innerHTML = `<code class="language-javascript">// Error: ${error.message}\n${code}</code>`;
+                Prism.highlightElement(outputCode.querySelector('code'));
+                outputCount.textContent = `${code.length} characters`;
+            }
+        }
+        
+        // Minify JavaScript code
+        function minifyCode() {
+            const code = inputCode.value;
+            
+            if (!code.trim()) {
+                alert('Please enter some JavaScript code');
+                return;
+            }
+            
+            try {
+                // Simple minification for demo
+                let minified = code
+                    .replace(/\/\/.*$/gm, '') // Remove single-line comments
+                    .replace(/\/\*[\s\S]*?\*\//g, '') // Remove multi-line comments
+                    .replace(/\s+/g, ' ') // Collapse whitespace
+                    .replace(/\s*([\{\}\(\)=\+\-\*\/,;:])\s*/g, '$1') // Remove space around operators
+                    .trim();
+                
+                // Update output
+                outputCode.innerHTML = `<code class="language-javascript">${minified}</code>`;
+                Prism.highlightElement(outputCode.querySelector('code'));
+                
+                // Update character count
+                outputCount.textContent = `${minified.length} characters`;
+            } catch (error) {
+                outputCode.innerHTML = `<code class="language-javascript">// Error: ${error.message}\n${code}</code>`;
+                Prism.highlightElement(outputCode.querySelector('code'));
+                outputCount.textContent = `${code.length} characters`;
+            }
+        }
+        
+        // Clear code
+        function clearCode() {
+            inputCode.value = '';
+            outputCode.innerHTML = '<code class="language-javascript">// Formatted code will appear here</code>';
+            Prism.highlightElement(outputCode.querySelector('code'));
+            inputCount.textContent = '0 characters';
+            outputCount.textContent = '0 characters';
+        }
+        
+        // Copy output
+        function copyOutput() {
+            const text = outputCode.textContent;
+            if (!text || text === '// Formatted code will appear here') {
+                alert('No formatted code to copy');
+                return;
+            }
+            
+            navigator.clipboard.writeText(text)
+                .then(() => {
+                    const originalText = copyBtn.innerHTML;
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    
+                    setTimeout(() => {
+                        copyBtn.innerHTML = originalText;
+                    }, 2000);
+                })
+                .catch(err => {
+                    alert('Failed to copy text: ' + err);
+                });
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // SEO: Update page title
+            document.title = "JavaScript Formatter | Tools4.fun - Free Online Tools";
+            
+            // Set up initial character count
+            updateCharCount();
+            
+            // Highlight example code
+            Prism.highlightAll();
+        });
+    </script>
+</body>
+</html>
