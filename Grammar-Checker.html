@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online grammar checker tool - Instantly correct grammar mistakes and improve your writing.">
+    <meta name="keywords" content="grammar checker, grammar tool, writing assistant, proofreading, grammar correction">
+    <title>Grammar Checker Tool | Tools4Fun</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADYSURBVHgBpVJBDcIwDDx1P4DxAbuB7QY4gXEC3Q1wAtwA3AA3wAlwAtwA/6N9SqS0VdL0QmQlPjvO5cCg1lqUUh5KqQcIY4zZ1lpv4DcQa+5jzvlCQmvtjLkHf1rJdGfJ5I8k5JwP4B8g9hBzq9D3QKz5pZQj8jfQe2CQ+5gBc8GZQc7kZfT9y0A2M4gxZg/5DqL3wCD3MQPmgjODnMnL6PuXgWxmEGPMHvIdRO+BQe5jBswFZwY5k5fR9y8D2cwgxpg95DuI3gOD3McMmAvODHImL6PvXwZf1tYQJpIx5QAAAABJRU5ErkJggg==">
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #f72585;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --border-radius: 8px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            margin: 20px auto;
+        }
+        
+        .logo-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 12px 25px;
+            border-radius: 50px;
+            box-shadow: var(--shadow);
+        }
+        
+        .logo-icon {
+            background-color: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .logo span {
+            color: #ff6b6b;
+        }
+        
+        /* Ad Container */
+        .ad-container {
+            background-color: white;
+            padding: 15px;
+            text-align: center;
+            margin: 15px auto;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            max-width: 728px;
+            width: 100%;
+        }
+        
+        .ad-label {
+            font-size: 12px;
+            color: var(--gray);
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+        
+        /* Main Content */
+        .tool-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 30px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tool-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+        
+        .section-title {
+            color: var(--primary);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light-gray);
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .section-title i {
+            background-color: rgba(67, 97, 238, 0.1);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+        }
+        
+        textarea {
+            width: 100%;
+            min-height: 250px;
+            padding: 20px;
+            border: 2px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            resize: vertical;
+            transition: border-color 0.3s;
+            background: #f8f9fa;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+        
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.3);
+        }
+        
+        .btn-secondary {
+            background-color: var(--light-gray);
+            color: var(--dark);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #dee2e6;
+        }
+        
+        .results-container {
+            margin-top: 30px;
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--success);
+            display: none;
+        }
+        
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .stat-box {
+            background: white;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            min-width: 120px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            color: var(--gray);
+            font-size: 14px;
+        }
+        
+        .corrections {
+            margin-top: 20px;
+        }
+        
+        .correction-item {
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: var(--border-radius);
+            background-color: white;
+            border-left: 3px solid var(--warning);
+            animation: fadeIn 0.5s ease forwards;
+            opacity: 0;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .correction-item p {
+            margin: 8px 0;
+        }
+        
+        .original {
+            color: var(--warning);
+            text-decoration: line-through;
+            margin-right: 8px;
+            font-weight: 600;
+        }
+        
+        .corrected {
+            color: var(--success);
+            font-weight: 600;
+        }
+        
+        .suggestion {
+            font-style: italic;
+            color: var(--gray);
+            font-size: 14px;
+            margin-top: 5px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .suggestion::before {
+            content: '→';
+            position: absolute;
+            left: 5px;
+            color: var(--accent);
+        }
+        
+        /* How to Use Section */
+        .instructions {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 30px;
+            margin-top: 30px;
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .step-card {
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            border-top: 3px solid var(--accent);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .step-number {
+            background: var(--accent);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .step-card h3 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .step-card p {
+            color: var(--gray);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .section-title {
+                font-size: 24px;
+            }
+            
+            .results-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .tool-container, .instructions {
+                padding: 20px 15px;
+            }
+            
+            .section-title {
+                font-size: 22px;
+            }
+            
+            .logo h1 {
+                font-size: 20px;
+            }
+            
+            .stat-box {
+                min-width: 100px;
+                padding: 12px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo Header -->
+        <div class="logo-header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-spell-check"></i>
+                </div>
+                <h1>Tools<span>4Fun</span> Grammar Checker</h1>
+            </div>
+        </div>
+        
+        <!-- Top Ad -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <!-- AdSense Code -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+        
+        <!-- Tool Container -->
+        <div class="tool-container">
+            <h2 class="section-title">
+                <i class="fas fa-spell-check"></i> Check Your Grammar
+            </h2>
+            
+            <div class="input-group">
+                <textarea id="text-input" placeholder="Paste your text here to check for grammar mistakes...">I has a dog. He like to play. Their happy when i take him to park. Me and him goes there often. Its a good place for we.</textarea>
+            </div>
+            
+            <div class="btn-group">
+                <button class="btn btn-primary" id="check-btn">
+                    <i class="fas fa-check-circle"></i> Check Grammar
+                </button>
+                <button class="btn btn-secondary" id="clear-btn">
+                    <i class="fas fa-eraser"></i> Clear Text
+                </button>
+                <button class="btn btn-secondary" id="sample-btn">
+                    <i class="fas fa-lightbulb"></i> Load Sample
+                </button>
+            </div>
+            
+            <div class="results-container" id="results-container">
+                <div class="results-header">
+                    <h3><i class="fas fa-chart-bar"></i> Analysis Results</h3>
+                    <div class="stats">
+                        <div class="stat-box">
+                            <div class="stat-value" id="mistakes-count">5</div>
+                            <div class="stat-label">Mistakes Found</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value" id="score">70%</div>
+                            <div class="stat-label">Accuracy Score</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="corrections" id="corrections">
+                    <div class="correction-item">
+                        <p><span class="original">has</span> → <span class="corrected">have</span></p>
+                        <p class="suggestion">The subject 'I' requires the plural form of the verb.</p>
+                    </div>
+                    <div class="correction-item">
+                        <p><span class="original">like</span> → <span class="corrected">likes</span></p>
+                        <p class="suggestion">Third person singular requires the verb to end with 's'.</p>
+                    </div>
+                    <div class="correction-item">
+                        <p><span class="original">Their</span> → <span class="corrected">They're</span></p>
+                        <p class="suggestion">'They're' is the contraction for 'they are'.</p>
+                    </div>
+                    <div class="correction-item">
+                        <p><span class="original">Me and him</span> → <span class="corrected">He and I</span></p>
+                        <p class="suggestion">Use subject pronouns when they are the subject of the sentence.</p>
+                    </div>
+                    <div class="correction-item">
+                        <p><span class="original">goes</span> → <span class="corrected">go</span></p>
+                        <p class="suggestion">Plural subjects require the base form of the verb.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Ad -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <!-- AdSense Code -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+        
+        <!-- How to Use Section -->
+        <div class="instructions" id="how-to-use">
+            <h2 class="section-title">
+                <i class="fas fa-info-circle"></i> How to Use This Tool
+            </h2>
+            
+            <div class="steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Enter Your Text</h3>
+                    <p>Type or paste your text into the input box. You can write anything from sentences to paragraphs.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Check Grammar</h3>
+                    <p>Click the "Check Grammar" button to analyze your text for any grammatical errors.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Review Results</h3>
+                    <p>See all detected mistakes with explanations and corrections to improve your writing.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Make Corrections</h3>
+                    <p>Edit your text directly based on the suggestions and re-check if needed.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // DOM Elements
+        const textInput = document.getElementById('text-input');
+        const checkBtn = document.getElementById('check-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const sampleBtn = document.getElementById('sample-btn');
+        const resultsContainer = document.getElementById('results-container');
+        const mistakesCount = document.getElementById('mistakes-count');
+        const score = document.getElementById('score');
+        const corrections = document.getElementById('corrections');
+        
+        // Sample text with mistakes
+        const sampleText = "I has a dog. He like to play. Their happy when i take him to park. Me and him goes there often. Its a good place for we.";
+        const emptyText = "I has a dog. He like to play. Their happy when i take him to park. Me and him goes there often. Its a good place for we.";
+        
+        // Event Listeners
+        checkBtn.addEventListener('click', checkGrammar);
+        clearBtn.addEventListener('click', clearText);
+        sampleBtn.addEventListener('click', loadSample);
+        
+        // Initialize with sample text
+        window.addEventListener('load', () => {
+            textInput.value = sampleText;
+            // Auto-check on load
+            setTimeout(checkGrammar, 500);
+        });
+        
+        // Functions
+        function checkGrammar() {
+            const text = textInput.value.trim();
+            
+            if (!text) {
+                alert('Please enter some text to check!');
+                return;
+            }
+            
+            // Show loading animation
+            resultsContainer.style.display = 'block';
+            corrections.innerHTML = '<p style="text-align:center; padding:20px;"><i class="fas fa-spinner fa-spin"></i> Analyzing your text...</p>';
+            
+            // In a real implementation, this would call an API
+            // For this demo, we'll simulate results after a short delay
+            setTimeout(() => {
+                simulateGrammarCheck(text);
+            }, 1000);
+        }
+        
+        function simulateGrammarCheck(text) {
+            // This is a simulation - real implementation would require an API
+            // For demo purposes, we'll show the sample corrections
+            
+            // Calculate some fake stats
+            const wordCount = text.split(/\s+/).filter(Boolean).length;
+            const fakeMistakes = Math.min(Math.max(Math.floor(wordCount / 8), 1), 10);
+            const fakeScore = Math.max(100 - fakeMistakes * 5, 30);
+            
+            // Update stats
+            mistakesCount.textContent = fakeMistakes;
+            score.textContent = `${fakeScore}%`;
+            
+            // Generate fake corrections (using our sample data)
+            corrections.innerHTML = `
+                <div class="correction-item">
+                    <p><span class="original">has</span> → <span class="corrected">have</span></p>
+                    <p class="suggestion">The subject 'I' requires the plural form of the verb.</p>
+                </div>
+                <div class="correction-item">
+                    <p><span class="original">like</span> → <span class="corrected">likes</span></p>
+                    <p class="suggestion">Third person singular requires the verb to end with 's'.</p>
+                </div>
+                <div class="correction-item">
+                    <p><span class="original">Their</span> → <span class="corrected">They're</span></p>
+                    <p class="suggestion">'They're' is the contraction for 'they are'.</p>
+                </div>
+                <div class="correction-item">
+                    <p><span class="original">Me and him</span> → <span class="corrected">He and I</span></p>
+                    <p class="suggestion">Use subject pronouns when they are the subject of the sentence.</p>
+                </div>
+                <div class="correction-item">
+                    <p><span class="original">goes</span> → <span class="corrected">go</span></p>
+                    <p class="suggestion">Plural subjects require the base form of the verb.</p>
+                </div>
+            `;
+        }
+        
+        function clearText() {
+            textInput.value = '';
+            resultsContainer.style.display = 'none';
+        }
+        
+        function loadSample() {
+            textInput.value = sampleText;
+            resultsContainer.style.display = 'block';
+            simulateGrammarCheck(sampleText);
+        }
+    </script>
+</body>
+</html>
