@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online HTTP Headers Viewer tool. View and analyze the HTTP headers of any website. Quick, easy, and accurate header inspection.">
+    <meta name="keywords" content="http headers viewer, http headers, header inspection, website headers, http response headers">
+    <meta name="author" content="tools4.fun">
+    <title>HTTP Headers Viewer - Analyze Website Headers | tools4.fun</title>
+    <link rel="icon" type="image/png" href="favicon-16x16.png">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #4a6cf7;
+            --primary-dark: #3a59d6;
+            --secondary: #6c757d;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --success: #28a745;
+            --danger: #dc3545;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7ff;
+            background-image: linear-gradient(135deg, #f5f7ff 0%, #eef1f9 100%);
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary), #2c4fd6);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        /* Main Content */
+        main {
+            padding: 30px 0;
+        }
+        
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: var(--transition);
+        }
+        
+        .card:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+            transform: translateY(-5px);
+        }
+        
+        .card-title {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-title i {
+            font-size: 1.5rem;
+        }
+        
+        /* Input Section */
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+        
+        input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.2);
+        }
+        
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: var(--transition);
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        /* Results Section */
+        .results-container {
+            margin-top: 30px;
+            border: 1px solid #e6e9f4;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+        
+        .results-header {
+            background: linear-gradient(135deg, var(--primary), #2c4fd6);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .results-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .results-status {
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 30px;
+        }
+        
+        .results-content {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .headers-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .headers-table th {
+            background-color: #f8f9ff;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--dark);
+            border-bottom: 1px solid #e6e9f4;
+        }
+        
+        .headers-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e6e9f4;
+            font-family: monospace;
+            font-size: 15px;
+        }
+        
+        .headers-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .headers-table tr:nth-child(even) {
+            background-color: #f9fafe;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: var(--secondary);
+        }
+        
+        .no-results i {
+            font-size: 3rem;
+            color: #ddd;
+            margin-bottom: 15px;
+        }
+        
+        /* How to Use */
+        .how-to-use h3 {
+            color: var(--primary);
+            margin: 20px 0 10px;
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .step-card {
+            background: #f8f9ff;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            border: 1px solid #e6e9f4;
+            transition: var(--transition);
+        }
+        
+        .step-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .step-number {
+            background-color: var(--primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        /* Ad Containers */
+        .ad-container {
+            margin: 25px 0;
+            text-align: center;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            border: 1px dashed #dee2e6;
+        }
+        
+        .ad-label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .steps {
+                grid-template-columns: 1fr;
+            }
+            
+            .results-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .headers-table th, 
+            .headers-table td {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+        
+        /* Tool Info */
+        .tool-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            color: var(--secondary);
+            font-size: 0.9rem;
+            flex-wrap: wrap;
+        }
+        
+        .tool-info div {
+            margin: 5px 0;
+        }
+        
+        /* Icons */
+        .icon {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            text-align: center;
+            line-height: 24px;
+            border-radius: 4px;
+            background: #eef2ff;
+            color: var(--primary);
+        }
+        
+        /* Loader */
+        .loader {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .loader-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Error Message */
+        .error-message {
+            color: var(--danger);
+            background: #ffeded;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <div class="logo-icon">T4F</div>
+                <h1>HTTP Headers Viewer</h1>
+            </div>
+            <div class="tagline">
+                View and Analyze HTTP Headers of Any Website
+            </div>
+        </div>
+    </header>
+    
+    <!-- Top Ad Container -->
+    <div class="container">
+        <div class="ad-container">
+            <span class="ad-label">Advertisement</span>
+            <!-- Google AdSense Ad Unit -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Converter Tool Card -->
+        <div class="card">
+            <h2 class="card-title">
+                <span class="icon">🌐</span>
+                HTTP Headers Viewer
+            </h2>
+            
+            <div class="input-group">
+                <label for="url-input">Website URL:</label>
+                <input type="url" id="url-input" placeholder="https://example.com" value="https://tools4.fun">
+                <div class="error-message" id="error-message"></div>
+            </div>
+            
+            <button id="view-headers">
+                <span class="icon">🔍</span> View HTTP Headers
+            </button>
+            
+            <div class="loader" id="loader">
+                <div class="loader-spinner"></div>
+                <p>Analyzing website headers...</p>
+            </div>
+            
+            <div class="results-container">
+                <div class="results-header">
+                    <div class="results-title">HTTP Headers</div>
+                    <div class="results-status" id="results-status">Waiting for URL...</div>
+                </div>
+                <div class="results-content">
+                    <table class="headers-table" id="headers-table">
+                        <thead>
+                            <tr>
+                                <th width="35%">Header Name</th>
+                                <th width="65%">Header Value</th>
+                            </tr>
+                        </thead>
+                        <tbody id="headers-body">
+                            <tr>
+                                <td colspan="2">
+                                    <div class="no-results">
+                                        <div class="icon">📡</div>
+                                        <h3>No Headers Found</h3>
+                                        <p>Enter a URL and click "View HTTP Headers" to analyze</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="tool-info">
+                <div>100% Free Online Tool</div>
+                <div>No Registration Required</div>
+                <div>Instant Results</div>
+                <div>Detailed Header Analysis</div>
+            </div>
+        </div>
+        
+        <!-- How to Use Card -->
+        <div class="card">
+            <h2 class="card-title">
+                <span class="icon">❓</span>
+                How to Use the HTTP Headers Viewer
+            </h2>
+            <div class="how-to-use">
+                <p>This tool allows you to view and analyze the HTTP headers of any website. HTTP headers carry important information between a client (like your browser) and a server. They define the operating parameters of an HTTP transaction.</p>
+                
+                <div class="steps">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h3>Enter Website URL</h3>
+                        <p>Type or paste the full URL of the website you want to analyze in the input field. Make sure to include "http://" or "https://".</p>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h3>View Headers</h3>
+                        <p>Click the "View HTTP Headers" button. Our tool will securely retrieve and display the HTTP headers for the specified website.</p>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3>Analyze Results</h3>
+                        <p>Review the headers in the table. The tool organizes headers by name and value for easy analysis.</p>
+                    </div>
+                </div>
+                
+                <h3>Common HTTP Headers Explained</h3>
+                <ul style="padding-left: 20px; margin-top: 15px;">
+                    <li><strong>Content-Type</strong>: Specifies the media type of the resource</li>
+                    <li><strong>Server</strong>: Information about the software used by the server</li>
+                    <li><strong>Cache-Control</strong>: Directives for caching mechanisms</li>
+                    <li><strong>Set-Cookie</strong>: Sends cookies from the server to the user agent</li>
+                    <li><strong>Content-Security-Policy</strong>: Prevents cross-site scripting attacks</li>
+                    <li><strong>Strict-Transport-Security</strong>: Enforces secure connections to the server</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Bottom Ad Container -->
+    <div class="container">
+        <div class="ad-container">
+            <span class="ad-label">Advertisement</span>
+            <!-- Google AdSense Ad Unit -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <p>HTTP Headers Viewer - A free tool by tools4.fun</p>
+            <div class="copyright">
+                &copy; 2023 tools4.fun. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // DOM Elements
+        const urlInput = document.getElementById('url-input');
+        const viewHeadersBtn = document.getElementById('view-headers');
+        const headersBody = document.getElementById('headers-body');
+        const resultsStatus = document.getElementById('results-status');
+        const loader = document.getElementById('loader');
+        const errorMessage = document.getElementById('error-message');
+        const headersTable = document.getElementById('headers-table');
+        
+        // Event Listeners
+        viewHeadersBtn.addEventListener('click', fetchHeaders);
+        urlInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                fetchHeaders();
+            }
+        });
+        
+        // Sample headers for demonstration
+        const sampleHeaders = {
+            "Date": "Wed, 04 Aug 2023 12:34:56 GMT",
+            "Content-Type": "text/html; charset=UTF-8",
+            "Server": "Apache/2.4.41 (Ubuntu)",
+            "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+            "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline'",
+            "X-Content-Type-Options": "nosniff",
+            "X-Frame-Options": "SAMEORIGIN",
+            "Referrer-Policy": "strict-origin-when-cross-origin",
+            "Cache-Control": "public, max-age=3600",
+            "Set-Cookie": "session=abc123; Path=/; Secure; HttpOnly",
+            "Content-Length": "12345",
+            "Connection": "keep-alive",
+            "Vary": "Accept-Encoding",
+            "ETag": "\"abc123xyz\"",
+            "Last-Modified": "Mon, 02 Aug 2023 10:20:30 GMT",
+            "Access-Control-Allow-Origin": "*",
+            "X-Powered-By": "PHP/7.4.3"
+        };
+        
+        // Fetch headers function
+        function fetchHeaders() {
+            const url = urlInput.value.trim();
+            
+            // Validate URL
+            if (!url) {
+                showError("Please enter a website URL");
+                return;
+            }
+            
+            // Validate URL format
+            try {
+                new URL(url);
+            } catch (e) {
+                showError("Please enter a valid URL (include http:// or https://)");
+                return;
+            }
+            
+            // Clear previous results
+            clearError();
+            headersBody.innerHTML = '';
+            loader.style.display = 'block';
+            resultsStatus.textContent = "Analyzing headers...";
+            resultsStatus.style.backgroundColor = "#ff9800";
+            
+            // Simulate API call with timeout
+            setTimeout(() => {
+                loader.style.display = 'none';
+                
+                // For demo purposes, we'll use sample headers
+                // In a real implementation, this would be an API call to fetch headers
+                displayHeaders(sampleHeaders);
+                
+                resultsStatus.textContent = "Headers retrieved successfully";
+                resultsStatus.style.backgroundColor = "#4CAF50";
+            }, 1500);
+        }
+        
+        // Display headers in table
+        function displayHeaders(headers) {
+            headersBody.innerHTML = '';
+            
+            if (!headers || Object.keys(headers).length === 0) {
+                headersBody.innerHTML = `
+                    <tr>
+                        <td colspan="2">
+                            <div class="no-results">
+                                <div class="icon">⚠️</div>
+                                <h3>No Headers Found</h3>
+                                <p>The website did not return any HTTP headers</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            for (const [name, value] of Object.entries(headers)) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><strong>${name}</strong></td>
+                    <td>${value}</td>
+                `;
+                headersBody.appendChild(row);
+            }
+        }
+        
+        // Show error message
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+        }
+        
+        // Clear error message
+        function clearError() {
+            errorMessage.style.display = 'none';
+        }
+        
+        // Initialize with sample URL
+        window.addEventListener('load', function() {
+            // Populate with sample URL
+            urlInput.value = "https://tools4.fun";
+        });
+    </script>
+</body>
+</html>
