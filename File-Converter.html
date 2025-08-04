@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online file converter tool - convert documents, images, audio, and video files to various formats. Fast, secure, and easy to use.">
+    <meta name="keywords" content="file converter, convert files, document converter, image converter, online tools, web tools">
+    <title>File Converter Tool | Tools4.fun</title>
+    <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAi0lEQVQ4y62T0Q2DMAxEX4d0g25QJigTlAnKBIQJygRlAkIHiBzQo0eQ0gA2iZP4LfH5zue3kE1VdQJQAdQk2w5gBdA8d3w2WwA1yQbA3a8kq7v7nGQF8MkCkKwAqrvfQgjz4TDGuD0z2wGYADQz+1zGmFJKD8kA4JwzAMzX6xVSSnDOwRjz3YwxMMbAWgtrLay1/3O/6QdMhDvL4F3YFgAAAABJRU5ErkJggg==" type="image/png">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4895ef;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #4cc9f0;
+            --card-bg: #ffffff;
+            --border-color: #dee2e6;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fb;
+            color: var(--dark-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .tool-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .tool-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .tool-header h1 {
+            color: var(--secondary-color);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .tool-header p {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .ad-container {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            margin: 25px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100px;
+            text-align: center;
+        }
+        
+        .tool-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+            color: white;
+            padding: 1.2rem;
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .upload-area {
+            border: 2px dashed var(--primary-color);
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            background-color: rgba(67, 97, 238, 0.05);
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 1.5rem;
+        }
+        
+        .upload-area:hover {
+            background-color: rgba(67, 97, 238, 0.1);
+            border-color: var(--secondary-color);
+        }
+        
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .upload-text h3 {
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+        
+        .upload-text p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        #file-input {
+            display: none;
+        }
+        
+        .conversion-options {
+            margin: 25px 0;
+            padding: 20px;
+            border: 1px solid #eaeaea;
+            border-radius: 8px;
+            background-color: #f9fafb;
+        }
+        
+        .option-group {
+            margin-bottom: 20px;
+        }
+        
+        .option-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+        
+        .format-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            background-color: white;
+        }
+        
+        .format-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .format-option {
+            border: 2px solid #eaeaea;
+            border-radius: 8px;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .format-option:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+        
+        .format-option.active {
+            border-color: var(--primary-color);
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+        
+        .format-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+        }
+        
+        .progress-container {
+            margin: 20px 0;
+            display: none;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .results-container {
+            display: none;
+            margin-top: 2rem;
+            background: var(--light-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--success-color);
+            text-align: center;
+        }
+        
+        .result-icon {
+            font-size: 4rem;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+        
+        .result-title {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+        
+        .result-text {
+            color: #666;
+            margin-bottom: 25px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .download-btn {
+            background: #28a745;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .download-btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .how-to-use {
+            margin-top: 3rem;
+        }
+        
+        .how-to-use h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .step-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid #f0f0f0;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .step-number {
+            background: var(--primary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .step-card h3 {
+            margin-bottom: 0.8rem;
+            color: var(--secondary-color);
+        }
+        
+        .step-card p {
+            color: #555;
+        }
+        
+        .tool-footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 0.9rem;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .supported-formats {
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .formats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .format-item {
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #eaeaea;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+        
+        .format-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            border-color: var(--primary-color);
+        }
+        
+        .format-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+        }
+        
+        .convert-btn {
+            width: 100%;
+            padding: 14px;
+            font-size: 1.1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .tool-header h1 {
+                font-size: 2rem;
+            }
+            
+            .format-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .card-body {
+                padding: 1rem;
+            }
+            
+            .step-card {
+                padding: 1rem;
+            }
+            
+            .tool-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .upload-area {
+                padding: 30px 15px;
+            }
+            
+            .format-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="tool-container">
+        <!-- Tool Header -->
+        <div class="tool-header">
+            <h1>File Converter Tool</h1>
+            <p>Convert documents, images, audio, and video files to various formats. Fast, secure, and easy to use.</p>
+        </div>
+        
+        <!-- Top Ad Container -->
+        <div class="ad-container">
+            <!-- AdSense Ad Unit -->
+            <div id="ad-top">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+            </div>
+        </div>
+        
+        <!-- Tool Card -->
+        <div class="tool-card">
+            <div class="card-header">
+                Convert Your Files
+            </div>
+            <div class="card-body">
+                <div class="upload-area" id="drop-area">
+                    <div class="upload-icon">📁</div>
+                    <div class="upload-text">
+                        <h3>Drag & Drop Files Here</h3>
+                        <p>or click to browse files on your device</p>
+                        <button class="btn btn-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+                            </svg>
+                            Select Files
+                        </button>
+                    </div>
+                    <input type="file" id="file-input">
+                </div>
+                
+                <div class="conversion-options">
+                    <h3>Conversion Settings</h3>
+                    <div class="option-group">
+                        <label>Select Output Format</label>
+                        <div class="format-grid" id="format-grid">
+                            <div class="format-option" data-format="pdf">
+                                <div class="format-icon">📄</div>
+                                <div>PDF</div>
+                            </div>
+                            <div class="format-option" data-format="docx">
+                                <div class="format-icon">📝</div>
+                                <div>DOCX</div>
+                            </div>
+                            <div class="format-option" data-format="jpg">
+                                <div class="format-icon">🖼️</div>
+                                <div>JPG</div>
+                            </div>
+                            <div class="format-option" data-format="png">
+                                <div class="format-icon">🖼️</div>
+                                <div>PNG</div>
+                            </div>
+                            <div class="format-option" data-format="mp3">
+                                <div class="format-icon">🎵</div>
+                                <div>MP3</div>
+                            </div>
+                            <div class="format-option" data-format="mp4">
+                                <div class="format-icon">🎬</div>
+                                <div>MP4</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="option-group" id="quality-group" style="display: none;">
+                        <label for="quality">Output Quality: <span id="quality-value">High</span></label>
+                        <input type="range" min="1" max="3" value="2" class="slider" id="quality">
+                    </div>
+                </div>
+                
+                <div class="progress-container" id="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress" id="progress-bar"></div>
+                    </div>
+                    <div class="progress-text" id="progress-text">Processing files...</div>
+                </div>
+                
+                <button id="convert-btn" class="btn btn-primary convert-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 2z"/>
+                        <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8 3.707 5.354 6.354a.5.5 0 1 1-.708-.708l3-3z"/>
+                        <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-1 0v7a.5.5 0 0 0 .5.5z"/>
+                    </svg>
+                    Convert File
+                </button>
+                
+                <div id="results" class="results-container">
+                    <div class="result-icon">✅</div>
+                    <h2 class="result-title">File Converted Successfully!</h2>
+                    <p class="result-text" id="result-text">Your file has been converted to PDF format.</p>
+                    <a href="#" class="download-btn" id="download-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                        </svg>
+                        Download Converted File
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Supported Formats -->
+        <div class="supported-formats">
+            <h3>Supported File Conversions</h3>
+            <div class="formats-grid">
+                <div class="format-item">
+                    <div class="format-icon">📄</div>
+                    <div>PDF to Word</div>
+                </div>
+                <div class="format-item">
+                    <div class="format-icon">📄</div>
+                    <div>Word to PDF</div>
+                </div>
+                <div class="format-item">
+                    <div class="format-icon">🖼️</div>
+                    <div>JPG to PNG</div>
+                </div>
+                <div class="format-item">
+                    <div class="format-icon">🖼️</div>
+                    <div>PNG to JPG</div>
+                </div>
+                <div class="format-item">
+                    <div class="format-icon">🎵</div>
+                    <div>WAV to MP3</div>
+                </div>
+                <div class="format-item">
+                    <div class="format-icon">🎬</div>
+                    <div>MOV to MP4</div>
+                </div>
+                <div class="format-item">
+                    <div class="format-icon">📊</div>
+                    <div>Excel to PDF</div>
+                </div>
+                <div class="format-item">
+                    <div class="format-icon">📽️</div>
+                    <div>PPT to PDF</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- How to Use Section -->
+        <div class="how-to-use">
+            <h2>How to Use the File Converter</h2>
+            <div class="steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Upload File</h3>
+                    <p>Select the file you want to convert by dragging and dropping or browsing your device.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Select Format</h3>
+                    <p>Choose the output format you want to convert your file to.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Convert File</h3>
+                    <p>Click the "Convert File" button to process your file.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Download</h3>
+                    <p>Download your converted file in the new format.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Ad Container -->
+        <div class="ad-container">
+            <!-- AdSense Ad Unit -->
+            <div id="ad-bottom">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+            </div>
+        </div>
+        
+        <div class="tool-footer">
+            <p>© 2023 Tools4.fun - File Converter Tool | All files are processed securely in your browser</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const fileInput = document.getElementById('file-input');
+            const dropArea = document.getElementById('drop-area');
+            const convertBtn = document.getElementById('convert-btn');
+            const progressContainer = document.getElementById('progress-container');
+            const progressBar = document.getElementById('progress-bar');
+            const progressText = document.getElementById('progress-text');
+            const resultsContainer = document.getElementById('results');
+            const formatOptions = document.querySelectorAll('.format-option');
+            const qualityGroup = document.getElementById('quality-group');
+            const qualitySlider = document.getElementById('quality');
+            const qualityValue = document.getElementById('quality-value');
+            const resultText = document.getElementById('result-text');
+            const downloadBtn = document.getElementById('download-btn');
+            
+            // Current file reference and selected format
+            let currentFile = null;
+            let selectedFormat = 'pdf';
+            let selectedQuality = 'High';
+            
+            // Event Listeners
+            dropArea.addEventListener('click', () => fileInput.click());
+            
+            fileInput.addEventListener('change', function(e) {
+                if (this.files.length > 0) {
+                    currentFile = this.files[0];
+                    showFileInfo();
+                }
+            });
+            
+            // Format selection
+            formatOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    formatOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    selectedFormat = this.dataset.format;
+                    
+                    // Show quality options for image formats
+                    if (['jpg', 'png'].includes(selectedFormat)) {
+                        qualityGroup.style.display = 'block';
+                    } else {
+                        qualityGroup.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Set first format as active
+            formatOptions[0].classList.add('active');
+            
+            // Quality slider
+            qualitySlider.addEventListener('input', function() {
+                const qualities = ['Low', 'Medium', 'High'];
+                selectedQuality = qualities[this.value - 1];
+                qualityValue.textContent = selectedQuality;
+            });
+            
+            // Drag and drop functionality
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, highlight, false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, unhighlight, false);
+            });
+            
+            function highlight() {
+                dropArea.style.backgroundColor = 'rgba(67, 97, 238, 0.15)';
+                dropArea.style.borderColor = '#3f37c9';
+            }
+            
+            function unhighlight() {
+                dropArea.style.backgroundColor = 'rgba(67, 97, 238, 0.05)';
+                dropArea.style.borderColor = '#4361ee';
+            }
+            
+            dropArea.addEventListener('drop', handleDrop, false);
+            
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                if (files.length > 0) {
+                    currentFile = files[0];
+                    showFileInfo();
+                }
+            }
+            
+            function showFileInfo() {
+                if (!currentFile) return;
+                
+                const fileName = currentFile.name;
+                const fileSize = formatFileSize(currentFile.size);
+                const fileType = fileName.split('.').pop().toLowerCase();
+                
+                // Update UI to show file info
+                const uploadIcon = dropArea.querySelector('.upload-icon');
+                const uploadText = dropArea.querySelector('.upload-text');
+                
+                uploadIcon.textContent = getFileIcon(fileType);
+                uploadText.innerHTML = `
+                    <h3>${fileName}</h3>
+                    <p>${fileSize} - Ready to convert</p>
+                    <button class="btn btn-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 0-.5.5v11.793l-3.146-3.147a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0-.708-.708L5 13.293V1.5a.5.5 0 0 0-.5-.5z"/>
+                        </svg>
+                        Change File
+                    </button>
+                `;
+                
+                // Add event listener to the new button
+                const changeBtn = dropArea.querySelector('.btn');
+                changeBtn.addEventListener('click', () => fileInput.click());
+                
+                // Auto-select format based on file type
+                let formatToSelect = 'pdf';
+                
+                if (['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'].includes(fileType)) {
+                    formatToSelect = fileType === 'png' ? 'jpg' : 'png';
+                } else if (['doc', 'docx'].includes(fileType)) {
+                    formatToSelect = 'pdf';
+                } else if (['pdf'].includes(fileType)) {
+                    formatToSelect = 'docx';
+                } else if (['mp3', 'wav', 'ogg'].includes(fileType)) {
+                    formatToSelect = 'mp3';
+                } else if (['mp4', 'mov', 'avi'].includes(fileType)) {
+                    formatToSelect = 'mp4';
+                }
+                
+                // Update selected format
+                formatOptions.forEach(opt => {
+                    opt.classList.remove('active');
+                    if (opt.dataset.format === formatToSelect) {
+                        opt.classList.add('active');
+                        selectedFormat = formatToSelect;
+                    }
+                });
+                
+                // Show quality options for image formats
+                if (['jpg', 'png'].includes(selectedFormat)) {
+                    qualityGroup.style.display = 'block';
+                } else {
+                    qualityGroup.style.display = 'none';
+                }
+            }
+            
+            // Convert button click
+            convertBtn.addEventListener('click', function() {
+                if (!currentFile) {
+                    alert('Please select a file to convert');
+                    return;
+                }
+                
+                // Show progress bar
+                progressContainer.style.display = 'block';
+                progressBar.style.width = '0%';
+                progressText.textContent = 'Converting file...';
+                
+                // Hide results
+                resultsContainer.style.display = 'none';
+                
+                // Simulate conversion process
+                simulateConversion(currentFile, selectedFormat);
+            });
+            
+            function simulateConversion(file, format) {
+                // In a real implementation, this would convert the file
+                // For this demo, we'll simulate conversion process
+                
+                const fileName = file.name;
+                const baseName = fileName.substring(0, fileName.lastIndexOf('.'));
+                
+                // Simulate progress
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += 5;
+                    progressBar.style.width = progress + '%';
+                    
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        progressText.textContent = 'Conversion complete!';
+                        
+                        // After a short delay, show results
+                        setTimeout(() => {
+                            progressContainer.style.display = 'none';
+                            resultsContainer.style.display = 'block';
+                            
+                            // Update result text
+                            const formatNames = {
+                                'pdf': 'PDF',
+                                'docx': 'Microsoft Word',
+                                'jpg': 'JPG image',
+                                'png': 'PNG image',
+                                'mp3': 'MP3 audio',
+                                'mp4': 'MP4 video'
+                            };
+                            
+                            resultText.textContent = `Your file has been converted to ${formatNames[format]} format.`;
+                            
+                            // Set download filename
+                            const downloadName = `${baseName}.${format}`;
+                            downloadBtn.setAttribute('download', downloadName);
+                            
+                            // Scroll to results
+                            resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 800);
+                    }
+                }, 100);
+            }
+            
+            function getFileIcon(fileType) {
+                if (['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'].includes(fileType)) {
+                    return '🖼️';
+                } else if (['pdf'].includes(fileType)) {
+                    return '📄';
+                } else if (['doc', 'docx'].includes(fileType)) {
+                    return '📝';
+                } else if (['xls', 'xlsx'].includes(fileType)) {
+                    return '📊';
+                } else if (['ppt', 'pptx'].includes(fileType)) {
+                    return '📽️';
+                } else if (['zip', 'rar', '7z'].includes(fileType)) {
+                    return '📦';
+                } else if (['mp3', 'wav', 'ogg'].includes(fileType)) {
+                    return '🎵';
+                } else if (['mp4', 'avi', 'mov', 'mkv'].includes(fileType)) {
+                    return '🎬';
+                } else {
+                    return '📁';
+                }
+            }
+            
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+            
+            // Initialize with sample file
+            setTimeout(() => {
+                // Simulate file selection
+                currentFile = new File([""], "document.docx", { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
+                showFileInfo();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
