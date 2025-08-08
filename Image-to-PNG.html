@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖼️</text></svg>">
+    <link rel="icon" href="favicon-16x16.png" type="image/x-icon">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Free online tool to convert any image to PNG format with high quality. Fast, secure, and works on all devices.">
@@ -35,9 +35,9 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
         }
         
         header {
@@ -73,7 +73,7 @@
             background-color: var(--tool-card-bg);
             border-radius: 10px;
             padding: 2rem;
-            margin: 2rem 0;
+            margin: 2rem 0 1rem;
             box-shadow: 0 4px 12px var(--box-shadow);
             transition: all 0.3s ease;
         }
@@ -136,32 +136,29 @@
         
         select, input[type="range"], input[type="number"] {
             width: 100%;
-            padding: 0.7rem;
-            border-radius: 6px;
+            padding: 0.5rem;
+            border-radius: 4px;
             border: 1px solid var(--accent-color);
             background-color: var(--bg-color);
             color: var(--text-color);
-            font-size: 1rem;
         }
         
         .btn {
             background-color: var(--accent-color);
             color: var(--hover-text);
             border: none;
-            padding: 0.9rem 1.8rem;
-            border-radius: 6px;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s ease;
             display: inline-block;
             margin: 0.5rem 0;
-            font-size: 1.1rem;
         }
         
         .btn:hover {
             background-color: var(--hover-accent);
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
         }
         
         .btn-block {
@@ -171,12 +168,12 @@
         
         .download-btn {
             display: none;
-            margin-top: 1.5rem;
+            margin-top: 1rem;
         }
         
         footer {
             background-color: var(--header-bg);
-            padding: 1.2rem;
+            padding: 1rem;
             text-align: center;
             margin-top: auto;
         }
@@ -185,7 +182,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
-            margin: 2rem 0;
+            margin: 2rem 0 1rem;
         }
         
         .feature-card {
@@ -218,10 +215,12 @@
             
             .tool-card {
                 padding: 1.5rem;
+                margin: 1.5rem 0 1rem;
             }
             
             .features {
                 grid-template-columns: 1fr;
+                margin: 1.5rem 0 1rem;
             }
             
             h1 {
@@ -257,44 +256,51 @@
             color: var(--accent-color);
         }
         
-        .quality-display {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 5px;
+        .last-section {
+            margin-bottom: 0;
         }
         
-        .quality-display span {
-            min-width: 45px;
+        .footer-content {
+            font-size: 0.9rem;
         }
         
-        .status-message {
+        .how-to-section {
+            margin: 1.5rem 0 0.5rem;
+        }
+        
+        .how-to-section h2 {
+            margin-bottom: 0.8rem;
+        }
+        
+        .supported-formats {
             margin-top: 1rem;
-            padding: 0.8rem;
-            border-radius: 6px;
-            text-align: center;
-            display: none;
-        }
-        
-        .success {
-            background-color: rgba(46, 204, 113, 0.2);
-            border: 1px solid #2ecc71;
-        }
-        
-        .error {
-            background-color: rgba(231, 76, 60, 0.2);
-            border: 1px solid #e74c3c;
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
-        <h1><i class="fas fa-exchange-alt"></i> Image to PNG Converter</h1>
+        <h1>Image to PNG Converter</h1>
         <p>Convert any image to PNG format with high quality</p>
     </header>
     
     <div class="container">
+        <!-- Top Banner Ad (728x90) -->
+        <div class="ad-container">
+            <script type="text/javascript">
+                atOptions = {
+                    'key': '95aac29d932ec51f5cae42ef69b777a1',
+                    'format': 'iframe',
+                    'height': 90,
+                    'width': 728,
+                    'params': {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+        
         <div class="tool-card">
             <div class="upload-area" id="uploadArea">
                 <i class="fas fa-cloud-upload-alt"></i>
@@ -308,16 +314,11 @@
                 <img id="imagePreview" src="#" alt="Preview">
             </div>
             
-            <div id="statusMessage" class="status-message"></div>
-            
             <div class="options">
                 <div class="option-group">
                     <label for="quality">PNG Quality:</label>
                     <input type="range" id="quality" min="1" max="100" value="90">
-                    <div class="quality-display">
-                        <span id="qualityValue">90%</span>
-                        <span id="qualityDesc">High Quality</span>
-                    </div>
+                    <span id="qualityValue">90%</span>
                 </div>
                 
                 <div class="option-group">
@@ -340,12 +341,8 @@
                 </div>
             </div>
             
-            <button class="btn btn-block" id="convertBtn">
-                <i class="fas fa-sync-alt"></i> Convert to PNG
-            </button>
-            <a href="#" class="btn btn-block download-btn" id="downloadBtn" download="converted.png">
-                <i class="fas fa-download"></i> Download PNG
-            </a>
+            <button class="btn btn-block" id="convertBtn">Convert to PNG</button>
+            <a href="#" class="btn btn-block download-btn" id="downloadBtn" download="converted.png">Download PNG</a>
             
             <div class="technology-by">
                 <span>Technology by</span>
@@ -354,6 +351,20 @@
                     <span>DeepSeek</span>
                 </div>
             </div>
+        </div>
+        
+        <!-- Middle Ad Banner -->
+        <div class="ad-container">
+            <script type="text/javascript">
+                atOptions = {
+                    'key': '95aac29d932ec51f5cae42ef69b777a1',
+                    'format': 'iframe',
+                    'height': 90,
+                    'width': 728,
+                    'params': {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
         </div>
         
         <div class="features">
@@ -373,22 +384,40 @@
             </div>
         </div>
         
-        <div class="tool-card">
-            <h2><i class="fas fa-question-circle"></i> How to Convert Images to PNG</h2>
-            <ol style="padding-left: 1.5rem; margin-top: 1rem; line-height: 1.8;">
-                <li><strong>Click the upload area</strong> or drag and drop your image file</li>
-                <li><strong>Adjust quality</strong> and resize options if needed</li>
-                <li><strong>Click "Convert to PNG"</strong> button</li>
-                <li><strong>Download</strong> your converted PNG file</li>
-            </ol>
+        <div class="tool-card last-section">
+            <div class="how-to-section">
+                <h2>How to Convert Images to PNG</h2>
+                <ol style="padding-left: 1.5rem;">
+                    <li>Click the upload area or drag and drop your image file</li>
+                    <li>Adjust quality and resize options if needed</li>
+                    <li>Click "Convert to PNG" button</li>
+                    <li>Download your converted PNG file</li>
+                </ol>
+            </div>
             
-            <h2 style="margin-top: 1.8rem;"><i class="fas fa-check-circle"></i> Supported Formats</h2>
-            <p style="margin-top: 0.8rem;">JPG, JPEG, GIF, BMP, WEBP, TIFF, SVG, and more!</p>
+            <div class="supported-formats">
+                <h2>Supported Formats</h2>
+                <p>JPG, JPEG, GIF, BMP, WEBP, TIFF, and more!</p>
+            </div>
+        </div>
+        
+        <!-- Bottom Ad Banner -->
+        <div class="ad-container last-section">
+            <!-- Replace with your AdSense ad unit -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                 data-ad-slot="YOUR_AD_SLOT_ID"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </div>
     </div>
     
     <footer>
-        <p>&copy; <span id="year"></span> Image to PNG Converter. All rights reserved.</p>
+        <p class="footer-content">&copy; <span id="year"></span> Image to PNG Converter. All rights reserved.</p>
     </footer>
     
     <script>
@@ -404,28 +433,14 @@
         const downloadBtn = document.getElementById('downloadBtn');
         const qualitySlider = document.getElementById('quality');
         const qualityValue = document.getElementById('qualityValue');
-        const qualityDesc = document.getElementById('qualityDesc');
         const resizeSelect = document.getElementById('resize');
         const customSizeGroup = document.getElementById('customSizeGroup');
         const customWidthInput = document.getElementById('customWidth');
         const customHeightInput = document.getElementById('customHeight');
-        const statusMessage = document.getElementById('statusMessage');
         
         // Update quality value display
         qualitySlider.addEventListener('input', () => {
-            const value = qualitySlider.value;
-            qualityValue.textContent = `${value}%`;
-            
-            // Update quality description
-            if (value >= 90) {
-                qualityDesc.textContent = 'High Quality';
-            } else if (value >= 70) {
-                qualityDesc.textContent = 'Good Quality';
-            } else if (value >= 50) {
-                qualityDesc.textContent = 'Medium Quality';
-            } else {
-                qualityDesc.textContent = 'Low Quality';
-            }
+            qualityValue.textContent = `${qualitySlider.value}%`;
         });
         
         // Show/hide custom size inputs
@@ -460,19 +475,15 @@
             if (!file) return;
             
             if (!file.type.match('image.*')) {
-                showMessage('Please select an image file.', 'error');
+                alert('Please select an image file.');
                 return;
             }
-            
-            // Reset previous state
-            downloadBtn.style.display = 'none';
-            statusMessage.style.display = 'none';
             
             const reader = new FileReader();
             reader.onload = (e) => {
                 imagePreview.src = e.target.result;
                 previewContainer.style.display = 'block';
-                showMessage('Image loaded successfully. Adjust settings and click Convert.', 'success');
+                downloadBtn.style.display = 'none';
             };
             reader.readAsDataURL(file);
         }
@@ -480,14 +491,12 @@
         // Conversion function
         convertBtn.addEventListener('click', () => {
             if (!fileInput.files.length) {
-                showMessage('Please select an image first.', 'error');
+                alert('Please select an image first.');
                 return;
             }
             
             const file = fileInput.files[0];
             const quality = parseInt(qualitySlider.value) / 100;
-            
-            showMessage('Converting image...', 'success');
             
             const img = new Image();
             img.onload = () => {
@@ -511,8 +520,6 @@
                             const ratio = customHeight / height;
                             height = customHeight;
                             width = Math.round(width * ratio);
-                        } else {
-                            // No custom size provided, keep original
                         }
                     } else {
                         const targetWidth = parseInt(resizeSelect.value);
@@ -549,32 +556,20 @@
                     imagePreview.src = pngUrl;
                     previewContainer.style.display = 'block';
                     
-                    showMessage('Conversion successful! Click Download to save your PNG.', 'success');
-                    
                     // Scroll to download button
                     downloadBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 } catch (error) {
-                    showMessage('Error converting image: ' + error.message, 'error');
+                    alert('Error converting image: ' + error.message);
                     console.error('Conversion error:', error);
                 }
             };
             
             img.onerror = () => {
-                showMessage('Error loading image. Please try another file.', 'error');
+                alert('Error loading image. Please try another file.');
             };
             
             img.src = URL.createObjectURL(file);
         });
-        
-        // Show status messages
-        function showMessage(text, type) {
-            statusMessage.textContent = text;
-            statusMessage.className = `status-message ${type}`;
-            statusMessage.style.display = 'block';
-        }
-        
-        // Initialize quality description
-        qualityDesc.textContent = 'High Quality';
     </script>
 </body>
 </html>
