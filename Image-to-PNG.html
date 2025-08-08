@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" href="favicon-16x16.png" type="image/x-icon"
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖼️</text></svg>">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Free online tool to convert any image to PNG format with high quality. Fast, secure, and works on all devices.">
@@ -35,6 +35,9 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
         
         header {
@@ -47,12 +50,14 @@
         h1 {
             color: var(--accent-color);
             margin-bottom: 0.5rem;
+            font-size: 2.2rem;
         }
         
         .container {
             max-width: 1200px;
             margin: 2rem auto;
             padding: 0 1rem;
+            flex: 1;
         }
         
         .ad-container {
@@ -129,31 +134,34 @@
             color: var(--accent-color);
         }
         
-        select, input[type="range"] {
+        select, input[type="range"], input[type="number"] {
             width: 100%;
-            padding: 0.5rem;
-            border-radius: 4px;
+            padding: 0.7rem;
+            border-radius: 6px;
             border: 1px solid var(--accent-color);
             background-color: var(--bg-color);
             color: var(--text-color);
+            font-size: 1rem;
         }
         
         .btn {
             background-color: var(--accent-color);
             color: var(--hover-text);
             border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 4px;
+            padding: 0.9rem 1.8rem;
+            border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s ease;
             display: inline-block;
             margin: 0.5rem 0;
+            font-size: 1.1rem;
         }
         
         .btn:hover {
             background-color: var(--hover-accent);
             transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
         }
         
         .btn-block {
@@ -163,14 +171,14 @@
         
         .download-btn {
             display: none;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
         }
         
         footer {
             background-color: var(--header-bg);
-            padding: 1.5rem;
+            padding: 1.2rem;
             text-align: center;
-            margin-top: 2rem;
+            margin-top: auto;
         }
         
         .features {
@@ -215,35 +223,78 @@
             .features {
                 grid-template-columns: 1fr;
             }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+        
+        .technology-by {
+            margin-top: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .deepseek-badge {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 3px 8px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .deepseek-badge i {
+            color: var(--accent-color);
+        }
+        
+        .deepseek-badge span {
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+        
+        .quality-display {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 5px;
+        }
+        
+        .quality-display span {
+            min-width: 45px;
+        }
+        
+        .status-message {
+            margin-top: 1rem;
+            padding: 0.8rem;
+            border-radius: 6px;
+            text-align: center;
+            display: none;
+        }
+        
+        .success {
+            background-color: rgba(46, 204, 113, 0.2);
+            border: 1px solid #2ecc71;
+        }
+        
+        .error {
+            background-color: rgba(231, 76, 60, 0.2);
+            border: 1px solid #e74c3c;
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
-        <h1>Image to PNG Converter</h1>
+        <h1><i class="fas fa-exchange-alt"></i> Image to PNG Converter</h1>
         <p>Convert any image to PNG format with high quality</p>
     </header>
     
     <div class="container">
-     <!-- Top Banner Ad (728x90) -->
-<div class="container my-3">
-    <div class="text-center">
-        <script type="text/javascript">
-            atOptions = {
-                'key': '95aac29d932ec51f5cae42ef69b777a1',
-                'format': 'iframe',
-                'height': 90,
-                'width': 728,
-                'params': {}
-            };
-        </script>
-        <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
-    </div>
-</div>
-        
         <div class="tool-card">
             <div class="upload-area" id="uploadArea">
                 <i class="fas fa-cloud-upload-alt"></i>
@@ -257,11 +308,16 @@
                 <img id="imagePreview" src="#" alt="Preview">
             </div>
             
+            <div id="statusMessage" class="status-message"></div>
+            
             <div class="options">
                 <div class="option-group">
                     <label for="quality">PNG Quality:</label>
                     <input type="range" id="quality" min="1" max="100" value="90">
-                    <span id="qualityValue">90%</span>
+                    <div class="quality-display">
+                        <span id="qualityValue">90%</span>
+                        <span id="qualityDesc">High Quality</span>
+                    </div>
                 </div>
                 
                 <div class="option-group">
@@ -284,26 +340,21 @@
                 </div>
             </div>
             
-            <button class="btn btn-block" id="convertBtn">Convert to PNG</button>
-            <a href="#" class="btn btn-block download-btn" id="downloadBtn" download="converted.png">Download PNG</a>
+            <button class="btn btn-block" id="convertBtn">
+                <i class="fas fa-sync-alt"></i> Convert to PNG
+            </button>
+            <a href="#" class="btn btn-block download-btn" id="downloadBtn" download="converted.png">
+                <i class="fas fa-download"></i> Download PNG
+            </a>
+            
+            <div class="technology-by">
+                <span>Technology by</span>
+                <div class="deepseek-badge">
+                    <i class="fas fa-brain"></i>
+                    <span>DeepSeek</span>
+                </div>
+            </div>
         </div>
-        
-       <!-- midel Banner Ad (728x90) -->
-<div class="container my-3">
-    <div class="text-center">
-        <script type="text/javascript">
-            atOptions = {
-                'key': '95aac29d932ec51f5cae42ef69b777a1',
-                'format': 'iframe',
-                'height': 90,
-                'width': 728,
-                'params': {}
-            };
-        </script>
-        <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
-    </div>
-</div>
-
         
         <div class="features">
             <div class="feature-card">
@@ -323,30 +374,16 @@
         </div>
         
         <div class="tool-card">
-            <h2>How to Convert Images to PNG</h2>
-            <ol style="padding-left: 1.5rem; margin-top: 1rem;">
-                <li>Click the upload area or drag and drop your image file</li>
-                <li>Adjust quality and resize options if needed</li>
-                <li>Click "Convert to PNG" button</li>
-                <li>Download your converted PNG file</li>
+            <h2><i class="fas fa-question-circle"></i> How to Convert Images to PNG</h2>
+            <ol style="padding-left: 1.5rem; margin-top: 1rem; line-height: 1.8;">
+                <li><strong>Click the upload area</strong> or drag and drop your image file</li>
+                <li><strong>Adjust quality</strong> and resize options if needed</li>
+                <li><strong>Click "Convert to PNG"</strong> button</li>
+                <li><strong>Download</strong> your converted PNG file</li>
             </ol>
             
-            <h2 style="margin-top: 1.5rem;">Supported Formats</h2>
-            <p>JPG, JPEG, GIF, BMP, WEBP, TIFF, and more!</p>
-        </div>
-        
-        <!-- Bottom Ad Banner -->
-        <div class="ad-container">
-            <!-- Replace with your AdSense ad unit -->
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-YOUR_ADSENSE_ID"
-                 data-ad-slot="YOUR_AD_SLOT_ID"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
+            <h2 style="margin-top: 1.8rem;"><i class="fas fa-check-circle"></i> Supported Formats</h2>
+            <p style="margin-top: 0.8rem;">JPG, JPEG, GIF, BMP, WEBP, TIFF, SVG, and more!</p>
         </div>
     </div>
     
@@ -367,12 +404,28 @@
         const downloadBtn = document.getElementById('downloadBtn');
         const qualitySlider = document.getElementById('quality');
         const qualityValue = document.getElementById('qualityValue');
+        const qualityDesc = document.getElementById('qualityDesc');
         const resizeSelect = document.getElementById('resize');
         const customSizeGroup = document.getElementById('customSizeGroup');
+        const customWidthInput = document.getElementById('customWidth');
+        const customHeightInput = document.getElementById('customHeight');
+        const statusMessage = document.getElementById('statusMessage');
         
         // Update quality value display
         qualitySlider.addEventListener('input', () => {
-            qualityValue.textContent = `${qualitySlider.value}%`;
+            const value = qualitySlider.value;
+            qualityValue.textContent = `${value}%`;
+            
+            // Update quality description
+            if (value >= 90) {
+                qualityDesc.textContent = 'High Quality';
+            } else if (value >= 70) {
+                qualityDesc.textContent = 'Good Quality';
+            } else if (value >= 50) {
+                qualityDesc.textContent = 'Medium Quality';
+            } else {
+                qualityDesc.textContent = 'Low Quality';
+            }
         });
         
         // Show/hide custom size inputs
@@ -407,15 +460,19 @@
             if (!file) return;
             
             if (!file.type.match('image.*')) {
-                alert('Please select an image file.');
+                showMessage('Please select an image file.', 'error');
                 return;
             }
+            
+            // Reset previous state
+            downloadBtn.style.display = 'none';
+            statusMessage.style.display = 'none';
             
             const reader = new FileReader();
             reader.onload = (e) => {
                 imagePreview.src = e.target.result;
                 previewContainer.style.display = 'block';
-                downloadBtn.style.display = 'none';
+                showMessage('Image loaded successfully. Adjust settings and click Convert.', 'success');
             };
             reader.readAsDataURL(file);
         }
@@ -423,12 +480,14 @@
         // Conversion function
         convertBtn.addEventListener('click', () => {
             if (!fileInput.files.length) {
-                alert('Please select an image first.');
+                showMessage('Please select an image first.', 'error');
                 return;
             }
             
             const file = fileInput.files[0];
             const quality = parseInt(qualitySlider.value) / 100;
+            
+            showMessage('Converting image...', 'success');
             
             const img = new Image();
             img.onload = () => {
@@ -438,8 +497,8 @@
                 // Handle resizing
                 if (resizeSelect.value !== 'original') {
                     if (resizeSelect.value === 'custom') {
-                        const customWidth = parseInt(document.getElementById('customWidth').value);
-                        const customHeight = parseInt(document.getElementById('customHeight').value);
+                        const customWidth = parseInt(customWidthInput.value);
+                        const customHeight = parseInt(customHeightInput.value);
                         
                         if (customWidth && customHeight) {
                             width = customWidth;
@@ -452,6 +511,8 @@
                             const ratio = customHeight / height;
                             height = customHeight;
                             width = Math.round(width * ratio);
+                        } else {
+                            // No custom size provided, keep original
                         }
                     } else {
                         const targetWidth = parseInt(resizeSelect.value);
@@ -466,31 +527,54 @@
                 canvas.width = width;
                 canvas.height = height;
                 const ctx = canvas.getContext('2d');
+                
+                // Draw the image on the canvas
                 ctx.drawImage(img, 0, 0, width, height);
                 
                 // Convert to PNG and create download link
-                canvas.toBlob((blob) => {
-                    const pngUrl = URL.createObjectURL(blob);
+                try {
+                    const pngUrl = canvas.toDataURL('image/png', quality);
                     downloadBtn.href = pngUrl;
                     downloadBtn.style.display = 'inline-block';
-                    downloadBtn.download = file.name.replace(/\.[^/.]+$/, '') + '.png';
+                    
+                    // Set filename with .png extension
+                    const originalName = file.name;
+                    const fileName = originalName.lastIndexOf('.') > 0 ? 
+                        originalName.substring(0, originalName.lastIndexOf('.')) + '.png' : 
+                        originalName + '.png';
+                    
+                    downloadBtn.download = fileName;
                     
                     // Update preview with converted image
                     imagePreview.src = pngUrl;
                     previewContainer.style.display = 'block';
-                }, 'image/png', quality);
+                    
+                    showMessage('Conversion successful! Click Download to save your PNG.', 'success');
+                    
+                    // Scroll to download button
+                    downloadBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                } catch (error) {
+                    showMessage('Error converting image: ' + error.message, 'error');
+                    console.error('Conversion error:', error);
+                }
             };
-            <div class="mt-4">
-    <div class="d-flex align-items-center">
-        <span class="me-2 small">Technology by</span>
-        <div style="background: rgba(255,215,0,0.1); padding: 3px 8px; border-radius: 5px;">
-            <i class="fas fa-brain me-1" style="color: var(--accent-gold);"></i>
-            <span style="font-weight: 600; color: var(--accent-gold);">DeepSeek</span>
-        </div>
-    </div>
-</div>
+            
+            img.onerror = () => {
+                showMessage('Error loading image. Please try another file.', 'error');
+            };
+            
             img.src = URL.createObjectURL(file);
         });
+        
+        // Show status messages
+        function showMessage(text, type) {
+            statusMessage.textContent = text;
+            statusMessage.className = `status-message ${type}`;
+            statusMessage.style.display = 'block';
+        }
+        
+        // Initialize quality description
+        qualityDesc.textContent = 'High Quality';
     </script>
 </body>
 </html>
