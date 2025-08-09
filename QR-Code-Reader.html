@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Reader | Tools4.fun</title>
+    <link rel="icon" type="image/png" href="favicon-16x16.png">
+    <style>
+        :root {
+            --primary-color: #4a6bff;
+            --secondary-color: #f8f9fa;
+            --accent-color: #ff6b6b;
+            --text-color: #333;
+            --border-color: #dee2e6;
+        }
+        body {
+            background-color: #f5f7fa;
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .scanner-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
+        #qr-video {
+            width: 100%;
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+            display: block;
+        }
+        .scanner-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.5);
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            flex-grow: 1;
+        }
+        button.secondary {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: var(--secondary-color);
+            border-radius: 8px;
+            word-break: break-all;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary-color);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .error-message {
+            color: var(--accent-color);
+            margin-top: 10px;
+            display: none;
+        }
+        .file-input {
+            display: none;
+        }
+        .ad-container {
+            margin: 25px 0;
+            text-align: center;
+            padding: 15px;
+            background-color: var(--secondary-color);
+            border-radius: 4px;
+        }
+        .how-to-use {
+            margin-top: 30px;
+        }
+        .how-to-use h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        .how-to-use ol {
+            padding-left: 20px;
+        }
+        .how-to-use li {
+            margin-bottom: 10px;
+        }
+        @media (max-width: 768px) {
+            .btn-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Ad -->
+    <div class="ad-container">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                'format' : 'iframe',
+                'height' : 90,
+                'width' : 728,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+    </div>
+
+    <!-- QR Code Reader Tool -->
+    <div class="card">
+        <h2>QR Code Reader</h2>
+        <div class="scanner-container">
+            <video id="qr-video" playsinline></video>
+            <div class="scanner-overlay"></div>
+        </div>
+        
+        <div class="btn-group">
+            <button id="start-btn">Start Scanner</button>
+            <button id="stop-btn" class="secondary" disabled>Stop Scanner</button>
+            <button id="upload-btn" class="secondary">Upload Image</button>
+            <input type="file" id="file-input" class="file-input" accept="image/*">
+        </div>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Loading QR code scanner...</p>
+        </div>
+        
+        <div class="error-message" id="error-message"></div>
+        
+        <div class="result-container" id="result-container">
+            <div><strong>QR Code Content:</strong></div>
+            <div id="qr-result"></div>
+            <div id="qr-result-type" style="margin-top: 10px;"></div>
+        </div>
+        
+        <!-- How to Use Section -->
+        <div class="how-to-use">
+            <h3>How to Use This QR Code Reader</h3>
+            <ol>
+                <li><strong>Camera Scanning:</strong>
+                    <ul style="margin-left: 20px; margin-top: 5px;">
+                        <li>Click "Start Scanner" to activate your camera</li>
+                        <li>Point your camera at a QR code</li>
+                        <li>Hold steady until the code is detected</li>
+                        <li>Results will appear automatically</li>
+                    </ul>
+                </li>
+                <li><strong>Image Upload:</strong>
+                    <ul style="margin-left: 20px; margin-top: 5px;">
+                        <li>Click "Upload Image"</li>
+                        <li>Select an image containing a QR code</li>
+                        <li>The tool will scan and display the content</li>
+                    </ul>
+                </li>
+                <li><strong>View Results:</strong> The decoded content will appear in the results box along with the content type</li>
+            </ol>
+            
+            <h3>About QR Codes</h3>
+            <p>QR codes can contain different types of information:</p>
+            <ul style="margin-left: 20px;">
+                <li><strong>URLs:</strong> Website links that open in your browser</li>
+                <li><strong>Text:</strong> Plain text messages or notes</li>
+                <li><strong>Contact Info:</strong> vCards that save to your contacts</li>
+                <li><strong>Wi-Fi:</strong> Network credentials to connect automatically</li>
+                <li><strong>And more:</strong> Emails, phone numbers, SMS messages</li>
+            </ul>
+            
+            <h3>Privacy Information</h3>
+            <p>This tool processes all QR codes directly in your browser. No images or scanned data are uploaded to any server - your information stays private on your device.</p>
+        </div>
+    </div>
+
+    <!-- Bottom Ad -->
+    <div class="ad-container">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                'format' : 'iframe',
+                'height' : 90,
+                'width' : 728,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('qr-video');
+            const startBtn = document.getElementById('start-btn');
+            const stopBtn = document.getElementById('stop-btn');
+            const uploadBtn = document.getElementById('upload-btn');
+            const fileInput = document.getElementById('file-input');
+            const loading = document.getElementById('loading');
+            const resultContainer = document.getElementById('result-container');
+            const qrResult = document.getElementById('qr-result');
+            const qrResultType = document.getElementById('qr-result-type');
+            const errorMessage = document.getElementById('error-message');
+            
+            let stream = null;
+            let scanning = false;
+            let animationFrame = null;
+            const canvas = document.createElement('canvas');
+            const canvasContext = canvas.getContext('2d');
+
+            // Button event listeners
+            startBtn.addEventListener('click', startScanner);
+            stopBtn.addEventListener('click', stopScanner);
+            uploadBtn.addEventListener('click', () => fileInput.click());
+            fileInput.addEventListener('change', handleFileUpload);
+
+            // Start scanner function
+            async function startScanner() {
+                try {
+                    showLoading();
+                    hideError();
+                    resultContainer.style.display = 'none';
+                    
+                    stream = await navigator.mediaDevices.getUserMedia({
+                        video: { facingMode: "environment" }
+                    });
+                    
+                    video.srcObject = stream;
+                    await video.play();
+                    
+                    startBtn.disabled = true;
+                    stopBtn.disabled = false;
+                    scanning = true;
+                    
+                    hideLoading();
+                    scanFrame();
+                } catch (err) {
+                    showError('Could not access camera. Please enable permissions.');
+                    hideLoading();
+                    stopScanner();
+                }
+            }
+
+            // Stop scanner function
+            function stopScanner() {
+                if (stream) {
+                    stream.getTracks().forEach(track => track.stop());
+                    stream = null;
+                }
+                
+                if (animationFrame) {
+                    cancelAnimationFrame(animationFrame);
+                    animationFrame = null;
+                }
+                
+                video.srcObject = null;
+                startBtn.disabled = false;
+                stopBtn.disabled = true;
+                scanning = false;
+                hideLoading();
+            }
+
+            // Scan video frames
+            function scanFrame() {
+                if (!scanning) return;
+                
+                if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    canvasContext.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    
+                    const imageData = canvasContext.getImageData(0, 0, canvas.width, canvas.height);
+                    const code = jsQR(imageData.data, imageData.width, imageData.height);
+                    
+                    if (code) {
+                        displayResult(code.data, determineContentType(code.data));
+                    }
+                }
+                
+                animationFrame = requestAnimationFrame(scanFrame);
+            }
+
+            // Handle file upload
+            function handleFileUpload(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        canvasContext.drawImage(img, 0, 0, img.width, img.height);
+                        
+                        const imageData = canvasContext.getImageData(0, 0, canvas.width, canvas.height);
+                        const code = jsQR(imageData.data, imageData.width, imageData.height);
+                        
+                        if (code) {
+                            displayResult(code.data, determineContentType(code.data));
+                        } else {
+                            showError('No QR code found in image.');
+                        }
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+
+            // Display results
+            function displayResult(data, type) {
+                qrResult.textContent = data;
+                qrResultType.innerHTML = `<strong>Type:</strong> ${type}`;
+                resultContainer.style.display = 'block';
+                
+                if (scanning) stopScanner();
+                resultContainer.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            // Determine content type
+            function determineContentType(data) {
+                try {
+                    new URL(data);
+                    return 'URL';
+                } catch (e) {}
+                
+                if (data.startsWith('BEGIN:VCARD')) return 'Contact (vCard)';
+                if (data.startsWith('MATMSG:')) return 'Email';
+                if (data.startsWith('SMSTO:')) return 'SMS';
+                if (data.startsWith('TEL:')) return 'Phone Number';
+                if (data.startsWith('WIFI:')) return 'Wi-Fi Network';
+                if (data.startsWith('bitcoin:')) return 'Bitcoin Address';
+                
+                return 'Text';
+            }
+
+            // Helper functions
+            function showLoading() { loading.style.display = 'block'; }
+            function hideLoading() { loading.style.display = 'none'; }
+            function showError(msg) { errorMessage.textContent = msg; errorMessage.style.display = 'block'; }
+            function hideError() { errorMessage.style.display = 'none'; }
+
+            // Clean up
+            window.addEventListener('beforeunload', stopScanner);
+        });
+    </script>
+</body>
+</html>
