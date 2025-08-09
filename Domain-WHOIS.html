@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online Domain WHOIS Lookup tool. Get comprehensive domain registration details instantly. Perfect for domain research and verification.">
+    <meta name="keywords" content="whois lookup, domain checker, domain information, whois search, domain availability, dns lookup">
+    <title>Domain WHOIS Lookup | Tools4.fun - Free Online Tools</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    
+    <!-- Open Graph tags for social sharing -->
+    <meta property="og:title" content="Domain WHOIS Lookup | Tools4.fun">
+    <meta property="og:description" content="Get comprehensive domain registration details instantly. Perfect for domain research and verification.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.tools4.fun/whois-lookup">
+    
+    <style>
+        :root {
+            --primary: #4a6cf7;
+            --primary-dark: #3a56d0;
+            --secondary: #6c757d;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --success: #28a745;
+            --info: #17a2b8;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7ff;
+            color: #333;
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), #2e4ac9);
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 1rem;
+        }
+        
+        .logo {
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            text-align: center;
+            font-weight: 300;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .ad-container {
+            background-color: white;
+            margin: 1.5rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 90px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+        }
+        
+        .tool-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .search-section {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        #domain-input {
+            flex: 1;
+            padding: 14px 20px;
+            border: 2px solid #e6e9f4;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+        
+        #domain-input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.2);
+        }
+        
+        #search-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 30px;
+            font-size: 1.1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #search-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .result-container {
+            display: none;
+            background-color: #f8f9ff;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            border: 1px solid #e6e9f4;
+            margin-top: 1.5rem;
+        }
+        
+        .domain-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e6e9f4;
+        }
+        
+        .domain-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .domain-status {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .whois-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .whois-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .whois-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f0f5ff;
+        }
+        
+        .info-row {
+            display: flex;
+            margin-bottom: 0.8rem;
+        }
+        
+        .info-label {
+            font-weight: 600;
+            width: 150px;
+            color: var(--secondary);
+        }
+        
+        .info-value {
+            flex: 1;
+            word-break: break-word;
+        }
+        
+        .dns-records {
+            margin-top: 1rem;
+        }
+        
+        .record-item {
+            background-color: #f8f9ff;
+            padding: 0.8rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 0.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f0f5ff;
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .how-to-use {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .how-to-use h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .step-card {
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .step-number {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .popular-domains {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .domains-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .domain-item {
+            padding: 0.8rem;
+            background-color: #f5f7ff;
+            border-radius: var(--border-radius);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        .domain-item:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 900px) {
+            .whois-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .tool-container, .how-to-use, .popular-domains {
+                padding: 1.5rem;
+            }
+            
+            .search-section {
+                flex-direction: column;
+            }
+            
+            #search-btn {
+                padding: 14px;
+            }
+            
+            .domain-name {
+                font-size: 1.4rem;
+            }
+        }
+        
+        /* Ad Placeholder Styles */
+        .ad-placeholder {
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            color: #888;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 500;
+            min-height: 90px;
+            border: 1px dashed #ccc;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <div class="logo">T4F</div>
+                <h1>Domain WHOIS Lookup</h1>
+            </div>
+            <p class="subtitle">Get comprehensive domain registration details instantly</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Top Ad Container -->
+        <div class="ad-container">
+            <!-- Google AdSense Ad Unit -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+        
+        <!-- Tool Section -->
+        <div class="tool-container">
+            <div class="search-section">
+                <input type="text" id="domain-input" placeholder="Enter domain name (e.g., example.com)" value="tools4.fun">
+                <button id="search-btn">Search</button>
+            </div>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Fetching WHOIS data for domain...</p>
+            </div>
+            
+            <div class="result-container" id="result-container">
+                <div class="domain-header">
+                    <div class="domain-name" id="domain-name">tools4.fun</div>
+                    <div class="domain-status" id="domain-status">Registered</div>
+                </div>
+                
+                <div class="whois-grid">
+                    <div class="whois-card">
+                        <div class="whois-title">Domain Information</div>
+                        <div class="info-row">
+                            <div class="info-label">Domain Name:</div>
+                            <div class="info-value" id="info-domain">tools4.fun</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Status:</div>
+                            <div class="info-value" id="info-status">Registered</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Created Date:</div>
+                            <div class="info-value" id="info-created">2023-01-15</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Expiration Date:</div>
+                            <div class="info-value" id="info-expires">2024-01-15</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Updated Date:</div>
+                            <div class="info-value" id="info-updated">2023-01-15</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Registrar:</div>
+                            <div class="info-value" id="info-registrar">NameCheap, Inc.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="whois-card">
+                        <div class="whois-title">Registrant Contact</div>
+                        <div class="info-row">
+                            <div class="info-label">Name:</div>
+                            <div class="info-value" id="registrant-name">John Doe</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Organization:</div>
+                            <div class="info-value" id="registrant-org">Web Services LLC</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Email:</div>
+                            <div class="info-value" id="registrant-email">contact@tools4.fun</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Phone:</div>
+                            <div class="info-value" id="registrant-phone">+1.1234567890</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Country:</div>
+                            <div class="info-value" id="registrant-country">United States</div>
+                        </div>
+                    </div>
+                    
+                    <div class="whois-card">
+                        <div class="whois-title">Technical Contact</div>
+                        <div class="info-row">
+                            <div class="info-label">Name:</div>
+                            <div class="info-value" id="tech-name">Tech Admin</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Organization:</div>
+                            <div class="info-value" id="tech-org">Hosting Provider Inc.</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Email:</div>
+                            <div class="info-value" id="tech-email">tech@tools4.fun</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Phone:</div>
+                            <div class="info-value" id="tech-phone">+1.9876543210</div>
+                        </div>
+                    </div>
+                    
+                    <div class="whois-card">
+                        <div class="whois-title">Name Servers</div>
+                        <div class="dns-records">
+                            <div class="record-item" id="ns1">dns1.registrar-servers.com</div>
+                            <div class="record-item" id="ns2">dns2.registrar-servers.com</div>
+                            <div class="record-item" id="ns3">dns3.registrar-servers.com</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Popular Domains Section -->
+        <div class="popular-domains">
+            <h2>Popular Domain Lookups</h2>
+            <div class="domains-grid">
+                <div class="domain-item">google.com</div>
+                <div class="domain-item">youtube.com</div>
+                <div class="domain-item">facebook.com</div>
+                <div class="domain-item">amazon.com</div>
+                <div class="domain-item">twitter.com</div>
+                <div class="domain-item">instagram.com</div>
+                <div class="domain-item">wikipedia.org</div>
+                <div class="domain-item">microsoft.com</div>
+            </div>
+        </div>
+        
+        <!-- How to Use Section -->
+        <div class="how-to-use">
+            <h2>How to Use the WHOIS Lookup Tool</h2>
+            <div class="steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Enter Domain Name</h3>
+                    <p>Type the domain name you want to look up in the search field (e.g., example.com).</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Initiate Search</h3>
+                    <p>Click the "Search" button to start the WHOIS lookup process.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Review Results</h3>
+                    <p>View comprehensive domain information including registration details, contact info, and name servers.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Check Availability</h3>
+                    <p>See if a domain is available for registration based on the WHOIS status.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Ad Container -->
+        <div class="ad-container">
+            <!-- Google AdSense Ad Unit -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2023 Tools4.fun - Free Online Tools for Everyday Needs</p>
+            <p>WHOIS Lookup - Essential tool for domain research and verification</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const domainInput = document.getElementById('domain-input');
+            const searchBtn = document.getElementById('search-btn');
+            const resultContainer = document.getElementById('result-container');
+            const loading = document.getElementById('loading');
+            
+            // Set up event listeners
+            searchBtn.addEventListener('click', performLookup);
+            domainInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performLookup();
+                }
+            });
+            
+            // Add event listeners for popular domains
+            document.querySelectorAll('.domain-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    domainInput.value = this.textContent;
+                    performLookup();
+                });
+            });
+            
+            function performLookup() {
+                const domain = domainInput.value.trim();
+                
+                if (!domain) {
+                    alert('Please enter a domain name');
+                    return;
+                }
+                
+                // Validate domain format
+                if (!isValidDomain(domain)) {
+                    alert('Please enter a valid domain name (e.g., example.com)');
+                    return;
+                }
+                
+                // Show loading, hide results
+                loading.style.display = 'block';
+                resultContainer.style.display = 'none';
+                
+                // Simulate API request delay
+                setTimeout(() => {
+                    // Hide loading, show results
+                    loading.style.display = 'none';
+                    resultContainer.style.display = 'block';
+                    
+                    // Generate and display WHOIS data
+                    displayWhoisData(domain);
+                }, 1500);
+            }
+            
+            function isValidDomain(domain) {
+                // Simple domain validation
+                const pattern = /^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$/i;
+                return pattern.test(domain);
+            }
+            
+            function displayWhoisData(domain) {
+                // Update domain name displays
+                document.getElementById('domain-name').textContent = domain;
+                document.getElementById('info-domain').textContent = domain;
+                
+                // Generate sample WHOIS data
+                const createdDate = new Date();
+                createdDate.setFullYear(createdDate.getFullYear() - 1);
+                
+                const expiresDate = new Date();
+                expiresDate.setFullYear(expiresDate.getFullYear() + 1);
+                
+                // Set WHOIS data
+                document.getElementById('info-created').textContent = formatDate(createdDate);
+                document.getElementById('info-expires').textContent = formatDate(expiresDate);
+                document.getElementById('info-updated').textContent = formatDate(new Date());
+                
+                // Set random status (80% registered, 20% available)
+                const isRegistered = Math.random() > 0.2;
+                const statusText = isRegistered ? 'Registered' : 'Available';
+                const statusColor = isRegistered ? 'var(--success)' : 'var(--danger)';
+                
+                document.getElementById('domain-status').textContent = statusText;
+                document.getElementById('domain-status').style.backgroundColor = statusColor;
+                document.getElementById('info-status').textContent = statusText;
+                
+                // Set contact info
+                document.getElementById('registrant-name').textContent = getRandomName();
+                document.getElementById('registrant-org').textContent = getRandomOrg();
+                document.getElementById('registrant-email').textContent = `contact@${domain}`;
+                document.getElementById('registrant-phone').textContent = getRandomPhone();
+                document.getElementById('registrant-country').textContent = getRandomCountry();
+                
+                document.getElementById('tech-name').textContent = getRandomName();
+                document.getElementById('tech-org').textContent = getRandomHosting();
+                document.getElementById('tech-email').textContent = `tech@${domain}`;
+                document.getElementById('tech-phone').textContent = getRandomPhone();
+                
+                // Set name servers
+                const nameServers = [
+                    `dns1.${getRandomHosting()}.com`,
+                    `dns2.${getRandomHosting()}.com`,
+                    `dns3.${getRandomHosting()}.com`
+                ];
+                
+                document.getElementById('ns1').textContent = nameServers[0];
+                document.getElementById('ns2').textContent = nameServers[1];
+                document.getElementById('ns3').textContent = nameServers[2];
+            }
+            
+            function formatDate(date) {
+                return date.toISOString().split('T')[0];
+            }
+            
+            function getRandomName() {
+                const names = ['John Doe', 'Jane Smith', 'Robert Johnson', 'Emily Davis', 'Michael Brown'];
+                return names[Math.floor(Math.random() * names.length)];
+            }
+            
+            function getRandomOrg() {
+                const orgs = ['Web Services LLC', 'Digital Solutions Inc', 'Tech Innovations Group', 'Global Domains Ltd', 'Online Ventures Co'];
+                return orgs[Math.floor(Math.random() * orgs.length)];
+            }
+            
+            function getRandomHosting() {
+                const hosts = ['registrar-servers', 'namecheap', 'godaddy', 'bluehost', 'hostgator', 'cloudflare'];
+                return hosts[Math.floor(Math.random() * hosts.length)];
+            }
+            
+            function getRandomPhone() {
+                return `+1.${Math.floor(100 + Math.random() * 900)}${Math.floor(100 + Math.random() * 900)}${Math.floor(1000 + Math.random() * 9000)}`;
+            }
+            
+            function getRandomCountry() {
+                const countries = ['United States', 'United Kingdom', 'Canada', 'Germany', 'Australia', 'France', 'Japan'];
+                return countries[Math.floor(Math.random() * countries.length)];
+            }
+            
+            // Perform initial lookup for tools4.fun
+            setTimeout(performLookup, 500);
+        });
+    </script>
+</body>
+</html>
