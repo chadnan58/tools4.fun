@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Percentage Calculator - Tools4.Fun</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="https://www.tools4.fun/favicon-16x16.png">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #4cc9f0;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4ade80;
+            --danger: #f87171;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f0f2f5, #e4e7eb);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .calculator-card {
+            width: 100%;
+            max-width: 800px;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .logo i {
+            color: #ffd166;
+        }
+        
+        .card-header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .ad-container {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+            border: 1px dashed #dee2e6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 90px;
+            position: relative;
+        }
+        
+        .ad-label {
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            background: #e9ecef;
+            color: #6c757d;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        .calculator-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+        }
+        
+        .calculator-section {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .guide-section {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .section-title {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e9ecef;
+            font-size: 1.4rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #495057;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: var(--transition);
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .result-container {
+            background: #e7f5ff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 25px;
+            text-align: center;
+            display: none;
+        }
+        
+        .result-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+        
+        .result-text {
+            font-size: 1.1rem;
+            color: #495057;
+        }
+        
+        .guide-step {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .step-number {
+            background: var(--primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+        
+        .step-content h4 {
+            margin-bottom: 5px;
+            color: #212529;
+        }
+        
+        .examples {
+            background: #f1f8ff;
+            border-left: 4px solid var(--primary);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 15px;
+        }
+        
+        .examples h5 {
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: var(--dark);
+            color: white;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .calculator-container {
+                flex-direction: column;
+            }
+            
+            .ad-container {
+                min-height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-card">
+        <div class="card-header">
+            <div class="logo">
+                <i class="fas fa-calculator"></i>
+                <span>Percentage Calculator</span>
+            </div>
+            <p>Calculate percentages easily with our free online tool</p>
+        </div>
+        
+        <div class="card-content">
+            <!-- Top Ad Container -->
+            <div class="ad-container">
+                <div class="ad-label">Advertisement</div>
+                <!-- AdSense Ad Code -->
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+            </div>
+            
+            <div class="calculator-container">
+                <div class="calculator-section">
+                    <h2 class="section-title">Calculate Percentage</h2>
+                    
+                    <div class="form-group">
+                        <label for="calculationType">Select Calculation Type:</label>
+                        <select id="calculationType">
+                            <option value="percentOf">What is X% of Y?</option>
+                            <option value="percentWhat">X is what percent of Y?</option>
+                            <option value="increase">Percentage Increase</option>
+                            <option value="decrease">Percentage Decrease</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" id="inputGroup1">
+                        <label for="value1">Value X:</label>
+                        <input type="number" id="value1" placeholder="Enter first value">
+                    </div>
+                    
+                    <div class="form-group" id="inputGroup2">
+                        <label for="value2">Value Y:</label>
+                        <input type="number" id="value2" placeholder="Enter second value">
+                    </div>
+                    
+                    <button class="btn" id="calculateBtn">
+                        <i class="fas fa-calculator"></i> Calculate
+                    </button>
+                    
+                    <div class="result-container" id="resultContainer">
+                        <h3>Result:</h3>
+                        <div class="result-value" id="resultValue">0</div>
+                        <div class="result-text" id="resultText"></div>
+                    </div>
+                </div>
+                
+                <div class="guide-section">
+                    <h2 class="section-title">How to Use This Calculator</h2>
+                    
+                    <div class="guide-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Select Calculation Type</h4>
+                            <p>Choose from the dropdown what type of percentage calculation you need.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="guide-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Enter Values</h4>
+                            <p>Input the required numbers in the fields. The labels will change based on your selection.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="guide-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Calculate</h4>
+                            <p>Click the "Calculate" button to get instant results with explanation.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="examples">
+                        <h5>Examples:</h5>
+                        <p><strong>What is 15% of 200?</strong> → 30</p>
+                        <p><strong>25 is what percent of 200?</strong> → 12.5%</p>
+                        <p><strong>Price increased from $50 to $65</strong> → 30% increase</p>
+                        <p><strong>Price decreased from $80 to $60</strong> → 25% decrease</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Ad Container -->
+            <div class="ad-container">
+                <div class="ad-label">Advertisement</div>
+                <!-- AdSense Ad Code -->
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+            </div>
+        </div>
+        
+        <div class="footer">
+            &copy; 2023 Tools4.Fun | Free Online Tools for Everyday Calculations
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const calculationType = document.getElementById('calculationType');
+            const value1Input = document.getElementById('value1');
+            const value2Input = document.getElementById('value2');
+            const calculateBtn = document.getElementById('calculateBtn');
+            const resultContainer = document.getElementById('resultContainer');
+            const resultValue = document.getElementById('resultValue');
+            const resultText = document.getElementById('resultText');
+            
+            // Update input labels based on selected calculation type
+            function updateInputLabels() {
+                const type = calculationType.value;
+                const inputGroup1 = document.getElementById('inputGroup1');
+                const inputGroup2 = document.getElementById('inputGroup2');
+                
+                switch(type) {
+                    case 'percentOf':
+                        inputGroup1.querySelector('label').textContent = 'Percentage (X%):';
+                        inputGroup2.querySelector('label').textContent = 'Whole Value (Y):';
+                        value1Input.placeholder = 'Enter percentage';
+                        value2Input.placeholder = 'Enter whole value';
+                        break;
+                    case 'percentWhat':
+                        inputGroup1.querySelector('label').textContent = 'Part Value (X):';
+                        inputGroup2.querySelector('label').textContent = 'Whole Value (Y):';
+                        value1Input.placeholder = 'Enter part value';
+                        value2Input.placeholder = 'Enter whole value';
+                        break;
+                    case 'increase':
+                        inputGroup1.querySelector('label').textContent = 'Original Value:';
+                        inputGroup2.querySelector('label').textContent = 'New Value:';
+                        value1Input.placeholder = 'Enter original value';
+                        value2Input.placeholder = 'Enter new value';
+                        break;
+                    case 'decrease':
+                        inputGroup1.querySelector('label').textContent = 'Original Value:';
+                        inputGroup2.querySelector('label').textContent = 'New Value:';
+                        value1Input.placeholder = 'Enter original value';
+                        value2Input.placeholder = 'Enter new value';
+                        break;
+                }
+            }
+            
+            // Calculate the result
+            function calculateResult() {
+                const type = calculationType.value;
+                const value1 = parseFloat(value1Input.value);
+                const value2 = parseFloat(value2Input.value);
+                
+                if (isNaN(value1) || isNaN(value2)) {
+                    alert('Please enter valid numbers in both fields');
+                    return;
+                }
+                
+                let result, text;
+                
+                switch(type) {
+                    case 'percentOf':
+                        result = (value1 / 100) * value2;
+                        text = `${value1}% of ${value2} is ${result.toFixed(2)}`;
+                        break;
+                    case 'percentWhat':
+                        result = (value1 / value2) * 100;
+                        text = `${value1} is ${result.toFixed(2)}% of ${value2}`;
+                        break;
+                    case 'increase':
+                        result = ((value2 - value1) / value1) * 100;
+                        text = `From ${value1} to ${value2} is a ${result.toFixed(2)}% increase`;
+                        break;
+                    case 'decrease':
+                        result = ((value1 - value2) / value1) * 100;
+                        text = `From ${value1} to ${value2} is a ${result.toFixed(2)}% decrease`;
+                        break;
+                }
+                
+                resultValue.textContent = result.toFixed(2) + (type === 'percentWhat' || type === 'increase' || type === 'decrease' ? '%' : '');
+                resultText.textContent = text;
+                resultContainer.style.display = 'block';
+                
+                // Scroll to result
+                resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+            
+            // Event listeners
+            calculationType.addEventListener('change', updateInputLabels);
+            calculateBtn.addEventListener('click', calculateResult);
+            
+            // Initialize labels
+            updateInputLabels();
+        });
+    </script>
+</body>
+</html>
