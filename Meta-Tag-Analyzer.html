@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta Tag Analyzer | Tools4.fun</title>
+    <link rel="icon" type="image/png" href="favicon-16x16.png">
+    <style>
+        :root {
+            --primary-color: #4a6bff;
+            --secondary-color: #f8f9fa;
+            --accent-color: #ff6b6b;
+            --text-color: #333;
+            --border-color: #dee2e6;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        input[type="url"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        .result-container {
+            display: none;
+            margin-top: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px 15px;
+            text-align: left;
+        }
+        th {
+            background-color: var(--secondary-color);
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary-color);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .error-message {
+            color: var(--accent-color);
+            margin-top: 10px;
+            display: none;
+        }
+        .ad-container {
+            margin: 25px 0;
+            text-align: center;
+            padding: 15px;
+            background-color: var(--secondary-color);
+            border-radius: 4px;
+        }
+        .how-to-use {
+            margin-top: 40px;
+        }
+        .how-to-use ol {
+            padding-left: 20px;
+        }
+        .how-to-use li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Ad -->
+    <div class="ad-container">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                'format' : 'iframe',
+                'height' : 90,
+                'width' : 728,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+    </div>
+
+    <!-- Analyzer Tool -->
+    <div class="card">
+        <h2>Meta Tag Analyzer</h2>
+        <div class="form-group">
+            <label for="url-input">Website URL</label>
+            <input type="url" id="url-input" placeholder="https://example.com" required>
+            <div class="error-message" id="error-message"></div>
+        </div>
+        <button id="analyze-btn">Analyze Meta Tags</button>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Analyzing website meta tags...</p>
+        </div>
+        
+        <div class="result-container" id="result-container">
+            <h3>Analysis Results</h3>
+            <div id="basic-info"></div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tag Type</th>
+                        <th>Name/Property</th>
+                        <th>Content</th>
+                    </tr>
+                </thead>
+                <tbody id="meta-tags-table"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- How to Use Section -->
+    <div class="card how-to-use">
+        <h2>How to Use This Tool</h2>
+        <ol>
+            <li><strong>Enter the URL</strong> of any website in the input field above</li>
+            <li><strong>Click "Analyze Meta Tags"</strong> to scan the webpage</li>
+            <li><strong>View the results</strong> showing all meta tags found including:
+                <ul style="margin-left: 20px; margin-top: 5px;">
+                    <li>Standard meta tags (description, keywords)</li>
+                    <li>Open Graph tags (for social media)</li>
+                    <li>Twitter Card tags</li>
+                    <li>Viewport and other technical tags</li>
+                </ul>
+            </li>
+            <li><strong>Use this information</strong> to improve your own website's SEO or analyze competitors</li>
+        </ol>
+        
+        <h3 style="margin-top: 20px;">What Are Meta Tags?</h3>
+        <p>Meta tags are snippets of text that describe a page's content. They don't appear on the page itself, but in the page's HTML code. Search engines use them to understand what your page is about and display it in search results.</p>
+        
+        <h3 style="margin-top: 20px;">Why They Matter</h3>
+        <p>Proper meta tags can:</p>
+        <ul style="margin-left: 20px;">
+            <li>Improve your search engine rankings</li>
+            <li>Increase click-through rates from search results</li>
+            <li>Control how your content appears when shared</li>
+        </ul>
+    </div>
+
+    <!-- Bottom Ad -->
+    <div class="ad-container">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                'format' : 'iframe',
+                'height' : 90,
+                'width' : 728,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const analyzeBtn = document.getElementById('analyze-btn');
+            const urlInput = document.getElementById('url-input');
+            const loading = document.getElementById('loading');
+            const resultContainer = document.getElementById('result-container');
+            const metaTagsTable = document.getElementById('meta-tags-table');
+            const errorMessage = document.getElementById('error-message');
+            
+            analyzeBtn.addEventListener('click', analyzeMetaTags);
+            urlInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') analyzeMetaTags();
+            });
+            
+            function analyzeMetaTags() {
+                const url = urlInput.value.trim();
+                
+                if (!url) {
+                    showError('Please enter a URL');
+                    return;
+                }
+                
+                try {
+                    new URL(url);
+                } catch (e) {
+                    showError('Please enter a valid URL (include http:// or https://)');
+                    return;
+                }
+                
+                hideError();
+                resultContainer.style.display = 'none';
+                loading.style.display = 'block';
+                
+                fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.contents) {
+                            const parser = new DOMParser();
+                            const htmlDoc = parser.parseFromString(data.contents, 'text/html');
+                            const metaTags = htmlDoc.querySelectorAll('meta');
+                            displayResults(metaTags, url);
+                        } else {
+                            throw new Error('No content received');
+                        }
+                    })
+                    .catch(error => {
+                        showError('Failed to analyze. Please check the URL and try again.');
+                    })
+                    .finally(() => {
+                        loading.style.display = 'none';
+                    });
+            }
+            
+            function displayResults(metaTags, url) {
+                metaTagsTable.innerHTML = '';
+                document.getElementById('basic-info').innerHTML = `
+                    <p><strong>URL:</strong> ${url}</p>
+                    <p><strong>Meta Tags Found:</strong> ${metaTags.length}</p>
+                `;
+                
+                metaTags.forEach(tag => {
+                    const row = document.createElement('tr');
+                    let tagType = 'Standard';
+                    if (tag.hasAttribute('property') && tag.getAttribute('property').startsWith('og:')) {
+                        tagType = 'Open Graph';
+                    } else if (tag.hasAttribute('name') && tag.getAttribute('name').startsWith('twitter:')) {
+                        tagType = 'Twitter Card';
+                    }
+                    
+                    const name = tag.getAttribute('name') || tag.getAttribute('property') || 'N/A';
+                    const content = tag.getAttribute('content') || 'N/A';
+                    
+                    row.innerHTML = `
+                        <td>${tagType}</td>
+                        <td>${name}</td>
+                        <td>${content}</td>
+                    `;
+                    metaTagsTable.appendChild(row);
+                });
+                
+                resultContainer.style.display = 'block';
+                resultContainer.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            function showError(message) {
+                errorMessage.textContent = message;
+                errorMessage.style.display = 'block';
+            }
+            
+            function hideError() {
+                errorMessage.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
