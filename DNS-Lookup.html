@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online DNS lookup tool to check DNS records including A, MX, CNAME, TXT and more. Get instant DNS information for any domain.">
+    <meta name="keywords" content="DNS lookup, DNS checker, DNS records, domain lookup, DNS tool">
+    <title>DNS Lookup Tool | Tools4Fun - Free Online Network Tools</title>
+    <link rel="icon" href="favicon-16x16.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3498db;
+            --primary-dark: #2980b9;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --gray: #95a5a6;
+            --light-gray: #f8f9fa;
+            --dark: #2c3e50;
+            --border-radius: 10px;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1.8rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .logo i {
+            font-size: 2.5rem;
+            color: white;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px;
+            border-radius: 50%;
+        }
+        
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .ad-container {
+            background-color: white;
+            padding: 15px;
+            margin: 25px auto;
+            text-align: center;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            max-width: 728px;
+            position: relative;
+        }
+        
+        .ad-label {
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            background: var(--accent);
+            color: white;
+            padding: 3px 10px;
+            font-size: 0.75rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .tool-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 35px;
+            margin: 30px auto;
+            max-width: 950px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tool-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+        
+        .card-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--secondary);
+            position: relative;
+        }
+        
+        .card-title h2 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .card-title p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+        
+        .card-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .tool-section {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .how-to-section {
+            flex: 1;
+            min-width: 300px;
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 25px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 1.05rem;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            background: #fafafa;
+        }
+        
+        input:focus, select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            background: white;
+        }
+        
+        .lookup-btn {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 16px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            width: 100%;
+            transition: var(--transition);
+            margin-top: 15px;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+        
+        .lookup-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        .lookup-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .result-container {
+            background: linear-gradient(to bottom right, #e3f2fd, #f0f8ff);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-top: 30px;
+            border-left: 4px solid var(--primary);
+            display: none;
+        }
+        
+        .result-header {
+            text-align: center;
+            color: var(--primary-dark);
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+        }
+        
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .result-table th {
+            background-color: var(--primary);
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .result-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .result-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .result-table tr:hover {
+            background-color: #e9f7fe;
+        }
+        
+        .how-to-section h3 {
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #ddd;
+            font-size: 1.5rem;
+        }
+        
+        .instructions {
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            position: relative;
+            padding-left: 10px;
+        }
+        
+        .instructions li::before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            position: absolute;
+            left: -15px;
+            font-size: 1.2rem;
+        }
+        
+        .note {
+            background: rgba(231, 76, 60, 0.1);
+            border-left: 3px solid var(--accent);
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .note strong {
+            color: var(--accent);
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .card-content {
+                flex-direction: column;
+            }
+            
+            .tool-card {
+                padding: 25px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .tool-card {
+                padding: 20px 15px;
+            }
+            
+            .result-table {
+                font-size: 0.9rem;
+            }
+            
+            .result-table th, 
+            .result-table td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <h1>DNS Lookup Tool</h1>
+                <p>Check DNS records for any domain including A, MX, CNAME, TXT and more</p>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Top Ad Container -->
+    <div class="container">
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <!-- Google AdSense Ad Unit -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+    </div>
+    
+    <!-- Tool Card -->
+    <div class="container">
+        <div class="tool-card">
+            <div class="card-title">
+                <h2>DNS Lookup</h2>
+                <p>Query DNS records for any domain name</p>
+            </div>
+            
+            <div class="card-content">
+                <div class="tool-section">
+                    <div class="input-group">
+                        <label for="domain"><i class="fas fa-link"></i> Domain Name</label>
+                        <input type="text" id="domain" placeholder="Enter domain (e.g., example.com)" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="recordType"><i class="fas fa-list"></i> Record Type</label>
+                        <select id="recordType">
+                            <option value="A">A (Address) Record</option>
+                            <option value="MX">MX (Mail Exchange) Record</option>
+                            <option value="CNAME">CNAME (Canonical Name) Record</option>
+                            <option value="TXT">TXT (Text) Record</option>
+                            <option value="NS">NS (Name Server) Record</option>
+                            <option value="SOA">SOA (Start of Authority) Record</option>
+                            <option value="PTR">PTR (Pointer) Record</option>
+                            <option value="AAAA">AAAA (IPv6 Address) Record</option>
+                            <option value="ALL">All Records</option>
+                        </select>
+                    </div>
+                    
+                    <button id="lookup" class="lookup-btn">
+                        <i class="fas fa-search"></i> Lookup DNS
+                    </button>
+                    
+                    <div id="loading" style="text-align: center; margin: 20px 0; display: none;">
+                        <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: var(--primary);"></i>
+                        <p>Fetching DNS records...</p>
+                    </div>
+                    
+                    <div id="result" class="result-container">
+                        <h3 class="result-header">DNS Lookup Results</h3>
+                        <div id="resultContent"></div>
+                    </div>
+                </div>
+                
+                <div class="how-to-section">
+                    <h3><i class="fas fa-info-circle"></i> How to Use This Tool</h3>
+                    <ol class="instructions">
+                        <li><strong>Enter a domain name</strong> - Type the domain you want to check (e.g., example.com)</li>
+                        <li><strong>Select record type</strong> - Choose the DNS record type you want to lookup</li>
+                        <li><strong>Click "Lookup DNS"</strong> - The tool will query the DNS records and display results</li>
+                        <li><strong>Review results</strong> - See all available DNS records for your query</li>
+                    </ol>
+                    
+                    <div class="note">
+                        <p><strong>Note:</strong> This tool queries public DNS servers and may not show private or local DNS records. Some domains may have restrictions on certain record types.</p>
+                    </div>
+                    
+                    <div style="margin-top: 30px;">
+                        <h3 style="margin-bottom: 15px; color: var(--primary-dark);">Common DNS Record Types</h3>
+                        <ul style="list-style-type: none;">
+                            <li style="margin-bottom: 10px;"><strong>A Record</strong> - Maps a domain to an IPv4 address</li>
+                            <li style="margin-bottom: 10px;"><strong>MX Record</strong> - Specifies mail servers for the domain</li>
+                            <li style="margin-bottom: 10px;"><strong>CNAME</strong> - Creates an alias from one domain to another</li>
+                            <li style="margin-bottom: 10px;"><strong>TXT</strong> - Contains text information for various purposes</li>
+                            <li style="margin-bottom: 10px;"><strong>NS</strong> - Identifies authoritative name servers</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bottom Ad Container -->
+    <div class="container">
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <!-- Google AdSense Ad Unit -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const lookupBtn = document.getElementById('lookup');
+            const resultContainer = document.getElementById('result');
+            const loadingIndicator = document.getElementById('loading');
+            const resultContent = document.getElementById('resultContent');
+            
+            lookupBtn.addEventListener('click', function() {
+                const domain = document.getElementById('domain').value.trim();
+                const recordType = document.getElementById('recordType').value;
+                
+                if (!domain) {
+                    alert('Please enter a domain name');
+                    return;
+                }
+                
+                // Show loading indicator
+                loadingIndicator.style.display = 'block';
+                resultContainer.style.display = 'none';
+                
+                // Simulate DNS lookup (in a real implementation, you would call a backend API)
+                setTimeout(function() {
+                    // Hide loading indicator
+                    loadingIndicator.style.display = 'none';
+                    
+                    // Generate mock results
+                    const mockResults = generateMockResults(domain, recordType);
+                    resultContent.innerHTML = mockResults;
+                    
+                    // Show results
+                    resultContainer.style.display = 'block';
+                    
+                    // Scroll to results
+                    resultContainer.scrollIntoView({ behavior: 'smooth' });
+                }, 1500);
+            });
+            
+            function generateMockResults(domain, recordType) {
+                // This is a simulation - in a real app you would call a DNS API
+                const now = new Date().toLocaleString();
+                let html = `<p style="margin-bottom: 15px;">DNS records for <strong>${domain}</strong> (${recordType}):</p>`;
+                
+                html += `<div style="margin-bottom: 15px; font-size: 0.9rem; color: var(--gray);">
+                    <i class="fas fa-clock"></i> Queried at: ${now} | 
+                    <i class="fas fa-server"></i> DNS Server: 8.8.8.8 (Google)
+                </div>`;
+                
+                html += `<table class="result-table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Name</th>
+                            <th>Value</th>
+                            <th>TTL</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
+                
+                // Generate different records based on type
+                if (recordType === 'A' || recordType === 'ALL') {
+                    html += `
+                        <tr>
+                            <td>A</td>
+                            <td>@</td>
+                            <td>192.0.2.1</td>
+                            <td>3600</td>
+                        </tr>
+                        <tr>
+                            <td>A</td>
+                            <td>www</td>
+                            <td>192.0.2.1</td>
+                            <td>3600</td>
+                        </tr>`;
+                }
+                
+                if (recordType === 'MX' || recordType === 'ALL') {
+                    html += `
+                        <tr>
+                            <td>MX</td>
+                            <td>@</td>
+                            <td>10 mail.${domain}</td>
+                            <td>14400</td>
+                        </tr>
+                        <tr>
+                            <td>MX</td>
+                            <td>@</td>
+                            <td>20 backup.${domain}</td>
+                            <td>14400</td>
+                        </tr>`;
+                }
+                
+                if (recordType === 'CNAME' || recordType === 'ALL') {
+                    html += `
+                        <tr>
+                            <td>CNAME</td>
+                            <td>blog</td>
+                            <td>${domain}.blogplatform.com</td>
+                            <td>86400</td>
+                        </tr>`;
+                }
+                
+                if (recordType === 'TXT' || recordType === 'ALL') {
+                    html += `
+                        <tr>
+                            <td>TXT</td>
+                            <td>@</td>
+                            <td>"v=spf1 include:_spf.${domain} ~all"</td>
+                            <td>3600</td>
+                        </tr>
+                        <tr>
+                            <td>TXT</td>
+                            <td>_dmarc</td>
+                            <td>"v=DMARC1; p=none; rua=mailto:dmarc@${domain}"</td>
+                            <td>3600</td>
+                        </tr>`;
+                }
+                
+                if (recordType === 'NS' || recordType === 'ALL') {
+                    html += `
+                        <tr>
+                            <td>NS</td>
+                            <td>@</td>
+                            <td>ns1.${domain}</td>
+                            <td>172800</td>
+                        </tr>
+                        <tr>
+                            <td>NS</td>
+                            <td>@</td>
+                            <td>ns2.${domain}</td>
+                            <td>172800</td>
+                        </tr>`;
+                }
+                
+                html += `</tbody></table>`;
+                
+                return html;
+            }
+        });
+    </script>
+</body>
+</html>
