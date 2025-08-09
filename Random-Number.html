@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online Random Number Generator tool. Generate random numbers between any range with custom settings.">
+    <title>Random Number Generator | Tools4.fun</title>
+    <link rel="icon" type="image/png" href="favicon-16x16.png">
+    
+    <style>
+        :root {
+            --primary-color: #4a6bff;
+            --secondary-color: #f8f9fa;
+            --accent-color: #ff6b6b;
+            --text-color: #333;
+            --light-text: #6c757d;
+            --border-color: #dee2e6;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            padding: 25px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .card-title {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        input[type="number"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="number"]:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #3a56d4;
+        }
+        
+        .result-container {
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .result-box {
+            background-color: var(--secondary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 20px;
+            margin-top: 15px;
+            font-size: 18px;
+            text-align: center;
+            word-wrap: break-word;
+        }
+        
+        .error-message {
+            color: var(--accent-color);
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .how-to-use {
+            margin-top: 40px;
+        }
+        
+        .how-to-use h3 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .how-to-use ol {
+            padding-left: 20px;
+        }
+        
+        .how-to-use li {
+            margin-bottom: 10px;
+        }
+        
+        .ad-container {
+            margin: 25px 0;
+            text-align: center;
+            padding: 15px;
+            background-color: var(--secondary-color);
+            border-radius: 4px;
+        }
+        
+        @media (max-width: 768px) {
+            .card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Ad Container -->
+    <div class="ad-container">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                'format' : 'iframe',
+                'height' : 90,
+                'width' : 728,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+    </div>
+    
+    <div class="card">
+        <h2 class="card-title">Random Number Generator</h2>
+        <p>Generate random numbers between any range with custom settings. Perfect for contests, draws, and statistical sampling.</p>
+        
+        <div class="form-group">
+            <label for="min-value">Minimum Value</label>
+            <input type="number" id="min-value" value="1" min="-999999" max="999999">
+        </div>
+        
+        <div class="form-group">
+            <label for="max-value">Maximum Value</label>
+            <input type="number" id="max-value" value="100" min="-999999" max="999999">
+        </div>
+        
+        <div class="form-group">
+            <label for="quantity">How many numbers to generate?</label>
+            <input type="number" id="quantity" value="1" min="1" max="1000">
+        </div>
+        
+        <div class="form-group">
+            <label>
+                <input type="checkbox" id="unique" checked>
+                Generate unique numbers (no duplicates)
+            </label>
+        </div>
+        
+        <button id="generate-btn">Generate Numbers</button>
+        
+        <div class="error-message" id="error-message"></div>
+        
+        <div class="result-container" id="result-container">
+            <h3>Your Random Numbers</h3>
+            <div class="result-box" id="result-box"></div>
+            <button id="copy-btn" style="margin-top: 15px;">Copy to Clipboard</button>
+        </div>
+    </div>
+    
+    <!-- Bottom Ad Container -->
+    <div class="ad-container">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                'format' : 'iframe',
+                'height' : 90,
+                'width' : 728,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+    </div>
+    
+    <div class="card how-to-use">
+        <h3>How to Use the Random Number Generator</h3>
+        <ol>
+            <li><strong>Set your range</strong> - Enter the minimum and maximum values for your random numbers</li>
+            <li><strong>Specify quantity</strong> - Choose how many random numbers you want to generate</li>
+            <li><strong>Choose uniqueness</strong> - Check the box if you want all numbers to be unique (no duplicates)</li>
+            <li><strong>Click "Generate Numbers"</strong> - Your random numbers will appear instantly</li>
+            <li><strong>Copy results</strong> - Use the "Copy to Clipboard" button to save your numbers</li>
+        </ol>
+        
+        <h3 style="margin-top: 20px;">Common Uses</h3>
+        <ul style="margin-left: 20px; margin-top: 10px;">
+            <li>Lottery number selection</li>
+            <li>Random prize drawings</li>
+            <li>Statistical sampling</li>
+            <li>Random team assignments</li>
+            <li>Educational purposes</li>
+            <li>Game development</li>
+        </ul>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const generateBtn = document.getElementById('generate-btn');
+            const copyBtn = document.getElementById('copy-btn');
+            const minValueInput = document.getElementById('min-value');
+            const maxValueInput = document.getElementById('max-value');
+            const quantityInput = document.getElementById('quantity');
+            const uniqueCheckbox = document.getElementById('unique');
+            const resultContainer = document.getElementById('result-container');
+            const resultBox = document.getElementById('result-box');
+            const errorMessage = document.getElementById('error-message');
+            
+            generateBtn.addEventListener('click', generateRandomNumbers);
+            copyBtn.addEventListener('click', copyToClipboard);
+            
+            function generateRandomNumbers() {
+                const min = parseInt(minValueInput.value);
+                const max = parseInt(maxValueInput.value);
+                const quantity = parseInt(quantityInput.value);
+                const unique = uniqueCheckbox.checked;
+                
+                // Validate inputs
+                if (isNaN(min) || isNaN(max) || isNaN(quantity)) {
+                    showError('Please enter valid numbers');
+                    return;
+                }
+                
+                if (min >= max) {
+                    showError('Minimum value must be less than maximum value');
+                    return;
+                }
+                
+                if (quantity < 1) {
+                    showError('Quantity must be at least 1');
+                    return;
+                }
+                
+                if (unique && (max - min + 1) < quantity) {
+                    showError(`Cannot generate ${quantity} unique numbers between ${min} and ${max}`);
+                    return;
+                }
+                
+                // Clear previous error
+                hideError();
+                
+                // Generate numbers
+                let numbers = [];
+                
+                if (unique) {
+                    // Generate unique numbers
+                    const range = max - min + 1;
+                    if (quantity > range) {
+                        showError(`Cannot generate ${quantity} unique numbers between ${min} and ${max}`);
+                        return;
+                    }
+                    
+                    const allNumbers = Array.from({length: range}, (_, i) => min + i);
+                    
+                    // Fisher-Yates shuffle algorithm
+                    for (let i = allNumbers.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [allNumbers[i], allNumbers[j]] = [allNumbers[j], allNumbers[i]];
+                    }
+                    
+                    numbers = allNumbers.slice(0, quantity);
+                } else {
+                    // Generate numbers with possible duplicates
+                    for (let i = 0; i < quantity; i++) {
+                        numbers.push(Math.floor(Math.random() * (max - min + 1)) + min);
+                    }
+                }
+                
+                // Display results
+                resultBox.textContent = numbers.join(', ');
+                resultContainer.style.display = 'block';
+                
+                // Scroll to results
+                resultContainer.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            function copyToClipboard() {
+                const text = resultBox.textContent;
+                
+                if (!text) {
+                    showError('No numbers to copy');
+                    return;
+                }
+                
+                navigator.clipboard.writeText(text)
+                    .then(() => {
+                        const originalText = copyBtn.textContent;
+                        copyBtn.textContent = 'Copied!';
+                        setTimeout(() => {
+                            copyBtn.textContent = originalText;
+                        }, 2000);
+                    })
+                    .catch(err => {
+                        showError('Failed to copy text');
+                        console.error('Failed to copy: ', err);
+                    });
+            }
+            
+            function showError(message) {
+                errorMessage.textContent = message;
+                errorMessage.style.display = 'block';
+                resultContainer.style.display = 'none';
+            }
+            
+            function hideError() {
+                errorMessage.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
