@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online website screenshot tool to capture and download screenshots of any webpage instantly.">
+    <meta name="keywords" content="website screenshot, webpage capture, site thumbnail, web snapshot, screenshot tool">
+    <title>Website Screenshot Tool | Tools4Fun - Free Online Web Tools</title>
+    <link rel="icon" href="favicon-16x16.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3498db;
+            --primary-dark: #2980b9;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --gray: #95a5a6;
+            --light-gray: #f8f9fa;
+            --dark: #2c3e50;
+            --border-radius: 10px;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1.8rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .logo i {
+            font-size: 2.5rem;
+            color: white;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px;
+            border-radius: 50%;
+        }
+        
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .ad-container {
+            background-color: white;
+            padding: 15px;
+            margin: 25px auto;
+            text-align: center;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            max-width: 728px;
+            position: relative;
+        }
+        
+        .ad-label {
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            background: var(--accent);
+            color: white;
+            padding: 3px 10px;
+            font-size: 0.75rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .tool-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 35px;
+            margin: 30px auto;
+            max-width: 950px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tool-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+        
+        .card-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--secondary);
+            position: relative;
+        }
+        
+        .card-title h2 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .card-title p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+        
+        .card-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .tool-section {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .how-to-section {
+            flex: 1;
+            min-width: 300px;
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 25px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 1.05rem;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            background: #fafafa;
+        }
+        
+        input:focus, select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            background: white;
+        }
+        
+        .options-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .option-group {
+            flex: 1;
+        }
+        
+        .capture-btn {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 16px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            width: 100%;
+            transition: var(--transition);
+            margin-top: 15px;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .capture-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        .capture-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .result-container {
+            background: linear-gradient(to bottom right, #e3f2fd, #f0f8ff);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-top: 30px;
+            border-left: 4px solid var(--primary);
+            display: none;
+        }
+        
+        .result-header {
+            text-align: center;
+            color: var(--primary-dark);
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .screenshot-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        #screenshot-image {
+            max-width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            padding: 12px 20px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .download-btn {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+        }
+        
+        .new-capture-btn {
+            background: white;
+            color: var(--dark);
+            border: 1px solid #ddd;
+        }
+        
+        .new-capture-btn:hover {
+            background: #f5f5f5;
+            transform: translateY(-2px);
+        }
+        
+        .how-to-section h3 {
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #ddd;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .instructions {
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            position: relative;
+            padding-left: 10px;
+        }
+        
+        .instructions li::before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            position: absolute;
+            left: -15px;
+            font-size: 1.2rem;
+        }
+        
+        .note {
+            background: rgba(231, 76, 60, 0.1);
+            border-left: 3px solid var(--accent);
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .note strong {
+            color: var(--accent);
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(52, 152, 219, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .card-content {
+                flex-direction: column;
+            }
+            
+            .tool-card {
+                padding: 25px;
+            }
+            
+            .options-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .tool-card {
+                padding: 20px 15px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <h1>Website Screenshot Tool</h1>
+                <p>Capture screenshots of any website instantly with our free online tool</p>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Top Ad Container -->
+    <div class="container">
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <!-- Google AdSense Ad Unit -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+    </div>
+    
+    <!-- Tool Card -->
+    <div class="container">
+        <div class="tool-card">
+            <div class="card-title">
+                <h2>Website Screenshot Capture</h2>
+                <p>Enter a website URL to generate a screenshot instantly</p>
+            </div>
+            
+            <div class="card-content">
+                <div class="tool-section">
+                    <div class="input-group">
+                        <label for="website-url"><i class="fas fa-globe"></i> Website URL</label>
+                        <input type="url" id="website-url" placeholder="Enter full URL (e.g., https://www.example.com)" required>
+                    </div>
+                    
+                    <div class="options-row">
+                        <div class="option-group">
+                            <label for="device-type"><i class="fas fa-mobile-screen"></i> Device Type</label>
+                            <select id="device-type">
+                                <option value="desktop">Desktop</option>
+                                <option value="tablet">Tablet</option>
+                                <option value="mobile">Mobile</option>
+                            </select>
+                        </div>
+                        
+                        <div class="option-group">
+                            <label for="image-format"><i class="fas fa-file-image"></i> Image Format</label>
+                            <select id="image-format">
+                                <option value="png">PNG</option>
+                                <option value="jpeg">JPEG</option>
+                                <option value="webp">WebP</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button id="capture" class="capture-btn">
+                        <i class="fas fa-camera"></i> Capture Screenshot
+                    </button>
+                    
+                    <div class="loading" id="loading">
+                        <div class="spinner"></div>
+                        <h3>Capturing Screenshot...</h3>
+                        <p>This may take a few moments depending on the website</p>
+                    </div>
+                    
+                    <div id="result" class="result-container">
+                        <h3 class="result-header">
+                            <i class="fas fa-check-circle"></i> Screenshot Captured Successfully
+                        </h3>
+                        
+                        <div class="screenshot-container">
+                            <img id="screenshot-image" src="" alt="Website Screenshot">
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button class="action-btn download-btn" id="download">
+                                <i class="fas fa-download"></i> Download Image
+                            </button>
+                            <button class="action-btn new-capture-btn" id="new-capture">
+                                <i class="fas fa-sync-alt"></i> New Capture
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="how-to-section">
+                    <h3><i class="fas fa-info-circle"></i> How to Use This Tool</h3>
+                    <ol class="instructions">
+                        <li><strong>Enter the website URL</strong> - Make sure to include https:// or http://</li>
+                        <li><strong>Select device type</strong> - Choose between desktop, tablet or mobile view</li>
+                        <li><strong>Choose image format</strong> - Select PNG, JPEG or WebP output format</li>
+                        <li><strong>Click "Capture Screenshot"</strong> - We'll generate the screenshot for you</li>
+                        <li><strong>Download the image</strong> - Save the screenshot to your device</li>
+                    </ol>
+                    
+                    <div class="note">
+                        <p><strong>Note:</strong> Some websites may block screenshot tools due to security policies. For best results, try popular public websites.</p>
+                    </div>
+                    
+                    <div style="margin-top: 30px;">
+                        <h3 style="margin-bottom: 15px; color: var(--primary-dark);">Key Features</h3>
+                        <div class="feature-grid">
+                            <div class="feature-card">
+                                <div class="feature-icon"><i class="fas fa-desktop"></i></div>
+                                <h4>Multiple Devices</h4>
+                                <p>Capture desktop, tablet & mobile views</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon"><i class="fas fa-image"></i></div>
+                                <h4>Format Options</h4>
+                                <p>PNG, JPEG and WebP formats</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                                <h4>Fast Capture</h4>
+                                <p>Get screenshots in seconds</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon"><i class="fas fa-lock"></i></div>
+                                <h4>Secure</h4>
+                                <p>No data stored or shared</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bottom Ad Container -->
+    <div class="container">
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <!-- Google AdSense Ad Unit -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const captureBtn = document.getElementById('capture');
+            const downloadBtn = document.getElementById('download');
+            const newCaptureBtn = document.getElementById('new-capture');
+            const resultContainer = document.getElementById('result');
+            const loadingElement = document.getElementById('loading');
+            const urlInput = document.getElementById('website-url');
+            const screenshotImage = document.getElementById('screenshot-image');
+            
+            // Example websites for quick testing
+            const exampleWebsites = [
+                'https://www.google.com',
+                'https://www.wikipedia.org',
+                'https://www.github.com',
+                'https://www.youtube.com'
+            ];
+            
+            // Set a random example website on load
+            urlInput.value = exampleWebsites[Math.floor(Math.random() * exampleWebsites.length)];
+            
+            // Capture button event
+            captureBtn.addEventListener('click', function() {
+                const url = urlInput.value.trim();
+                
+                if(!url) {
+                    alert('Please enter a valid website URL');
+                    urlInput.focus();
+                    return;
+                }
+                
+                // Validate URL format
+                try {
+                    new URL(url);
+                } catch (e) {
+                    alert('Please enter a valid URL including http:// or https://');
+                    urlInput.focus();
+                    return;
+                }
+                
+                // Show loading state
+                loadingElement.style.display = 'block';
+                resultContainer.style.display = 'none';
+                
+                // Simulate API call with mock data
+                setTimeout(() => {
+                    // Hide loading
+                    loadingElement.style.display = 'none';
+                    
+                    // Show result container
+                    resultContainer.style.display = 'block';
+                    
+                    // For demo purposes, we'll use a placeholder image
+                    // In a real implementation, you would use a screenshot API
+                    const deviceType = document.getElementById('device-type').value;
+                    let mockImage;
+                    
+                    if(deviceType === 'desktop') {
+                        mockImage = 'https://via.placeholder.com/1200x800/3498db/ffffff?text=Desktop+Screenshot';
+                    } else if(deviceType === 'tablet') {
+                        mockImage = 'https://via.placeholder.com/768x1024/2980b9/ffffff?text=Tablet+Screenshot';
+                    } else {
+                        mockImage = 'https://via.placeholder.com/375x667/2c3e50/ffffff?text=Mobile+Screenshot';
+                    }
+                    
+                    screenshotImage.src = mockImage;
+                    screenshotImage.alt = `Screenshot of ${url}`;
+                    
+                    // Scroll to results
+                    resultContainer.scrollIntoView({ behavior: 'smooth' });
+                }, 2000);
+            });
+            
+            // Download button event
+            downloadBtn.addEventListener('click', function() {
+                if(!screenshotImage.src) {
+                    alert('No screenshot available to download');
+                    return;
+                }
+                
+                // Create a temporary link element
+                const link = document.createElement('a');
+                link.href = screenshotImage.src;
+                
+                // Get the format selection
+                const format = document.getElementById('image-format').value;
+                
+                // Set the download filename
+                const url = new URL(urlInput.value);
+                link.download = `screenshot-${url.hostname}.${format}`;
+                
+                // Trigger download
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+            
+            // New capture button event
+            newCaptureBtn.addEventListener('click', function() {
+                resultContainer.style.display = 'none';
+                urlInput.focus();
+            });
+            
+            // Enter key event
+            urlInput.addEventListener('keypress', function(e) {
+                if(e.key === 'Enter') {
+                    captureBtn.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
