@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online binary calculator tool. Perform binary arithmetic and logic operations instantly. Convert between binary, decimal, and hexadecimal.">
+    <meta name="keywords" content="binary calculator, binary operations, binary converter, digital calculator, binary arithmetic, logic gates">
+    <title>Binary Calculator | Tools4.fun - Free Online Tools</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    
+    <!-- Open Graph tags for social sharing -->
+    <meta property="og:title" content="Binary Calculator | Tools4.fun">
+    <meta property="og:description" content="Perform binary arithmetic, logic operations, and conversions instantly. Perfect for students, programmers, and electronics enthusiasts.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.tools4.fun/binary-calculator">
+    
+    <style>
+        :root {
+            --primary: #4a6cf7;
+            --primary-dark: #3a56d0;
+            --secondary: #6c757d;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --success: #28a745;
+            --info: #17a2b8;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7ff;
+            color: #333;
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), #2e4ac9);
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 1rem;
+        }
+        
+        .logo {
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            text-align: center;
+            font-weight: 300;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .ad-container {
+            background-color: white;
+            margin: 1.5rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 90px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+        }
+        
+        .calculator-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .flex-container {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+        
+        .input-section {
+            flex: 1;
+        }
+        
+        .result-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        input:focus, select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.2);
+        }
+        
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            font-size: 1.1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .binary-input-container {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .binary-input {
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+        
+        .operation-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+        }
+        
+        .operation-btn {
+            background-color: #f0f5ff;
+            border: 1px solid #d6e4ff;
+            padding: 10px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .operation-btn:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .operation-btn.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .result-card {
+            background: linear-gradient(135deg, var(--primary), #3a56d0);
+            color: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .result-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+            word-break: break-all;
+        }
+        
+        .result-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .result-item {
+            background-color: rgba(255,255,255,0.1);
+            padding: 1.2rem;
+            border-radius: var(--border-radius);
+        }
+        
+        .how-to-use {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .how-to-use h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .step-card {
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .step-number {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+        
+        .conversion-section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .conversion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .conversion-card {
+            background-color: #f8f9ff;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            border: 1px solid #e6e9f4;
+        }
+        
+        .conversion-result {
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            background-color: white;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            margin-top: 1rem;
+            word-break: break-all;
+        }
+        
+        @media (max-width: 900px) {
+            .flex-container {
+                flex-direction: column;
+            }
+            
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .calculator-container, .how-to-use, .conversion-section {
+                padding: 1.5rem;
+            }
+            
+            .result-value {
+                font-size: 2rem;
+            }
+            
+            .binary-input-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+        
+        /* Ad Placeholder Styles */
+        .ad-placeholder {
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            color: #888;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 500;
+            min-height: 90px;
+            border: 1px dashed #ccc;
+        }
+        
+        /* Binary theme styling */
+        .binary-theme {
+            background-color: #0d1b2a;
+            color: #e0e1dd;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            font-family: 'Courier New', monospace;
+        }
+        
+        .binary-digit {
+            color: #ff6b6b;
+        }
+        
+        .hex-digit {
+            color: #4cc9f0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <div class="logo">T4F</div>
+                <h1>Binary Calculator</h1>
+            </div>
+            <p class="subtitle">Perform binary operations and conversions instantly</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Top Ad Container -->
+        <div class="ad-container">
+            <!-- Google AdSense Ad Unit -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+        
+        <!-- Calculator Section -->
+        <div class="calculator-container">
+            <div class="flex-container">
+                <div class="input-section">
+                    <div class="form-group">
+                        <label for="binary1">First Binary Number</label>
+                        <div class="binary-input-container">
+                            <input type="text" id="binary1" class="binary-input" placeholder="Enter binary" value="1010">
+                            <div class="binary-theme">Bin</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="binary2">Second Binary Number</label>
+                        <div class="binary-input-container">
+                            <input type="text" id="binary2" class="binary-input" placeholder="Enter binary" value="1100">
+                            <div class="binary-theme">Bin</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Select Operation</label>
+                        <div class="operation-buttons">
+                            <div class="operation-btn active" data-op="add">ADD</div>
+                            <div class="operation-btn" data-op="sub">SUB</div>
+                            <div class="operation-btn" data-op="and">AND</div>
+                            <div class="operation-btn" data-op="or">OR</div>
+                            <div class="operation-btn" data-op="xor">XOR</div>
+                            <div class="operation-btn" data-op="nand">NAND</div>
+                            <div class="operation-btn" data-op="nor">NOR</div>
+                            <div class="operation-btn" data-op="xnor">XNOR</div>
+                        </div>
+                    </div>
+                    
+                    <button id="calculate-btn" class="btn">Calculate</button>
+                </div>
+                
+                <div class="result-section">
+                    <div class="result-card">
+                        <h3>Binary Result</h3>
+                        <div class="result-value" id="binary-result">10110</div>
+                        <p class="result-label">Result of binary operation</p>
+                        
+                        <div class="result-grid">
+                            <div class="result-item">
+                                <div class="result-label">Decimal Value</div>
+                                <div class="result-value-sm" id="decimal-result">22</div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-label">Hexadecimal</div>
+                                <div class="result-value-sm" id="hex-result">16</div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-label">Operation</div>
+                                <div class="result-value-sm" id="operation-type">Addition</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Conversion Section -->
+        <div class="conversion-section">
+            <h2>Number System Converter</h2>
+            <div class="conversion-grid">
+                <div class="conversion-card">
+                    <h3>Binary to Decimal</h3>
+                    <input type="text" id="bin-to-dec" placeholder="Enter binary number" value="1010">
+                    <div class="conversion-result" id="bin-to-dec-result">Decimal: 10</div>
+                </div>
+                
+                <div class="conversion-card">
+                    <h3>Decimal to Binary</h3>
+                    <input type="number" id="dec-to-bin" placeholder="Enter decimal number" value="15">
+                    <div class="conversion-result" id="dec-to-bin-result">Binary: 1111</div>
+                </div>
+                
+                <div class="conversion-card">
+                    <h3>Hexadecimal to Binary</h3>
+                    <input type="text" id="hex-to-bin" placeholder="Enter hex number" value="A1">
+                    <div class="conversion-result" id="hex-to-bin-result">Binary: 10100001</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- How to Use Section -->
+        <div class="how-to-use">
+            <h2>How to Use the Binary Calculator</h2>
+            <div class="steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Enter Binary Numbers</h3>
+                    <p>Input two binary numbers in the input fields (only 0s and 1s).</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Select Operation</h3>
+                    <p>Choose the operation you want to perform (AND, OR, ADD, etc.).</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Calculate</h3>
+                    <p>Click the Calculate button to see the binary result and conversions.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Use Converters</h3>
+                    <p>Use the conversion tools to convert between number systems.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Ad Container -->
+        <div class="ad-container">
+            <!-- Google AdSense Ad Unit -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2023 Tools4.fun - Free Online Tools for Everyday Needs</p>
+            <p>Binary Calculator - Essential tool for programmers and students</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize with calculation
+            calculateBinary();
+            updateConverters();
+            
+            // Set up event listeners
+            document.getElementById('calculate-btn').addEventListener('click', calculateBinary);
+            
+            // Operation buttons
+            const operationButtons = document.querySelectorAll('.operation-btn');
+            operationButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    operationButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    calculateBinary();
+                });
+            });
+            
+            // Input listeners
+            const inputs = ['binary1', 'binary2'];
+            inputs.forEach(id => {
+                document.getElementById(id).addEventListener('input', function() {
+                    // Validate binary input
+                    this.value = this.value.replace(/[^01]/g, '');
+                    calculateBinary();
+                });
+            });
+            
+            // Converter listeners
+            document.getElementById('bin-to-dec').addEventListener('input', updateConverters);
+            document.getElementById('dec-to-bin').addEventListener('input', updateConverters);
+            document.getElementById('hex-to-bin').addEventListener('input', updateConverters);
+            
+            function calculateBinary() {
+                // Get input values
+                const bin1 = document.getElementById('binary1').value;
+                const bin2 = document.getElementById('binary2').value;
+                
+                // Get selected operation
+                const activeBtn = document.querySelector('.operation-btn.active');
+                const operation = activeBtn.dataset.op;
+                
+                // Convert to decimal
+                const dec1 = bin1 ? parseInt(bin1, 2) : 0;
+                const dec2 = bin2 ? parseInt(bin2, 2) : 0;
+                
+                let result, operationName;
+                
+                // Perform operation
+                switch(operation) {
+                    case 'add':
+                        result = dec1 + dec2;
+                        operationName = 'Addition';
+                        break;
+                    case 'sub':
+                        result = dec1 - dec2;
+                        operationName = 'Subtraction';
+                        break;
+                    case 'and':
+                        result = dec1 & dec2;
+                        operationName = 'AND';
+                        break;
+                    case 'or':
+                        result = dec1 | dec2;
+                        operationName = 'OR';
+                        break;
+                    case 'xor':
+                        result = dec1 ^ dec2;
+                        operationName = 'XOR';
+                        break;
+                    case 'nand':
+                        result = ~(dec1 & dec2);
+                        operationName = 'NAND';
+                        break;
+                    case 'nor':
+                        result = ~(dec1 | dec2);
+                        operationName = 'NOR';
+                        break;
+                    case 'xnor':
+                        result = ~(dec1 ^ dec2);
+                        operationName = 'XNOR';
+                        break;
+                    default:
+                        result = dec1 + dec2;
+                        operationName = 'Addition';
+                }
+                
+                // Handle negative results for binary conversion
+                const binaryResult = result >>> 0;
+                
+                // Update result displays
+                document.getElementById('binary-result').textContent = binaryResult.toString(2);
+                document.getElementById('decimal-result').textContent = result;
+                document.getElementById('hex-result').textContent = result.toString(16).toUpperCase();
+                document.getElementById('operation-type').textContent = operationName;
+            }
+            
+            function updateConverters() {
+                // Binary to Decimal
+                const binInput = document.getElementById('bin-to-dec').value;
+                if (binInput.match(/^[01]+$/)) {
+                    const decResult = parseInt(binInput, 2);
+                    document.getElementById('bin-to-dec-result').textContent = `Decimal: ${decResult}`;
+                } else {
+                    document.getElementById('bin-to-dec-result').textContent = "Invalid binary!";
+                }
+                
+                // Decimal to Binary
+                const decInput = document.getElementById('dec-to-bin').value;
+                if (decInput) {
+                    const decValue = parseInt(decInput);
+                    if (!isNaN(decValue)) {
+                        document.getElementById('dec-to-bin-result').textContent = `Binary: ${decValue.toString(2)}`;
+                    } else {
+                        document.getElementById('dec-to-bin-result').textContent = "Invalid number!";
+                    }
+                }
+                
+                // Hexadecimal to Binary
+                const hexInput = document.getElementById('hex-to-bin').value;
+                if (hexInput.match(/^[0-9A-Fa-f]+$/)) {
+                    const decValue = parseInt(hexInput, 16);
+                    document.getElementById('hex-to-bin-result').textContent = `Binary: ${decValue.toString(2)}`;
+                } else {
+                    document.getElementById('hex-to-bin-result').textContent = "Invalid hexadecimal!";
+                }
+            }
+        });
+    </script>
+</body>
+</html>
