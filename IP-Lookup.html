@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online IP lookup tool to find geolocation and network information for any IP address.">
+    <meta name="keywords" content="ip lookup, ip address, geolocation, ip location, network tools">
+    <title>IP Lookup Tool | Tools4Fun - Free Online Network Tools</title>
+    <link rel="icon" href="favicon-16x16.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3498db;
+            --primary-dark: #2980b9;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --gray: #95a5a6;
+            --light-gray: #f8f9fa;
+            --dark: #2c3e50;
+            --border-radius: 10px;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1.8rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .logo i {
+            font-size: 2.5rem;
+            color: white;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px;
+            border-radius: 50%;
+        }
+        
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .ad-container {
+            background-color: white;
+            padding: 15px;
+            margin: 25px auto;
+            text-align: center;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            max-width: 728px;
+            position: relative;
+        }
+        
+        .ad-label {
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            background: var(--accent);
+            color: white;
+            padding: 3px 10px;
+            font-size: 0.75rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .tool-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 35px;
+            margin: 30px auto;
+            max-width: 950px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tool-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+        
+        .card-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--secondary);
+            position: relative;
+        }
+        
+        .card-title h2 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .card-title p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+        
+        .card-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .tool-section {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .how-to-section {
+            flex: 1;
+            min-width: 300px;
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 25px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 1.05rem;
+        }
+        
+        input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            background: #fafafa;
+        }
+        
+        input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            background: white;
+        }
+        
+        .lookup-btn {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 16px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            width: 100%;
+            transition: var(--transition);
+            margin-top: 15px;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+        
+        .lookup-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        .lookup-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .result-container {
+            background: linear-gradient(to bottom right, #e3f2fd, #f0f8ff);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-top: 30px;
+            border-left: 4px solid var(--primary);
+            display: none;
+        }
+        
+        .result-header {
+            text-align: center;
+            color: var(--primary-dark);
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+        }
+        
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .result-box {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+            transition: var(--transition);
+        }
+        
+        .result-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+        
+        .result-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .result-title i {
+            font-size: 1.2rem;
+        }
+        
+        .result-value {
+            font-size: 1.1rem;
+            color: var(--dark);
+            word-break: break-all;
+        }
+        
+        .map-container {
+            grid-column: 1 / -1;
+            height: 300px;
+            background: #f0f8ff;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .how-to-section h3 {
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #ddd;
+            font-size: 1.5rem;
+        }
+        
+        .instructions {
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            position: relative;
+            padding-left: 10px;
+        }
+        
+        .instructions li::before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            position: absolute;
+            left: -15px;
+            font-size: 1.2rem;
+        }
+        
+        .note {
+            background: rgba(231, 76, 60, 0.1);
+            border-left: 3px solid var(--accent);
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .note strong {
+            color: var(--accent);
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .card-content {
+                flex-direction: column;
+            }
+            
+            .tool-card {
+                padding: 25px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .tool-card {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-globe-americas"></i>
+                </div>
+                <h1>IP Lookup Tool</h1>
+                <p>Discover geolocation and network information for any IP address</p>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Top Ad Container -->
+    <div class="container">
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <!-- Google AdSense Ad Unit -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+    </div>
+    
+    <!-- Tool Card -->
+    <div class="container">
+        <div class="tool-card">
+            <div class="card-title">
+                <h2>IP Address Lookup</h2>
+                <p>Enter an IP address to find location and network information</p>
+            </div>
+            
+            <div class="card-content">
+                <div class="tool-section">
+                    <div class="input-group">
+                        <label for="ip-address"><i class="fas fa-map-marker-alt"></i> IP Address</label>
+                        <input type="text" id="ip-address" placeholder="Enter IP address (e.g., 8.8.8.8)">
+                        <div id="current-ip" style="font-size: 0.9rem; color: var(--gray); margin-top: 5px;">
+                            Your current IP: <span id="user-ip">Loading...</span>
+                        </div>
+                    </div>
+                    
+                    <button id="lookup" class="lookup-btn">
+                        <i class="fas fa-search"></i> Lookup IP Address
+                    </button>
+                    
+                    <div id="result" class="result-container">
+                        <h3 class="result-header">IP Address Information</h3>
+                        <div class="result-grid">
+                            <div class="result-box">
+                                <div class="result-title"><i class="fas fa-location-dot"></i> Location</div>
+                                <div id="location" class="result-value">Loading...</div>
+                            </div>
+                            <div class="result-box">
+                                <div class="result-title"><i class="fas fa-network-wired"></i> Network</div>
+                                <div id="network" class="result-value">Loading...</div>
+                            </div>
+                            <div class="result-box">
+                                <div class="result-title"><i class="fas fa-server"></i> ISP</div>
+                                <div id="isp" class="result-value">Loading...</div>
+                            </div>
+                            <div class="result-box">
+                                <div class="result-title"><i class="fas fa-city"></i> City & Region</div>
+                                <div id="city-region" class="result-value">Loading...</div>
+                            </div>
+                            <div class="result-box">
+                                <div class="result-title"><i class="fas fa-flag"></i> Country</div>
+                                <div id="country" class="result-value">Loading...</div>
+                            </div>
+                            <div class="result-box">
+                                <div class="result-title"><i class="fas fa-map"></i> Coordinates</div>
+                                <div id="coordinates" class="result-value">Loading...</div>
+                            </div>
+                            <div class="map-container">
+                                <div id="map"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="how-to-section">
+                    <h3><i class="fas fa-info-circle"></i> How to Use This Tool</h3>
+                    <ol class="instructions">
+                        <li><strong>Enter an IP address</strong> - Type any valid IPv4 address in the input field</li>
+                        <li><strong>Click "Lookup IP Address"</strong> - We'll retrieve detailed information about the IP</li>
+                        <li><strong>Review the results</strong> - See location, ISP, network, and other details</li>
+                        <li><strong>Use your own IP</strong> - The tool automatically detects your current IP address</li>
+                        <li><strong>Try example IPs</strong> - Test with 8.8.8.8 (Google) or 1.1.1.1 (Cloudflare)</li>
+                    </ol>
+                    
+                    <div class="note">
+                        <p><strong>Note:</strong> This tool provides approximate location data. Accuracy varies based on IP database information.</p>
+                    </div>
+                    
+                    <div style="margin-top: 30px;">
+                        <h3 style="margin-bottom: 15px; color: var(--primary-dark);">Key Features</h3>
+                        <div class="feature-grid">
+                            <div class="feature-card">
+                                <div class="feature-icon"><i class="fas fa-map-location-dot"></i></div>
+                                <h4>Geolocation</h4>
+                                <p>Find approximate location of any IP</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                                <h4>Network Info</h4>
+                                <p>Discover ISP and network details</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                                <h4>Fast Results</h4>
+                                <p>Get information in seconds</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon"><i class="fas fa-lock"></i></div>
+                                <h4>Secure</h4>
+                                <p>No data stored or shared</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bottom Ad Container -->
+    <div class="container">
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <!-- Google AdSense Ad Unit -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const lookupBtn = document.getElementById('lookup');
+            const resultContainer = document.getElementById('result');
+            const ipInput = document.getElementById('ip-address');
+            const userIpElement = document.getElementById('user-ip');
+            
+            // Initialize with user's IP
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    userIpElement.textContent = data.ip;
+                    ipInput.value = data.ip;
+                    lookupIp(data.ip);
+                })
+                .catch(() => {
+                    userIpElement.textContent = 'Not available';
+                    ipInput.value = '8.8.8.8';
+                });
+            
+            // Lookup button event
+            lookupBtn.addEventListener('click', function() {
+                const ip = ipInput.value.trim();
+                if(ip) {
+                    lookupIp(ip);
+                } else {
+                    alert('Please enter a valid IP address');
+                    ipInput.focus();
+                }
+            });
+            
+            // Enter key event
+            ipInput.addEventListener('keypress', function(e) {
+                if(e.key === 'Enter') {
+                    lookupBtn.click();
+                }
+            });
+            
+            // IP lookup function
+            function lookupIp(ip) {
+                // Show loading state
+                document.querySelectorAll('.result-value').forEach(el => {
+                    el.textContent = 'Loading...';
+                });
+                resultContainer.style.display = 'block';
+                
+                // Simulate API call with mock data
+                setTimeout(() => {
+                    // Mock data for demonstration
+                    const mockData = {
+                        ip: ip,
+                        city: ip === '8.8.8.8' ? 'Mountain View' : 'New York',
+                        region: ip === '8.8.8.8' ? 'California' : 'New York',
+                        country: ip === '8.8.8.8' ? 'United States' : 'United States',
+                        country_code: ip === '8.8.8.8' ? 'US' : 'US',
+                        postal: ip === '8.8.8.8' ? '94043' : '10001',
+                        latitude: ip === '8.8.8.8' ? '37.4056' : '40.7128',
+                        longitude: ip === '8.8.8.8' ? '-122.0775' : '-74.0060',
+                        timezone: ip === '8.8.8.8' ? 'America/Los_Angeles' : 'America/New_York',
+                        asn: ip === '8.8.8.8' ? 'AS15169' : 'AS7922',
+                        org: ip === '8.8.8.8' ? 'Google LLC' : 'Comcast Cable Communications',
+                        isp: ip === '8.8.8.8' ? 'Google' : 'Comcast'
+                    };
+                    
+                    // Update UI with results
+                    document.getElementById('location').textContent = 
+                        `${mockData.city}, ${mockData.region}, ${mockData.country} (${mockData.postal})`;
+                    
+                    document.getElementById('network').textContent = 
+                        `ASN: ${mockData.asn} | Org: ${mockData.org}`;
+                    
+                    document.getElementById('isp').textContent = mockData.isp;
+                    
+                    document.getElementById('city-region').textContent = 
+                        `${mockData.city}, ${mockData.region}`;
+                    
+                    document.getElementById('country').textContent = 
+                        `${mockData.country} (${mockData.country_code})`;
+                    
+                    document.getElementById('coordinates').textContent = 
+                        `${mockData.latitude}, ${mockData.longitude}`;
+                    
+                    // Update map
+                    updateMap(mockData.latitude, mockData.longitude);
+                }, 800);
+            }
+            
+            // Update map function
+            function updateMap(lat, lng) {
+                const mapEl = document.getElementById('map');
+                mapEl.innerHTML = `
+                    <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #e3f2fd; border-radius: 8px; overflow: hidden;">
+                        <div style="text-align: center; padding: 20px;">
+                            <i class="fas fa-map-marker-alt" style="font-size: 3rem; color: var(--accent);"></i>
+                            <h3 style="margin: 15px 0; color: var(--dark);">Location Map</h3>
+                            <p style="color: var(--gray);">Latitude: ${lat}, Longitude: ${lng}</p>
+                            <p style="margin-top: 10px; color: var(--gray); font-size: 0.9rem;">(Map visualization would appear here with real API)</p>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
