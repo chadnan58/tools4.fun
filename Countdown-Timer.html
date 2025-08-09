@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online countdown timer tool. Set custom timers with alerts for events, cooking, workouts, and more.">
+    <meta name="keywords" content="countdown timer, online timer, stopwatch, time tracker, event timer">
+    <title>Countdown Timer | Tools4Fun - Free Online Time Tools</title>
+    <link rel="icon" href="favicon-16x16.png" type="image/png">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .ad-container {
+            background-color: white;
+            padding: 15px;
+            margin: 20px auto;
+            text-align: center;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            max-width: 728px;
+        }
+        
+        .ad-label {
+            font-size: 0.8rem;
+            color: #777;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        
+        .timer-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            margin: 30px auto;
+            max-width: 800px;
+        }
+        
+        .timer-title {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--dark-color);
+            border-bottom: 2px solid var(--light-color);
+            padding-bottom: 15px;
+        }
+        
+        .timer-display {
+            font-size: 4rem;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: var(--dark-color);
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+        }
+        
+        .timer-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .timer-btn {
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .start-btn {
+            background: linear-gradient(to right, #2ecc71, #27ae60);
+            color: white;
+        }
+        
+        .pause-btn {
+            background: linear-gradient(to right, #f39c12, #e67e22);
+            color: white;
+            display: none;
+        }
+        
+        .reset-btn {
+            background: linear-gradient(to right, var(--accent-color), #c0392b);
+            color: white;
+        }
+        
+        .timer-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .timer-inputs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .input-group {
+            text-align: center;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
+        input {
+            width: 80px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1.2rem;
+            text-align: center;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .alarm-sound {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+        
+        .instructions {
+            background-color: #e3f2fd;
+            border-left: 4px solid var(--primary-color);
+            padding: 20px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            margin-top: 40px;
+        }
+        
+        .instructions h3 {
+            color: var(--dark-color);
+            margin-bottom: 15px;
+        }
+        
+        .instructions ol {
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 10px;
+        }
+        
+        .preset-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .preset-btn {
+            padding: 8px 15px;
+            background-color: var(--light-color);
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .preset-btn:hover {
+            background-color: #ddd;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .timer-display {
+                font-size: 3rem;
+            }
+            
+            input {
+                width: 70px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .timer-display {
+                font-size: 2.5rem;
+                padding: 15px;
+            }
+            
+            .timer-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .timer-btn {
+                width: 100%;
+                max-width: 200px;
+            }
+            
+            .ad-container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1>Countdown Timer</h1>
+                <p>Set custom timers with alerts for any occasion</p>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Top Ad Container -->
+    <div class="container">
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <!-- Google AdSense Ad Unit -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+    </div>
+    
+    <!-- Timer Section -->
+    <div class="container">
+        <div class="timer-container">
+            <div class="timer-title">
+                <h2>Countdown Timer</h2>
+                <p>Set your custom timer below</p>
+            </div>
+            
+            <div class="timer-display" id="display">
+                00:00:00
+            </div>
+            
+            <div class="timer-inputs">
+                <div class="input-group">
+                    <label for="hours">Hours</label>
+                    <input type="number" id="hours" min="0" max="99" value="0">
+                </div>
+                
+                <div class="input-group">
+                    <label for="minutes">Minutes</label>
+                    <input type="number" id="minutes" min="0" max="59" value="10">
+                </div>
+                
+                <div class="input-group">
+                    <label for="seconds">Seconds</label>
+                    <input type="number" id="seconds" min="0" max="59" value="0">
+                </div>
+            </div>
+            
+            <div class="preset-buttons">
+                <button class="preset-btn" data-minutes="1">1 Minute</button>
+                <button class="preset-btn" data-minutes="5">5 Minutes</button>
+                <button class="preset-btn" data-minutes="10">10 Minutes</button>
+                <button class="preset-btn" data-minutes="15">15 Minutes</button>
+                <button class="preset-btn" data-minutes="30">30 Minutes</button>
+            </div>
+            
+            <div class="timer-controls">
+                <button id="startBtn" class="timer-btn start-btn">Start</button>
+                <button id="pauseBtn" class="timer-btn pause-btn">Pause</button>
+                <button id="resetBtn" class="timer-btn reset-btn">Reset</button>
+            </div>
+            
+            <div class="input-group" style="max-width: 300px; margin: 0 auto;">
+                <label for="alarmSound">Alarm Sound</label>
+                <select id="alarmSound" class="alarm-sound">
+                    <option value="beep">Beep</option>
+                    <option value="bell">Bell</option>
+                    <option value="chime">Chime</option>
+                    <option value="digital">Digital Alarm</option>
+                </select>
+            </div>
+            
+            <div class="instructions">
+                <h3>How to Use This Countdown Timer</h3>
+                <ol>
+                    <li>Set the hours, minutes, and seconds for your countdown</li>
+                    <li>Or use the preset buttons for common timer durations</li>
+                    <li>Click "Start" to begin the countdown</li>
+                    <li>Use "Pause" to temporarily stop the timer</li>
+                    <li>Use "Reset" to stop and reset the timer to your initial values</li>
+                    <li>Choose an alarm sound that will play when the timer completes</li>
+                </ol>
+                <p><strong>Tip:</strong> The timer will continue counting down even if you switch browser tabs.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bottom Ad Container -->
+    <div class="container">
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <!-- Google AdSense Ad Unit -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM elements
+            const display = document.getElementById('display');
+            const hoursInput = document.getElementById('hours');
+            const minutesInput = document.getElementById('minutes');
+            const secondsInput = document.getElementById('seconds');
+            const startBtn = document.getElementById('startBtn');
+            const pauseBtn = document.getElementById('pauseBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            const alarmSoundSelect = document.getElementById('alarmSound');
+            const presetBtns = document.querySelectorAll('.preset-btn');
+            
+            // Timer variables
+            let timer;
+            let totalSeconds = 0;
+            let isRunning = false;
+            let remainingSeconds = 0;
+            
+            // Alarm audio
+            let alarmAudio = new Audio();
+            
+            // Preset buttons
+            presetBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const minutes = parseInt(this.getAttribute('data-minutes'));
+                    hoursInput.value = 0;
+                    minutesInput.value = minutes;
+                    secondsInput.value = 0;
+                    updateDisplay();
+                });
+            });
+            
+            // Update display function
+            function updateDisplay() {
+                const hours = Math.floor(remainingSeconds / 3600);
+                const minutes = Math.floor((remainingSeconds % 3600) / 60);
+                const seconds = remainingSeconds % 60;
+                
+                display.textContent = 
+                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+            
+            // Calculate total seconds
+            function calculateTotalSeconds() {
+                const hours = parseInt(hoursInput.value) || 0;
+                const minutes = parseInt(minutesInput.value) || 0;
+                const seconds = parseInt(secondsInput.value) || 0;
+                
+                return hours * 3600 + minutes * 60 + seconds;
+            }
+            
+            // Start timer
+            function startTimer() {
+                if (!isRunning) {
+                    if (remainingSeconds <= 0) {
+                        totalSeconds = calculateTotalSeconds();
+                        remainingSeconds = totalSeconds;
+                        if (remainingSeconds <= 0) return;
+                    }
+                    
+                    isRunning = true;
+                    startBtn.style.display = 'none';
+                    pauseBtn.style.display = 'block';
+                    
+                    timer = setInterval(function() {
+                        remainingSeconds--;
+                        updateDisplay();
+                        
+                        if (remainingSeconds <= 0) {
+                            clearInterval(timer);
+                            isRunning = false;
+                            startBtn.style.display = 'block';
+                            pauseBtn.style.display = 'none';
+                            playAlarm();
+                        }
+                    }, 1000);
+                }
+            }
+            
+            // Pause timer
+            function pauseTimer() {
+                clearInterval(timer);
+                isRunning = false;
+                startBtn.style.display = 'block';
+                pauseBtn.style.display = 'none';
+            }
+            
+            // Reset timer
+            function resetTimer() {
+                clearInterval(timer);
+                isRunning = false;
+                remainingSeconds = calculateTotalSeconds();
+                updateDisplay();
+                startBtn.style.display = 'block';
+                pauseBtn.style.display = 'none';
+            }
+            
+            // Play alarm
+            function playAlarm() {
+                const sound = alarmSoundSelect.value;
+                let soundFile;
+                
+                switch(sound) {
+                    case 'beep':
+                        soundFile = 'https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3';
+                        break;
+                    case 'bell':
+                        soundFile = 'https://assets.mixkit.co/sfx/preview/mixkit-morning-clock-alarm-1003.mp3';
+                        break;
+                    case 'chime':
+                        soundFile = 'https://assets.mixkit.co/sfx/preview/mixkit-positive-interface-beep-221.mp3';
+                        break;
+                    case 'digital':
+                        soundFile = 'https://assets.mixkit.co/sfx/preview/mixkit-digital-clock-alarm-995.mp3';
+                        break;
+                    default:
+                        soundFile = 'https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3';
+                }
+                
+                alarmAudio.src = soundFile;
+                alarmAudio.play();
+            }
+            
+            // Event listeners
+            startBtn.addEventListener('click', startTimer);
+            pauseBtn.addEventListener('click', pauseTimer);
+            resetBtn.addEventListener('click', resetTimer);
+            
+            // Input validation
+            hoursInput.addEventListener('change', function() {
+                if (this.value < 0) this.value = 0;
+                if (this.value > 99) this.value = 99;
+                remainingSeconds = calculateTotalSeconds();
+                updateDisplay();
+            });
+            
+            minutesInput.addEventListener('change', function() {
+                if (this.value < 0) this.value = 0;
+                if (this.value > 59) this.value = 59;
+                remainingSeconds = calculateTotalSeconds();
+                updateDisplay();
+            });
+            
+            secondsInput.addEventListener('change', function() {
+                if (this.value < 0) this.value = 0;
+                if (this.value > 59) this.value = 59;
+                remainingSeconds = calculateTotalSeconds();
+                updateDisplay();
+            });
+            
+            // Initialize display
+            remainingSeconds = calculateTotalSeconds();
+            updateDisplay();
+        });
+    </script>
+</body>
+</html>
