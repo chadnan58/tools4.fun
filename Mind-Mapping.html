@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create beautiful mind maps online. Free online tool for brainstorming, organizing ideas, and visualizing concepts.">
+    <meta name="keywords" content="mind map, brainstorming tool, idea organizer, concept mapping, online mind mapping">
+    <title>Mind Mapping Tool | Tools4.fun - Free Online Brainstorming</title>
+    <link rel="icon" type="image/png" href="favicon-16x16.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .logo h1 {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            color: #4b6cb7;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 500;
+        }
+        
+        .ad-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            padding: 15px;
+            margin: 25px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .tool-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 15px;
+        }
+        
+        h2 {
+            color: #182848;
+            font-size: 1.8rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #4b6cb7, #182848);
+            border-radius: 2px;
+        }
+        
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: #f0f4f9;
+            border-radius: 12px;
+        }
+        
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        label {
+            font-weight: 600;
+            color: #182848;
+        }
+        
+        input[type="color"] {
+            width: 50px;
+            height: 40px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        
+        select, input[type="text"] {
+            padding: 10px 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        select:focus, input[type="text"]:focus {
+            border-color: #4b6cb7;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(75, 108, 183, 0.2);
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(75, 108, 183, 0.4);
+        }
+        
+        .clear-btn {
+            background: linear-gradient(135deg, #f53e3e 0%, #b71c1c 100%);
+        }
+        
+        .mindmap-container {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            position: relative;
+            height: 70vh;
+            min-height: 500px;
+            overflow: auto;
+        }
+        
+        #mindmap {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background: white;
+            transform-origin: center center;
+            transition: transform 0.3s ease;
+        }
+        
+        .node {
+            position: absolute;
+            background: white;
+            border: 2px solid #4b6cb7;
+            border-radius: 8px;
+            padding: 12px 18px;
+            min-width: 120px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            cursor: move;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .node:hover {
+            box-shadow: 0 6px 15px rgba(75, 108, 183, 0.25);
+            transform: translateY(-3px);
+        }
+        
+        .node.selected {
+            border-color: #f53e3e;
+            box-shadow: 0 0 0 3px rgba(245, 62, 62, 0.3);
+        }
+        
+        .node.central {
+            background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+            color: white;
+            font-weight: bold;
+            border: none;
+        }
+        
+        .node-text {
+            font-size: 1rem;
+            font-weight: 500;
+            word-break: break-word;
+        }
+        
+        .instructions {
+            background: #f0f4f9;
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 25px;
+        }
+        
+        .instructions h3 {
+            color: #182848;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .instructions ol {
+            padding-left: 25px;
+        }
+        
+        .instructions li {
+            margin-bottom: 12px;
+        }
+        
+        .instructions li::marker {
+            color: #4b6cb7;
+            font-weight: bold;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #6b7280;
+            font-size: 0.9rem;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 40px;
+        }
+        
+        /* Zoom controls */
+        .zoom-controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 100;
+        }
+        
+        .zoom-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #4b6cb7;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .logo h1 {
+                font-size: 2.2rem;
+            }
+            
+            .tool-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            .mindmap-container {
+                height: 60vh;
+            }
+            
+            .buttons {
+                width: 100%;
+            }
+            
+            button {
+                flex: 1;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">T4F</div>
+                <h1>Mind Mapping Tool</h1>
+            </div>
+            <p class="tagline">Visualize your ideas and organize your thoughts with our free mind mapping tool</p>
+        </header>
+        
+        <!-- Top AdSense Ad -->
+        <div class="ad-container">
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+        
+        <div class="card">
+            <div class="tool-header">
+                <h2>Create Your Mind Map</h2>
+                <div class="buttons">
+                    <button id="add-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="16"></line>
+                            <line x1="8" y1="12" x2="16" y2="12"></line>
+                        </svg>
+                        Add Node
+                    </button>
+                    <button id="save-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                            <polyline points="7 3 7 8 15 8"></polyline>
+                        </svg>
+                        Save Map
+                    </button>
+                    <button class="clear-btn" id="clear-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                        Clear All
+                    </button>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <div class="control-group">
+                    <label for="node-color">Node Color:</label>
+                    <input type="color" id="node-color" value="#4b6cb7">
+                </div>
+                
+                <div class="control-group">
+                    <label for="node-text">Node Text:</label>
+                    <input type="text" id="node-text" placeholder="Enter node text">
+                </div>
+                
+                <div class="control-group">
+                    <label for="node-type">Node Type:</label>
+                    <select id="node-type">
+                        <option value="central">Central Idea</option>
+                        <option value="child">Child Node</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="mindmap-container">
+                <div id="mindmap"></div>
+                <div class="zoom-controls">
+                    <div class="zoom-btn" id="zoom-in">+</div>
+                    <div class="zoom-btn" id="zoom-out">-</div>
+                </div>
+            </div>
+            
+            <div class="instructions">
+                <h3>How to Create a Mind Map</h3>
+                <ol>
+                    <li><strong>Start with the central idea</strong>: Set "Node Type" to "Central Idea" and type your main topic</li>
+                    <li><strong>Add nodes</strong>: Click "Add Node" to place your central idea on the canvas</li>
+                    <li><strong>Add child nodes</strong>: Change "Node Type" to "Child Node", type your subtopic, and click "Add Node"</li>
+                    <li><strong>Position nodes</strong>: Drag nodes to organize your mind map</li>
+                    <li><strong>Edit nodes</strong>: Click on a node to select it, then change its text or color</li>
+                    <li><strong>Save your work</strong>: Click "Save Map" to download your mind map as an image</li>
+                </ol>
+                <p style="margin-top: 15px; font-weight: 600;">Tip: Use different colors for different branches to visually organize your ideas!</p>
+            </div>
+        </div>
+        
+        <!-- Bottom AdSense Ad -->
+        <div class="ad-container">
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+        
+        <footer>
+            <p>© 2023 Tools4.fun | All Rights Reserved</p>
+            <p>Mind Mapping Tool - Organize your thoughts visually</p>
+        </footer>
+    </div>
+
+    <script>
+        // Mind Map State
+        let nodes = [];
+        let selectedNode = null;
+        let scale = 1;
+        let offset = { x: 0, y: 0 };
+        let isDragging = false;
+        let dragStart = { x: 0, y: 0 };
+        
+        // DOM Elements
+        const mindmap = document.getElementById('mindmap');
+        const nodeColor = document.getElementById('node-color');
+        const nodeText = document.getElementById('node-text');
+        const nodeType = document.getElementById('node-type');
+        const addBtn = document.getElementById('add-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const saveBtn = document.getElementById('save-btn');
+        const zoomInBtn = document.getElementById('zoom-in');
+        const zoomOutBtn = document.getElementById('zoom-out');
+        
+        // Initialize with a central node
+        window.onload = () => {
+            createNode('Central Idea', 400, 300, true);
+            nodeText.value = '';
+        };
+        
+        // Create a new node
+        function createNode(text, x, y, isCentral = false) {
+            const node = document.createElement('div');
+            node.className = `node ${isCentral ? 'central' : ''}`;
+            node.innerHTML = `<div class="node-text">${text || 'New Node'}</div>`;
+            
+            // Position the node
+            node.style.left = `${x}px`;
+            node.style.top = `${y}px`;
+            node.style.backgroundColor = nodeColor.value;
+            node.style.borderColor = isCentral ? 'transparent' : nodeColor.value;
+            
+            // Add event listeners
+            node.addEventListener('click', () => selectNode(node));
+            node.addEventListener('dblclick', () => editNode(node));
+            
+            // Add drag functionality
+            makeNodeDraggable(node);
+            
+            mindmap.appendChild(node);
+            nodes.push({
+                element: node,
+                text: text || 'New Node',
+                x,
+                y,
+                isCentral
+            });
+            
+            return node;
+        }
+        
+        // Make a node draggable
+        function makeNodeDraggable(node) {
+            let isDraggingNode = false;
+            let startX, startY, initialX, initialY;
+            
+            node.addEventListener('mousedown', (e) => {
+                if (e.button !== 0) return; // Only left mouse button
+                
+                isDraggingNode = true;
+                startX = e.clientX;
+                startY = e.clientY;
+                
+                const rect = node.getBoundingClientRect();
+                initialX = rect.left - mindmap.getBoundingClientRect().left;
+                initialY = rect.top - mindmap.getBoundingClientRect().top;
+                
+                node.style.cursor = 'grabbing';
+                e.preventDefault();
+            });
+            
+            document.addEventListener('mousemove', (e) => {
+                if (!isDraggingNode) return;
+                
+                const deltaX = e.clientX - startX;
+                const deltaY = e.clientY - startY;
+                
+                const newX = initialX + deltaX / scale;
+                const newY = initialY + deltaY / scale;
+                
+                node.style.left = `${newX}px`;
+                node.style.top = `${newY}px`;
+                
+                // Update node position in state
+                const nodeIndex = nodes.findIndex(n => n.element === node);
+                if (nodeIndex !== -1) {
+                    nodes[nodeIndex].x = newX;
+                    nodes[nodeIndex].y = newY;
+                }
+            });
+            
+            document.addEventListener('mouseup', () => {
+                isDraggingNode = false;
+                node.style.cursor = 'grab';
+            });
+        }
+        
+        // Select a node
+        function selectNode(node) {
+            // Deselect previous node
+            if (selectedNode) {
+                selectedNode.classList.remove('selected');
+            }
+            
+            // Select new node
+            node.classList.add('selected');
+            selectedNode = node;
+            
+            // Update controls
+            const nodeData = nodes.find(n => n.element === node);
+            if (nodeData) {
+                nodeText.value = nodeData.text;
+                nodeColor.value = nodeData.element.style.backgroundColor;
+                nodeType.value = nodeData.isCentral ? 'central' : 'child';
+            }
+        }
+        
+        // Edit node text
+        function editNode(node) {
+            const nodeData = nodes.find(n => n.element === node);
+            if (!nodeData) return;
+            
+            const newText = prompt('Edit node text:', nodeData.text);
+            if (newText !== null && newText.trim() !== '') {
+                nodeData.text = newText;
+                node.querySelector('.node-text').textContent = newText;
+            }
+        }
+        
+        // Add new node
+        addBtn.addEventListener('click', () => {
+            if (!nodeText.value.trim()) {
