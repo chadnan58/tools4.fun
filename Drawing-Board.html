@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online drawing board with multiple tools, colors, and export options. Perfect for sketching, doodling, and creative expression.">
+    <meta name="keywords" content="drawing board, online sketchpad, digital art, doodle tool, drawing tool">
+    <title>Drawing Board | Tools4.fun - Free Online Tools</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    
+    <!-- Open Graph tags for social sharing -->
+    <meta property="og:title" content="Drawing Board | Tools4.fun">
+    <meta property="og:description" content="Create digital art with our free online drawing board. Multiple tools, colors, and export options.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.tools4.fun/drawing-board">
+    
+    <style>
+        :root {
+            --primary: #4a6cf7;
+            --primary-dark: #3a56d0;
+            --secondary: #6c757d;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --success: #28a745;
+            --info: #17a2b8;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #fff;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 1rem;
+        }
+        
+        .logo {
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            text-align: center;
+            font-weight: 300;
+            opacity: 0.9;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .ad-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            margin: 1.5rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 90px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+        }
+        
+        .drawing-container {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: var(--border-radius);
+        }
+        
+        .tool-group {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+        
+        .tool-btn {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--border-radius);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+        
+        .tool-btn:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .tool-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(74, 108, 247, 0.4);
+        }
+        
+        .color-picker {
+            width: 45px;
+            height: 45px;
+            border: none;
+            padding: 0;
+            background: transparent;
+            cursor: pointer;
+        }
+        
+        .brush-size {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .size-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .size-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .canvas-container {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            overflow: hidden;
+            margin: 0 auto;
+            max-width: 100%;
+            position: relative;
+        }
+        
+        #drawing-canvas {
+            display: block;
+            background: white;
+            cursor: crosshair;
+            touch-action: none;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            min-width: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn i {
+            font-size: 1.2rem;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(74, 108, 247, 0.4);
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(74, 108, 247, 0.6);
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+        }
+        
+        .btn-success:hover {
+            background: #218838;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.6);
+        }
+        
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4);
+        }
+        
+        .btn-danger:hover {
+            background: #bd2130;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.6);
+        }
+        
+        .how-to-use {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .how-to-use h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .step-card {
+            background: rgba(74, 108, 247, 0.15);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--primary);
+            transition: var(--transition);
+        }
+        
+        .step-card:hover {
+            transform: translateY(-5px);
+            background: rgba(74, 108, 247, 0.25);
+        }
+        
+        .step-number {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .color-options {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: var(--transition);
+        }
+        
+        .color-option:hover {
+            transform: scale(1.2);
+        }
+        
+        .color-option.active {
+            border-color: white;
+            transform: scale(1.2);
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+        
+        @media (max-width: 900px) {
+            .toolbar {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .tool-group {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .drawing-container, .how-to-use {
+                padding: 1.5rem;
+            }
+            
+            .btn {
+                min-width: 120px;
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+            
+            #drawing-canvas {
+                width: 100%;
+                height: 400px;
+            }
+        }
+        
+        .download-options {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .download-btn {
+            background: var(--info);
+            color: white;
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
+        
+        .download-btn:hover {
+            background: #138496;
+            transform: translateY(-2px);
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <div class="logo">T4F</div>
+                <h1>Drawing Board</h1>
+            </div>
+            <p class="subtitle">Create digital art with our free online drawing board. Express your creativity!</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Top Ad Container -->
+        <div class="ad-container">
+            <!-- Google AdSense Ad Unit -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+        
+        <!-- Drawing Board Section -->
+        <div class="drawing-container">
+            <div class="toolbar">
+                <div class="tool-group">
+                    <div class="tool-btn active" data-tool="pencil" title="Pencil">
+                        <i class="fas fa-pencil-alt"></i>
+                    </div>
+                    <div class="tool-btn" data-tool="brush" title="Brush">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <div class="tool-btn" data-tool="eraser" title="Eraser">
+                        <i class="fas fa-eraser"></i>
+                    </div>
+                    <div class="tool-btn" data-tool="line" title="Line">
+                        <i class="fas fa-minus"></i>
+                    </div>
+                    <div class="tool-btn" data-tool="rectangle" title="Rectangle">
+                        <i class="far fa-square"></i>
+                    </div>
+                    <div class="tool-btn" data-tool="circle" title="Circle">
+                        <i class="far fa-circle"></i>
+                    </div>
+                    <div class="tool-btn" data-tool="text" title="Add Text">
+                        <i class="fas fa-font"></i>
+                    </div>
+                </div>
+                
+                <div class="tool-group">
+                    <input type="color" class="color-picker" id="color-picker" value="#4a6cf7">
+                    
+                    <div class="color-options">
+                        <div class="color-option active" style="background-color: #4a6cf7;" data-color="#4a6cf7"></div>
+                        <div class="color-option" style="background-color: #dc3545;" data-color="#dc3545"></div>
+                        <div class="color-option" style="background-color: #28a745;" data-color="#28a745"></div>
+                        <div class="color-option" style="background-color: #ffc107;" data-color="#ffc107"></div>
+                        <div class="color-option" style="background-color: #000000;" data-color="#000000"></div>
+                        <div class="color-option" style="background-color: #ffffff;" data-color="#ffffff"></div>
+                    </div>
+                </div>
+                
+                <div class="tool-group">
+                    <div class="brush-size">
+                        <div class="size-btn active" data-size="2" title="Thin">•</div>
+                        <div class="size-btn" data-size="5" title="Medium">••</div>
+                        <div class="size-btn" data-size="10" title="Thick">•••</div>
+                        <div class="size-btn" data-size="20" title="Extra Thick">••••</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="canvas-container">
+                <canvas id="drawing-canvas" width="800" height="500"></canvas>
+            </div>
+            
+            <div class="controls">
+                <button id="clear-btn" class="btn btn-danger">
+                    <i class="fas fa-trash"></i> Clear Canvas
+                </button>
+                <button id="save-btn" class="btn btn-success">
+                    <i class="fas fa-download"></i> Save Drawing
+                </button>
+                <button id="undo-btn" class="btn btn-primary">
+                    <i class="fas fa-undo"></i> Undo
+                </button>
+            </div>
+            
+            <div class="download-options">
+                <a href="#" id="download-png" class="download-btn">
+                    <i class="fas fa-file-image"></i> PNG
+                </a>
+                <a href="#" id="download-jpg" class="download-btn">
+                    <i class="fas fa-file-image"></i> JPG
+                </a>
+            </div>
+        </div>
+        
+        <!-- How to Use Section -->
+        <div class="how-to-use">
+            <h2>How to Use the Drawing Board</h2>
+            <div class="steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Select Drawing Tool</h3>
+                    <p>Choose from pencil, brush, eraser, shapes, or text tool from the toolbar.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Choose Color & Size</h3>
+                    <p>Pick a color from the palette and select your brush or line thickness.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Start Drawing</h3>
+                    <p>Click and drag on the canvas to draw. Release to finish your stroke.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Save Your Artwork</h3>
+                    <p>Download your creation as PNG or JPG image when finished.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Ad Container -->
+        <div class="ad-container">
+            <!-- Google AdSense Ad Unit -->
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '95aac29d932ec51f5cae42ef69b777a1',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2023 Tools4.fun - Free Online Tools for Everyday Needs</p>
+            <p>Drawing Board - Unleash your creativity with our digital sketchpad</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const canvas = document.getElementById('drawing-canvas');
+            const ctx = canvas.getContext('2d');
+            const colorPicker = document.getElementById('color-picker');
+            const clearBtn = document.getElementById('clear-btn');
+            const saveBtn = document.getElementById('save-btn');
+            const undoBtn = document.getElementById('undo-btn');
+            const downloadPng = document.getElementById('download-png');
+            const downloadJpg = document.getElementById('download-jpg');
+            
+            // Set canvas size to match display
+            function resizeCanvas() {
+                const container = canvas.parentElement;
+                canvas.width = container.clientWidth;
+                canvas.height = Math.min(container.clientWidth * 0.625, 500);
+                redrawCanvas();
+            }
+            
+            // Initialize variables
+            let drawing = false;
+            let currentTool = 'pencil';
+            let currentColor = '#4a6cf7';
+            let brushSize = 5;
+            let startX, startY;
+            let snapshot;
+            let undoStack = [];
+            
+            // Set initial canvas style
+            resizeCanvas();
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = currentColor;
+            ctx.lineWidth = brushSize;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            
+            // Save initial state
+            saveState();
+            
+            // Event listeners for window resize
+            window.addEventListener('resize', resizeCanvas);
+            
+            // Tool selection
+            document.querySelectorAll('.tool-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentTool = this.dataset.tool;
+                });
+            });
+            
+            // Color selection
+            colorPicker.addEventListener('input', function() {
+                currentColor = this.value;
+                ctx.strokeStyle = currentColor;
+                ctx.fillStyle = currentColor;
+            });
+            
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.color-option').forEach(o => o.classList.remove('active'));
+                    this.classList.add('active');
+                    currentColor = this.dataset.color;
+                    colorPicker.value = currentColor;
+                    ctx.strokeStyle = currentColor;
+                    ctx.fillStyle = currentColor;
+                });
+            });
+            
+            // Brush size selection
+            document.querySelectorAll('.size-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    brushSize = parseInt(this.dataset.size);
+                    ctx.lineWidth = brushSize;
+                });
+            });
+            
+            // Mouse event handlers
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+            
+            // Touch event handlers for mobile
+            canvas.addEventListener('touchstart', handleTouchStart);
+            canvas.addEventListener('touchmove', handleTouchMove);
+            canvas.addEventListener('touchend', stopDrawing);
+            
+            function handleTouchStart(e) {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const mouseEvent = new MouseEvent('mousedown', {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                });
+                canvas.dispatchEvent(mouseEvent);
+            }
+            
+            function handleTouchMove(e) {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const mouseEvent = new MouseEvent('mousemove', {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                });
+                canvas.dispatchEvent(mouseEvent);
+            }
+            
+            function startDrawing(e) {
+                drawing = true;
+                startX = e.offsetX;
+                startY = e.offsetY;
+                
+                // For shapes and text, save the current canvas state
+                if (currentTool !== 'pencil' && currentTool !== 'brush' && currentTool !== 'eraser') {
+                    saveState();
+                } else {
+                    ctx.beginPath();
+                    ctx.moveTo(startX, startY);
+                }
+            }
+            
+            function draw(e) {
+                if (!drawing) return;
+                
+                ctx.lineWidth = brushSize;
+                
+                if (currentTool === 'eraser') {
+                    ctx.strokeStyle = 'white';
+                } else {
+                    ctx.strokeStyle = currentColor;
+                }
+                
+                switch(currentTool) {
+                    case 'pencil':
+                    case 'brush':
+                    case 'eraser':
+                        ctx.lineTo(e.offsetX, e.offsetY);
+                        ctx.stroke();
+                        break;
+                    case 'line':
+                        redrawCanvas();
+                        ctx.beginPath();
+                        ctx.moveTo(startX, startY);
+                        ctx.lineTo(e.offsetX, e.offsetY);
+                        ctx.stroke();
+                        break;
+                    case 'rectangle':
+                        redrawCanvas();
+                        ctx.strokeRect(startX, startY, e.offsetX - startX, e.offsetY - startY);
+                        break;
+                    case 'circle':
+                        redrawCanvas();
+                        const radius = Math.sqrt(Math.pow(e.offsetX - startX, 2) + Math.pow(e.offsetY - startY, 2));
+                        ctx.beginPath();
+                        ctx.arc(startX, startY, radius, 0, Math.PI * 2);
+                        ctx.stroke();
+                        break;
+                }
+            }
+            
+            function stopDrawing() {
+                if (!drawing) return;
+                
+                drawing = false;
+                
+                // For freehand drawing, save state when finished
+                if (currentTool === 'pencil' || currentTool === 'brush' || currentTool === 'eraser') {
+                    saveState();
+                }
+            }
+            
+            function saveState() {
+                undoStack.push(canvas.toDataURL());
+                // Limit undo history to 20 states
+                if (undoStack.length > 20) {
+                    undoStack.shift();
+                }
+            }
+            
+            function redrawCanvas() {
+                const img = new Image();
+                img.src = undoStack[undoStack.length - 1];
+                img.onload = function() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0);
+                };
+            }
+            
+            // Clear canvas
+            clearBtn.addEventListener('click', function() {
+                if (confirm('Are you sure you want to clear the canvas?')) {
+                    ctx.fillStyle = 'white';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    saveState();
+                }
+            });
+            
+            // Save drawing
+            saveBtn.addEventListener('click', function() {
+                const link = document.createElement('a');
+                link.download = 'drawing-' + new Date().getTime() + '.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+            
+            // Download options
+            downloadPng.addEventListener('click', function(e) {
+                e.preventDefault();
+                const link = document.createElement('a');
+                link.download = 'drawing-' + new Date().getTime() + '.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+            
+            downloadJpg.addEventListener('click', function(e) {
+                e.preventDefault();
+                const link = document.createElement('a');
+                link.download = 'drawing-' + new Date().getTime() + '.jpg';
+                link.href = canvas.toDataURL('image/jpeg', 0.9);
+                link.click();
+            });
+            
+            // Undo action
+            undoBtn.addEventListener('click', function() {
+                if (undoStack.length > 1) {
+                    undoStack.pop(); // Remove current state
+                    const img = new Image();
+                    img.src = undoStack[undoStack.length - 1];
+                    img.onload = function() {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.drawImage(img, 0, 0);
+                    };
+                } else {
+                    alert('No more actions to undo');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
