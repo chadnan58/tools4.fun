@@ -6,7 +6,7 @@
     <meta name="description" content="Extract and analyze meta tags from any website. Our free tool reveals SEO information, Open Graph tags, and Twitter cards for any URL.">
     <meta name="keywords" content="meta tag extractor, SEO analyzer, meta tags checker, website meta tags, Open Graph extractor">
     <title>Meta Tag Extractor | Tools4.fun - Free SEO Analysis Tool</title>
-    <link rel="icon" type="image/png" href="favicon-16x16.png">
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAkElEQVQ4y2P8//8/Ay0BEwONARMDDcH///+J0vDv3z+Gv3//YtHxHwMYGBgYWFhYcGv4//8/ww9lBQZ+YWGcGv79+8fw7ds3BgEBATQN/2H8////M3z//p3h69evDH/+/MHiCv//DP/+/WP4/v07w/fv3xl+//6N5gqwhv///zP8+vWL4devXwx//vzB4Yr///8z/P79m+Hnz58Mv3//xuGKP3/+MPz8+ZPh169fDADKtCxGxGQ+3QAAAABJRU5ErkJggg==">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -227,6 +227,7 @@
             font-size: 1rem;
             color: #182848;
             word-break: break-all;
+            line-height: 1.5;
         }
         
         .tag-category {
@@ -266,10 +267,17 @@
         }
         
         .articles {
+            margin-top: 30px;
+        }
+        
+        .articles h2 {
+            margin-bottom: 20px;
+        }
+        
+        .articles-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px;
-            margin-top: 30px;
         }
         
         .article-card {
@@ -341,6 +349,48 @@
                 font-size: 1rem;
             }
         }
+        
+        .url-examples {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 10px;
+            border-left: 4px solid #4b6cb7;
+        }
+        
+        .url-examples h4 {
+            margin-bottom: 10px;
+            color: #182848;
+        }
+        
+        .url-examples ul {
+            padding-left: 20px;
+            color: #4b5563;
+        }
+        
+        .url-examples li {
+            margin-bottom: 5px;
+        }
+        
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #4b6cb7;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -373,12 +423,17 @@
                     <h2>Enter Website URL</h2>
                     <div class="input-group">
                         <label for="website-url">Website URL:</label>
-                        <input type="url" id="website-url" placeholder="https://example.com" required>
+                        <input type="url" id="website-url" placeholder="https://example.com" required value="https://www.tools4.fun">
                     </div>
                     
                     <button id="extract-btn">
                         <i class="fas fa-search"></i> Extract Meta Tags
                     </button>
+                    
+                    <div class="loading-spinner" id="loading">
+                        <div class="spinner"></div>
+                        <p>Extracting meta tags. This may take a few seconds...</p>
+                    </div>
                     
                     <div class="instructions">
                         <h3>How to Use This Tool</h3>
@@ -389,6 +444,15 @@
                             <li>Analyze the SEO information of the website</li>
                             <li>Use the information to optimize your own website</li>
                         </ol>
+                        
+                        <div class="url-examples">
+                            <h4>Example URLs:</h4>
+                            <ul>
+                                <li>https://www.example.com</li>
+                                <li>https://www.google.com</li>
+                                <li>https://www.wikipedia.org</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 
@@ -542,97 +606,81 @@
             }
             
             // Show loading state
-            const placeholder = document.getElementById('placeholder');
-            placeholder.innerHTML = '<i class="fas fa-spinner fa-spin"></i><p>Extracting meta tags...</p>';
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('placeholder').style.display = 'none';
+            document.getElementById('results').style.display = 'none';
             
-            // In a real implementation, you would fetch the URL and parse the HTML
-            // For this demo, we'll simulate with a timeout
-            setTimeout(() => {
-                // Hide placeholder and show results
-                placeholder.style.display = 'none';
-                document.getElementById('results').style.display = 'block';
-                
-                // For demo purposes, we'll show sample data
-                document.getElementById('title-tag').textContent = 'Meta Tag Extractor | Tools4.fun - Free SEO Analysis Tool';
-                document.getElementById('description-tag').textContent = 'Extract and analyze meta tags from any website. Our free tool reveals SEO information, Open Graph tags, and Twitter cards for any URL.';
-                document.getElementById('charset-tag').textContent = 'UTF-8';
-                document.getElementById('keywords-tag').textContent = 'meta tag extractor, SEO analyzer, meta tags checker, website meta tags, Open Graph extractor';
-                document.getElementById('viewport-tag').textContent = 'width=device-width, initial-scale=1.0';
-                
-                document.getElementById('og-title').textContent = 'Meta Tag Extractor | Tools4.fun';
-                document.getElementById('og-description').textContent = 'Free tool to extract and analyze meta tags from any website';
-                document.getElementById('og-image').textContent = 'https://www.tools4.fun/images/meta-tool-og.jpg';
-                document.getElementById('og-url').textContent = 'https://www.tools4.fun/meta-tag-extractor';
-                
-                document.getElementById('twitter-title').textContent = 'Free Meta Tag Extractor Tool';
-                document.getElementById('twitter-description').textContent = 'Extract and analyze meta tags for any URL with our free online tool';
-                document.getElementById('twitter-image').textContent = 'https://www.tools4.fun/images/meta-tool-twitter.jpg';
-            }, 1500);
+            // Use a CORS proxy to bypass cross-origin restrictions
+            const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url);
+            
+            fetch(proxyUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    // Parse the HTML content
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    
+                    // Extract meta tags
+                    const title = doc.querySelector('title') ? doc.querySelector('title').textContent : 'Not found';
+                    const description = doc.querySelector('meta[name="description"]') ? doc.querySelector('meta[name="description"]').content : 'Not found';
+                    const keywords = doc.querySelector('meta[name="keywords"]') ? doc.querySelector('meta[name="keywords"]').content : 'Not found';
+                    const charset = doc.querySelector('meta[charset]') ? doc.querySelector('meta[charset]').getAttribute('charset') : 
+                                  (doc.querySelector('meta[http-equiv="Content-Type"]') ? doc.querySelector('meta[http-equiv="Content-Type"]').content : 'Not found');
+                    const viewport = doc.querySelector('meta[name="viewport"]') ? doc.querySelector('meta[name="viewport"]').content : 'Not found';
+                    
+                    // Open Graph tags
+                    const ogTitle = doc.querySelector('meta[property="og:title"]') ? doc.querySelector('meta[property="og:title"]').content : 'Not found';
+                    const ogDescription = doc.querySelector('meta[property="og:description"]') ? doc.querySelector('meta[property="og:description"]').content : 'Not found';
+                    const ogImage = doc.querySelector('meta[property="og:image"]') ? doc.querySelector('meta[property="og:image"]').content : 'Not found';
+                    const ogUrl = doc.querySelector('meta[property="og:url"]') ? doc.querySelector('meta[property="og:url"]').content : 'Not found';
+                    
+                    // Twitter Cards
+                    const twitterTitle = doc.querySelector('meta[name="twitter:title"]') ? doc.querySelector('meta[name="twitter:title"]').content : 'Not found';
+                    const twitterDescription = doc.querySelector('meta[name="twitter:description"]') ? doc.querySelector('meta[name="twitter:description"]').content : 'Not found';
+                    const twitterImage = doc.querySelector('meta[name="twitter:image"]') ? doc.querySelector('meta[name="twitter:image"]').content : 'Not found';
+                    
+                    // Update the UI
+                    document.getElementById('title-tag').textContent = title;
+                    document.getElementById('description-tag').textContent = description;
+                    document.getElementById('keywords-tag').textContent = keywords;
+                    document.getElementById('charset-tag').textContent = charset;
+                    document.getElementById('viewport-tag').textContent = viewport;
+                    
+                    document.getElementById('og-title').textContent = ogTitle;
+                    document.getElementById('og-description').textContent = ogDescription;
+                    document.getElementById('og-image').textContent = ogImage;
+                    document.getElementById('og-url').textContent = ogUrl;
+                    
+                    document.getElementById('twitter-title').textContent = twitterTitle;
+                    document.getElementById('twitter-description').textContent = twitterDescription;
+                    document.getElementById('twitter-image').textContent = twitterImage;
+                    
+                    // Hide loading and show results
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('results').style.display = 'block';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('placeholder').innerHTML = `
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>Failed to extract meta tags. Please try again.</p>
+                        <p class="url-examples">Error: ${error.message}</p>
+                    `;
+                    document.getElementById('placeholder').style.display = 'flex';
+                });
         }
         
-        // Real implementation would use something like this:
-        /*
-        async function extractMetaTags() {
-            const url = document.getElementById('website-url').value;
-            
-            if (!url) {
-                alert('Please enter a valid URL');
-                return;
-            }
-            
-            try {
-                const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
-                const data = await response.json();
-                
-                const parser = new DOMParser();
-                const htmlDoc = parser.parseFromString(data.contents, 'text/html');
-                
-                // Extract meta tags
-                const title = htmlDoc.querySelector('title')?.innerText || 'Not found';
-                const description = htmlDoc.querySelector('meta[name="description"]')?.content || 'Not found';
-                const keywords = htmlDoc.querySelector('meta[name="keywords"]')?.content || 'Not found';
-                const charset = htmlDoc.querySelector('meta[charset]')?.getAttribute('charset') || 
-                               htmlDoc.querySelector('meta[http-equiv="Content-Type"]')?.content || 'Not found';
-                const viewport = htmlDoc.querySelector('meta[name="viewport"]')?.content || 'Not found';
-                
-                // Open Graph tags
-                const ogTitle = htmlDoc.querySelector('meta[property="og:title"]')?.content || 'Not found';
-                const ogDescription = htmlDoc.querySelector('meta[property="og:description"]')?.content || 'Not found';
-                const ogImage = htmlDoc.querySelector('meta[property="og:image"]')?.content || 'Not found';
-                const ogUrl = htmlDoc.querySelector('meta[property="og:url"]')?.content || 'Not found';
-                
-                // Twitter Cards
-                const twitterTitle = htmlDoc.querySelector('meta[name="twitter:title"]')?.content || 'Not found';
-                const twitterDescription = htmlDoc.querySelector('meta[name="twitter:description"]')?.content || 'Not found';
-                const twitterImage = htmlDoc.querySelector('meta[name="twitter:image"]')?.content || 'Not found';
-                
-                // Update the UI
-                document.getElementById('title-tag').textContent = title;
-                document.getElementById('description-tag').textContent = description;
-                document.getElementById('keywords-tag').textContent = keywords;
-                document.getElementById('charset-tag').textContent = charset;
-                document.getElementById('viewport-tag').textContent = viewport;
-                
-                document.getElementById('og-title').textContent = ogTitle;
-                document.getElementById('og-description').textContent = ogDescription;
-                document.getElementById('og-image').textContent = ogImage;
-                document.getElementById('og-url').textContent = ogUrl;
-                
-                document.getElementById('twitter-title').textContent = twitterTitle;
-                document.getElementById('twitter-description').textContent = twitterDescription;
-                document.getElementById('twitter-image').textContent = twitterImage;
-                
-                // Hide placeholder and show results
-                document.getElementById('placeholder').style.display = 'none';
-                document.getElementById('results').style.display = 'block';
-                
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Failed to extract meta tags. Please check the URL and try again.');
-                document.getElementById('placeholder').innerHTML = '<i class="fas fa-exclamation-triangle"></i><p>Failed to extract meta tags. Please try again.</p>';
-            }
-        }
-        */
+        // Extract meta tags for the example URL on page load
+        window.addEventListener('load', () => {
+            // Auto-extract for the example URL
+            extractMetaTags();
+        });
     </script>
 </body>
 </html>
