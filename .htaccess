@@ -1,3 +1,7 @@
+<Files ~ "\.xml$">
+  ForceType application/xml
+  Header set Content-Type "application/xml"
+</Files>
 <Files "sitemap.xml">
   Header set Content-Type "application/xml"
 </Files>
