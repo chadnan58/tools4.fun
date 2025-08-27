@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+   
     <!-- Google Verification -->
     <meta name="google-site-verification" content="0V-_i0957DsZ4koLdKutzQ7G1MHppewKXagW1jGlG9c" />
     <!-- Google Tag Manager -->
@@ -21,42 +22,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
    
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>��</text></svg>">
-   
-    <!-- Open Graph Tags -->
-    <meta property="og:title" content="Tools4Fun - 100+ Free Online Tools">
-    <meta property="og:description" content="Free online tools for image conversion, text utilities, SEO tools, and developer resources">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.tools4.fun">
-    <meta property="og:image" content="https://www.tools4.fun/og-image.jpg">
-   
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Tools4Fun - Free Online Tools">
-    <meta name="twitter:description" content="100+ free tools for developers, designers, and content creators">
-    <meta name="twitter:image" content="https://www.tools4.fun/twitter-card.jpg">
-
-    <!-- Preconnect for CDNs -->
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-   
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Tools4Fun",
-      "url": "https://www.tools4.fun",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://www.tools4.fun/?q={search_term}",
-        "query-input": "required name=search_term"
-      }
-    }
-    </script>
-   
-    <!-- CSS Libraries -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tools4Fun - 100+ Free Online Tools</title>
+    <meta name="description" content="100+ free online tools for image conversion, text utilities, SEO tools, calculators, and developer resources. No registration required.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-   
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         :root {
             --bg-dark-navy: #1E1E2F;
@@ -246,7 +217,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         }
        
         .hero-section {
-            background: linear-gradient(rgba(43, 45, 66, 0.8), rgba(43, 45, 66, 0.8)), url('hero-bg.jpg') no-repeat center;
+            background: linear-gradient(rgba(43, 45, 66, 0.8), rgba(43, 45, 66, 0.8)),
+                        radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 60%);
             background-size: cover;
             text-align: center;
             color: var(--text-light-gray);
@@ -317,17 +289,84 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 display: none;
             }
         }
+       
+        /* Search styles */
+        .search-box {
+            background-color: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+        }
+       
+        .search-box:focus {
+            background-color: rgba(255,255,255,0.15);
+            border-color: var(--accent-gold);
+            color: white;
+            box-shadow: 0 0 0 0.25rem rgba(255, 215, 0, 0.25);
+        }
+       
+        .search-box::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+       
+        /* Search results */
+        .search-results-title {
+            margin-top: 30px;
+            margin-bottom: 20px;
+            color: var(--accent-gold);
+            border-bottom: 2px solid var(--accent-gold);
+            padding-bottom: 10px;
+        }
+       
+        .no-results {
+            text-align: center;
+            padding: 30px;
+            color: rgba(255,255,255,0.5);
+        }
+       
+        /* Tool pages */
+        .tool-page {
+            display: none;
+        }
+       
+        .tool-header {
+            color: var(--accent-gold);
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-gold);
+            margin-bottom: 30px;
+        }
+       
+        /* Modal styling */
+        .modal-content {
+            background-color: var(--header-deep-blue);
+            color: var(--text-light-gray);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+       
+        .modal-header {
+            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+        }
+       
+        .modal-footer {
+            border-top: 1px solid rgba(255, 215, 0, 0.3);
+        }
+       
+        .form-control {
+            background-color: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+        }
+       
+        .form-control:focus {
+            background-color: rgba(255,255,255,0.15);
+            border-color: var(--accent-gold);
+            color: white;
+            box-shadow: 0 0 0 0.25rem rgba(255, 215, 0, 0.25);
+        }
+       
+        .btn-close {
+            filter: invert(1);
+        }
     </style>
-   
-    <!-- Google Analytics Script -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-240337885-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-   
-      gtag('config', 'UA-240337885-1');
-    </script>
 </head>
 <body>
     <!-- Header -->
@@ -358,8 +397,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                         <a href="#" class="nav-link" onclick="showCategory('developer-tools')">Developer</a>
                         <a href="#" class="nav-link" onclick="showContactPage()">Contact Us</a>
                     </nav>
-                    <button class="btn btn-gold ms-3" onclick="showLoginModal()">Login</button>
-                    <button class="btn btn-outline-light ms-2" onclick="showSignupModal()">Sign Up</button>
+                    <button class="btn btn-gold ms-3" onclick="showLoginModal()">
+                        <i class="fas fa-sign-in-alt me-2"></i>Login
+                    </button>
+                    <button class="btn btn-outline-light ms-2" onclick="showSignupModal()">
+                        <i class="fas fa-user-plus me-2"></i>Sign Up
+                    </button>
                 </div>
             </div>
         </div>
@@ -372,7 +415,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <div class="hero-section">
                 <h1 class="hero-title">100+ Free Online Tools</h1>
                 <p class="hero-subtitle">All-in-one solution for image conversion, text utilities, SEO tools, calculators, and developer resources - completely free.</p>
-                <button class="btn btn-gold btn-lg px-5 py-3" onclick="showCategory('popular-tools')">Explore Tools</button>
+                <button class="btn btn-gold btn-lg px-5 py-3" onclick="showCategory('popular-tools')">
+                    <i class="fas fa-tools me-2"></i>Explore Tools
+                </button>
             </div>
            
             <div class="stats-container">
@@ -409,10 +454,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     <div class="input-group">
                         <label for="search-input" class="visually-hidden">Search Tools</label>
                         <input type="text" id="search-input" class="form-control search-box" placeholder="Search for tools...">
-                        <button class="btn btn-gold px-4" type="button" onclick="searchTools()">
+                        <button class="btn btn-gold px-4" type="button" id="search-button">
                             <i class="fas fa-search me-2"></i>Search
                         </button>
                     </div>
+                </div>
+            </div>
+           
+            <div id="search-results" class="mb-5" style="display: none;">
+                <h3 class="search-results-title">Search Results</h3>
+                <div class="row" id="results-container">
+                    <!-- Search results will be inserted here -->
                 </div>
             </div>
            
@@ -1910,8 +1962,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         const homePage = document.getElementById('home-page');
         const toolPages = document.getElementById('tool-pages');
         const contactPage = document.getElementById('contact-page');
-        const allTools = document.getElementById('all-tools');
         const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+        const searchResults = document.getElementById('search-results');
+        const resultsContainer = document.getElementById('results-container');
        
         // Modal instances
         let loginModal;
@@ -1934,6 +1988,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 countWords();
             });
            
+            // Set up search functionality
+            searchButton.addEventListener('click', searchTools);
+            searchInput.addEventListener('keyup', function(event) {
+                if (event.key === 'Enter') {
+                    searchTools();
+                }
+            });
+           
             // Show home page by default
             showHomePage();
         });
@@ -1943,6 +2005,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             homePage.style.display = 'block';
             toolPages.style.display = 'none';
             contactPage.style.display = 'none';
+            searchResults.style.display = 'none';
             window.scrollTo(0, 0);
         }
        
@@ -1989,30 +2052,87 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             document.getElementById('text-preview').textContent = text || 'Your text will appear here...';
         }
        
-        // Search tools (functionality not fully implemented)
+        // Search tools function
         function searchTools() {
             const query = searchInput.value.trim().toLowerCase();
-            if (!query) return;
-            // Implement search logic here (if desired)
+            if (!query) {
+                searchResults.style.display = 'none';
+                return;
+            }
+           
+            // Get all tool cards
+            const toolCards = document.querySelectorAll('.tool-card');
+            let resultsFound = false;
+           
+            // Clear previous results
+            resultsContainer.innerHTML = '';
+           
+            // Search through all tool cards
+            toolCards.forEach(card => {
+                const title = card.querySelector('.tool-title').textContent.toLowerCase();
+                const description = card.querySelector('.tool-description').textContent.toLowerCase();
+               
+                if (title.includes(query) || description.includes(query)) {
+                    // Clone the card to show in search results
+                    const clone = card.cloneNode(true);
+                    const col = document.createElement('div');
+                    col.className = 'col-md-3 col-sm-6 mb-4';
+                    col.appendChild(clone);
+                    resultsContainer.appendChild(col);
+                    resultsFound = true;
+                }
+            });
+           
+            // Show results or no results message
+            if (resultsFound) {
+                searchResults.style.display = 'block';
+            } else {
+                resultsContainer.innerHTML = `
+                    <div class="col-12">
+                        <div class="no-results">
+                            <i class="fas fa-search fa-3x mb-3" style="color: var(--accent-gold);"></i>
+                            <h4>No tools found</h4>
+                            <p>Try a different search term</p>
+                        </div>
+                    </div>
+                `;
+                searchResults.style.display = 'block';
+            }
+           
+            // Scroll to results
+            searchResults.scrollIntoView({ behavior: 'smooth' });
+        }
+       
+        // Show login modal
+        function showLoginModal() {
+            loginModal.show();
+        }
+       
+        // Show signup modal
+        function showSignupModal() {
+            signupModal.show();
+        }
+       
+        // Show privacy policy
+        function showPrivacyPolicy() {
+            privacyModal.show();
         }
        
         // Handle login (dummy)
         function handleLogin(event) {
             event.preventDefault();
             loginModal.hide();
-            showHomePage();
+            // In a real app, you would validate credentials here
+            alert('Login successful! (This is a demo)');
         }
        
         // Handle signup (dummy)
         function handleSignup(event) {
             event.preventDefault();
             signupModal.hide();
-            showHomePage();
+            // In a real app, you would create a user account here
+            alert('Account created! (This is a demo)');
         }
     </script>
-    <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXN4S33C"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 </body>
 </html>
