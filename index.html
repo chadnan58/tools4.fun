@@ -4,12 +4,12 @@
      <!-- Google Verification -->
     <meta name="google-site-verification" content="0V-_i0957DsZ4koLdKutzQ7G1MHppewKXagW1jGlG9c" />
     <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-NXN4S33C');</script>
-<!-- End Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NXN4S33C');</script>
+    <!-- End Google Tag Manager -->
     
     <!-- SEO Meta Tags -->
     <meta charset="UTF-8">
@@ -21,13 +21,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
     <!-- Favicon -->
     <link rel="icon" href="favicon-16x16.png" type="image/x-icon">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tools4Fun - 100+ Free Online Tools</title>
-    <meta name="description" content="100+ free online tools for image conversion, text utilities, SEO tools, calculators, and developer resources. No registration required.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        /* ... [SAME CSS AS BEFORE; FULLY RESPONSIVE, FAB ETC.] ... */
         :root {
             --bg-dark-navy: #1E1E2F;
             --text-light-gray: #EAEAEA;
@@ -37,385 +34,78 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             --tool-card-bg: #3A3D5B;
             --category-highlight: rgba(255, 215, 0, 0.1);
         }
-        
-        body {
-            background-color: var(--bg-dark-navy);
-            color: var(--text-light-gray);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-image: radial-gradient(circle at 10% 20%, rgba(58, 61, 91, 0.3) 0%, rgba(30, 30, 47, 0.3) 90%);
-        }
-        
-        .header {
-            background-color: var(--header-deep-blue);
-            padding: 15px 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .logo {
-            background: linear-gradient(135deg, var(--accent-gold) 0%, #FFB700 100%);
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
-        }
-        
-        .logo-text {
-            font-weight: 800;
-            font-size: 2rem;
-            background: linear-gradient(to right, var(--accent-gold) 0%, #FFB700 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-        
-        .nav-link {
-            color: var(--text-light-gray);
-            margin: 0 10px;
-            font-weight: 500;
-            position: relative;
-            padding: 8px 0;
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent-gold);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        .nav-link:hover {
-            color: var(--accent-gold);
-        }
-        
-        .btn-gold {
-            background-color: var(--accent-gold);
-            color: var(--bg-dark-navy);
-            font-weight: 600;
-            border: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
-        }
-        
-        .btn-gold:hover {
-            background-color: var(--hover-gold);
-            color: var(--bg-dark-navy);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(255, 215, 0, 0.4);
-        }
-        
-        .tool-card {
-            background-color: var(--tool-card-bg);
-            border-radius: 8px;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-        
-        .tool-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-        }
-        
-        .tool-link {
-            color: inherit;
-            text-decoration: none;
-        }
-        
-        .tool-card-content {
-            padding: 15px;
-        }
-        
-        .tool-icon {
-            font-size: 1.5rem;
-            color: var(--accent-gold);
-            margin-right: 10px;
-        }
-        
-        .tool-title {
-            margin: 0;
-            font-size: 1.1rem;
-            color: var(--accent-gold);
-        }
-        
-        .tool-description {
-            margin-top: 8px;
-            font-size: 0.9rem;
-            color: var(--text-light-gray);
-        }
-        
-        .category-title {
-            color: var(--accent-gold);
-            border-bottom: 2px solid var(--accent-gold);
-            padding: 15px 0;
-            margin: 30px 0 20px;
-            position: relative;
-        }
-        
-        .category-title::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -2px;
-            width: 50px;
-            height: 3px;
-            background-color: var(--accent-gold);
-        }
-        
-        .category-counter {
-            background-color: var(--accent-gold);
-            color: var(--bg-dark-navy);
-            font-size: 0.9rem;
-            padding: 2px 8px;
-            border-radius: 10px;
-            vertical-align: middle;
-            margin-left: 8px;
-        }
-        
-        .stat-card {
-            background-color: var(--tool-card-bg);
-            border-radius: 8px;
-            text-align: center;
-            padding: 15px;
-            transition: transform 0.3s ease;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
-        
-        .stat-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--accent-gold);
-        }
-        
-        .stat-label {
-            font-size: 0.9rem;
-            margin-top: 5px;
-        }
-        
-        .hero-section {
-            background: linear-gradient(rgba(43, 45, 66, 0.8), rgba(43, 45, 66, 0.8)), 
-                        radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 60%);
-            background-size: cover;
-            text-align: center;
-            color: var(--text-light-gray);
-            padding: 80px 15px;
-            border-radius: 10px;
-        }
-        
-        .hero-title {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-        }
-        
-        .hero-subtitle {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-        }
-        
-        .footer {
-            background-color: var(--header-deep-blue);
-            padding: 30px 0;
-            border-top: 1px solid var(--accent-gold);
-            color: var(--text-light-gray);
-        }
-        
-        .footer a {
-            color: var(--text-light-gray);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        
-        .footer a:hover {
-            color: var(--accent-gold);
-        }
-        
-        .footer-links a {
-            margin-bottom: 8px;
-        }
-        
-        .social-icon {
-            color: var(--text-light-gray);
-            font-size: 1.3rem;
-            margin-right: 15px;
-            transition: transform 0.3s ease;
-        }
-        
-        .social-icon:hover {
-            color: var(--accent-gold);
-            transform: translateY(-3px);
-        }
-        
-        /* Mobile navigation styles */
-        @media (max-width: 767px) {
-            .navbar-collapse {
-                background-color: var(--header-deep-blue);
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                width: 100%;
-            }
-            .navbar-collapse .nav-link {
-                display: block;
-                padding: 10px 20px;
-                margin: 5px 0;
-                text-align: center;
-            }
-            .navbar-collapse .nav-link::after {
-                display: none;
-            }
-        }
-        
-        /* Search styles */
-        .search-box {
-            background-color: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-        }
-        
-        .search-box:focus {
-            background-color: rgba(255,255,255,0.15);
-            border-color: var(--accent-gold);
-            color: white;
-            box-shadow: 0 0 0 0.25rem rgba(255, 215, 0, 0.25);
-        }
-        
-        .search-box::placeholder {
-            color: rgba(255,255,255,0.5);
-        }
-        
-        /* Search results */
-        .search-results-title {
-            margin-top: 30px;
-            margin-bottom: 20px;
-            color: var(--accent-gold);
-            border-bottom: 2px solid var(--accent-gold);
-            padding-bottom: 10px;
-        }
-        
-        .no-results {
-            text-align: center;
-            padding: 30px;
-            color: rgba(255,255,255,0.5);
-        }
-        
-        /* Tool pages */
-        .tool-page {
-            display: none;
-        }
-        
-        .tool-header {
-            color: var(--accent-gold);
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--accent-gold);
-            margin-bottom: 30px;
-        }
-        
-        /* Modal styling */
-        .modal-content {
-            background-color: var(--header-deep-blue);
-            color: var(--text-light-gray);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-        }
-        
-        .modal-header {
-            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
-        }
-        
-        .modal-footer {
-            border-top: 1px solid rgba(255, 215, 0, 0.3);
-        }
-        
-        .form-control {
-            background-color: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-        }
-        
-        .form-control:focus {
-            background-color: rgba(255,255,255,0.15);
-            border-color: var(--accent-gold);
-            color: white;
-            box-shadow: 0 0 0 0.25rem rgba(255, 215, 0, 0.25);
-        }
-        
-        .btn-close {
-            filter: invert(1);
-        }
-        
-        /* New styles for search highlighting */
-        .highlight {
-            background-color: rgba(255, 215, 0, 0.3);
-            padding: 0 2px;
-            border-radius: 3px;
-        }
-        
-        /* Improved search results layout */
-        .search-result-item {
-            background-color: var(--tool-card-bg);
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-            transition: all 0.3s ease;
-        }
-        
-        .search-result-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-        }
-        
-        /* Login/Signup form improvements */
-        .form-label {
-            color: var(--text-light-gray);
-            margin-bottom: 8px;
-        }
-        
-        .password-toggle {
-            cursor: pointer;
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-light-gray);
-        }
-        
-        .password-container {
-            position: relative;
-        }
+        html, body { width: 100%; min-height: 100%; margin: 0; padding: 0; background-color: var(--bg-dark-navy); color: var(--text-light-gray); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; scroll-behavior: smooth; overflow-x: hidden !important; }
+        body { background-image: radial-gradient(circle at 10% 20%, rgba(58, 61, 91, 0.3) 0%, rgba(30, 30, 47, 0.3) 90%);}
+        .header { background-color: var(--header-deep-blue); padding: 15px 0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); position: sticky; top: 0; z-index: 1001;}
+        .logo-container { display: flex; align-items: center; gap: 15px;}
+        .logo { background: linear-gradient(135deg, var(--accent-gold) 0%, #FFB700 100%); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);}
+        .logo-text { font-weight: 800; font-size: 1.6rem; background: linear-gradient(to right, var(--accent-gold) 0%, #FFB700 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);}
+        .nav-link { color: var(--text-light-gray); margin: 0 10px; font-weight: 500; position: relative; padding: 8px 0;}
+        .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--accent-gold); transition: width 0.3s ease;}
+        .nav-link:hover::after { width: 100%;}
+        .nav-link:hover { color: var(--accent-gold);}
+        .btn-gold { background-color: var(--accent-gold); color: var(--bg-dark-navy); font-weight: 600; border: none; transition: all 0.3s ease; box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);}
+        .btn-gold:hover, .btn-gold:focus { background-color: var(--hover-gold); color: var(--bg-dark-navy); transform: translateY(-2px); box-shadow: 0 6px 12px rgba(255, 215, 0, 0.4);}
+        .tool-card { background-color: var(--tool-card-bg); border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); height: 100%; min-height: 150px; display: flex; flex-direction: column; justify-content: stretch;}
+        .tool-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);}
+        .tool-link { color: inherit; text-decoration: none; display: block; height: 100%;}
+        .tool-card-content { padding: 16px 14px;}
+        .tool-icon { font-size: 1.5rem; color: var(--accent-gold); margin-right: 10px;}
+        .tool-title { margin: 0; font-size: 1.09rem; color: var(--accent-gold);}
+        .tool-description { margin-top: 7px; font-size: 0.91rem; color: var(--text-light-gray);}
+        .category-title { color: var(--accent-gold); border-bottom: 2px solid var(--accent-gold); padding: 14px 0 6px 0; margin: 35px 0 22px 0; position: relative; font-size: 1.3rem;}
+        .category-title::before { content: ''; position: absolute; left: 0; bottom: -2px; width: 48px; height: 3px; background-color: var(--accent-gold);}
+        .category-counter { background-color: var(--accent-gold); color: var(--bg-dark-navy); font-size: 0.88rem; padding: 2px 8px; border-radius: 10px; vertical-align: middle; margin-left: 8px;}
+        .hero-section { background: linear-gradient(rgba(43, 45, 66, 0.85), rgba(43, 45, 66, 0.85)), radial-gradient(circle, rgba(255,215,0,0.07) 0%, transparent 60%); background-size: cover; text-align: center; color: var(--text-light-gray); padding: 60px 10px 45px 10px; border-radius: 10px; margin-bottom: 28px;}
+        .hero-title { font-size: 2.1rem; font-weight: bold; margin-bottom: 17px;}
+        .hero-subtitle { font-size: 1.08rem; margin-bottom: 24px;}
+        .stats-container .stat-card { background-color: var(--tool-card-bg); border-radius: 8px; text-align: center; padding: 12px 6px; transition: transform 0.3s;}
+        .stat-card:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 4px 12px rgba(0,0,0,0.3);}
+        .stat-value { font-size: 1.4rem; font-weight: 700; color: var(--accent-gold);}
+        .stat-label { font-size: 0.89rem; margin-top: 3px;}
+        .search-box { background-color: rgba(255,255,255,0.13); border: 1px solid rgba(255,255,255,0.18); color: white; font-size: 1rem;}
+        .search-box:focus { background-color: rgba(255,255,255,0.19); border-color: var(--accent-gold); color: white; box-shadow: 0 0 0 0.18rem rgba(255, 215, 0, 0.22);}
+        .search-box::placeholder { color: rgba(255,255,255,0.5);}
+        .search-results-title { margin-top: 28px; margin-bottom: 17px; color: var(--accent-gold); border-bottom: 2px solid var(--accent-gold); padding-bottom: 7px;}
+        .search-result-item { background-color: var(--tool-card-bg); border-radius: 8px; padding: 15px; margin-bottom: 13px; transition: all 0.3s;}
+        .search-result-item:hover { transform: translateY(-2px) scale(1.01); box-shadow: 0 6px 16px rgba(0, 0, 0, 0.36);}
+        .footer { background-color: var(--header-deep-blue); padding: 28px 0 18px 0; border-top: 1px solid var(--accent-gold); color: var(--text-light-gray); margin-top: 42px;}
+        .footer a { color: var(--text-light-gray); text-decoration: none; transition: color 0.22s;}
+        .footer a:hover { color: var(--accent-gold);}
+        .footer-links a { margin-bottom: 8px;}
+        .social-icon { color: var(--text-light-gray); font-size: 1.28rem; margin-right: 13px; transition: transform 0.3s;}
+        .social-icon:hover { color: var(--accent-gold); transform: translateY(-2px);}
+        .fab-btn { position: fixed; right: 18px; bottom: 18px; width: 58px; height: 58px; background: linear-gradient(135deg, var(--accent-gold) 70%, #FFB700 100%); color: var(--bg-dark-navy); border-radius: 50%; box-shadow: 0 8px 32px 0 rgba(0,0,0,0.30); display: flex; align-items: center; justify-content: center; font-size: 2rem; z-index: 2002; cursor: pointer; transition: box-shadow 0.25s, background 0.25s;}
+        .fab-btn:hover, .fab-btn:focus { background: linear-gradient(135deg, var(--hover-gold) 60%, var(--accent-gold) 100%); box-shadow: 0 12px 32px 0 rgba(0,0,0,0.38);}
+        .fab-panel-overlay { position: fixed; inset: 0; z-index: 2001; background: rgba(30, 30, 47, 0.55); backdrop-filter: blur(2px); display: none; transition: opacity 0.2s;}
+        .fab-panel-overlay.open { display: block;}
+        .fab-panel { position: fixed; right: 18px; bottom: 90px; width: 94vw; max-width: 350px; background: var(--header-deep-blue); border-radius: 18px; box-shadow: 0 8px 38px 0 rgba(0,0,0,0.38); z-index: 2003; padding: 20px 18px 18px 18px; display: none; flex-direction: column; gap: 9px; animation: fabPanelIn 0.32s cubic-bezier(0.23,1,0.32,1);}
+        .fab-panel.open { display: flex;}
+        @keyframes fabPanelIn { from { opacity: 0; transform: translateY(40px) scale(0.98);} to   { opacity: 1; transform: translateY(0) scale(1);}}
+        .fab-panel-title { color: var(--accent-gold); font-weight: bold; font-size: 1.13rem; margin-bottom: 8px; margin-top: -6px;}
+        .fab-panel-close { position: absolute; top: 14px; right: 18px; font-size: 1.5rem; color: var(--text-light-gray); background: none; border: none; cursor: pointer; opacity: 0.64; transition: opacity 0.15s;}
+        .fab-panel-close:hover { opacity: 1; color: var(--accent-gold);}
+        .fab-panel-tools-list { display: flex; flex-direction: column; gap: 7px;}
+        .fab-panel-tool-link { background: var(--tool-card-bg); color: var(--accent-gold); border-radius: 8px; padding: 11px 14px; display: flex; align-items: center; gap: 10px; font-size: 1rem; text-decoration: none; transition: background 0.16s, color 0.16s, box-shadow 0.19s;}
+        .fab-panel-tool-link:hover, .fab-panel-tool-link:focus { background: var(--accent-gold); color: var(--bg-dark-navy); box-shadow: 0 2px 10px rgba(255,215,0,0.15);}
+        .fab-panel-tool-icon { font-size: 1.22rem;}
+        @media (max-width: 991.98px) { .tool-title { font-size: 1.01rem; } .category-title { font-size: 1.11rem; } .logo-text { font-size: 1.15rem; } .logo { width: 39px; height: 39px;} .fab-panel { max-width: 98vw; }}
+        @media (max-width: 767.98px) { body, html { font-size: 15px; } .header { padding: 10px 0; } .hero-section { padding: 36px 6px 28px 6px;} .footer { padding: 19px 0 10px 0; } .category-title { padding: 9px 0 4px 0; margin: 28px 0 13px 0;} .fab-panel { right: 8px; bottom: 78px; padding: 13px 8px 13px 10px;} .fab-btn { right: 8px; bottom: 8px; width: 48px; height: 48px; font-size: 1.45rem;}}
+        @media (max-width: 575.98px) { .category-title { font-size: 1rem;} .hero-title { font-size: 1.25rem;} .logo-text { font-size: 1rem;} .footer { padding: 13px 0 7px 0;} .tool-card-content { padding: 10px 6px;} .fab-panel { min-width: 92vw; max-width: 99vw;}}
+        @media (max-width: 767.98px) { .navbar-collapse { background-color: var(--header-deep-blue); position: absolute; top: 100%; left: 0; right: 0; width: 100%; z-index: 1022;} .navbar-collapse .nav-link { display: block; padding: 10px 20px; margin: 5px 0; text-align: center;} .navbar-collapse .nav-link::after { display: none;}}
     </style>
 </head>
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXN4S33C" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <!-- Header -->
     <header class="header" role="banner">
         <div class="container">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo-container">
-                    <div class="logo" aria-label="Tools4.fun">
-                        <span class="logo-text">T4F</span>
-                    </div>
+                    <div class="logo" aria-label="Tools4.fun"><span class="logo-text">T4F</span></div>
                     <a href="#" class="logo-text" onclick="showHomePage()">tools4.fun</a>
                 </div>
                 <div class="d-flex align-items-center">
@@ -436,10 +126,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                         <a href="#" class="nav-link" onclick="showCategory('developer-tools')">Developer</a>
                         <a href="#" class="nav-link" onclick="showContactPage()">Contact Us</a>
                     </nav>
-                    <button class="btn btn-gold ms-3" onclick="showLoginModal()">
+                    <button class="btn btn-gold ms-3 d-none d-md-inline-block" onclick="showLoginModal()">
                         <i class="fas fa-sign-in-alt me-2"></i>Login
                     </button>
-                    <button class="btn btn-outline-light ms-2" onclick="showSignupModal()">
+                    <button class="btn btn-outline-light ms-2 d-none d-md-inline-block" onclick="showSignupModal()">
                         <i class="fas fa-user-plus me-2"></i>Sign Up
                     </button>
                 </div>
@@ -449,7 +139,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <!-- Main Content -->
     <main class="container my-5" id="main-content" role="main">
-  <!-- Home Page -->
+        <!-- Home Page -->
         <div id="home-page">
             <div class="hero-section">
                 <h1 class="hero-title">100+ Free Online Tools</h1>
@@ -1683,610 +1373,69 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 </div>
             </div>
         </div>
-                
-                <!-- Other categories remain the same as before -->
-                <!-- ... (truncated for brevity) ... -->
-                
-            </div>
-        </div>
-        
-        <!-- Contact Us Page -->
-        <div id="contact-page" class="contact-container" style="display: none;">
-            <h2 class="tool-header">Contact Us</h2>
-            <p class="mb-4">Have questions or feedback? We'd love to hear from you!</p>
-            
-            <div class="row">
-                <div class="col-md-7 mb-4 mb-md-0">
-                    <div class="contact-form">
-                        <form id="contact-form">
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Your Name</label>
-                                <input type="text" class="form-control" id="name" placeholder="John Doe" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email Address</label>
-                                <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="subject" class="form-label">Subject</label>
-                                <input type="text" class="form-control" id="subject" placeholder="How can we help?" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="message" class="form-label">Your Message</label>
-                                <textarea class="form-control" id="message" rows="5" placeholder="Type your message here..." required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-gold px-4">Send Message</button>
-                        </form>
-                    </div>
-                </div>
-                
-                <div class="col-md-5">
-                    <div class="contact-info">
-                        <h4 class="mb-4" style="color: var(--accent-gold);">Get in Touch</h4>
-                        
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div>
-                                <h5>Location</h5>
-                                <p>123 Tech Street, San Francisco, CA 94103, USA</p>
-                            </div>
-                        </div>
-                        
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <i class="fas fa-phone-alt"></i>
-                            </div>
-                            <div>
-                                <h5>Phone</h5>
-                                <p>+1 (555) 123-4567</p>
-                            </div>
-                        </div>
-                        
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div>
-                                <h5>Email</h5>
-                                <p>support@tools4.fun</p>
-                            </div>
-                        </div>
-                        
-                        <h5 class="mt-4 mb-3" style="color: var(--accent-gold);">Follow Us</h5>
-                        <div class="d-flex justify-content-start">
-                            <a href="https://youtube.com/@tools4fun-y5z?si=IxsDnVogeaY4pQLF" target="_blank" class="social-icon floating" aria-label="YouTube" style="animation-delay: 0.2s;"><i class="fab fa-youtube"></i></a>
-                            <a href="https://www.instagram.com/jattadnan643/" target="_blank" class="social-icon floating" aria-label="Instagram" style="animation-delay: 0.4s;"><i class="fab fa-instagram"></i></a>
-                            <a href="https://facebook.com" target="_blank" class="social-icon floating" aria-label="Facebook" style="animation-delay: 0.6s;"><i class="fab fa-facebook-f"></i></a>
-                            <a href="https://x.com/adnan28766" target="_blank" class="social-icon floating" aria-label="Twitter" style="animation-delay: 0.8s;"><i class="fab fa-twitter"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="mt-5 text-center">
-                <button class="btn btn-outline-light" onclick="showHomePage()">
-                    <i class="fas fa-arrow-left me-2"></i>Back to Home
-                </button>
-            </div>
-        </div>
-        
-        <!-- Individual Tool Pages -->
-        <div id="tool-pages" style="display: none;">
-            <!-- Word Counter Tool -->
-            <div id="word-counter-tool" class="tool-page">
-                <div class="tool-container">
-                    <h2 class="tool-header">Word Counter</h2>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="word-counter-text" class="form-label">Enter your text</label>
-                                <textarea class="form-control" id="word-counter-text" rows="10" placeholder="Start typing here..."></textarea>
-                            </div>
-                            <button class="btn btn-gold px-4" onclick="countWords()">
-                                <i class="fas fa-calculator me-2"></i>Count Words
-                            </button>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="results-area">
-                                <h5>Results</h5>
-                                <div class="card bg-dark text-white p-3 mb-4">
-                                    <div class="row text-center">
-                                        <div class="col-6 mb-3">
-                                            <div class="display-4 fw-bold" style="color: var(--accent-gold);" id="word-count">0</div>
-                                            <div>Words</div>
-                                        </div>
-                                        <div class="col-6 mb-3">
-                                            <div class="display-4 fw-bold" style="color: var(--accent-gold);" id="character-count">0</div>
-                                            <div>Characters</div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="display-4 fw-bold" style="color: var(--accent-gold);" id="sentence-count">0</div>
-                                            <div>Sentences</div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="display-4 fw-bold" style="color: var(--accent-gold);" id="paragraph-count">0</div>
-                                            <div>Paragraphs</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="card bg-dark text-white p-3">
-                                    <h6>Text Preview</h6>
-                                    <div style="max-height: 150px; overflow-y: auto;" id="text-preview">
-                                        Your text will appear here...
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="ad-container mt-4">
-                    <p>Advertisement Space</p>
-                </div>
-                <div class="text-center mt-4">
-                    <button class="btn btn-outline-light" onclick="showHomePage()">
-                        <i class="fas fa-arrow-left me-2"></i>Back to Tools
-                    </button>
-                </div>
-            </div>
-        </div>
     </main>
-    
+
+    <!-- Floating Action Button + Quick Tools Panel (TinyWow style) -->
+    <div class="fab-btn" id="fabBtn" title="Quick Tools">
+        <i class="fas fa-bolt"></i>
+    </div>
+    <div class="fab-panel-overlay" id="fabOverlay"></div>
+    <aside class="fab-panel" id="fabPanel">
+        <button class="fab-panel-close" id="fabPanelClose" aria-label="Close"><i class="fas fa-times"></i></button>
+        <div class="fab-panel-title">Quick Tools</div>
+        <div class="fab-panel-tools-list">
+            <a href="Image-to-PNG.html" class="fab-panel-tool-link"><span class="fab-panel-tool-icon"><i class="fas fa-image"></i></span>Image to PNG</a>
+            <a href="JSON-Formatter.html" class="fab-panel-tool-link"><span class="fab-panel-tool-icon"><i class="fas fa-code"></i></span>JSON Formatter</a>
+            <a href="Password-Generator.html" class="fab-panel-tool-link"><span class="fab-panel-tool-icon"><i class="fas fa-lock"></i></span>Password Generator</a>
+            <a href="PDF-Converter.html" class="fab-panel-tool-link"><span class="fab-panel-tool-icon"><i class="fas fa-file-pdf"></i></span>PDF Converter</a>
+            <a href="Word-Counter.html" class="fab-panel-tool-link"><span class="fab-panel-tool-icon"><i class="fas fa-keyboard"></i></span>Word Counter</a>
+            <a href="QR-Code-Generator.html" class="fab-panel-tool-link"><span class="fab-panel-tool-icon"><i class="fas fa-qrcode"></i></span>QR Code Generator</a>
+            <a href="Image-Compressor.html" class="fab-panel-tool-link"><span class="fab-panel-tool-icon"><i class="fas fa-compress"></i></span>Image Compressor</a>
+        </div>
+    </aside>
+
     <!-- Footer -->
-    <footer class="footer" role="contentinfo">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="logo-container mb-3">
-                        <div class="logo" style="width: 50px; height: 50px;">
-                            <span class="logo-text" style="font-size: 1.2rem;">T4F</span>
-                        </div>
-                        <span class="logo-text">tools4.fun</span>
-                    </div>
-                    <p>120+ free online tools for all your needs. No registration required.</p>
-                    <div class="d-flex mt-3">
-                        <a href="https://youtube.com" target="_blank" class="social-icon" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                        <a href="https://instagram.com" target="_blank" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="https://facebook.com" target="_blank" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://twitter.com" target="_blank" class="social-icon" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-6 mb-4">
-                    <h5>Categories</h5>
-                    <div class="footer-links d-flex flex-column">
-                        <a href="#" onclick="showCategory('image-tools')">Image Tools</a>
-                        <a href="#" onclick="showCategory('seo-tools')">SEO Tools</a>
-                        <a href="#" onclick="showCategory('text-tools')">Text Tools</a>
-                        <a href="#" onclick="showCategory('developer-tools')">Developer</a>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-6 mb-4">
-                    <h5>Resources</h5>
-                    <div class="footer-links d-flex flex-column">
-                        <a href="#" onclick="showHomePage()">All Tools</a>
-                        <a href="Word-Counter.html">Word Counter</a>
-                        <a href="JSON-Formatter.html">JSON Formatter</a>
-                        <a href="Image-to-PNG.html">Image Converter</a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <h5>Contact & Support</h5>
-                    <div class="footer-links d-flex flex-column">
-                        <a href="#" onclick="showContactPage()">Contact Us</a>
-                        <a href="#" onclick="showPrivacyPolicy()">Privacy Policy</a>
-                        <a href="#" onclick="showPrivacyPolicy()">Terms of Service</a>
-                        <a href="#" onclick="showPrivacyPolicy()">FAQ</a>
-                    </div>
-                </div>
+    <footer class="footer mt-5">
+        <div class="container text-center">
+            <div class="mb-2">
+                <a href="#" class="me-2">Privacy Policy</a> |
+                <a href="#" class="mx-2">Terms of Service</a> |
+                <a href="#" class="ms-2">Contact</a>
             </div>
-            <hr class="my-4 bg-secondary">
-            <div class="text-center">
-                <div class="mt-4 d-flex align-items-center justify-content-center">
-                    <span class="me-2 small">Technology by</span>
-                    <div style="background: rgba(255,215,0,0.1); padding: 3px 8px; border-radius: 5px;">
-                        <i class="fas fa-brain me-1" style="color: var(--accent-gold);"></i>
-                        <span style="font-weight: 600; color: var(--accent-gold);">DeepSeek</span>
-                    </div>
-                </div>
+            <div>
+                <a href="https://twitter.com/" target="_blank" rel="noopener" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="https://facebook.com/" target="_blank" rel="noopener" class="social-icon"><i class="fab fa-facebook"></i></a>
+                <a href="https://github.com/" target="_blank" rel="noopener" class="social-icon"><i class="fab fa-github"></i></a>
             </div>
+            <div class="mt-2">&copy; 2025 Tools4.fun. All rights reserved.</div>
         </div>
     </footer>
     
-    <!-- Login Modal -->
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Login to Your Account</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="loginForm">
-                        <div class="mb-3">
-                            <label for="loginEmail" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="loginEmail" required>
-                        </div>
-                        <div class="mb-3 password-container">
-                            <label for="loginPassword" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="loginPassword" required>
-                            <span class="password-toggle" onclick="togglePassword('loginPassword')">
-                                <i class="fas fa-eye"></i>
-                            </span>
-                        </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="rememberMe">
-                            <label class="form-check-label" for="rememberMe">Remember me</label>
-                        </div>
-                        <button type="submit" class="btn btn-gold w-100">Login</button>
-                    </form>
-                    <div class="mt-3 text-center">
-                        <p>Don't have an account? <a href="#" onclick="showSignupModal()">Sign up</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Signup Modal -->
-    <div class="modal fade" id="signupModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Create an Account</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="signupForm">
-                        <div class="mb-3">
-                            <label for="signupName" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" id="signupName" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="signupEmail" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="signupEmail" required>
-                        </div>
-                        <div class="mb-3 password-container">
-                            <label for="signupPassword" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="signupPassword" required>
-                            <span class="password-toggle" onclick="togglePassword('signupPassword')">
-                                <i class="fas fa-eye"></i>
-                            </span>
-                        </div>
-                        <div class="mb-3 password-container">
-                            <label for="signupConfirmPassword" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" id="signupConfirmPassword" required>
-                            <span class="password-toggle" onclick="togglePassword('signupConfirmPassword')">
-                                <i class="fas fa-eye"></i>
-                            </span>
-                        </div>
-                        <button type="submit" class="btn btn-gold w-100">Sign Up</button>
-                    </form>
-                    <div class="mt-3 text-center">
-                        <p>Already have an account? <a href="#" onclick="showLoginModal()">Login</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Privacy Policy Modal -->
-    <div class="modal fade" id="privacyModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Privacy Policy</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <h4>Privacy Policy for tools4.fun</h4>
-                    <p>Last updated: January 01, 2023</p>
-                    
-                    <h5>1. Information We Collect</h5>
-                    <p>We collect information you provide directly to us when you use our tools, create an account, or communicate with us.</p>
-                    
-                    <h5>2. How We Use Your Information</h5>
-                    <p>We use the information we collect to provide, maintain, and improve our services, to develop new features, and to protect tools4.fun and our users.</p>
-                    
-                    <h5>3. Cookies and Similar Technologies</h5>
-                    <p>We use cookies and similar tracking technologies to track activity on our website and hold certain information to improve user experience.</p>
-                    
-                    <h5>4. Third-Party Services</h5>
-                    <p>We may employ third-party companies and individuals to facilitate our service, provide the service on our behalf, or assist us in analyzing our website usage.</p>
-                    
-                    <h5>5. Security</h5>
-                    <p>We take reasonable measures to help protect information about you from loss, theft, misuse and unauthorized access, disclosure, alteration, or destruction.</p>
-                    
-                    <h5>6. Changes to This Privacy Policy</h5>
-                    <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-gold" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Bootstrap JS -->
+    <!-- Bootstrap JS + FAB Panel JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
     <script>
-        // DOM Elements
-        const homePage = document.getElementById('home-page');
-        const toolPages = document.getElementById('tool-pages');
-        const contactPage = document.getElementById('contact-page');
-        const searchInput = document.getElementById('search-input');
-        const searchButton = document.getElementById('search-button');
-        const searchResults = document.getElementById('search-results');
-        const resultsContainer = document.getElementById('results-container');
-        
-        // Modal instances
-        let loginModal;
-        let signupModal;
-        let privacyModal;
-        
-        // Tool data for search functionality
-        const toolData = [];
-        
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize Bootstrap modals
-            loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
-            signupModal = new bootstrap.Modal(document.getElementById('signupModal'));
-            privacyModal = new bootstrap.Modal(document.getElementById('privacyModal'));
-            
-            // Set up form submissions
-            document.getElementById('loginForm').addEventListener('submit', handleLogin);
-            document.getElementById('signupForm').addEventListener('submit', handleSignup);
-            document.getElementById('contact-form').addEventListener('submit', handleContact);
-            
-            // Set up text input for word counter
-            document.getElementById('word-counter-text').addEventListener('input', function() {
-                countWords();
-            });
-            
-            // Set up search functionality
-            searchButton.addEventListener('click', searchTools);
-            searchInput.addEventListener('keyup', function(event) {
-                if (event.key === 'Enter') {
-                    searchTools();
-                }
-            });
-            
-            // Collect tool data for search
-            collectToolData();
-            
-            // Show home page by default
-            showHomePage();
-        });
-        
-        // Collect all tool data for search
-        function collectToolData() {
-            const toolCards = document.querySelectorAll('.tool-card');
-            toolCards.forEach(card => {
-                const title = card.querySelector('.tool-title').textContent;
-                const description = card.querySelector('.tool-description').textContent;
-                const link = card.querySelector('.tool-link').getAttribute('href');
-                
-                toolData.push({
-                    title,
-                    description,
-                    link
-                });
-            });
+    // FAB Panel Toggle
+    const fabBtn = document.getElementById('fabBtn');
+    const fabPanel = document.getElementById('fabPanel');
+    const fabOverlay = document.getElementById('fabOverlay');
+    const fabPanelClose = document.getElementById('fabPanelClose');
+    fabBtn.addEventListener('click', () => {
+        fabPanel.classList.add('open');
+        fabOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    });
+    fabOverlay.addEventListener('click', closeFabPanel);
+    fabPanelClose.addEventListener('click', closeFabPanel);
+    function closeFabPanel() {
+        fabPanel.classList.remove('open');
+        fabOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', (e) => {
+        if (fabPanel.classList.contains('open') && (e.key === "Escape" || e.keyCode === 27)) {
+            closeFabPanel();
         }
-        
-        // Show home page
-        function showHomePage() {
-            homePage.style.display = 'block';
-            toolPages.style.display = 'none';
-            contactPage.style.display = 'none';
-            searchResults.style.display = 'none';
-            window.scrollTo(0, 0);
-        }
-        
-        // Show contact page
-        function showContactPage() {
-            homePage.style.display = 'none';
-            toolPages.style.display = 'none';
-            contactPage.style.display = 'block';
-            window.scrollTo(0, 0);
-        }
-        
-        // Show a specific category
-        function showCategory(categoryId) {
-            showHomePage();
-            const element = document.getElementById(categoryId);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-        
-        // Show a tool page
-        function showTool(toolId) {
-            homePage.style.display = 'none';
-            toolPages.style.display = 'block';
-            contactPage.style.display = 'none';
-            const element = document.getElementById(toolId + '-tool');
-            if (element) {
-                element.style.display = 'block';
-            }
-        }
-        
-        // Count words function
-        function countWords() {
-            const text = document.getElementById('word-counter-text').value.trim();
-            const words = text.split(/\s+/).filter(word => word !== '').length;
-            const characters = text.length;
-            const sentences = (text.split(/[.!?]+/).filter(s => s.trim().length > 0)).length;
-            const paragraphs = (text.split(/\n+/).filter(p => p.trim().length > 0)).length;
-            
-            document.getElementById('word-count').textContent = words;
-            document.getElementById('character-count').textContent = characters;
-            document.getElementById('sentence-count').textContent = sentences;
-            document.getElementById('paragraph-count').textContent = paragraphs;
-            document.getElementById('text-preview').textContent = text || 'Your text will appear here...';
-        }
-        
-        // Search tools function
-        function searchTools() {
-            const query = searchInput.value.trim().toLowerCase();
-            if (!query) {
-                searchResults.style.display = 'none';
-                return;
-            }
-            
-            // Clear previous results
-            resultsContainer.innerHTML = '';
-            
-            // Filter tools based on search query
-            const results = toolData.filter(tool => {
-                return tool.title.toLowerCase().includes(query) || 
-                       tool.description.toLowerCase().includes(query);
-            });
-            
-            // Display results
-            if (results.length > 0) {
-                results.forEach(tool => {
-                    const resultItem = document.createElement('div');
-                    resultItem.className = 'search-result-item';
-                    
-                    // Highlight search terms in title and description
-                    const highlightedTitle = highlightText(tool.title, query);
-                    const highlightedDesc = highlightText(tool.description, query);
-                    
-                    resultItem.innerHTML = `
-                        <a href="${tool.link}" class="tool-link">
-                            <h4 class="tool-title">${highlightedTitle}</h4>
-                            <p class="tool-description">${highlightedDesc}</p>
-                        </a>
-                    `;
-                    
-                    resultsContainer.appendChild(resultItem);
-                });
-                searchResults.style.display = 'block';
-            } else {
-                resultsContainer.innerHTML = `
-                    <div class="no-results">
-                        <i class="fas fa-search fa-3x mb-3" style="color: var(--accent-gold);"></i>
-                        <h4>No tools found</h4>
-                        <p>Try a different search term</p>
-                    </div>
-                `;
-                searchResults.style.display = 'block';
-            }
-            
-            // Scroll to results
-            searchResults.scrollIntoView({ behavior: 'smooth' });
-        }
-        
-        // Highlight search terms in text
-        function highlightText(text, query) {
-            if (!query) return text;
-            
-            const regex = new RegExp(`(${query})`, 'gi');
-            return text.replace(regex, '<span class="highlight">$1</span>');
-        }
-        
-        // Toggle password visibility
-        function togglePassword(inputId) {
-            const passwordInput = document.getElementById(inputId);
-            const toggleIcon = passwordInput.nextElementSibling.querySelector('i');
-            
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                toggleIcon.classList.remove('fa-eye');
-                toggleIcon.classList.add('fa-eye-slash');
-            } else {
-                passwordInput.type = 'password';
-                toggleIcon.classList.remove('fa-eye-slash');
-                toggleIcon.classList.add('fa-eye');
-            }
-        }
-        
-        // Show login modal
-        function showLoginModal() {
-            loginModal.show();
-        }
-        
-        // Show signup modal
-        function showSignupModal() {
-            signupModal.show();
-        }
-        
-        // Show privacy policy
-        function showPrivacyPolicy() {
-            privacyModal.show();
-        }
-        
-        // Handle login
-        function handleLogin(event) {
-            event.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            
-            // Simple validation
-            if (!email || !password) {
-                alert('Please fill in all fields');
-                return;
-            }
-            
-            // In a real app, you would validate credentials with a backend
-            loginModal.hide();
-            alert('Login successful! (This is a demo)');
-            
-            // Reset form
-            document.getElementById('loginForm').reset();
-        }
-        
-        // Handle signup
-        function handleSignup(event) {
-            event.preventDefault();
-            const name = document.getElementById('signupName').value;
-            const email = document.getElementById('signupEmail').value;
-            const password = document.getElementById('signupPassword').value;
-            const confirmPassword = document.getElementById('signupConfirmPassword').value;
-            
-            // Simple validation
-            if (!name || !email || !password || !confirmPassword) {
-                alert('Please fill in all fields');
-                return;
-            }
-            
-            if (password !== confirmPassword) {
-                alert('Passwords do not match');
-                return;
-            }
-            
-            // In a real app, you would create a user account here
-            signupModal.hide();
-            alert('Account created successfully! (This is a demo)');
-            
-            // Reset form
-            document.getElementById('signupForm').reset();
-        }
-        
-        // Handle contact form
-        function handleContact(event) {
-            event.preventDefault();
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
-            
-            // In a real app, you would send this data to a server
-            alert('Thank you for your message! We will get back to you soon. (This is a demo)');
-            
-            // Reset form
-            document.getElementById('contact-form').reset();
-        }
+    });
     </script>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXN4S33C"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-    <script async="async" data-cfasync="false" src="//pl27251723.profitableratecpm.com/9e49ab9e55155b61c43968c509b06b44/invoke.js"></script>
-    <div id="container-9e49ab9e55155b61c43968c509b06b44"></div>
 </body>
 </html>
