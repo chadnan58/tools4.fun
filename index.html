@@ -1436,6 +1436,90 @@
             closeFabPanel();
         }
     });
+
+    // Search functionality
+    document.getElementById('search-button').addEventListener('click', function() {
+        performSearch();
+    });
+
+    document.getElementById('search-input').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            performSearch();
+        }
+    });
+
+    function performSearch() {
+        const searchTerm = document.getElementById('search-input').value.trim().toLowerCase();
+        const searchResults = document.getElementById('search-results');
+        const resultsContainer = document.getElementById('results-container');
+        
+        // Clear previous results
+        resultsContainer.innerHTML = '';
+        
+        if (searchTerm === '') {
+            searchResults.style.display = 'none';
+            return;
+        }
+        
+        // Get all tool cards
+        const toolCards = document.querySelectorAll('.tool-card');
+        let foundResults = false;
+        
+        toolCards.forEach(card => {
+            const title = card.querySelector('.tool-title').textContent.toLowerCase();
+            const description = card.querySelector('.tool-description').textContent.toLowerCase();
+            const link = card.querySelector('.tool-link').getAttribute('href');
+            
+            if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                foundResults = true;
+                const resultItem = document.createElement('div');
+                resultItem.className = 'col-md-6';
+                resultItem.innerHTML = `
+                    <div class="search-result-item">
+                        <h5><a href="${link}" style="color: var(--accent-gold); text-decoration: none;">${card.querySelector('.tool-title').textContent}</a></h5>
+                        <p>${card.querySelector('.tool-description').textContent}</p>
+                    </div>
+                `;
+                resultsContainer.appendChild(resultItem);
+            }
+        });
+        
+        if (foundResults) {
+            searchResults.style.display = 'block';
+        } else {
+            resultsContainer.innerHTML = '<div class="col-12"><p class="text-center">No results found. Try a different search term.</p></div>';
+            searchResults.style.display = 'block';
+        }
+        
+        // Scroll to search results
+        searchResults.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Signup and Login modals (placeholder functions)
+    function showLoginModal() {
+        alert('Login functionality would open a modal here. This is a placeholder.');
+    }
+
+    function showSignupModal() {
+        alert('Signup functionality would open a modal here. This is a placeholder.');
+    }
+
+    // Page navigation functions
+    function showHomePage() {
+        document.getElementById('home-page').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showCategory(categoryId) {
+        const element = document.getElementById(categoryId);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
+    function showContactPage() {
+        alert('Contact page would be displayed here. This is a placeholder.');
+    }
     </script>
 </body>
 </html>
