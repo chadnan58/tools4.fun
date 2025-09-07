@@ -41,30 +41,31 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 15px;
         }
         
         /* Header Styles */
         header {
             text-align: center;
-            padding: 30px 0;
+            padding: 25px 0;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border-radius: 0 0 20px 20px;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             box-shadow: var(--card-shadow);
         }
         
         header h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             margin-bottom: 10px;
         }
         
         header p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             opacity: 0.9;
             max-width: 700px;
             margin: 0 auto;
+            padding: 0 15px;
         }
         
         /* Main Card - Matches Tools4Fun Design */
@@ -73,7 +74,7 @@
             border-radius: 15px;
             box-shadow: var(--card-shadow);
             overflow: hidden;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             transition: transform 0.3s ease;
         }
         
@@ -84,18 +85,18 @@
         .card-header {
             background-color: var(--primary);
             color: white;
-            padding: 18px 25px;
-            font-size: 1.3rem;
+            padding: 16px 20px;
+            font-size: 1.2rem;
             font-weight: 600;
         }
         
         .card-body {
-            padding: 25px;
+            padding: 20px;
         }
         
         /* Form Styles */
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
         
         .form-group label {
@@ -112,6 +113,7 @@
             border-radius: 8px;
             font-size: 1rem;
             transition: border-color 0.3s;
+            -webkit-appearance: none; /* Remove default iOS styling */
         }
         
         .form-control:focus {
@@ -122,7 +124,7 @@
         
         .btn {
             display: inline-block;
-            padding: 12px 25px;
+            padding: 12px 20px;
             background-color: var(--primary);
             color: white;
             border: none;
@@ -151,12 +153,12 @@
         /* QR Display Area */
         .qr-display {
             text-align: center;
-            margin: 30px 0;
+            margin: 25px 0;
             padding: 20px;
             border-radius: 10px;
             background-color: #f8f9fa;
             border: 1px dashed var(--border);
-            min-height: 300px;
+            min-height: 280px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -164,11 +166,20 @@
         }
         
         #qrcode {
-            margin: 20px auto;
+            margin: 15px auto;
             padding: 10px;
             background: white;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            max-width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        #qrcode canvas, #qrcode img {
+            max-width: 100%;
+            height: auto;
         }
         
         .download-btn {
@@ -185,43 +196,44 @@
         .ad-container {
             background: white;
             border-radius: 10px;
-            padding: 20px;
+            padding: 15px;
             text-align: center;
-            margin: 30px 0;
+            margin: 25px 0;
             border: 1px dashed #ccc;
         }
         
         .ad-label {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--gray);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
         
         .ad-space {
-            min-height: 100px;
+            min-height: 90px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: #f8f9fa;
             border-radius: 8px;
-            margin: 15px 0;
+            margin: 12px 0;
             color: var(--gray);
             font-style: italic;
+            overflow: hidden;
         }
         
         /* Features Section */
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin: 40px 0;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 35px 0;
         }
         
         .feature-card {
             background: white;
-            padding: 25px;
+            padding: 20px;
             border-radius: 12px;
             box-shadow: var(--card-shadow);
             text-align: center;
@@ -233,47 +245,121 @@
         }
         
         .feature-card i {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             color: var(--primary);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         
         .feature-card h3 {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             color: var(--dark);
+            font-size: 1.2rem;
+        }
+        
+        .feature-card p {
+            font-size: 0.95rem;
         }
         
         /* Footer */
         footer {
             text-align: center;
-            padding: 30px 0;
+            padding: 25px 0;
             color: var(--gray);
-            font-size: 0.9rem;
-            margin-top: 30px;
+            font-size: 0.85rem;
+            margin-top: 25px;
             border-top: 1px solid var(--border);
         }
         
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
-                padding: 15px;
+                padding: 12px;
+            }
+            
+            header {
+                padding: 20px 0;
+                margin-bottom: 20px;
+                border-radius: 0 0 15px 15px;
             }
             
             header h1 {
-                font-size: 2rem;
+                font-size: 1.7rem;
+            }
+            
+            header p {
+                font-size: 0.95rem;
             }
             
             .card-header {
                 font-size: 1.1rem;
-                padding: 15px 20px;
+                padding: 14px 18px;
             }
             
             .card-body {
-                padding: 20px;
+                padding: 18px;
             }
             
             .features {
                 grid-template-columns: 1fr;
+                gap: 15px;
+                margin: 25px 0;
+            }
+            
+            .feature-card {
+                padding: 18px;
+            }
+            
+            .feature-card i {
+                font-size: 2rem;
+            }
+            
+            .qr-display {
+                min-height: 250px;
+                padding: 15px;
+                margin: 20px 0;
+            }
+            
+            .form-control {
+                padding: 14px 15px; /* Larger touch target on mobile */
+            }
+            
+            .btn {
+                padding: 14px 20px; /* Larger touch target on mobile */
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+            
+            header p {
+                font-size: 0.9rem;
+            }
+            
+            .card-header {
+                font-size: 1rem;
+                padding: 12px 15px;
+            }
+            
+            .card-body {
+                padding: 15px;
+            }
+            
+            .feature-card {
+                padding: 15px;
+            }
+            
+            .feature-card h3 {
+                font-size: 1.1rem;
+            }
+            
+            .feature-card p {
+                font-size: 0.9rem;
+            }
+            
+            .qr-display {
+                min-height: 220px;
             }
         }
         
@@ -285,6 +371,30 @@
         
         .fade-in {
             animation: fadeIn 0.5s ease forwards;
+        }
+        
+        /* Loading state for generate button */
+        .btn-loading {
+            position: relative;
+            color: transparent !important;
+        }
+        
+        .btn-loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 50%;
+            margin: -10px 0 0 -10px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s ease infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -313,8 +423,8 @@
                     <label for="qr-size">QR Code Size</label>
                     <select id="qr-size" class="form-control">
                         <option value="200">Small (200x200)</option>
-                        <option value="300" selected>Medium (300x300)</option>
-                        <option value="400">Large (400x400)</option>
+                        <option value="250" selected>Medium (250x250)</option>
+                        <option value="300">Large (300x300)</option>
                     </select>
                 </div>
                 
@@ -354,7 +464,7 @@
         </div>
         
         <!-- Features Section -->
-        <h2 style="text-align: center; margin: 40px 0 30px; color: var(--primary);">Why Use Our QR Generator?</h2>
+        <h2 style="text-align: center; margin: 30px 0 25px; color: var(--primary);">Why Use Our QR Generator?</h2>
         <div class="features">
             <div class="feature-card">
                 <i class="fas fa-bolt"></i>
@@ -404,8 +514,8 @@
         </div>
     </footer>
 
-    <!-- QR Code Generation Library -->
-    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <!-- QR Code Generation Library - Updated CDN -->
+    <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs@gh-pages/qrcode.min.js"></script>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -415,12 +525,21 @@
             const downloadBtn = document.getElementById('download-btn');
             const qrCodeDiv = document.getElementById('qrcode');
             
-            // Initialize QR Code
+            // Initialize QR Code with selected size
+            let selectedSize = parseInt(qrSize.value);
             let qrCode = new QRCode(qrCodeDiv, {
                 text: qrText.value,
-                width: 300,
-                height: 300
+                width: selectedSize,
+                height: selectedSize,
+                correctLevel: QRCode.CorrectLevel.H
             });
+            
+            // Show download button if QR code is already generated
+            setTimeout(() => {
+                if (qrCodeDiv.querySelector('img') || qrCodeDiv.querySelector('canvas')) {
+                    downloadBtn.style.display = 'inline-block';
+                }
+            }, 500);
             
             // Generate QR Code
             generateBtn.addEventListener('click', function() {
@@ -432,33 +551,52 @@
                     return;
                 }
                 
-                // Clear previous QR code
-                qrCodeDiv.innerHTML = '';
+                // Show loading state
+                generateBtn.classList.add('btn-loading');
                 
-                // Generate new QR code
-                qrCode = new QRCode(qrCodeDiv, {
-                    text: text,
-                    width: size,
-                    height: size
-                });
-                
-                // Show download button
-                downloadBtn.style.display = 'block';
-                
-                // Add animation
-                const img = qrCodeDiv.querySelector('img');
-                if (img) {
-                    img.classList.add('fade-in');
-                }
+                // Clear previous QR code after a short delay to allow animation
+                setTimeout(() => {
+                    qrCodeDiv.innerHTML = '';
+                    
+                    // Generate new QR code
+                    qrCode = new QRCode(qrCodeDiv, {
+                        text: text,
+                        width: size,
+                        height: size,
+                        correctLevel: QRCode.CorrectLevel.H
+                    });
+                    
+                    // Show download button after generation
+                    setTimeout(() => {
+                        downloadBtn.style.display = 'inline-block';
+                        generateBtn.classList.remove('btn-loading');
+                        
+                        // Add animation
+                        const img = qrCodeDiv.querySelector('img');
+                        const canvas = qrCodeDiv.querySelector('canvas');
+                        if (img) {
+                            img.classList.add('fade-in');
+                        } else if (canvas) {
+                            canvas.classList.add('fade-in');
+                        }
+                    }, 300);
+                }, 300);
             });
             
             // Download QR Code
             downloadBtn.addEventListener('click', function() {
                 const img = qrCodeDiv.querySelector('img');
+                const canvas = qrCodeDiv.querySelector('canvas');
+                
                 if (img) {
                     const link = document.createElement('a');
                     link.download = 'tools4fun-qr-code.png';
                     link.href = img.src;
+                    link.click();
+                } else if (canvas) {
+                    const link = document.createElement('a');
+                    link.download = 'tools4fun-qr-code.png';
+                    link.href = canvas.toDataURL('image/png');
                     link.click();
                 }
             });
@@ -466,6 +604,13 @@
             // Generate QR code when pressing Enter
             qrText.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
+                    generateBtn.click();
+                }
+            });
+            
+            // Regenerate QR code when size changes
+            qrSize.addEventListener('change', function() {
+                if (qrText.value.trim()) {
                     generateBtn.click();
                 }
             });
