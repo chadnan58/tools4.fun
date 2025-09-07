@@ -38,6 +38,7 @@
             color: var(--dark);
             line-height: 1.6;
             min-height: 100vh;
+            -webkit-text-size-adjust: 100%; /* Prevent font scaling in landscape */
         }
         
         .container {
@@ -49,24 +50,26 @@
         /* Header Styles */
         header {
             text-align: center;
-            padding: 30px 0;
+            padding: 20px 0;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border-radius: 0 0 20px 20px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             box-shadow: var(--card-shadow);
         }
         
         header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            padding: 0 10px;
         }
         
         header p {
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             opacity: 0.9;
             max-width: 700px;
             margin: 0 auto;
+            padding: 0 15px;
         }
         
         /* Main Card - Matches Tools4Fun Design */
@@ -75,7 +78,7 @@
             border-radius: 15px;
             box-shadow: var(--card-shadow);
             overflow: hidden;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             transition: transform 0.3s ease;
         }
         
@@ -86,18 +89,18 @@
         .card-header {
             background-color: var(--primary);
             color: white;
-            padding: 18px 25px;
-            font-size: 1.3rem;
+            padding: 15px 20px;
+            font-size: 1.2rem;
             font-weight: 600;
         }
         
         .card-body {
-            padding: 25px;
+            padding: 20px;
         }
         
         /* Form Styles */
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
         
         .form-group label {
@@ -109,13 +112,13 @@
         
         .form-control {
             width: 100%;
-            padding: 12px 15px;
+            padding: 14px;
             border: 1px solid var(--border);
             border-radius: 8px;
             font-size: 1rem;
             transition: border-color 0.3s;
             resize: vertical;
-            min-height: 150px;
+            min-height: 120px;
             font-family: monospace;
         }
         
@@ -129,7 +132,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 12px 25px;
+            padding: 14px 20px;
             background-color: var(--primary);
             color: white;
             border: none;
@@ -140,6 +143,7 @@
             transition: all 0.3s ease;
             text-align: center;
             gap: 8px;
+            min-height: 50px; /* Better touch target */
         }
         
         .btn:hover {
@@ -174,8 +178,8 @@
         
         .action-buttons {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
             margin: 20px 0;
         }
         
@@ -183,43 +187,44 @@
         .ad-container {
             background: white;
             border-radius: 10px;
-            padding: 20px;
+            padding: 15px;
             text-align: center;
-            margin: 30px 0;
+            margin: 25px 0;
             border: 1px dashed #ccc;
         }
         
         .ad-label {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: var(--gray);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
         
         .ad-space {
-            min-height: 100px;
+            min-height: 90px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: #f8f9fa;
             border-radius: 8px;
-            margin: 15px 0;
+            margin: 12px 0;
             color: var(--gray);
             font-style: italic;
+            overflow: hidden;
         }
         
         /* Features Section */
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin: 40px 0;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 35px 0;
         }
         
         .feature-card {
             background: white;
-            padding: 25px;
+            padding: 20px;
             border-radius: 12px;
             box-shadow: var(--card-shadow);
             text-align: center;
@@ -231,23 +236,24 @@
         }
         
         .feature-card i {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             color: var(--primary);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         
         .feature-card h3 {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             color: var(--dark);
+            font-size: 1.2rem;
         }
         
         /* Footer */
         footer {
             text-align: center;
-            padding: 30px 0;
+            padding: 25px 0;
             color: var(--gray);
-            font-size: 0.9rem;
-            margin-top: 30px;
+            font-size: 0.85rem;
+            margin-top: 25px;
             border-top: 1px solid var(--border);
         }
         
@@ -255,26 +261,27 @@
         .usage-section {
             background: white;
             border-radius: 15px;
-            padding: 30px;
-            margin: 40px 0;
+            padding: 25px;
+            margin: 35px 0;
             box-shadow: var(--card-shadow);
         }
         
         .usage-section h2 {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             color: var(--primary);
+            font-size: 1.5rem;
         }
         
         .usage-steps {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
         }
         
         .step-card {
             background: #f8f9fa;
-            padding: 20px;
+            padding: 18px;
             border-radius: 10px;
             border-left: 4px solid var(--primary);
         }
@@ -283,46 +290,130 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
         }
         
         .step-number {
             background: var(--primary);
             color: white;
-            width: 30px;
-            height: 30px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            flex-shrink: 0;
         }
         
-        /* Responsive Design */
+        /* Responsive Design - Mobile First */
         @media (max-width: 768px) {
             .container {
-                padding: 15px;
+                padding: 12px;
+            }
+            
+            header {
+                padding: 15px 0;
+                margin-bottom: 15px;
+                border-radius: 0 0 15px 15px;
             }
             
             header h1 {
-                font-size: 2rem;
+                font-size: 1.5rem;
+            }
+            
+            header p {
+                font-size: 0.9rem;
             }
             
             .card-header {
                 font-size: 1.1rem;
-                padding: 15px 20px;
+                padding: 12px 15px;
             }
             
             .card-body {
-                padding: 20px;
+                padding: 15px;
             }
             
             .features, .usage-steps {
                 grid-template-columns: 1fr;
+                gap: 15px;
             }
             
             .action-buttons {
                 grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .form-control {
+                min-height: 100px;
+                padding: 12px;
+            }
+            
+            .btn {
+                padding: 12px 15px;
+                font-size: 0.95rem;
+            }
+            
+            .usage-section {
+                padding: 20px 15px;
+                margin: 25px 0;
+            }
+            
+            .usage-section h2 {
+                font-size: 1.3rem;
+                margin-bottom: 20px;
+            }
+            
+            .feature-card {
+                padding: 18px 15px;
+            }
+            
+            .feature-card i {
+                font-size: 2rem;
+            }
+            
+            .feature-card h3 {
+                font-size: 1.1rem;
+            }
+            
+            .step-card {
+                padding: 15px;
+            }
+            
+            .step-card h3 {
+                font-size: 1rem;
+            }
+            
+            .ad-container {
+                padding: 12px;
+                margin: 20px 0;
+            }
+            
+            .ad-space {
+                min-height: 80px;
+            }
+        }
+        
+        /* Very small devices */
+        @media (max-width: 360px) {
+            header h1 {
+                font-size: 1.3rem;
+            }
+            
+            .card-header {
+                font-size: 1rem;
+            }
+            
+            .form-control {
+                min-height: 90px;
+                font-size: 0.9rem;
+            }
+            
+            .btn {
+                font-size: 0.9rem;
+                min-height: 45px;
             }
         }
         
@@ -374,6 +465,29 @@
         .tooltip:hover .tooltiptext {
             visibility: visible;
             opacity: 1;
+        }
+        
+        /* Notification styling */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            max-width: calc(100% - 40px);
+        }
+        
+        @media (max-width: 768px) {
+            .notification {
+                left: 20px;
+                right: 20px;
+                text-align: center;
+                max-width: none;
+            }
         }
     </style>
 </head>
@@ -468,7 +582,7 @@
         </div>
         
         <!-- Features Section -->
-        <h2 style="text-align: center; margin: 40px 0 30px; color: var(--primary);">Why Use Our Base64 Tool?</h2>
+        <h2 style="text-align: center; margin: 30px 0 25px; color: var(--primary);">Why Use Our Base64 Tool?</h2>
         <div class="features">
             <div class="feature-card">
                 <i class="fas fa-bolt"></i>
