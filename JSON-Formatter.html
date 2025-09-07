@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" href="favicon-16x16.png" type="image/x-icon"
+    <link rel="icon" href="favicon-16x16.png" type="image/x-icon">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Free online JSON formatter, validator and minifier tool. Beautify and format JSON data with our powerful JSON viewer.">
@@ -36,11 +36,12 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
+            overflow-x: hidden;
         }
         
         header {
             background-color: var(--header-bg);
-            padding: 1.5rem;
+            padding: 1rem;
             text-align: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
@@ -48,12 +49,14 @@
         h1 {
             color: var(--accent-color);
             margin-bottom: 0.5rem;
+            font-size: 1.5rem;
         }
         
         .container {
             max-width: 1200px;
-            margin: 2rem auto;
+            margin: 1rem auto;
             padding: 0 1rem;
+            width: 100%;
         }
         
         .ad-container {
@@ -63,13 +66,18 @@
             border-radius: 8px;
             text-align: center;
             box-shadow: 0 4px 8px var(--box-shadow);
+            overflow: hidden;
+        }
+        
+        .ad-container iframe {
+            max-width: 100%;
         }
         
         .tool-card {
             background-color: var(--tool-card-bg);
             border-radius: 10px;
-            padding: 2rem;
-            margin: 2rem 0;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
             box-shadow: 0 4px 12px var(--box-shadow);
             transition: all 0.3s ease;
         }
@@ -86,7 +94,7 @@
         
         #jsonInput {
             width: 100%;
-            min-height: 300px;
+            min-height: 250px;
             padding: 1rem;
             background-color: var(--bg-color);
             color: var(--text-color);
@@ -106,7 +114,7 @@
         .btn-group {
             display: flex;
             flex-wrap: wrap;
-            gap: 1rem;
+            gap: 0.8rem;
             margin: 1.5rem 0;
         }
         
@@ -114,14 +122,15 @@
             background-color: var(--accent-color);
             color: var(--hover-text);
             border: none;
-            padding: 0.8rem 1.5rem;
+            padding: 0.8rem 1rem;
             border-radius: 4px;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s ease;
             flex: 1;
-            min-width: 120px;
+            min-width: 100px;
             text-align: center;
+            font-size: 0.9rem;
         }
         
         .btn:hover {
@@ -130,7 +139,7 @@
         }
         
         .btn i {
-            margin-right: 8px;
+            margin-right: 5px;
         }
         
         .result-container {
@@ -140,7 +149,7 @@
         
         #jsonOutput {
             width: 100%;
-            min-height: 300px;
+            min-height: 250px;
             padding: 1rem;
             background-color: var(--bg-color);
             color: var(--text-color);
@@ -175,14 +184,14 @@
         
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.2rem;
             margin: 2rem 0;
         }
         
         .feature-card {
             background-color: var(--tool-card-bg);
-            padding: 1.5rem;
+            padding: 1.2rem;
             border-radius: 8px;
             box-shadow: 0 4px 8px var(--box-shadow);
             transition: all 0.3s ease;
@@ -197,6 +206,7 @@
         .feature-card h3 {
             color: var(--accent-color);
             margin-bottom: 0.5rem;
+            font-size: 1.1rem;
         }
         
         .feature-card:hover h3 {
@@ -208,27 +218,105 @@
             padding: 1.5rem;
             text-align: center;
             margin-top: 2rem;
+            position: relative;
+        }
+        
+        .credit {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .credit-badge {
+            background: rgba(255,215,0,0.1);
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-flex;
+            align-items: center;
+            margin-left: 8px;
+        }
+        
+        .credit-badge i {
+            color: var(--accent-color);
+            margin-right: 5px;
+        }
+        
+        .credit-badge span {
+            font-weight: 600;
+            color: var(--accent-color);
         }
         
         @media (max-width: 768px) {
+            header {
+                padding: 1rem 0.5rem;
+            }
+            
+            h1 {
+                font-size: 1.3rem;
+            }
+            
             .container {
-                padding: 0 0.5rem;
+                padding: 0 0.8rem;
+                margin: 0.5rem auto;
             }
             
             .tool-card {
-                padding: 1.5rem;
+                padding: 1rem;
+                margin: 1rem 0;
             }
             
             .btn-group {
                 flex-direction: column;
+                gap: 0.5rem;
             }
             
             .btn {
                 width: 100%;
+                padding: 0.8rem;
             }
             
             .features {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .feature-card {
+                padding: 1rem;
+            }
+            
+            #jsonInput, #jsonOutput {
+                min-height: 200px;
+                font-size: 13px;
+            }
+            
+            .ad-container {
+                padding: 0.8rem;
+                margin: 1rem 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.2rem;
+            }
+            
+            .container {
+                padding: 0 0.5rem;
+            }
+            
+            .btn {
+                font-size: 0.85rem;
+                padding: 0.7rem;
+            }
+            
+            .feature-card h3 {
+                font-size: 1rem;
+            }
+            
+            .credit {
+                flex-direction: column;
+                gap: 8px;
             }
         }
     </style>
@@ -243,21 +331,21 @@
     </header>
     
     <div class="container">
-    <!-- Top Banner Ad (728x90) -->
-<div class="container my-3">
-    <div class="text-center">
-        <script type="text/javascript">
-            atOptions = {
-                'key': '95aac29d932ec51f5cae42ef69b777a1',
-                'format': 'iframe',
-                'height': 90,
-                'width': 728,
-                'params': {}
-            };
-        </script>
-        <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
-    </div>
-</div>
+        <!-- Top Banner Ad (responsive) -->
+        <div class="ad-container">
+            <div class="text-center">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key': '95aac29d932ec51f5cae42ef69b777a1',
+                        'format': 'iframe',
+                        'height': 90,
+                        'width': 728,
+                        'params': {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+            </div>
+        </div>
         
         <div class="tool-card">
             <div class="editor-container">
@@ -278,7 +366,9 @@
             <div class="result-container" id="resultContainer">
                 <label for="jsonOutput">Result:</label>
                 <pre id="jsonOutput"></pre>
-                <button class="btn" id="copyBtn"><i class="fas fa-copy"></i> Copy to Clipboard</button>
+                <div class="btn-group">
+                    <button class="btn" id="copyBtn"><i class="fas fa-copy"></i> Copy to Clipboard</button>
+                </div>
             </div>
         </div>
         
@@ -333,24 +423,32 @@
             </ul>
         </div>
         
-  <!-- botom Banner Ad (728x90) -->
-<div class="container my-3">
-    <div class="text-center">
-        <script type="text/javascript">
-            atOptions = {
-                'key': '95aac29d932ec51f5cae42ef69b777a1',
-                'format': 'iframe',
-                'height': 90,
-                'width': 728,
-                'params': {}
-            };
-        </script>
-        <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+        <!-- Bottom Banner Ad (responsive) -->
+        <div class="ad-container">
+            <div class="text-center">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key': '95aac29d932ec51f5cae42ef69b777a1',
+                        'format': 'iframe',
+                        'height': 90,
+                        'width': 728,
+                        'params': {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+            </div>
+        </div>
     </div>
-</div>
     
     <footer>
         <p>&copy; <span id="year"></span> JSON Formatter & Validator. All rights reserved.</p>
+        <div class="credit">
+            <span class="me-2 small">Technology by</span>
+            <div class="credit-badge">
+                <i class="fas fa-brain me-1"></i>
+                <span>DeepSeek</span>
+            </div>
+        </div>
     </footer>
     
     <script>
@@ -498,15 +596,6 @@
         if (!jsonInput.value.trim()) {
             loadSample();
         }
-        <div class="mt-4">
-    <div class="d-flex align-items-center">
-        <span class="me-2 small">Technology by</span>
-        <div style="background: rgba(255,215,0,0.1); padding: 3px 8px; border-radius: 5px;">
-            <i class="fas fa-brain me-1" style="color: var(--accent-gold);"></i>
-            <span style="font-weight: 600; color: var(--accent-gold);">DeepSeek</span>
-        </div>
-    </div>
-</div>
     </script>
 </body>
 </html>
