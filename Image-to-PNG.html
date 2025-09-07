@@ -3,7 +3,7 @@
 <head>
     <link rel="icon" href="favicon-16x16.png" type="image/x-icon">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="Free online tool to convert any image to PNG format with high quality. Fast, secure, and works on all devices.">
     <meta name="keywords" content="image to png, convert to png, png converter, image converter, free image tool">
     <meta name="author" content="Image Tools">
@@ -29,6 +29,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
         
         body {
@@ -42,7 +43,7 @@
         
         header {
             background-color: var(--header-bg);
-            padding: 1.5rem;
+            padding: 1.2rem 1rem;
             text-align: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
@@ -50,30 +51,40 @@
         h1 {
             color: var(--accent-color);
             margin-bottom: 0.5rem;
-            font-size: 2.2rem;
+            font-size: 1.8rem;
         }
         
         .container {
             max-width: 1200px;
-            margin: 2rem auto;
+            margin: 1.5rem auto;
             padding: 0 1rem;
             flex: 1;
+            width: 100%;
         }
         
         .ad-container {
             background-color: var(--tool-card-bg);
             padding: 1rem;
-            margin: 1.5rem 0;
+            margin: 1.2rem 0;
             border-radius: 8px;
             text-align: center;
             box-shadow: 0 4px 8px var(--box-shadow);
+            overflow: hidden;
+        }
+        
+        .ad-placeholder {
+            background-color: rgba(0, 0, 0, 0.2);
+            color: rgba(255, 255, 255, 0.5);
+            padding: 1rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
         }
         
         .tool-card {
             background-color: var(--tool-card-bg);
             border-radius: 10px;
-            padding: 2rem;
-            margin: 2rem 0 1rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0 1rem;
             box-shadow: 0 4px 12px var(--box-shadow);
             transition: all 0.3s ease;
         }
@@ -86,11 +97,16 @@
         .upload-area {
             border: 2px dashed var(--accent-color);
             border-radius: 8px;
-            padding: 3rem 1rem;
+            padding: 2.5rem 1rem;
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             cursor: pointer;
             transition: all 0.3s ease;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
         
         .upload-area:hover {
@@ -98,7 +114,7 @@
         }
         
         .upload-area i {
-            font-size: 3rem;
+            font-size: 2.5rem;
             color: var(--accent-color);
             margin-bottom: 1rem;
         }
@@ -109,7 +125,7 @@
         
         .preview-container {
             display: none;
-            margin: 2rem 0;
+            margin: 1.5rem 0;
             text-align: center;
         }
         
@@ -125,35 +141,46 @@
         }
         
         .option-group {
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
         }
         
         label {
             display: block;
             margin-bottom: 0.5rem;
             color: var(--accent-color);
+            font-weight: 500;
         }
         
         select, input[type="range"], input[type="number"] {
             width: 100%;
-            padding: 0.5rem;
-            border-radius: 4px;
+            padding: 0.8rem;
+            border-radius: 6px;
             border: 1px solid var(--accent-color);
             background-color: var(--bg-color);
             color: var(--text-color);
+            font-size: 1rem;
+        }
+        
+        input[type="range"] {
+            padding: 0;
+            height: 12px;
         }
         
         .btn {
             background-color: var(--accent-color);
             color: var(--hover-text);
             border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 4px;
+            padding: 1rem 1.5rem;
+            border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s ease;
             display: inline-block;
             margin: 0.5rem 0;
+            font-size: 1rem;
+            text-align: center;
+            min-height: 50px;
+            line-height: 1.2;
         }
         
         .btn:hover {
@@ -168,7 +195,7 @@
         
         .download-btn {
             display: none;
-            margin-top: 1rem;
+            margin-top: 1.2rem;
         }
         
         footer {
@@ -180,14 +207,14 @@
         
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.2rem;
+            margin: 1.5rem 0 1rem;
         }
         
         .feature-card {
             background-color: var(--tool-card-bg);
-            padding: 1.5rem;
+            padding: 1.2rem;
             border-radius: 8px;
             box-shadow: 0 4px 8px var(--box-shadow);
             transition: all 0.3s ease;
@@ -202,30 +229,11 @@
         .feature-card h3 {
             color: var(--accent-color);
             margin-bottom: 0.5rem;
+            font-size: 1.1rem;
         }
         
         .feature-card:hover h3 {
             color: var(--hover-text);
-        }
-        
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 0.5rem;
-            }
-            
-            .tool-card {
-                padding: 1.5rem;
-                margin: 1.5rem 0 1rem;
-            }
-            
-            .features {
-                grid-template-columns: 1fr;
-                margin: 1.5rem 0 1rem;
-            }
-            
-            h1 {
-                font-size: 1.8rem;
-            }
         }
         
         .technology-by {
@@ -240,7 +248,7 @@
         
         .deepseek-badge {
             background: rgba(255, 215, 0, 0.1);
-            padding: 3px 8px;
+            padding: 5px 10px;
             border-radius: 5px;
             display: flex;
             align-items: center;
@@ -265,20 +273,139 @@
         }
         
         .how-to-section {
-            margin: 1.5rem 0 0.5rem;
+            margin: 1.5rem 0 0.8rem;
         }
         
         .how-to-section h2 {
             margin-bottom: 0.8rem;
+            font-size: 1.3rem;
         }
         
         .supported-formats {
-            margin-top: 1rem;
+            margin-top: 1.2rem;
+        }
+        
+        /* Mobile-specific improvements */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem 0.8rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .container {
+                padding: 0 0.8rem;
+                margin: 1rem auto;
+            }
+            
+            .tool-card {
+                padding: 1.2rem;
+                margin: 1.2rem 0 0.8rem;
+            }
+            
+            .upload-area {
+                padding: 1.5rem 0.8rem;
+                min-height: 180px;
+            }
+            
+            .upload-area i {
+                font-size: 2rem;
+            }
+            
+            .upload-area h3 {
+                font-size: 1.1rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                margin: 1.2rem 0 0.8rem;
+            }
+            
+            .feature-card {
+                padding: 1rem;
+            }
+            
+            .btn {
+                padding: 0.9rem 1.2rem;
+                min-height: 44px;
+            }
+            
+            .option-group {
+                margin-bottom: 1rem;
+            }
+            
+            select, input[type="range"], input[type="number"] {
+                padding: 0.7rem;
+            }
+            
+            .how-to-section h2 {
+                font-size: 1.2rem;
+            }
+            
+            .supported-formats h2 {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header {
+                padding: 0.8rem 0.5rem;
+            }
+            
+            h1 {
+                font-size: 1.3rem;
+            }
+            
+            .container {
+                padding: 0 0.5rem;
+            }
+            
+            .tool-card {
+                padding: 1rem;
+                border-radius: 8px;
+            }
+            
+            .upload-area {
+                padding: 1.2rem 0.5rem;
+                min-height: 160px;
+            }
+            
+            .upload-area i {
+                font-size: 1.8rem;
+                margin-bottom: 0.8rem;
+            }
+            
+            .upload-area h3 {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 0.8rem 1rem;
+                font-size: 0.95rem;
+            }
+            
+            .feature-card h3 {
+                font-size: 1rem;
+            }
+            
+            .how-to-section h2 {
+                font-size: 1.1rem;
+            }
+            
+            .supported-formats h2 {
+                font-size: 1.1rem;
+            }
+            
+            .technology-by {
+                flex-direction: column;
+                gap: 5px;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
@@ -287,18 +414,11 @@
     </header>
     
     <div class="container">
-        <!-- Top Banner Ad (728x90) -->
+        <!-- Top Banner Ad -->
         <div class="ad-container">
-            <script type="text/javascript">
-                atOptions = {
-                    'key': '95aac29d932ec51f5cae42ef69b777a1',
-                    'format': 'iframe',
-                    'height': 90,
-                    'width': 728,
-                    'params': {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+            <div class="ad-placeholder">
+                Advertisement (728x90)
+            </div>
         </div>
         
         <div class="tool-card">
@@ -355,16 +475,9 @@
         
         <!-- Middle Ad Banner -->
         <div class="ad-container">
-            <script type="text/javascript">
-                atOptions = {
-                    'key': '95aac29d932ec51f5cae42ef69b777a1',
-                    'format': 'iframe',
-                    'height': 90,
-                    'width': 728,
-                    'params': {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+            <div class="ad-placeholder">
+                Advertisement (728x90)
+            </div>
         </div>
         
         <div class="features">
@@ -387,7 +500,7 @@
         <div class="tool-card last-section">
             <div class="how-to-section">
                 <h2>How to Convert Images to PNG</h2>
-                <ol style="padding-left: 1.5rem;">
+                <ol style="padding-left: 1.5rem; margin-top: 0.5rem;">
                     <li>Click the upload area or drag and drop your image file</li>
                     <li>Adjust quality and resize options if needed</li>
                     <li>Click "Convert to PNG" button</li>
@@ -403,16 +516,9 @@
         
         <!-- Bottom Ad Banner -->
         <div class="ad-container last-section">
-            <!-- Replace with your AdSense ad unit -->
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-YOUR_ADSENSE_ID"
-                 data-ad-slot="YOUR_AD_SLOT_ID"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
+            <div class="ad-placeholder">
+                Advertisement (728x90)
+            </div>
         </div>
     </div>
     
