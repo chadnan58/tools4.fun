@@ -1,139 +1,299 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Background Remover — tools4.fun</title>
-<meta name="description" content="Remove background from any image instantly using U²Net AI model directly in your browser. 100% free and offline.">
-<link rel="icon" href="favicon-16x16.png" type="image/png">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Background Remover — tools4.fun (Final Offline)</title>
+<meta name="description" content="Remove backgrounds in-browser using U²Net (self-hosted ONNX). No uploads, runs fully client-side.">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
 <style>
-body { background: #f8fafc; }
-.tool-card {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  padding: 20px;
-  text-align: center;
-}
-.preview-img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
-  margin-bottom: 10px;
-}
-.ad-space {
-  background: #f9fafb;
-  border: 2px dashed #cbd5e1;
-  border-radius: 10px;
-  text-align: center;
-  padding: 20px;
-  color: #94a3b8;
-}
-.spinner {
-  display: none;
-  margin: 10px auto;
-  width: 3rem;
-  height: 3rem;
-}
+  body { background:#f6f7fb; font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif; }
+  .tool-card { margin-top:24px; background:#fff; padding:20px; border-radius:12px; box-shadow:0 6px 20px rgba(10,20,50,0.04); max-width:900px; margin-left:auto; margin-right:auto; }
+  .drop-area { border:2px dashed #e6eefc; padding:16px; border-radius:10px; text-align:center; background:#fbfdff; cursor:pointer; }
+  canvas { max-width:100%; display:block; margin: 12px auto; }
+  .small-muted { color:#6b7280; font-size:.9rem; }
+  .ad-space { background:#fff; border:1px dashed #e6eefc; padding:10px; margin-top:16px; border-radius:8px; text-align:center; color:#94a3b8; }
 </style>
 </head>
 <body>
 <div class="container py-4">
-  <h2 class="text-center mb-4 fw-semibold">🖼️ Background Remover (Offline)</h2>
+  <h3 class="text-center mb-3">Background Remover — Offline (U²Net)</h3>
 
-  <!-- Ad Top -->
-  <div class="ad-space mb-4">
-    <small>Ad Space (728x90)</small>
-  </div>
-
-  <div class="tool-card mx-auto" style="max-width: 800px;">
-    <input type="file" id="upload" accept="image/*" class="form-control mb-3">
-    <img id="preview" class="preview-img d-none" alt="Preview">
-    <div id="spinner" class="spinner-border text-primary" role="status"></div>
-    <canvas id="canvas" class="d-none"></canvas>
-
-    <div class="d-flex gap-2 justify-content-center mt-3">
-      <button id="removeBtn" class="btn btn-primary">Remove Background</button>
-      <button id="downloadBtn" class="btn btn-success d-none">Download PNG</button>
+  <div class="tool-card">
+    <div class="mb-3">
+      <div id="drop" class="drop-area">
+        <div><strong>Click or drop image here</strong></div>
+        <div class="small-muted">PNG/JPG recommended. Processing locally in your browser.</div>
+        <input id="file" type="file" accept="image/*" style="display:none">
+      </div>
     </div>
-  </div>
 
-  <!-- Ad Bottom -->
-  <div class="ad-space mt-4">
-    <small>Ad Space (728x90)</small>
+    <div class="text-center">
+      <img id="preview" style="max-width:420px; display:none; border-radius:8px; margin-bottom:12px;" alt="preview">
+      <canvas id="canvas" style="display:none;"></canvas>
+    </div>
+
+    <div class="d-flex justify-content-center gap-2 mt-2">
+      <button id="btnRemove" class="btn btn-primary">Remove Background</button>
+      <button id="btnDownload" class="btn btn-success" disabled>Download PNG</button>
+      <button id="btnReset" class="btn btn-outline-secondary">Reset</button>
+    </div>
+
+    <div id="status" class="small-muted mt-3 text-center">Model not loaded yet — will load when you click Remove (first run may take 2–6s).</div>
+
+    <div class="ad-space">Ad space — paste AdSense code here</div>
   </div>
 </div>
 
-<!-- U²Net (onnxruntime-wasm) -->
-<script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.17.0/dist/ort.wasm.min.js"></script>
+<!-- ONNX Runtime Web (CDN) -->
+<script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
+
 <script>
-const upload = document.getElementById('upload');
+/*
+  background-remover-final.html
+  Expectations: you put the model file at /models/u2netp.onnx on your domain.
+  Example: https://www.tools4.fun/models/u2netp.onnx
+*/
+
+const fileInput = document.getElementById('file');
+const drop = document.getElementById('drop');
 const preview = document.getElementById('preview');
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-const spinner = document.getElementById('spinner');
-const removeBtn = document.getElementById('removeBtn');
-const downloadBtn = document.getElementById('downloadBtn');
+const btnRemove = document.getElementById('btnRemove');
+const btnDownload = document.getElementById('btnDownload');
+const btnReset = document.getElementById('btnReset');
+const status = document.getElementById('status');
 
-let img = new Image();
-let model;
+let image = null;
+let session = null;
+let lastMaskImageData = null;
 
+// Change only this if you host models elsewhere
+const MODEL_PATH = './models/u2netp.onnx'; // <<-- make sure this file exists on your server
+
+// Drag & drop
+drop.addEventListener('click', () => fileInput.click());
+drop.addEventListener('dragover', e => { e.preventDefault(); drop.style.borderColor = '#6c7ae0'; });
+drop.addEventListener('dragleave', e => { e.preventDefault(); drop.style.borderColor = ''; });
+drop.addEventListener('drop', async (e) => {
+  e.preventDefault();
+  drop.style.borderColor = '';
+  const f = e.dataTransfer.files && e.dataTransfer.files[0];
+  if (f) loadImageFile(f);
+});
+
+fileInput.addEventListener('change', (e) => {
+  const f = e.target.files && e.target.files[0];
+  if (f) loadImageFile(f);
+  fileInput.value = '';
+});
+
+async function loadImageFile(file) {
+  if (!file.type.startsWith('image/')) { alert('Choose an image file'); return; }
+  const url = URL.createObjectURL(file);
+  image = new Image();
+  image.onload = () => {
+    // downscale preview if huge for UI responsiveness
+    const maxPreview = 900;
+    const ratio = Math.min(1, maxPreview / Math.max(image.width, image.height));
+    preview.src = url;
+    preview.style.display = 'block';
+    canvas.width = Math.round(image.width * ratio);
+    canvas.height = Math.round(image.height * ratio);
+    canvas.style.display = 'block';
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+    status.textContent = 'Image loaded. Click "Remove Background".';
+    btnRemove.disabled = false;
+    btnDownload.disabled = true;
+    lastMaskImageData = null;
+  };
+  image.onerror = () => { alert('Failed to load image'); URL.revokeObjectURL(url); };
+  image.src = url;
+}
+
+// Load model (self-hosted)
 async function loadModel() {
-  if (!model) {
-    model = await ort.InferenceSession.create('https://huggingface.co/briaai/RMBG-1.4/resolve/main/u2netp.onnx');
+  if (session) return session;
+  status.textContent = 'Loading model — please wait...';
+  try {
+    // set executionProviders: ['wasm'] ensures wasm runtime; it will use CDN runtime if available
+    session = await ort.InferenceSession.create(MODEL_PATH, { executionProviders: ['wasm'] });
+    status.textContent = 'Model loaded ✅';
+    return session;
+  } catch (err) {
+    console.error('Model load failed:', err);
+    status.textContent = 'Model failed to load. Check model path and that /models/u2netp.onnx exists on your server.';
+    throw err;
   }
 }
 
-upload.addEventListener('change', e => {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
-    img.onload = () => {
-      canvas.width = img.width;
-      canvas.height = img.height;
-      ctx.drawImage(img, 0, 0);
-      preview.src = ev.target.result;
-      preview.classList.remove('d-none');
-      downloadBtn.classList.add('d-none');
-    };
-    img.src = ev.target.result;
-  };
-  reader.readAsDataURL(file);
-});
+// Preprocess: resize to square model size (commonly 320 or 256). We'll use 320 here.
+function preprocessToModelCanvas(srcCanvas, modelSize=320) {
+  const tmp = document.createElement('canvas');
+  tmp.width = modelSize;
+  tmp.height = modelSize;
+  const tctx = tmp.getContext('2d');
+  // preserve aspect by drawing centered scaled image and padding with white
+  tctx.fillStyle = '#ffffff';
+  tctx.fillRect(0,0,modelSize,modelSize);
 
-removeBtn.addEventListener('click', async () => {
-  if (!img.src) return alert("Please upload an image first!");
-  spinner.style.display = "block";
-  await loadModel();
+  // scale preserving aspect
+  const sw = srcCanvas.width, sh = srcCanvas.height;
+  const scale = Math.min(modelSize / sw, modelSize / sh);
+  const dw = Math.round(sw * scale), dh = Math.round(sh * scale);
+  const dx = Math.round((modelSize - dw)/2), dy = Math.round((modelSize - dh)/2);
+  tctx.drawImage(srcCanvas, 0, 0, sw, sh, dx, dy, dw, dh);
 
-  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  const input = new ort.Tensor('float32', new Float32Array(imageData.data), [1, 3, canvas.height, canvas.width]);
-  const output = await model.run({ input });
-
-  // Simplified background removal logic
-  const mask = output[Object.keys(output)[0]].data;
-  const outputData = ctx.createImageData(canvas.width, canvas.height);
-  for (let i = 0; i < mask.length; i++) {
-    const m = mask[i] * 255;
-    outputData.data[i * 4 + 0] = imageData.data[i * 4 + 0];
-    outputData.data[i * 4 + 1] = imageData.data[i * 4 + 1];
-    outputData.data[i * 4 + 2] = imageData.data[i * 4 + 2];
-    outputData.data[i * 4 + 3] = m;
+  // get image data and convert to float32 tensor [1,3,H,W] RGB normalized 0..1
+  const im = tctx.getImageData(0,0,modelSize,modelSize);
+  const float32 = new Float32Array(modelSize * modelSize * 3);
+  for (let y=0; y<modelSize; y++) {
+    for (let x=0; x<modelSize; x++) {
+      const i = (y * modelSize + x) * 4;
+      const r = im.data[i] / 255.0;
+      const g = im.data[i+1] / 255.0;
+      const b = im.data[i+2] / 255.0;
+      const idx = y * modelSize + x;
+      float32[idx] = r;                               // channel 0
+      float32[idx + modelSize*modelSize] = g;         // channel 1
+      float32[idx + 2*modelSize*modelSize] = b;       // channel 2
+    }
   }
-  ctx.putImageData(outputData, 0, 0);
-  preview.src = canvas.toDataURL('image/png');
-  spinner.style.display = "none";
-  downloadBtn.classList.remove('d-none');
+  return { tensor: new ort.Tensor('float32', float32, [1, 3, modelSize, modelSize]), pad: {dx, dy, dw, dh, modelSize} , tmpCanvas: tmp};
+}
+
+// Postprocess: take model output mask (flat float array length modelSize*modelSize), upsample to original canvas size and apply as alpha
+function applyMaskToCanvas(maskArray, modelSize, originalCanvas, pad) {
+  // create temporary canvas same size as modelSize and put mask as grayscale alpha
+  const maskCanvas = document.createElement('canvas');
+  maskCanvas.width = modelSize;
+  maskCanvas.height = modelSize;
+  const mctx = maskCanvas.getContext('2d');
+  const imgData = mctx.createImageData(modelSize, modelSize);
+  for (let i=0; i<modelSize*modelSize; i++) {
+    // maskArray values may be floats (0..1) - ensure clamped
+    let v = maskArray[i];
+    if (!isFinite(v)) v = 0;
+    let a = Math.round(Math.max(0, Math.min(1, v)) * 255);
+    imgData.data[i*4+0] = 255;
+    imgData.data[i*4+1] = 255;
+    imgData.data[i*4+2] = 255;
+    imgData.data[i*4+3] = a;
+  }
+  mctx.putImageData(imgData, 0, 0);
+
+  // Now draw the original (full-res) scaled image onto a result canvas then use mask as globalAlpha
+  const outCanvas = document.createElement('canvas');
+  outCanvas.width = originalCanvas.width;
+  outCanvas.height = originalCanvas.height;
+  const octx = outCanvas.getContext('2d');
+
+  // draw original image
+  octx.drawImage(originalCanvas, 0, 0, originalCanvas.width, originalCanvas.height);
+
+  // scale mask to original canvas size
+  const scaledMask = document.createElement('canvas');
+  scaledMask.width = originalCanvas.width;
+  scaledMask.height = originalCanvas.height;
+  const sctx = scaledMask.getContext('2d');
+  sctx.drawImage(maskCanvas, 0, 0, scaledMask.width, scaledMask.height);
+
+  // extract mask alpha and apply to output
+  const src = octx.getImageData(0,0,outCanvas.width,outCanvas.height);
+  const maskData = sctx.getImageData(0,0,scaledMask.width,scaledMask.height);
+
+  for (let i=0;i<outCanvas.width * outCanvas.height;i++){
+    const alpha = maskData.data[i*4+3] / 255; // 0..1
+    src.data[i*4+3] = Math.round(src.data[i*4+3] * alpha); // blend original alpha by mask
+  }
+  octx.putImageData(src, 0, 0);
+  return outCanvas;
+}
+
+async function runModelAndRemove() {
+  if (!image) return alert('Please upload an image first.');
+  try {
+    await loadModel();
+
+    status.textContent = 'Preparing image...';
+    // use the canvas which currently holds the displayed downscaled image
+    const { tensor, pad, tmpCanvas } = preprocessToModelCanvas(canvas, 320);
+
+    status.textContent = 'Running model (fast)...';
+    // run the model
+    const feeds = {};
+    // model input name sometimes 'input' or 'input.1' - detect from session.inputNames
+    const inputName = session.inputNames && session.inputNames.length ? session.inputNames[0] : 'input';
+    feeds[inputName] = tensor;
+    const out = await session.run(feeds);
+
+    // find first output array
+    const outName = session.outputNames && session.outputNames.length ? session.outputNames[0] : Object.keys(out)[0];
+    let resultTensor = out[outName];
+    // resultTensor.data length = modelSize*modelSize (or with extra dims). Flatten to float array
+    let maskArr = resultTensor.data;
+    // if maskArr length > modelSize*modelSize and channel dims present, try to reduce
+    const modelSize = pad.modelSize;
+
+    // If maskArr length equals modelSize*modelSize*1 -> ok. If multiple channels, take first
+    if (maskArr.length === modelSize*modelSize*3) {
+      // some models output 3 channels; average them
+      const tmp = new Float32Array(modelSize*modelSize);
+      for (let i=0;i<modelSize*modelSize;i++){
+        tmp[i] = (maskArr[i] + maskArr[i + modelSize*modelSize] + maskArr[i + 2*modelSize*modelSize]) / 3;
+      }
+      maskArr = tmp;
+    } else if (maskArr.length > modelSize*modelSize) {
+      // If shape is [1,1,H,W] flattened differently, try to slice first modelSize*modelSize
+      maskArr = maskArr.slice(0, modelSize*modelSize);
+    }
+
+    status.textContent = 'Applying mask...';
+    const outCanvas = applyMaskToCanvas(maskArr, modelSize, canvas, pad);
+
+    // show in preview image and replace canvas content
+    canvas.width = outCanvas.width;
+    canvas.height = outCanvas.height;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.drawImage(outCanvas, 0, 0);
+
+    preview.src = canvas.toDataURL('image/png');
+    btnDownload.disabled = false;
+    status.textContent = 'Background removed ✅ (download available)';
+    lastMaskImageData = maskArr;
+  } catch (err) {
+    console.error(err);
+    status.textContent = 'Error during processing — open console to see details.';
+    alert('Processing failed — check the browser console for details. Common fixes: ensure /models/u2netp.onnx exists and is accessible.');
+  }
+}
+
+btnRemove.addEventListener('click', async () => {
+  btnRemove.disabled = true;
+  status.textContent = 'Starting removal...';
+  await runModelAndRemove();
+  btnRemove.disabled = false;
 });
 
-downloadBtn.addEventListener('click', () => {
+btnDownload.addEventListener('click', () => {
+  if (!canvas.width) return;
   const link = document.createElement('a');
-  link.download = 'background-removed.png';
   link.href = canvas.toDataURL('image/png');
+  link.download = 'bg-removed.png';
   link.click();
+});
+
+btnReset.addEventListener('click', () => {
+  canvas.style.display = 'none';
+  preview.style.display = 'none';
+  preview.src = '';
+  fileInput.value = '';
+  status.textContent = 'Reset. Upload another image.';
+  btnDownload.disabled = true;
+  btnRemove.disabled = false;
+  lastMaskImageData = null;
 });
 </script>
 </body>
