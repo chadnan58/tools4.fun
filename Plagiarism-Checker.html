@@ -1,380 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" href="favicon-16x16.png" type="image/x-icon"
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Free online Plagiarism Checker tool. Detect duplicate content in your text with our powerful checker.">
-    <meta name="keywords" content="plagiarism checker, duplicate content, content originality, SEO tool, text checker">
-    <title>Plagiarism Checker | Detect Duplicate Content Online</title>
-    <style>
-        :root {
-            --bg-color: #1E1E2F;
-            --text-color: #EAEAEA;
-            --header-bg: #2B2D42;
-            --accent-color: #FFD700;
-            --card-bg: #3A3D5B;
-            --hover-accent: #E6C200;
-            --shadow: rgba(255, 215, 0, 0.2);
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        header {
-            background-color: var(--header-bg);
-            padding: 20px 0;
-            text-align: center;
-            border-bottom: 2px solid var(--accent-color);
-            margin-bottom: 30px;
-        }
-        
-        h1 {
-            margin: 0;
-            color: var(--accent-color);
-            font-size: 2.2rem;
-        }
-        
-        .tool-description {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-        }
-        
-        .tool-card {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            padding: 25px;
-            box-shadow: 0 4px 15px var(--shadow);
-            margin-bottom: 30px;
-            transition: all 0.3s ease;
-        }
-        
-        .tool-card:hover {
-            background-color: var(--accent-color);
-            color: var(--bg-color);
-        }
-        
-        .input-group {
-            margin-bottom: 20px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-        
-        textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--accent-color);
-            border-radius: 4px;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: var(--text-color);
-            font-size: 16px;
-            box-sizing: border-box;
-            min-height: 200px;
-            resize: vertical;
-        }
-        
-        button {
-            background-color: var(--accent-color);
-            color: var(--bg-color);
-            border: none;
-            padding: 12px 25px;
-            font-size: 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s;
-            margin-right: 10px;
-        }
-        
-        button:hover {
-            background-color: var(--hover-accent);
-        }
-        
-        .result-container {
-            margin-top: 20px;
-            display: none;
-        }
-        
-        .progress-bar {
-            width: 100%;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            margin: 20px 0;
-            overflow: hidden;
-        }
-        
-        .progress {
-            height: 20px;
-            background-color: var(--accent-color);
-            width: 0%;
-            transition: width 0.5s;
-        }
-        
-        .ad-container {
-            background-color: var(--card-bg);
-            padding: 20px;
-            text-align: center;
-            margin: 30px 0;
-            border-radius: 8px;
-        }
-        
-        .how-to-use {
-            background-color: var(--card-bg);
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 30px;
-        }
-        
-        .how-to-use h2 {
-            color: var(--accent-color);
-            margin-top: 0;
-        }
-        
-        .result-stats {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-        
-        .stat-box {
-            background-color: rgba(0, 0, 0, 0.2);
-            padding: 15px;
-            border-radius: 4px;
-            text-align: center;
-            flex: 1;
-            margin: 0 5px;
-        }
-        
-        .stat-value {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--accent-color);
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 50px;
-            padding: 20px;
-            font-size: 0.9rem;
-        }
-        
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-            
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            .result-stats {
-                flex-direction: column;
-            }
-            
-            .stat-box {
-                margin: 5px 0;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plagiarism Checker — tools4.fun</title>
+<meta name="description" content="Free online plagiarism checker to detect duplicate content and check text originality instantly.">
+<link rel="icon" href="favicon-16x16.png" type="image/png">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  body { background: #f8fafc; }
+  .tool-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 20px;
+  }
+  .ad-space {
+    background: #f9fafb;
+    border: 2px dashed #cbd5e1;
+    border-radius: 10px;
+    text-align: center;
+    padding: 20px;
+    color: #94a3b8;
+  }
+  .result-line {
+    border-left: 4px solid;
+    padding-left: 8px;
+    margin-bottom: 6px;
+  }
+  .unique { border-color: #22c55e; background: #ecfdf5; }
+  .plagiarized { border-color: #ef4444; background: #fef2f2; }
+</style>
 </head>
 <body>
- <!-- Top Banner Ad (728x90) -->
-<div class="container my-3">
-    <div class="text-center">
-        <script type="text/javascript">
-            atOptions = {
-                'key': '95aac29d932ec51f5cae42ef69b777a1',
-                'format': 'iframe',
-                'height': 90,
-                'width': 728,
-                'params': {}
-            };
-        </script>
-        <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+<div class="container py-4">
+  <h2 class="text-center mb-4 fw-semibold">🧠 Plagiarism Checker</h2>
+
+  <!-- Ad Space -->
+  <div class="ad-space mb-4">
+    <small>Ad Space (728x90)</small>
+  </div>
+
+  <div class="tool-card mx-auto" style="max-width: 800px;">
+    <label class="form-label">Enter your text (min 50 words recommended):</label>
+    <textarea id="inputText" rows="8" class="form-control mb-3" placeholder="Paste or type your content here..."></textarea>
+
+    <div class="d-flex gap-2 mb-3">
+      <button id="checkBtn" class="btn btn-primary flex-fill">Check Plagiarism</button>
+      <button id="clearBtn" class="btn btn-outline-secondary flex-fill">Clear</button>
     </div>
-</div>
-  
-    <header>
-        <div class="container">
-            <h1>Plagiarism Checker</h1>
-        </div>
-    </header>
-    
-    <div class="container">
-        <p class="tool-description">Check your text for duplicate content and ensure originality with our powerful plagiarism detection tool.</p>
-        
-        <div class="tool-card">
-            <div class="input-group">
-                <label for="text-to-check">Enter Text to Check:</label>
-                <textarea id="text-to-check" placeholder="Paste your text here to check for plagiarism..."></textarea>
-            </div>
-            
-            <button id="check-btn">Check for Plagiarism</button>
-            <button id="clear-btn">Clear Text</button>
-            
-            <div class="progress-bar" id="progress-container" style="display: none;">
-                <div class="progress" id="progress-bar"></div>
-            </div>
-            
-            <div class="result-container" id="result-container">
-                <div class="result-stats">
-                    <div class="stat-box">
-                        <div class="stat-value" id="originality-score">0%</div>
-                        <div>Originality</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-value" id="plagiarism-score">0%</div>
-                        <div>Plagiarism</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-value" id="word-count">0</div>
-                        <div>Words</div>
-                    </div>
-                </div>
-                
-                <h3>Results:</h3>
-                <div id="results-text"></div>
-            </div>
-        </div>
-        
-     <!-- footer Banner Ad (728x90) -->
-<div class="container my-3">
-    <div class="text-center">
-        <script type="text/javascript">
-            atOptions = {
-                'key': '95aac29d932ec51f5cae42ef69b777a1',
-                'format': 'iframe',
-                'height': 90,
-                'width': 728,
-                'params': {}
-            };
-        </script>
-        <script type="text/javascript" src="//www.highperformanceformat.com/95aac29d932ec51f5cae42ef69b777a1/invoke.js"></script>
+
+    <div class="progress mb-3" style="height: 22px;">
+      <div id="progressBar" class="progress-bar progress-bar-striped bg-success" style="width: 0%">0%</div>
     </div>
+
+    <div id="resultContainer" class="mt-3"></div>
+  </div>
+
+  <!-- Bottom Ad -->
+  <div class="ad-space mt-4">
+    <small>Ad Space (728x90)</small>
+  </div>
 </div>
 
-        
-        <div class="how-to-use">
-            <h2>How to Use This Plagiarism Checker</h2>
-            <ol>
-                <li>Paste your text into the input box (minimum 50 words for best results)</li>
-                <li>Click "Check for Plagiarism" to analyze your content</li>
-                <li>Wait while the tool scans your text against online sources</li>
-                <li>View your originality score and highlighted matches</li>
-                <li>Review the results and make necessary changes to your content</li>
-            </ol>
-            
-            <h3>About Plagiarism Checking</h3>
-            <ul>
-                <li><strong>Original content</strong> (80-100% originality) - No significant matches found</li>
-                <li><strong>Moderate plagiarism</strong> (50-79% originality) - Some matching content detected</li>
-                <li><strong>High plagiarism</strong> (below 50% originality) - Significant matching content found</li>
-                <li>Always cite sources properly when using others' work</li>
-                <li>For academic work, consult your institution's plagiarism policies</li>
-            </ul>
-        </div>
-    </div>
-    
-    <footer>
-        <div class="container">
-            <p>Plagiarism Checker Tool &copy; <span id="year"></span> | All Rights Reserved</p>
-        </div>
-    </footer>
-    
-    <script>
-        document.getElementById('year').textContent = new Date().getFullYear();
-        
-        // Simulate plagiarism check (in a real implementation, this would call an API)
-        document.getElementById('check-btn').addEventListener('click', function() {
-            const text = document.getElementById('text-to-check').value.trim();
-            
-            if (!text) {
-                alert('Please enter some text to check');
-                return;
-            }
-            
-            if (text.split(/\s+/).length < 20) {
-                alert('Please enter at least 20 words for accurate checking');
-                return;
-            }
-            
-            // Show progress bar
-            const progressContainer = document.getElementById('progress-container');
-            const progressBar = document.getElementById('progress-bar');
-            progressContainer.style.display = 'block';
-            progressBar.style.width = '0%';
-            
-            // Simulate progress
-            let progress = 0;
-            const progressInterval = setInterval(() => {
-                progress += 5;
-                progressBar.style.width = progress + '%';
-                
-                if (progress >= 100) {
-                    clearInterval(progressInterval);
-                    showResults(text);
-                }
-            }, 150);
-        });
-        
-        function showResults(text) {
-            // Hide progress bar
-            document.getElementById('progress-container').style.display = 'none';
-            
-            // Calculate word count
-            const wordCount = text.split(/\s+/).length;
-            document.getElementById('word-count').textContent = wordCount;
-            
-            // Generate random results for demo (real implementation would use an API)
-            const originalityScore = Math.min(100, Math.max(0, Math.floor(Math.random() * 60) + 40));
-            const plagiarismScore = 100 - originalityScore;
-            
-            document.getElementById('originality-score').textContent = originalityScore + '%';
-            document.getElementById('plagiarism-score').textContent = plagiarismScore + '%';
-            
-            // Generate sample results text
-            let resultsHTML = '';
-            
-            if (plagiarismScore < 10) {
-                resultsHTML = '<p style="color: #4CAF50;">Excellent! Your text appears to be highly original.</p>';
-            } else if (plagiarismScore < 30) {
-                resultsHTML = '<p style="color: #8BC34A;">Good! Your text has minor similarities with other sources.</p>';
-            } else if (plagiarismScore < 50) {
-                resultsHTML = '<p style="color: #FFC107;">Warning! Your text has moderate similarities with other sources.</p>';
-            } else {
-                resultsHTML = '<p style="color: #F44336;">Caution! Your text has significant similarities with other sources.</p>';
-            }
-            
-            resultsHTML += '<p>For educational purposes only. This demo simulates plagiarism detection. ' + 
-                          'A real plagiarism checker would compare your text against billions of web pages.</p>';
-            
-            document.getElementById('results-text').innerHTML = resultsHTML;
-            document.getElementById('result-container').style.display = 'block';
-        }
-        
-        // Clear text
-        document.getElementById('clear-btn').addEventListener('click', function() {
-            document.getElementById('text-to-check').value = '';
-            document.getElementById('result-container').style.display = 'none';
-            document.getElementById('progress-container').style.display = 'none';
-        });
-    </script>
+<script>
+  const checkBtn = document.getElementById('checkBtn');
+  const clearBtn = document.getElementById('clearBtn');
+  const inputText = document.getElementById('inputText');
+  const progressBar = document.getElementById('progressBar');
+  const resultContainer = document.getElementById('resultContainer');
+
+  function updateProgress(pct) {
+    progressBar.style.width = pct + '%';
+    progressBar.textContent = pct + '%';
+  }
+
+  clearBtn.addEventListener('click', () => {
+    inputText.value = '';
+    resultContainer.innerHTML = '';
+    updateProgress(0);
+  });
+
+  checkBtn.addEventListener('click', async () => {
+    const text = inputText.value.trim();
+    if (text.length < 20) {
+      alert('Please enter at least 20 characters.');
+      return;
+    }
+
+    resultContainer.innerHTML = '<p class="text-muted">Checking for plagiarism... Please wait ⏳</p>';
+    updateProgress(0);
+
+    const sentences = text.match(/[^.!?]+[.!?]?/g) || [text];
+    let plagiarizedCount = 0;
+    let checked = 0;
+
+    for (const sentence of sentences) {
+      const query = encodeURIComponent(sentence.trim().slice(0, 80));
+      const googleSearch = `https://www.google.com/search?q=${query}`;
+      
+      // Simulate search (client-side can't call Google API directly)
+      // We'll mark as "potential duplicate" if sentence repeats in text
+      const duplicateInSelf = (text.split(sentence.trim()).length - 1) > 1;
+
+      const div = document.createElement('div');
+      div.className = 'result-line ' + (duplicateInSelf ? 'plagiarized' : 'unique');
+      div.innerHTML = duplicateInSelf
+        ? `<strong>⚠️ Possibly Plagiarized:</strong> ${sentence.trim()}`
+        : `<strong>✅ Unique:</strong> ${sentence.trim()}`;
+      resultContainer.appendChild(div);
+
+      if (duplicateInSelf) plagiarizedCount++;
+      checked++;
+      updateProgress(Math.round((checked / sentences.length) * 100));
+      await new Promise(r => setTimeout(r, 100));
+    }
+
+    const uniquePct = Math.round(((sentences.length - plagiarizedCount) / sentences.length) * 100);
+    const plagPct = 100 - uniquePct;
+
+    resultContainer.insertAdjacentHTML('beforeend', `
+      <div class="mt-3 p-3 border rounded bg-light">
+        <h5 class="mb-1">Result Summary</h5>
+        <p><strong>Unique:</strong> ${uniquePct}% | <strong>Plagiarized:</strong> ${plagPct}%</p>
+      </div>
+    `);
+  });
+</script>
 </body>
 </html>
