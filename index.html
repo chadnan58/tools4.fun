@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-     <!-- Google Verification -->
+    <!-- Google Verification -->
     <meta name="google-site-verification" content="0V-_i0957DsZ4koLdKutzQ7G1MHppewKXagW1jGlG9c" />
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -89,6 +89,21 @@
         .fab-panel-tool-link { background: var(--tool-card-bg); color: var(--accent-gold); border-radius: 8px; padding: 11px 14px; display: flex; align-items: center; gap: 10px; font-size: 1rem; text-decoration: none; transition: background 0.16s, color 0.16s, box-shadow 0.19s;}
         .fab-panel-tool-link:hover, .fab-panel-tool-link:focus { background: var(--accent-gold); color: var(--bg-dark-navy); box-shadow: 0 2px 10px rgba(255,215,0,0.15);}
         .fab-panel-tool-icon { font-size: 1.22rem;}
+        
+        /* Modal Styles */
+        .modal-content { background-color: var(--tool-card-bg); color: var(--text-light-gray); border: 1px solid var(--accent-gold); }
+        .modal-header { border-bottom: 1px solid var(--accent-gold); }
+        .modal-footer { border-top: 1px solid var(--accent-gold); }
+        .modal-title { color: var(--accent-gold); }
+        .close-btn { color: var(--text-light-gray); opacity: 0.8; }
+        .close-btn:hover { color: var(--accent-gold); opacity: 1; }
+        
+        /* Contact Page Styles */
+        #contact-page { display: none; }
+        .contact-form .form-control { background-color: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; }
+        .contact-form .form-control:focus { background-color: rgba(255,255,255,0.15); border-color: var(--accent-gold); color: white; box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.25); }
+        .contact-form label { color: var(--accent-gold); font-weight: 500; }
+        
         @media (max-width: 991.98px) { .tool-title { font-size: 1.01rem; } .category-title { font-size: 1.11rem; } .logo-text { font-size: 1.15rem; } .logo { width: 39px; height: 39px;} .fab-panel { max-width: 98vw; }}
         @media (max-width: 767.98px) { body, html { font-size: 15px; } .header { padding: 10px 0; } .hero-section { padding: 36px 6px 28px 6px;} .footer { padding: 19px 0 10px 0; } .category-title { padding: 9px 0 4px 0; margin: 28px 0 13px 0;} .fab-panel { right: 8px; bottom: 78px; padding: 13px 8px 13px 10px;} .fab-btn { right: 8px; bottom: 8px; width: 48px; height: 48px; font-size: 1.45rem;}}
         @media (max-width: 575.98px) { .category-title { font-size: 1rem;} .hero-title { font-size: 1.25rem;} .logo-text { font-size: 1rem;} .footer { padding: 13px 0 7px 0;} .tool-card-content { padding: 10px 6px;} .fab-panel { min-width: 92vw; max-width: 99vw;}}
@@ -126,10 +141,10 @@
                         <a href="#" class="nav-link" onclick="showCategory('developer-tools')">Developer</a>
                         <a href="#" class="nav-link" onclick="showContactPage()">Contact Us</a>
                     </nav>
-                    <button class="btn btn-gold ms-3 d-none d-md-inline-block" onclick="showLoginModal()">
+                    <button class="btn btn-gold ms-3 d-none d-md-inline-block" data-bs-toggle="modal" data-bs-target="#loginModal">
                         <i class="fas fa-sign-in-alt me-2"></i>Login
                     </button>
-                    <button class="btn btn-outline-light ms-2 d-none d-md-inline-block" onclick="showSignupModal()">
+                    <button class="btn btn-outline-light ms-2 d-none d-md-inline-block" data-bs-toggle="modal" data-bs-target="#signupModal">
                         <i class="fas fa-user-plus me-2"></i>Sign Up
                     </button>
                 </div>
@@ -266,6 +281,7 @@
             
             <!-- Categories -->
             <div id="all-tools">
+                <!-- [ALL CATEGORIES AND TOOLS REMAIN EXACTLY THE SAME - NO CHANGES] -->
                 <h2 class="category-title" id="popular-tools">Popular Tools <span class="category-counter">12</span></h2>
                 <div class="row">
                     <div class="col-md-3 col-sm-6">
@@ -1373,7 +1389,146 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Contact Page -->
+        <div id="contact-page" style="display: none;">
+            <div class="hero-section">
+                <h1 class="hero-title">Contact Us</h1>
+                <p class="hero-subtitle">Have questions, feedback, or need support? We're here to help!</p>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-md-8 mx-auto">
+                    <div class="contact-form">
+                        <form id="contact-form">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" placeholder="Your name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email address</label>
+                                <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Subject</label>
+                                <input type="text" class="form-control" id="subject" placeholder="What is this regarding?" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" rows="5" placeholder="Your message here..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-gold px-4 py-2">
+                                <i class="fas fa-paper-plane me-2"></i>Send Message
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="mt-5">
+                        <h4 class="category-title">Other Ways to Reach Us</h4>
+                        <div class="row mt-3">
+                            <div class="col-md-4 mb-3">
+                                <div class="tool-card">
+                                    <div class="tool-card-content">
+                                        <h4 class="tool-title"><i class="fas fa-envelope me-2"></i>Email</h4>
+                                        <p class="tool-description">support@tools4.fun</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="tool-card">
+                                    <div class="tool-card-content">
+                                        <h4 class="tool-title"><i class="fas fa-comments me-2"></i>Feedback</h4>
+                                        <p class="tool-description">We appreciate your suggestions</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="tool-card">
+                                    <div class="tool-card-content">
+                                        <h4 class="tool-title"><i class="fas fa-clock me-2"></i>Response Time</h4>
+                                        <p class="tool-description">Typically within 24-48 hours</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Login to Tools4.fun</h5>
+                    <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label for="loginEmail" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="loginEmail" placeholder="name@example.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="loginPassword" placeholder="Your password" required>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">Remember me</label>
+                        </div>
+                        <button type="submit" class="btn btn-gold w-100">Login</button>
+                    </form>
+                    <div class="mt-3 text-center">
+                        <p>Don't have an account? <a href="#" data-bs-toggle="modal" data-bs-target="#signupModal" data-bs-dismiss="modal">Sign up</a></p>
+                        <p><a href="#">Forgot password?</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signupModalLabel">Create Account</h5>
+                    <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="signupForm">
+                        <div class="mb-3">
+                            <label for="signupName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="signupName" placeholder="John Doe" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="signupEmail" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="signupEmail" placeholder="name@example.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="signupPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="signupPassword" placeholder="Create a password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password" required>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="agreeTerms" required>
+                            <label class="form-check-label" for="agreeTerms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                        </div>
+                        <button type="submit" class="btn btn-gold w-100">Create Account</button>
+                    </form>
+                    <div class="mt-3 text-center">
+                        <p>Already have an account? <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">Login</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Floating Action Button + Quick Tools Panel (TinyWow style) -->
     <div class="fab-btn" id="fabBtn" title="Quick Tools">
@@ -1400,7 +1555,7 @@
             <div class="mb-2">
                 <a href="#" class="me-2">Privacy Policy</a> |
                 <a href="#" class="mx-2">Terms of Service</a> |
-                <a href="#" class="ms-2">Contact</a>
+                <a href="#" class="ms-2" onclick="showContactPage()">Contact</a>
             </div>
             <div>
                 <a href="https://twitter.com/" target="_blank" rel="noopener" class="social-icon"><i class="fab fa-twitter"></i></a>
@@ -1419,18 +1574,22 @@
     const fabPanel = document.getElementById('fabPanel');
     const fabOverlay = document.getElementById('fabOverlay');
     const fabPanelClose = document.getElementById('fabPanelClose');
+    
     fabBtn.addEventListener('click', () => {
         fabPanel.classList.add('open');
         fabOverlay.classList.add('open');
         document.body.style.overflow = 'hidden';
     });
+    
     fabOverlay.addEventListener('click', closeFabPanel);
     fabPanelClose.addEventListener('click', closeFabPanel);
+    
     function closeFabPanel() {
         fabPanel.classList.remove('open');
         fabOverlay.classList.remove('open');
         document.body.style.overflow = '';
     }
+    
     document.addEventListener('keydown', (e) => {
         if (fabPanel.classList.contains('open') && (e.key === "Escape" || e.keyCode === 27)) {
             closeFabPanel();
@@ -1495,31 +1654,97 @@
         searchResults.scrollIntoView({ behavior: 'smooth' });
     }
 
-    // Signup and Login modals (placeholder functions)
-    function showLoginModal() {
-        alert('Login functionality would open a modal here. This is a placeholder.');
-    }
-
-    function showSignupModal() {
-        alert('Signup functionality would open a modal here. This is a placeholder.');
-    }
-
     // Page navigation functions
     function showHomePage() {
         document.getElementById('home-page').style.display = 'block';
+        document.getElementById('contact-page').style.display = 'none';
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Close mobile navbar if open
+        const navbarCollapse = document.querySelector('.navbar-collapse.show');
+        if (navbarCollapse) {
+            navbarCollapse.classList.remove('show');
+        }
     }
 
     function showCategory(categoryId) {
+        // First show home page
+        document.getElementById('home-page').style.display = 'block';
+        document.getElementById('contact-page').style.display = 'none';
+        
+        // Then scroll to category
         const element = document.getElementById(categoryId);
         if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
         }
+        
+        // Close mobile navbar if open
+        const navbarCollapse = document.querySelector('.navbar-collapse.show');
+        if (navbarCollapse) {
+            navbarCollapse.classList.remove('show');
+        }
     }
 
     function showContactPage() {
-        alert('Contact page would be displayed here. This is a placeholder.');
+        document.getElementById('home-page').style.display = 'none';
+        document.getElementById('contact-page').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        // Close mobile navbar if open
+        const navbarCollapse = document.querySelector('.navbar-collapse.show');
+        if (navbarCollapse) {
+            navbarCollapse.classList.remove('show');
+        }
     }
+
+    // Form submissions
+    document.getElementById('loginForm')?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value;
+        alert(`Login attempt with email: ${email}\n(This is a demo - actual login would connect to backend)`);
+        const loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+        loginModal.hide();
+    });
+
+    document.getElementById('signupForm')?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('signupName').value;
+        const email = document.getElementById('signupEmail').value;
+        alert(`Account created for: ${name} (${email})\n(This is a demo - actual signup would connect to backend)`);
+        const signupModal = bootstrap.Modal.getInstance(document.getElementById('signupModal'));
+        signupModal.hide();
+    });
+
+    document.getElementById('contact-form')?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('name').value;
+        alert(`Thank you, ${name}! Your message has been sent.\n(This is a demo - actual contact form would connect to backend)`);
+        document.getElementById('contact-form').reset();
+    });
+
+    // Initialize Bootstrap tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+
+    // Initialize Bootstrap modals
+    var loginModal = new bootstrap.Modal(document.getElementById('loginModal'), {
+        keyboard: false
+    });
+    
+    var signupModal = new bootstrap.Modal(document.getElementById('signupModal'), {
+        keyboard: false
+    });
+
+    // Close mobile navbar when clicking on a link (for better UX)
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            const navbarCollapse = document.querySelector('.navbar-collapse.show');
+            if (navbarCollapse) {
+                navbarCollapse.classList.remove('show');
+            }
+        });
+    });
     </script>
 </body>
 </html>
