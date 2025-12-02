@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google Verification -->
+     <!-- Google Verification -->
     <meta name="google-site-verification" content="0V-_i0957DsZ4koLdKutzQ7G1MHppewKXagW1jGlG9c" />
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -281,7 +281,6 @@
             
             <!-- Categories -->
             <div id="all-tools">
-                <!-- [ALL CATEGORIES AND TOOLS REMAIN EXACTLY THE SAME - NO CHANGES] -->
                 <h2 class="category-title" id="popular-tools">Popular Tools <span class="category-counter">12</span></h2>
                 <div class="row">
                     <div class="col-md-3 col-sm-6">
@@ -1596,7 +1595,7 @@
         }
     });
 
-    // Search functionality
+    // Search functionality - FIXED VERSION
     document.getElementById('search-button').addEventListener('click', function() {
         performSearch();
     });
@@ -1620,26 +1619,32 @@
             return;
         }
         
-        // Get all tool cards
-        const toolCards = document.querySelectorAll('.tool-card');
+        // Get all tool cards from BOTH home page and all-tools section
+        const toolCards = document.querySelectorAll('#home-page .tool-card, #all-tools .tool-card');
         let foundResults = false;
         
         toolCards.forEach(card => {
-            const title = card.querySelector('.tool-title').textContent.toLowerCase();
-            const description = card.querySelector('.tool-description').textContent.toLowerCase();
-            const link = card.querySelector('.tool-link').getAttribute('href');
+            const titleElement = card.querySelector('.tool-title');
+            const descriptionElement = card.querySelector('.tool-description');
+            const linkElement = card.querySelector('.tool-link');
             
-            if (title.includes(searchTerm) || description.includes(searchTerm)) {
-                foundResults = true;
-                const resultItem = document.createElement('div');
-                resultItem.className = 'col-md-6';
-                resultItem.innerHTML = `
-                    <div class="search-result-item">
-                        <h5><a href="${link}" style="color: var(--accent-gold); text-decoration: none;">${card.querySelector('.tool-title').textContent}</a></h5>
-                        <p>${card.querySelector('.tool-description').textContent}</p>
-                    </div>
-                `;
-                resultsContainer.appendChild(resultItem);
+            if (titleElement && descriptionElement && linkElement) {
+                const title = titleElement.textContent.toLowerCase();
+                const description = descriptionElement.textContent.toLowerCase();
+                const link = linkElement.getAttribute('href');
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    foundResults = true;
+                    const resultItem = document.createElement('div');
+                    resultItem.className = 'col-md-6';
+                    resultItem.innerHTML = `
+                        <div class="search-result-item">
+                            <h5><a href="${link}" style="color: var(--accent-gold); text-decoration: none;">${titleElement.textContent}</a></h5>
+                            <p>${descriptionElement.textContent}</p>
+                        </div>
+                    `;
+                    resultsContainer.appendChild(resultItem);
+                }
             }
         });
         
@@ -1652,13 +1657,22 @@
         
         // Scroll to search results
         searchResults.scrollIntoView({ behavior: 'smooth' });
+        
+        // Ensure home page is visible (in case contact page is open)
+        showHomePage();
     }
 
-    // Page navigation functions
+    // Page navigation functions - FIXED VERSION
     function showHomePage() {
         document.getElementById('home-page').style.display = 'block';
         document.getElementById('contact-page').style.display = 'none';
+        
+        // Clear any search results
+        document.getElementById('search-results').style.display = 'none';
+        document.getElementById('search-input').value = '';
+        
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        
         // Close mobile navbar if open
         const navbarCollapse = document.querySelector('.navbar-collapse.show');
         if (navbarCollapse) {
@@ -1670,6 +1684,10 @@
         // First show home page
         document.getElementById('home-page').style.display = 'block';
         document.getElementById('contact-page').style.display = 'none';
+        
+        // Clear search
+        document.getElementById('search-results').style.display = 'none';
+        document.getElementById('search-input').value = '';
         
         // Then scroll to category
         const element = document.getElementById(categoryId);
@@ -1687,6 +1705,11 @@
     function showContactPage() {
         document.getElementById('home-page').style.display = 'none';
         document.getElementById('contact-page').style.display = 'block';
+        
+        // Clear search
+        document.getElementById('search-results').style.display = 'none';
+        document.getElementById('search-input').value = '';
+        
         window.scrollTo({ top: 0, behavior: 'smooth' });
         
         // Close mobile navbar if open
