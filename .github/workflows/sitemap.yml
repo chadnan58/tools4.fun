@@ -1,1 +1,28 @@
+name: Generate sitemap
 
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  sitemap_job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: cicirello/generate-sitemap@v1
+        with:
+          base-url-path: https://www.tools4.fun/
+
+      - name: Commit sitemap
+        run: |
+          if [[ `git status --porcelain sitemap.xml` ]]; then
+            git config user.name 'github-actions[bot]'
+            git config user.email 'bot@github.com'
+            git add sitemap.xml
+            git commit -m "Auto update sitemap"
+            git push
+          fi
